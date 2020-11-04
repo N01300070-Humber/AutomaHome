@@ -5,19 +5,35 @@ package ca.humbermail.n01300070.automahome.data.model;
  */
 public class LoggedInUser {
 	
-	private String userId;
-	private String displayName;
+	private final String userId;
+	private final String emailAddress;
+	private final String firstName;
+	private final String lastName;
 	
-	public LoggedInUser(String userId, String displayName) {
+	public LoggedInUser(String userId, String emailAddress, String firstName, String lastName) {
 		this.userId = userId;
-		this.displayName = displayName;
+		this.emailAddress = emailAddress;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 	
 	public String getUserId() {
 		return userId;
 	}
 	
-	public String getDisplayName() {
-		return displayName;
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public String getLastName() {
+		return lastName;
+	}
+	
+	public String getFullName() {
+		return firstName + " " + lastName;
 	}
 }

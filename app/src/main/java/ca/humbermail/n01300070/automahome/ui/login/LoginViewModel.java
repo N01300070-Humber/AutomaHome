@@ -13,9 +13,9 @@ import ca.humbermail.n01300070.automahome.R;
 
 public class LoginViewModel extends ViewModel {
 	
-	private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
-	private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
-	private LoginRepository loginRepository;
+	private final MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
+	private final MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
+	private final LoginRepository loginRepository;
 	
 	LoginViewModel(LoginRepository loginRepository) {
 		this.loginRepository = loginRepository;
@@ -34,32 +34,34 @@ public class LoginViewModel extends ViewModel {
 		Result<LoggedInUser> result = loginRepository.login(username, password);
 		
 		if (result instanceof Result.Success) {
-			LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-			loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+			LoggedInUser loggedInUser = ((Result.Success<LoggedInUser>) result).getData();
+			loginResult.setValue(new LoginResult(new LoggedInUserView(
+					loggedInUser.getEmailAddress(), loggedInUser.getFirstName(),
+					loggedInUser.getLastName() )));
 		} else {
 			loginResult.setValue(new LoginResult(R.string.error_login_failed));
 		}
 	}
 	
 	public void loginDataChanged(String username, String password) {
-		if (!isUserNameValid(username)) {
-			loginFormState.setValue(new LoginFormState(R.string.error_invalid_username, null));
+		if (!isEmailAddressValid(username)) {
+			loginFormState.setValue(new LoginFormState(R.string.error_email_invalid, null));
 		} else if (!isPasswordValid(password)) {
-			loginFormState.setValue(new LoginFormState(null, R.string.error_invalid_password));
+			loginFormState.setValue(new LoginFormState(null, R.string.error_password_too_short));
 		} else {
 			loginFormState.setValue(new LoginFormState(true));
 		}
 	}
 	
-	// A placeholder username validation check
-	private boolean isUserNameValid(String username) {
-		if (username == null) {
+	// A placeholder emailAddress validation check
+	private boolean isEmailAddressValid(String emailAddress) {
+		if (emailAddress == null) {
 			return false;
 		}
-		if (username.contains("@")) {
-			return Patterns.EMAIL_ADDRESS.matcher(username).matches();
+		if (emailAddress.contains("@")) {
+			return Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches();
 		} else {
-			return !username.trim().isEmpty();
+			return !emailAddress.trim().isEmpty();
 		}
 	}
 	

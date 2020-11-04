@@ -20,65 +20,48 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 	
-	<androidx.cardview.widget.CardView
-		android:id="@+id/cardView"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
+	<ImageView
+		android:id="@+id/imageView_icon"
+		android:layout_width="124dp"
+		android:layout_height="124dp"
 		android:layout_marginTop="16dp"
-		android:layout_marginEnd="16dp"
+		android:adjustViewBounds="false"
+		android:scaleType="fitCenter"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.5"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/textView_welcome">
-		
-		<ImageView
-			android:id="@+id/imageView2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:scaleType="center"
-			app:srcCompat="@drawable/ic_launcher_background"
-			tools:ignore="ContentDescription" />
-		
-		<ImageView
-			android:id="@+id/imageView3"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:scaleType="center"
-			app:srcCompat="@drawable/ic_launcher_foreground"
-			tools:ignore="ContentDescription" />
-	</androidx.cardview.widget.CardView>
+		app:layout_constraintTop_toBottomOf="@+id/textView_welcome"
+		app:srcCompat="@mipmap/ic_launcher_round"
+		tools:ignore="ContentDescription" />
 	
 	<Button
-		android:id="@+id/button"
-		style="@style/Widget.AppCompat.Button"
+		android:id="@+id/button_signIn"
+		style="@style/Widget.MaterialComponents.Button.OutlinedButton"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="24dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginBottom="16dp"
 		android:onClick="buttonPressed_signIn"
-		android:text="@string/button_login"
+		android:text="@string/button_sign_in"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.5"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/cardView"
-		app:layout_constraintVertical_bias="0.16000003" />
+		app:layout_constraintTop_toBottomOf="@+id/imageView_icon"
+		app:layout_constraintVertical_bias="0.15" />
 	
 	<Button
-		android:id="@+id/button2"
-		style="@style/Widget.AppCompat.Button.Colored"
+		android:id="@+id/button_register"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
 		android:layout_marginTop="8dp"
-		android:layout_marginEnd="16dp"
 		android:layout_marginBottom="16dp"
 		android:onClick="buttonPressed_register"
 		android:text="@string/button_register"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.501"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/button"
+		app:layout_constraintEnd_toEndOf="@+id/button_signIn"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="@+id/button_signIn"
+		app:layout_constraintTop_toBottomOf="@+id/button_signIn"
 		app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

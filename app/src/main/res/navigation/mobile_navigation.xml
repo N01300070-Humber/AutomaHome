@@ -3,7 +3,25 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/mobile_navigation"
-	app:startDestination="@+id/nav_home">
+	app:startDestination="@id/nav_favorites">
+	
+	<fragment
+		android:id="@+id/nav_favorites"
+		android:name="ca.humbermail.n01300070.automahome.ui.favorites.FavoritesFragment"
+		android:label="@string/menu_favorites"
+		tools:layout="@layout/fragment_favorites" />
+	
+	<fragment
+		android:id="@+id/nav_devices"
+		android:name="ca.humbermail.n01300070.automahome.ui.devices.DevicesFragment"
+		android:label="@string/menu_devices"
+		tools:layout="@layout/fragment_devices" />
+	
+	<fragment
+		android:id="@+id/nav_tasks"
+		android:name="ca.humbermail.n01300070.automahome.ui.tasks.TasksFragment"
+		android:label="@string/menu_tasks"
+		tools:layout="@layout/fragment_tasks" />
 	
 	<fragment
 		android:id="@+id/nav_home"
@@ -12,14 +30,8 @@
 		tools:layout="@layout/fragment_home" />
 	
 	<fragment
-		android:id="@+id/nav_gallery"
-		android:name="ca.humbermail.n01300070.automahome.ui.gallery.GalleryFragment"
-		android:label="@string/menu_gallery"
-		tools:layout="@layout/fragment_gallery" />
-	
-	<fragment
-		android:id="@+id/nav_slideshow"
-		android:name="ca.humbermail.n01300070.automahome.ui.slideshow.SlideshowFragment"
-		android:label="@string/menu_slideshow"
-		tools:layout="@layout/fragment_slideshow" />
+		android:id="@+id/nav_settings"
+		android:name="ca.humbermail.n01300070.automahome.ui.settings.SettingsFragment"
+		android:label="@string/menu_settings"
+		tools:layout="@layout/fragment_settings" />
 </navigation>

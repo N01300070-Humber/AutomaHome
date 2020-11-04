@@ -3,10 +3,11 @@ package ca.humbermail.n01300070.automahome.ui.login;
 import android.app.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -25,6 +26,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
+import ca.humbermail.n01300070.automahome.NavDrawerActivity;
 import ca.humbermail.n01300070.automahome.R;
 
 public class SignInActivity extends AppCompatActivity {
@@ -35,15 +39,14 @@ public class SignInActivity extends AppCompatActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_signin);
-		
 		// Add back button to action bar
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 		
 		// Setup login
-		loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
+		loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
 				.get(LoginViewModel.class);
 		
-		final EditText usernameEditText = findViewById(R.id.editText_email);
+		final EditText emailAddressEditText = findViewById(R.id.editText_email);
 		final EditText passwordEditText = findViewById(R.id.editText_password);
 		final Button loginButton = findViewById(R.id.button_confirm);
 		final ProgressBar loadingProgressBar = findViewById(R.id.loading);
@@ -56,7 +59,7 @@ public class SignInActivity extends AppCompatActivity {
 				}
 				loginButton.setEnabled(loginFormState.isDataValid());
 				if (loginFormState.getUsernameError() != null) {
-					usernameEditText.setError(getString(loginFormState.getUsernameError()));
+					emailAddressEditText.setError(getString(loginFormState.getUsernameError()));
 				}
 				if (loginFormState.getPasswordError() != null) {
 					passwordEditText.setError(getString(loginFormState.getPasswordError()));
@@ -75,6 +78,8 @@ public class SignInActivity extends AppCompatActivity {
 					showLoginFailed(loginResult.getError());
 				}
 				if (loginResult.getSuccess() != null) {
+					//loginInfoEditor.putBoolean("loggedIn", true);
+					//loginInfoEditor.apply();
 					updateUiWithUser(loginResult.getSuccess());
 				}
 				setResult(Activity.RESULT_OK);
@@ -97,18 +102,18 @@ public class SignInActivity extends AppCompatActivity {
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
+				loginViewModel.loginDataChanged(emailAddressEditText.getText().toString(),
 						passwordEditText.getText().toString());
 			}
 		};
-		usernameEditText.addTextChangedListener(afterTextChangedListener);
+		emailAddressEditText.addTextChangedListener(afterTextChangedListener);
 		passwordEditText.addTextChangedListener(afterTextChangedListener);
 		passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
-					loginViewModel.login(usernameEditText.getText().toString(),
+					loginViewModel.login(emailAddressEditText.getText().toString(),
 							passwordEditText.getText().toString());
 				}
 				return false;
@@ -119,16 +124,19 @@ public class SignInActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				loadingProgressBar.setVisibility(View.VISIBLE);
-				loginViewModel.login(usernameEditText.getText().toString(),
+				loginViewModel.login(emailAddressEditText.getText().toString(),
 						passwordEditText.getText().toString());
 			}
 		});
 	}
 	
 	private void updateUiWithUser(LoggedInUserView model) {
-		String welcome = getString(R.string.welcome) + model.getDisplayName();
-		// TODO : initiate successful logged in experience
-		Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+		//userInfoEditor.putString("fullName", model.getDisplayName());
+		// TODO: fill out all user info
+		//userInfoEditor.commit();
+		
+		//String welcome = "Welcome back " + userInfo.getString("fullName", null) + "!"; // TODO: Remove placeholder toast when login handling complete
+		//Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
 	}
 	
 	private void showLoginFailed(@StringRes Integer errorString) {

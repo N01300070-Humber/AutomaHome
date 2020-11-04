@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Temporary File for placeholder content-->
+	<string-array name="arrayHomes">
+		<item>Home 1</item>
+		<item>Home 2</item>
+		<item>Home 3</item>
+		<item>Home 4</item>
+		<item>Home 5</item>
+	</string-array>
+</resources>

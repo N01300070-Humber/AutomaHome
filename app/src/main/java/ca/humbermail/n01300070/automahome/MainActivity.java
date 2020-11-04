@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
-	
+	// TODO Remove this TODO
 	// Display a splash screen while loading app
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

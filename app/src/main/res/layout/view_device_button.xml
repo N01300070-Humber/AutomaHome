@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:paddingLeft="4dp"
+	android:paddingTop="4dp"
+	android:paddingRight="4dp"
+	android:paddingBottom="4dp"
+	tools:context=".components.DeviceButtonView" >
+		
+		<ImageView
+			android:id="@+id/imageView_device_type"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="@drawable/background_button"
+			android:backgroundTint="#EEEEEE"
+			android:contentDescription="TODO"
+			android:padding="4dp"
+			android:src="@drawable/ic_devices"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.0" />
+		
+		<TextView
+			android:id="@+id/textView_device_name"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="4dp"
+			android:maxLines="2"
+			android:minLines="1"
+			android:text="Device Name"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+			android:textColor="?attr/colorOnSecondary"
+			app:layout_constraintBottom_toBottomOf="@+id/imageView_device_type"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/imageView_device_type"
+			app:layout_constraintTop_toTopOf="@+id/imageView_device_type" />
+		
+		<TextView
+			android:id="@+id/textView_location"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="2dp"
+			android:maxLines="1"
+			android:minLines="1"
+			android:text="Room"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+			android:textColor="?android:attr/textColorSecondary"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/imageView_device_type" />
+		
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

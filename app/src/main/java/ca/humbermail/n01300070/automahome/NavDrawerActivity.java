@@ -65,7 +65,7 @@ public class NavDrawerActivity extends AppCompatActivity {
 		getMenuInflater().inflate(R.menu.nav_drawer, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onSupportNavigateUp() {
 		NavController navController = Navigation

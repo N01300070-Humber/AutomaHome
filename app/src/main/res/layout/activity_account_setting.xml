@@ -19,7 +19,7 @@
 
         android:src="@drawable/general2"
         app:layout_constraintEnd_toEndOf="parent"
-
+        android:onClick="generalBtn_Clicked"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -50,7 +50,7 @@
 
         android:src="@drawable/setting_notification"
         app:layout_constraintEnd_toEndOf="parent"
-
+        android:onClick="notificationBtn_Clicked"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -178,7 +178,7 @@
 
         android:src="@drawable/delete_icon"
         app:layout_constraintEnd_toEndOf="parent"
-
+        android:onClick="delAcctBtn_Clicked"
         app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -194,7 +194,7 @@
 
         android:src="@drawable/signout_icon"
         app:layout_constraintEnd_toEndOf="parent"
-
+        android:onClick="signOutBtn_Clicked"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

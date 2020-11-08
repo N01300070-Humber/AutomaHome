@@ -34,7 +34,7 @@ public class ManageHome extends AppCompatActivity {
         setContentView(R.layout.activity_manage_home);
 
         //Referencing the invite user button by finding its iD
-        inviteUserButton = findViewById(R.id.invitebtn);
+        inviteUserButton = findViewById(R.id.inviteUser);
         //Referencing the add network button by finding its iD
         addNetworkButton = findViewById(R.id.addNetwork);
     }

@@ -10,7 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AutomaHome">
-        <activity android:name=".ui.home.InviteUser"></activity>
+        <activity android:name=".ui.settings.NotificationaSetting"></activity>
+        <activity android:name=".ui.settings.AccountSetting" />
+        <activity android:name=".ui.settings.GeneralSetting" />
+        <activity android:name=".ui.home.InviteUser" />
         <activity android:name=".ui.home.ManageHome" />
         <activity
             android:name=".ui.login.RegisterActivity"

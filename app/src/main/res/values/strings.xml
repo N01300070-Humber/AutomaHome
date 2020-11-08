@@ -63,5 +63,19 @@
     <string name="user1">User 1</string>
     <string name="user2">User 2</string>
 
+    <!-- Setting -->
+    <string name="title_activity_setting">Settings</string>
+
+    <string name="displayTemp">Display Temperature</string>
+
+    <string name="changeInfo">Change Info</string>
+    <string name="changePassword">Change Password</string>
+    <string name="currPassword">Current Password</string>
+    <string name="newPassword">New Password</string>
+
+    <string name="notifications">Notifications</string>
+    <string name="notiSound">Notification Sound</string>
+
+
 
 </resources>

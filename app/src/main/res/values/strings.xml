@@ -75,8 +75,23 @@
 
     <string name="notifications">Notifications</string>
     <string name="notiSound">Notification Sound</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Tasks -->
+    <string name="runIf">Run If</string>
+    <string name="then">Then</string>
+    <string name="discard">Discard Changes</string>
+    <string name="saveChanges">Save Task</string>
+    <string name="add_cond">+ Add Condition</string>
+    <string name="add_op">+ Add Operation</string>
+    <string name="done_btn">Done</string>
+    <string name="schedule">Schedule</string>
+    <string name="temp">Temperature</string>
+    <string name="name">Movement</string>
+    <string name="lights">Lights</string>
+    <string name="thermostat">Thermostat</string>
+    <string name="activate">Activate at</string>
+    <string name="brightness">Brightness</string>
 
 
 </resources>

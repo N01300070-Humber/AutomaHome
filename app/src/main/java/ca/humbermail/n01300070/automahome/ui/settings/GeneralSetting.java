@@ -9,7 +9,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.ui.home.InviteUser;
 
 public class GeneralSetting extends AppCompatActivity {
 

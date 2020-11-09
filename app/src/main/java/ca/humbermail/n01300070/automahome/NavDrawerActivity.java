@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,9 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.data.UserInfo;
+import ca.humbermail.n01300070.automahome.ui.home.HomeFragment;
+import ca.humbermail.n01300070.automahome.ui.home.InviteUserFragment;
+import ca.humbermail.n01300070.automahome.ui.settings.AccountSetting;
 
 public class NavDrawerActivity extends AppCompatActivity {
 	
@@ -73,6 +78,22 @@ public class NavDrawerActivity extends AppCompatActivity {
 		return NavigationUI.navigateUp(navController, mAppBarConfiguration)
 				|| super.onSupportNavigateUp();
 	}
+
+	// Home fragment event handlers
+	/**
+	 * onClick event handler for InviteUserButton
+	 * @param view Source view
+	 */
+	ImageButton inviteUserButton;
+
+	public void inviteUserBtn_Clicked(View view){
+		Toast.makeText(this, "Invite User Button Clicked", Toast.LENGTH_SHORT).show();
+		Intent intent0 = new Intent(this, NavDrawerActivity.class);
+		startActivity(intent0);
+	}
+
+
+
 	
 	// Settings fragment event handlers
 	/**

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="DeviceOrTaskButtonView">
+		<attr name="android:text" format="string" />
+		<attr name="android:src" format="integer" />
+		<attr name="contentDescription" format="string" />
+		<attr name="cardCornerRadius" format="dimension" />
+		<attr name="backgroundTint" format="color" />
+	</declare-styleable>
+</resources>

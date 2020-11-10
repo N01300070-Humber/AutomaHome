@@ -1,6 +1,7 @@
 package ca.humbermail.n01300070.automahome.components;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 
 import android.graphics.drawable.Drawable;
@@ -11,14 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.solver.state.Dimension;
 
 import ca.humbermail.n01300070.automahome.R;
 
 /**
  * A custom component that displays info on a device and works like a button
  */
-public class DeviceButtonView extends CardView {
+public class DeviceOrTaskButtonView extends CardView {
 	
 	private ImageView iconImageView;
 	private TextView nameTextView;
@@ -32,19 +32,19 @@ public class DeviceButtonView extends CardView {
 	private int backgroundColour;
 	
 	// Device Button Constructors
-	public DeviceButtonView(Context context) {
+	public DeviceOrTaskButtonView(Context context) {
 		super(context);
 		inflateViews(context);
 	}
 	
-	public DeviceButtonView(Context context, AttributeSet attrs) {
+	public DeviceOrTaskButtonView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		getAttributes(context, attrs);
 		inflateViews(context);
 		setAttributes();
 	}
 	
-	public DeviceButtonView(Context context, AttributeSet attrs, int defStyle) {
+	public DeviceOrTaskButtonView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		getAttributes(context, attrs);
 		inflateViews(context);
@@ -58,22 +58,22 @@ public class DeviceButtonView extends CardView {
 	private void inflateViews(Context context) {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(R.layout.view_device_button, this);
+		inflater.inflate(R.layout.view_device_or_task_button, this);
 		
-		iconImageView = findViewById(R.id.imageView_device_type);
-		nameTextView = findViewById(R.id.textView_device_name);
-		extraTextView = findViewById(R.id.textView_location);
+		iconImageView = findViewById(R.id.imageView_type);
+		nameTextView = findViewById(R.id.textView_name);
+		extraTextView = findViewById(R.id.textView_extra);
 	}
 	
 	private void getAttributes(Context context, AttributeSet attrs) {
-		TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.DeviceButtonView);
+		TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.DeviceOrTaskButtonView);
 		
-		name = attributes.getText(R.styleable.DeviceButtonView_android_text);
-		cornerRadius = attributes.getDimension(R.styleable.DeviceButtonView_cardCornerRadius,
-				getResources().getDimension(R.dimen.device_button_corner_radius));
-		icon = attributes.getDrawable(R.styleable.DeviceButtonView_android_src);
-		contentDescription = attributes.getString(R.styleable.DeviceButtonView_contentDescription);
-		backgroundColour = attributes.getColor(R.styleable.DeviceButtonView_backgroundTint,
+		name = attributes.getText(R.styleable.DeviceOrTaskButtonView_android_text);
+		cornerRadius = attributes.getDimension(R.styleable.DeviceOrTaskButtonView_cardCornerRadius,
+				getResources().getDimension(R.dimen.device_or_task_button_corner_radius));
+		icon = attributes.getDrawable(R.styleable.DeviceOrTaskButtonView_android_src);
+		contentDescription = attributes.getString(R.styleable.DeviceOrTaskButtonView_contentDescription);
+		backgroundColour = attributes.getColor(R.styleable.DeviceOrTaskButtonView_backgroundTint,
 				getResources().getColor(R.color.design_default_color_secondary, context.getTheme()));
 		
 		attributes.recycle();
@@ -157,37 +157,6 @@ public class DeviceButtonView extends CardView {
 	}
 	
 	public void setBackgroundColour(int colour) {
-		this.setCardBackgroundColor(colour);
+		this.setBackgroundTintList(ColorStateList.valueOf(colour));
 	}
-	
-	/*public CharSequence getText() {
-		return text;
-	}
-	
-	public void setText(CharSequence text) {
-		this.text = text;
-	}
-	
-	public boolean isShowLocation() {
-		return showLocation;
-	}
-	
-	public void setShowLocation(boolean showLocation) {
-		this.showLocation = showLocation;
-	}
-	
-	public int getBackgroundTint() {
-		return backgroundTint;
-	}
-	
-	public void setBackgroundTint(int backgroundTint) {
-		this.backgroundTint = backgroundTint;
-		invalidate();
-		requestLayout();
-	}*/
-	
-	//Save and Restore instance state
-	private static String STATE_NAME;
-	
-	
 }

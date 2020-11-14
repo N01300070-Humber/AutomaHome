@@ -1,4 +1,4 @@
-package ca.humbermail.n01300070.automahome.ui.devices;
+package ca.humbermail.n01300070.automahome.ui.devices.control;
 
 import android.os.Bundle;
 

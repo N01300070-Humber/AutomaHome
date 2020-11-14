@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/night_light3"
+        android:layout_width="177dp"
+        android:layout_height="22dp"
+        android:text="Device Location"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="94dp" />
+
+    <TextView
+        android:id="@+id/night_light4"
+        android:layout_width="177dp"
+        android:layout_height="22dp"
+        android:text="Target Temperature"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="328dp" />
+
+    <TextView
+        android:id="@+id/night_light5"
+        android:layout_width="177dp"
+        android:layout_height="22dp"
+        android:text="Current Temperature"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="193dp" />
+
+    <TextView
+        android:id="@+id/night_light6"
+        android:layout_width="60dp"
+        android:layout_height="27dp"
+        android:text="System"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="72dp"
+        tools:layout_editor_absoluteY="482dp" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="65dp"
+        android:layout_height="41dp"
+        android:backgroundTint="#FF0000"
+        android:text="Heat"
+        android:textSize="11sp"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="523dp" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="65dp"
+        android:layout_height="41dp"
+        android:backgroundTint="@color/primary_700"
+        android:text="Cool"
+        android:textSize="11sp"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="522dp" />
+
+
+    <Button
+        android:id="@+id/set_btn2"
+        android:layout_width="56dp"
+        android:layout_height="45dp"
+        android:text="Set"
+        android:textSize="11sp"
+        app:strokeColor="#FFFFFF"
+        tools:layout_editor_absoluteX="296dp"
+        tools:layout_editor_absoluteY="392dp" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="54dp"
+        android:layout_height="38dp"
+        app:srcCompat="@android:drawable/arrow_down_float"
+        tools:layout_editor_absoluteX="296dp"
+        tools:layout_editor_absoluteY="447dp" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="56dp"
+        android:layout_height="41dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        app:srcCompat="@android:drawable/arrow_up_float"
+        tools:layout_editor_absoluteX="296dp"
+        tools:layout_editor_absoluteY="342dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

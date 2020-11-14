@@ -79,5 +79,19 @@
     <string name="placeholder">Placeholder</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edit_device">Edit Device</string>
+    <string name="humidity">Humidity</string>
+    <string name="T">TextView</string>
+    <string name="T2">TextView</string>
+    <string name="auto_calibrate">Auto Calibrate</string>
+    <string name="side_a_light_tolerance">Side A Light Tolerance</string>
+    <string name="calibration">Calibration</string>
+    <string name="side_b_location">Side B Location</string>
+    <string name="side_a_location">Side A Location</string>
+    <string name="side_b_light_tolerance">Side B Light Tolerance</string>
+    <string name="brightness">Brightness</string>
+    <string name="temperature">Temperature</string>
+    <string name="night_light">Night Light</string>
+    <string name="changes_brightness_automatically_when_light_changes">Changes brightness automatically when light changes</string>
 
 </resources>

@@ -14,10 +14,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import ca.humbermail.n01300070.automahome.R;
 
-public class DevicesFragment extends Fragment {
+public class DevicesFragment extends Fragment
+{
 	
 	public View onCreateView(@NonNull LayoutInflater inflater,
-							 ViewGroup container, Bundle savedInstanceState) {
+							 ViewGroup container, Bundle savedInstanceState)
+	{
 		DevicesViewModel devicesViewModel = new ViewModelProvider(this).get(DevicesViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_devices, container, false);
 		final TextView textView = root.findViewById(R.id.text_devices);

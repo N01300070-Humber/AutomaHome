@@ -17,4 +17,11 @@
 	<style name="Widget" />
 	<style name="Widget.AutomaHome" />
 	
+	<style name="Widget.AutomaHome.ExtFAB" parent="Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"/>
+	<style name="Widget.AutomaHome.ExtFAB.PrimaryColour" parent="Widget.AutomaHome.ExtFAB">
+		<item name="backgroundTint">@color/design_default_color_primary</item>
+		<item name="iconTint">@color/design_default_color_on_primary</item>
+		<item name="android:textColor">@color/design_default_color_on_primary</item>
+	</style>
+	
 </resources>

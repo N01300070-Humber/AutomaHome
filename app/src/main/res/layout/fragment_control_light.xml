@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/checkmark_description"
+        android:layout_width="0dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="53dp"
+        android:text="@string/changes_brightness_automatically_when_light_changes"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/night_light"
+        app:layout_constraintEnd_toEndOf="@+id/volumSlide5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/slide2"
+        android:layout_width="45dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="388dp"
+        android:src="@drawable/slidebar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.901"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        app:layout_constraintStart_toEndOf="@+id/volumSlide4"
+        app:layout_constraintTop_toTopOf="@+id/volumSlide4"
+        app:srcCompat="@drawable/ic_favorite" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/volumSlide4"
+        app:layout_constraintTop_toTopOf="@+id/volumSlide4"
+        app:srcCompat="@drawable/ic_favorite" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/volumSlide5"
+        app:layout_constraintEnd_toStartOf="@+id/volumSlide5"
+        app:srcCompat="@drawable/ic_favorite" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        app:layout_constraintBottom_toBottomOf="@+id/volumSlide5"
+        app:layout_constraintStart_toEndOf="@+id/volumSlide5"
+        app:srcCompat="@drawable/ic_favorite" />
+
+    <ImageView
+        android:id="@+id/volumSlide5"
+        android:layout_width="292dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="232dp"
+        android:src="@drawable/light_slider_1_continuous_b_value_indicator_3_states"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/volumSlide4"
+        android:layout_width="292dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="112dp"
+        android:src="@drawable/light_slider_1_continuous_b_value_indicator_3_states"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/bright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="@string/brightness"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="@string/temperature"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/night_light"
+        android:layout_width="100dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="189dp"
+        android:text="@string/night_light"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/checkmark_description" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="29dp"
+        app:layout_constraintBottom_toBottomOf="@+id/checkmark_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/checkmark_description" />
+
+    <Button
+        android:id="@+id/edit_button"
+        android:layout_width="140dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="229dp"
+        android:layout_marginBottom="65dp"
+        android:text="@string/edit_device"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

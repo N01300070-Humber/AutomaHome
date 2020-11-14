@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".components.DeviceOrTaskButtonView" >
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:paddingLeft="4dp"
+		android:paddingTop="4dp"
+		android:paddingRight="4dp"
+		android:paddingBottom="4dp">
+		
+		<ImageView
+			android:id="@+id/imageView_type"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="@drawable/background_button"
+			android:backgroundTint="#EEEEEE"
+			android:padding="4dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.0"
+			tools:src="@drawable/ic_settings"
+			tools:ignore="ContentDescription" />
+		
+		<TextView
+			android:id="@+id/textView_name"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="4dp"
+			android:maxLines="2"
+			android:minLines="1"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+			android:textColor="?attr/colorOnSecondary"
+			app:layout_constraintBottom_toBottomOf="@+id/imageView_type"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/imageView_type"
+			app:layout_constraintTop_toTopOf="@+id/imageView_type"
+			tools:text="Name of Device or Task"/>
+		
+		<TextView
+			android:id="@+id/textView_extra"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="2dp"
+			android:maxLines="1"
+			android:minLines="1"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+			android:textColor="?android:attr/textColorSecondary"
+			android:visibility="gone"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/imageView_type"
+			tools:text="Task Note or Device Location"/>
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

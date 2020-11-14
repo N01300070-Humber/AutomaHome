@@ -8,4 +8,5 @@
 	<dimen name="device_or_task_button_corner_radius">4dp</dimen>
 	<dimen name="device_or_task_button_elevation">8dp</dimen>
 	<dimen name="recycler_divider_space">8dp</dimen>
+	<dimen name="category_divider_space">16dp</dimen>
 </resources>

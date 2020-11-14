@@ -96,7 +96,7 @@
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="136dp"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:text="@string/notiSound"
+        android:text="@string/notification_sound"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"

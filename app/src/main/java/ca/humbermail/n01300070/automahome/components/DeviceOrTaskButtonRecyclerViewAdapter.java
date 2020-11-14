@@ -14,7 +14,7 @@ import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
 
 public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<DeviceOrTaskButtonRecyclerViewAdapter.ItemViewHolder> {
 	
-	Context context;
+	private final Context context;
 	private final ArrayList<DeviceOrTaskData> itemDataList;
 	private final View.OnClickListener onClickListener;
 	
@@ -24,9 +24,9 @@ public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<
 	public static class ItemViewHolder extends RecyclerView.ViewHolder {
 		public DeviceOrTaskButtonView deviceButtonView;
 		
-		public ItemViewHolder(DeviceOrTaskButtonView deviceButtonView) {
-			super(deviceButtonView);
-			this.deviceButtonView = deviceButtonView;
+		public ItemViewHolder(DeviceOrTaskButtonView deviceOrTaskButtonView) {
+			super(deviceOrTaskButtonView);
+			this.deviceButtonView = deviceOrTaskButtonView;
 		}
 	}
 	
@@ -56,13 +56,14 @@ public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<
 		holder.deviceButtonView.setName(itemData.getName());
 		String extraText = itemData.getExtraText();
 		if (extraText != null && !extraText.isEmpty()) {
-			holder.deviceButtonView.setExtraText(itemData.getExtraText());
-			holder.deviceButtonView.setExtraTextVisible(true);
+			holder.deviceButtonView.setExtraText(extraText);
+			holder.deviceButtonView.setExtraTextVisible(itemData.isExtraTextVisible());
 		}
 		else {
 			holder.deviceButtonView.setExtraTextVisible(false);
 		}
 		holder.deviceButtonView.setIcon(itemData.getIcon());
+		holder.deviceButtonView.setIconContentDesc(itemData.getContentDescription());
 		holder.deviceButtonView.setBackgroundColour(itemData.getBackgroundColour());
 		holder.deviceButtonView.setCornerRadius(context.getResources().getDimension(R.dimen.device_or_task_button_corner_radius));
 		holder.deviceButtonView.setElevation(context.getResources().getDimension(R.dimen.device_or_task_button_elevation));
@@ -81,5 +82,21 @@ public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<
 	public void removeItem(int position) {
 		itemDataList.remove(position);
 		notifyItemRemoved(position);
+	}
+	
+	public DeviceOrTaskData getItemData(int position) {
+		return itemDataList.get(position);
+	}
+	
+	public void setItemData(int position, DeviceOrTaskData data) {
+		itemDataList.set(position, data);
+		notifyItemChanged(position);
+	}
+	
+	public void setAllExtraTextVisible(boolean visible) {
+		for (DeviceOrTaskData itemData : itemDataList) {
+			itemData.setExtraTextVisible(visible);
+		}
+		notifyDataSetChanged();
 	}
 }

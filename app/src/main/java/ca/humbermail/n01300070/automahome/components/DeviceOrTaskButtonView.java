@@ -31,7 +31,7 @@ public class DeviceOrTaskButtonView extends CardView {
 	private float cornerRadius;
 	private int backgroundColour;
 	
-	// Device Button Constructors
+	// Constructors
 	public DeviceOrTaskButtonView(Context context) {
 		super(context);
 		inflateViews(context);
@@ -116,11 +116,11 @@ public class DeviceOrTaskButtonView extends CardView {
 	}
 	
 	public void setExtraTextVisible(boolean visible) {
-		if (extraTextView.getVisibility() == View.VISIBLE) {
-			extraTextView.setVisibility(View.GONE);
+		if (visible) {
+			extraTextView.setVisibility(View.VISIBLE);
 		}
 		else {
-			extraTextView.setVisibility(View.VISIBLE);
+			extraTextView.setVisibility(View.GONE);
 		}
 	}
 	
@@ -136,16 +136,16 @@ public class DeviceOrTaskButtonView extends CardView {
 		this.setRadius(cornerRadius);
 	}
 	
-	public CharSequence getContentDesc() {
-		return this.getContentDescription();
+	public CharSequence getIconContentDesc() {
+		return iconImageView.getContentDescription();
 	}
 	
-	public void setContentDesc(CharSequence contentDescription) {
-		this.setContentDescription(contentDescription);
+	public void setIconContentDesc(CharSequence contentDescription) {
+		iconImageView.setContentDescription(contentDescription);
 	}
 	
-	public void setContentDesc(String contentDescription) {
-		this.setContentDescription(contentDescription);
+	public void setIconContentDesc(String contentDescription) {
+		iconImageView.setContentDescription(contentDescription);
 	}
 	
 	public float getCornerRadius() {

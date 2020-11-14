@@ -47,6 +47,7 @@
     <string name="menu_settings">Settings</string>
 
     <!-- Devices -->
+    <string name="fab_add_device">Add Device</string>
     <string name="edit_device">Edit Device</string>
     <string name="auto_calibrate">Auto Calibrate</string>
     <string name="calibration">Calibration</string>

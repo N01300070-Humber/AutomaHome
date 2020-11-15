@@ -10,11 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AutomaHome">
-        <activity android:name=".ui.devices.control.ControlDevicesActivity"></activity>
-        <activity android:name=".ui.devices.edit.EditDevicesActivity" />
-        <activity android:name=".ui.settings.NotificationaSetting" />
-        <activity android:name=".ui.settings.AccountSetting" />
-        <activity android:name=".ui.settings.GeneralSetting" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/splashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.login.RegisterActivity"
             android:label="@string/title_activity_register" />
@@ -29,15 +33,9 @@
             android:theme="@style/Theme.AutomaHome.NoActionBar" />
         <activity android:name=".ui.devices.control.ControlDevicesActivity" />
         <activity android:name=".ui.devices.edit.EditDevicesActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/splashScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.settings.NotificationaSetting" />
+        <activity android:name=".ui.settings.AccountSetting" />
+        <activity android:name=".ui.settings.GeneralSetting" />
     </application>
 
 </manifest>

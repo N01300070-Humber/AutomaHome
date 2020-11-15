@@ -10,6 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AutomaHome">
+        <activity android:name=".ui.devices.control.ControlDevicesActivity"></activity>
+        <activity android:name=".ui.devices.edit.EditDevicesActivity" />
         <activity android:name=".ui.settings.NotificationaSetting" />
         <activity android:name=".ui.settings.AccountSetting" />
         <activity android:name=".ui.settings.GeneralSetting" />

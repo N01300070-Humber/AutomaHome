@@ -111,8 +111,9 @@
     <string name="target_temperature">Target Temperature</string>
     <string name="current_temperature">Current Temperature</string>
     <string name="system">System</string>
-    <string name="heat">Heat</string>
     <string name="cool">Cool</string>
+    <string name="heat">Heat</string>
+    <string name="set">Set</string>
 
 
 </resources>

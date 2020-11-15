@@ -13,29 +13,25 @@
 		android:elevation="4dp"
 		app:cardCornerRadius="0dp">
 		
-		<com.google.android.material.textfield.TextInputLayout
-			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+		<Spinner
+			android:id="@+id/spinner_device_rooms"
+			style="@style/Widget.AutomaHome.Spinner"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="end"
-			android:layout_marginLeft="8dp"
-			android:layout_marginTop="8dp"
-			android:layout_marginRight="8dp"
-			android:layout_marginBottom="8dp">
-			
-			<com.google.android.material.textfield.MaterialAutoCompleteTextView
-				android:id="@+id/autoCompleteTextView_device_rooms"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				tools:text="All Rooms" />
-		
-		</com.google.android.material.textfield.TextInputLayout>
+			android:layout_margin="8dp"
+			android:entries="@array/arrayRooms_withAll" />
 	
 	</androidx.cardview.widget.CardView>
 	
 	<FrameLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
+		
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/recyclerView_devices"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" />
 		
 		<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 			android:id="@+id/extendedFAB_add_device"
@@ -48,11 +44,7 @@
 			android:focusable="true"
 			android:text="@string/fab_add_device"
 			app:icon="@drawable/ic_add" />
-		
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/recyclerView_devices"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent" />
+	
 	</FrameLayout>
 
 </LinearLayout>

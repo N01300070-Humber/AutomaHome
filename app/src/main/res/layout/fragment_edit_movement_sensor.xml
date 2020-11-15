@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView_edit_movementSensor_calibrationHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/calibration"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_edit_movementSensor_tolerance1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/side_a_light_tolerance"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_edit_movementSensor_calibrationHeader" />
+
+    <ImageView
+        android:id="@+id/imageView_edit_movementSensor_lowTolerance1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar_edit_movementSensor_tolerance1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/seekBar_edit_movementSensor_tolerance1"
+        app:srcCompat="@drawable/ic_favorite" />
+
+    <SeekBar
+        android:id="@+id/seekBar_edit_movementSensor_tolerance1"
+        style="@style/Widget.AutomaHome.SeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_edit_movementSensor_highTolerance1"
+        app:layout_constraintStart_toEndOf="@+id/imageView_edit_movementSensor_lowTolerance1"
+        app:layout_constraintTop_toBottomOf="@+id/textView_edit_movementSensor_tolerance1" />
+
+    <ImageView
+        android:id="@+id/imageView_edit_movementSensor_highTolerance1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar_edit_movementSensor_tolerance1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/seekBar_edit_movementSensor_tolerance1"
+        app:srcCompat="@drawable/ic_favorite" />
+
+    <TextView
+        android:id="@+id/textView_edit_movementSensor_tolerance2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/side_b_light_tolerance"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_edit_movementSensor_lowTolerance1" />
+
+    <ImageView
+        android:id="@+id/imageView_edit_movementSensor_lowTolerance2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar_edit_movementSensor_tolerance2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/seekBar_edit_movementSensor_tolerance2"
+        app:srcCompat="@drawable/ic_favorite" />
+
+    <SeekBar
+        android:id="@+id/seekBar_edit_movementSensor_tolerance2"
+        style="@style/Widget.AutomaHome.SeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_edit_movementSensor_highTolerance2"
+        app:layout_constraintStart_toEndOf="@+id/imageView_edit_movementSensor_lowTolerance2"
+        app:layout_constraintTop_toBottomOf="@+id/textView_edit_movementSensor_tolerance2" />
+
+    <ImageView
+        android:id="@+id/imageView_edit_movementSensor_highTolerance2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar_edit_movementSensor_tolerance2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/seekBar_edit_movementSensor_tolerance2"
+        app:srcCompat="@drawable/ic_favorite" />
+
+    <Button
+        android:id="@+id/button_edit_movementSensor_calibrate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/auto_calibrate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_edit_movementSensor_highTolerance2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

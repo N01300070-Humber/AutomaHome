@@ -6,7 +6,13 @@ public class DeviceOrTaskData {
 	public static final int TYPE_DEVICE = 0;
 	public static final int TYPE_TASK = 1;
 	
+	public static final String ARG_DEVICE = "DeviceType";
+	public static final String DEVICE_LIGHTS = "Lights";
+	public static final String DEVICE_MOVEMENT_SENSOR = "Movement Sensor";
+	public static final String DEVICE_THERMOSTAT = "Thermostat";
+	
 	private int type;
+	private String deviceType;
 	private String name;
 	private String extraText;
 	private boolean extraTextVisible;
@@ -49,6 +55,14 @@ public class DeviceOrTaskData {
 	
 	public void setType(int type) {
 		this.type = type;
+	}
+	
+	public String getDeviceType() {
+		return deviceType;
+	}
+	
+	public void setDeviceType(String deviceType) {
+		this.deviceType = deviceType;
 	}
 	
 	public DeviceOrTaskData(int type, String name) {

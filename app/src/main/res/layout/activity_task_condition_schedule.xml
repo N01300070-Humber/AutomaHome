@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tasks.TaskTemperature">
+    tools:context=".ui.tasks.condition.TaskConditionScheduleActivity">
 
     <TextView
-        android:id="@+id/thermostat"
+        android:id="@+id/schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/thermostat"
+        android:text="@string/schedule"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -20,9 +20,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.052" />
-
     <Button
-        android:id="@+id/temp_done"
+        android:id="@+id/sch_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
@@ -32,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/temp_discard"
+        android:id="@+id/sch_discard"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,46 +42,58 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/therm_read"
-        android:layout_width="234dp"
-        android:layout_height="129dp"
-        android:text="@string/default_temp"
-        android:textAlignment="center"
-        android:textColor="@color/accent_200"
-        android:textSize="80sp"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activate"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.367"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.324" />
+        app:layout_constraintVertical_bias="0.169" />
 
-    <Button
-        android:id="@+id/temp_up_task"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="140dp"
-        android:text="@string/up"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/therm_read"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/temp_down_task"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/down"
-        android:textSize="36sp"
-        android:textStyle="bold"
+    <EditText
+        android:id="@+id/hour_input"
+        android:layout_width="67dp"
+        android:layout_height="49dp"
+        android:ems="10"
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/therm_read"
-        app:layout_constraintTop_toBottomOf="@+id/temp_up_task"
-        app:layout_constraintVertical_bias="0.011" />
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.246" />
+
+    <EditText
+        android:id="@+id/minunte_input"
+        android:layout_width="67dp"
+        android:layout_height="49dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.246" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.298"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.245" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,6 +47,12 @@
     <string name="menu_settings">Settings</string>
 
     <!-- Devices -->
+    <string name="side_device_location">Side %1$s Device Location</string>
+    <string name="movement_detection_log">Movement Detection Log</string>
+    <string name="device_name">Device Name</string>
+    <string name="save">Save</string>
+    <string name="discard_changes">Discard Changes</string>
+    <string name="device_location">Device Location</string>
     <string name="fab_add_device">Add Device</string>
     <string name="edit_device">Edit Device</string>
     <string name="auto_calibrate">Auto Calibrate</string>
@@ -60,7 +66,13 @@
     <string name="temperature">Temperature</string>
     <string name="night_light">Night Light</string>
     <string name="changes_brightness_automatically_when_light_changes">Changes brightness automatically when light changes</string>
-
+    <string name="target_temperature">Target Temperature</string>
+    <string name="current_temperature">Current Temperature</string>
+    <string name="system">System</string>
+    <string name="cool">Cool</string>
+    <string name="heat">Heat</string>
+    <string name="set">Set</string>
+    
     <string name="content_description_type_device">Device button</string>
     <string name="content_description_device_type_lights">Lights device button</string>
     <string name="content_description_device_type_movement_sensor">Movement Sensor device button</string>
@@ -120,5 +132,6 @@
     <string name="placeholder">Placeholder</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

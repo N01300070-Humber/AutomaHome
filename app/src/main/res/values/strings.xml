@@ -47,6 +47,12 @@
     <string name="menu_settings">Settings</string>
 
     <!-- Devices -->
+    <string name="side_device_location">Side %1$s Device Location</string>
+    <string name="movement_detection_log">Movement Detection Log</string>
+    <string name="device_name">Device Name</string>
+    <string name="save">Save</string>
+    <string name="discard_changes">Discard Changes</string>
+    <string name="device_location">Device Location</string>
     <string name="fab_add_device">Add Device</string>
     <string name="edit_device">Edit Device</string>
     <string name="auto_calibrate">Auto Calibrate</string>
@@ -60,13 +66,13 @@
     <string name="temperature">Temperature</string>
     <string name="night_light">Night Light</string>
     <string name="changes_brightness_automatically_when_light_changes">Changes brightness automatically when light changes</string>
-    
+
     <string name="content_description_type_device">Device button</string>
     <string name="content_description_device_type_lights">Lights device button</string>
     <string name="content_description_device_type_movement_sensor">Movement Sensor device button</string>
     <string name="content_description_device_type_thermostat">Thermostat device button</string>
     <string name="content_description_type_task">Task button</string>
-    
+
     <!-- Manage Home, Invite User -->
     <string name="title_activity_manageHome">Manage Home</string>
     <string name="title_activity_inviteUser">Invite User</string>
@@ -85,7 +91,7 @@
     <string name="title_activity_setting">Settings</string>
 
     <string name="displayTemp">Display Temperature</string>
-    
+
     <string name="logout">Logout</string>
     <string name="change_info">Change Info</string>
     <string name="change_password">Change Password</string>
@@ -94,11 +100,19 @@
 
     <string name="notifications">Notifications</string>
     <string name="notification_sound">Notification Sound</string>
-    
+
     <!-- Other Strings -->
+
     <!-- TODO: Remove placeholder string -->
     <string name="placeholder">Placeholder</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="target_temperature">Target Temperature</string>
+    <string name="current_temperature">Current Temperature</string>
+    <string name="system">System</string>
+    <string name="heat">Heat</string>
+    <string name="cool">Cool</string>
+
 
 </resources>

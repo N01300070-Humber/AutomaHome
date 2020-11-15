@@ -3,13 +3,13 @@ package ca.humbermail.n01300070.automahome.ui.devices.control;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
@@ -34,12 +34,20 @@ public class ControlDevicesActivity extends AppCompatActivity
 
         switch(deviceType){
             case DeviceOrTaskData.DEVICE_LIGHTS:
-                fragment = new DevicesControlLightFragment();
-                getSupportFragmentManager().beginTransaction().add(R.id.fragment_controlDevice, fragment).commit();
+                fragment = new ControlLightFragment();
                 break;
             case DeviceOrTaskData.DEVICE_MOVEMENT_SENSOR:
-                //fragment =
+                fragment = new ControlMovementSensorFragment();
+                break;
+            case DeviceOrTaskData.DEVICE_THERMOSTAT:
+                fragment = new ControlThermostatFragment();
+                break;
+            default:
+                Toast.makeText(getApplicationContext(), "Error: failed to get device type", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
         }
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_controlDevice, fragment).commit();
     }
 
 

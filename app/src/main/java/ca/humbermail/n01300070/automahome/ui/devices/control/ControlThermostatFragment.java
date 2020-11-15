@@ -5,19 +5,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import ca.humbermail.n01300070.automahome.R;
 
-public class ControlMovementSensorFragment extends Fragment
-{
-    private RecyclerView DetectionLog;
+public class ControlThermostatFragment extends Fragment {
+
+    private TextView temp;
+    private TextView humid;
     private Context context;
 
-    public ControlMovementSensorFragment()
+    public ControlThermostatFragment()
     {
 
     }
@@ -27,10 +30,11 @@ public class ControlMovementSensorFragment extends Fragment
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_control_movement_sensor, container, false);
+        View root = inflater.inflate(R.layout.fragment_control_thermostat, container, false);
         context = getActivity().getApplicationContext();
 
-        DetectionLog = root.findViewById(R.id.recyclerView_control_movementSensor);
+        temp = root.findViewById(R.id.textView_control_thermostat_temperature);
+        temp = root.findViewById(R.id.textView_control_thermostat_humidity);
 
         return root;
     }

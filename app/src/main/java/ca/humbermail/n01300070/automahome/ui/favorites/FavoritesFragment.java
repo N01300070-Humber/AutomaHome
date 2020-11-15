@@ -48,8 +48,7 @@ public class FavoritesFragment extends Fragment {
 		
 		recyclerView.setLayoutManager(new LinearLayoutManager(context));
 		recyclerView.setAdapter(categoryAdapter);
-		recyclerView.addItemDecoration(new RecyclerViewCategoryPadding(
-				(int) getResources().getDimension(R.dimen.activity_vertical_margin) ));
+		recyclerView.addItemDecoration(new RecyclerViewCategoryPadding((int) getResources().getDimension(R.dimen.activity_vertical_margin) ));
 		
 		return root;
 	}

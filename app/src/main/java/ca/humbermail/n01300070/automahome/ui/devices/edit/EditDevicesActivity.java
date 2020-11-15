@@ -8,7 +8,8 @@ import android.view.MenuItem;
 
 import ca.humbermail.n01300070.automahome.R;
 
-public class EditDevicesActivity extends AppCompatActivity {
+public class EditDevicesActivity extends AppCompatActivity
+{
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,6 +3,7 @@ package ca.humbermail.n01300070.automahome;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +13,6 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -25,14 +25,31 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.data.UserInfo;
+import ca.humbermail.n01300070.automahome.ui.home.AddNetworkFragment;
+import ca.humbermail.n01300070.automahome.ui.home.DeleteHomeFragment;
 import ca.humbermail.n01300070.automahome.ui.home.HomeFragment;
 import ca.humbermail.n01300070.automahome.ui.home.InviteUserFragment;
-import ca.humbermail.n01300070.automahome.ui.settings.AccountSetting;
+import ca.humbermail.n01300070.automahome.ui.settings.AccountSettingFragment;
+import ca.humbermail.n01300070.automahome.ui.settings.ConfirmAccountFragment;
+import ca.humbermail.n01300070.automahome.ui.settings.NotificationSettingFragment;
+import ca.humbermail.n01300070.automahome.ui.settings.SettingsFragment;
 
 public class NavDrawerActivity extends AppCompatActivity {
 	
 	private AppBarConfiguration mAppBarConfiguration;
 	UserInfo userInfo;
+
+	//declare classes in home branch
+	public HomeFragment homeFragment;
+	public InviteUserFragment inviteUserFragment;
+	public AddNetworkFragment addNetworkFragment;
+	public DeleteHomeFragment deleteHomeFragment;
+
+	//declare classes in setting branch
+	public SettingsFragment settingFragment;
+	public AccountSettingFragment accountSettingFragment;
+	public NotificationSettingFragment notificationSettingFragment;
+	public ConfirmAccountFragment confirmAccountFragment;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +79,18 @@ public class NavDrawerActivity extends AppCompatActivity {
 			fullName = "ERROR!";
 		}
 		navHeaderTextView.setText(fullName);
+
+		//initial classes in home branch
+		homeFragment = new HomeFragment();
+		inviteUserFragment = new InviteUserFragment();
+		addNetworkFragment = new AddNetworkFragment();
+		deleteHomeFragment = new DeleteHomeFragment();
+
+		//initial classes in settings branch
+		settingFragment = new SettingsFragment();
+		accountSettingFragment = new AccountSettingFragment();
+		notificationSettingFragment = new NotificationSettingFragment();
+		confirmAccountFragment = new ConfirmAccountFragment();
 	}
 	
 	@Override
@@ -87,14 +116,64 @@ public class NavDrawerActivity extends AppCompatActivity {
 	ImageButton inviteUserButton;
 
 	public void inviteUserBtn_Clicked(View view){
-		Toast.makeText(this, "Invite User Button Clicked", Toast.LENGTH_SHORT).show();
+		Log.d("myTagDebug", "Mydebug");
+		System.out.println("inviteUserBtn_Clicked");
+		/*Toast.makeText(this, "Invite User Button Clicked", Toast.LENGTH_SHORT).show();
 		Intent intent0 = new Intent(this, NavDrawerActivity.class);
-		startActivity(intent0);
+		startActivity(intent0);*/
+
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, inviteUserFragment)
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
+		}
+	}
+
+	// Home fragment event handlers
+	/**
+	 * onClick event handler for AddNetworkButton
+	 * @param view Source view
+	 */
+	ImageButton addNetworkButton;
+
+	public void addNetworkBtn_Clicked(View view){
+
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, addNetworkFragment )
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
+		}
+	}
+
+	// Home fragment event handlers
+	/**
+	 * onClick event handler for deleteHomeButton
+	 * @param view Source view
+	 */
+	Button deleteHomeButton;
+
+	public void deleteHomeBtn_Clicked(View view){
+
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, deleteHomeFragment )
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
+		}
 	}
 
 
-
-	
 	// Settings fragment event handlers
 	/**
 	 * onClick event handler for logoutButton
@@ -115,6 +194,130 @@ public class NavDrawerActivity extends AppCompatActivity {
 			Toast.makeText(this, "Successfully logged out", Toast.LENGTH_LONG).show(); // TODO: Fix hardcoded string
 			startActivity(new Intent(this, WelcomeActivity.class));
 			finish();
+		}
+	}
+
+	// Settings fragment event handlers
+	/**
+	 * onClick event handler for general setting Button
+	 * @param view Source view
+	 */
+	ImageButton generalSettingButton;
+
+	public void generalBtn_Clicked(View view){
+
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, settingFragment )
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
+		}
+	}
+
+	ImageButton celciusButton;
+
+	public void celciusBtn_Clicked(View view){
+
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, settingFragment )
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
+		}
+	}
+
+	ImageButton farenheitButton;
+
+	public void farenheitBtn_Clicked(View view){
+
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, settingFragment )
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
+		}
+	}
+
+	ImageButton accountSettingButton;
+
+	public void accountBtn_Clicked(View view){
+
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, accountSettingFragment )
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
+		}
+	}
+
+	Button confirmAccountButton;
+
+	public void confirmBtn_Clicked(View view){
+
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, confirmAccountFragment )
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
+		}
+	}
+
+	Button signOutButton;
+
+	public void signOutBtn_Clicked(View view){
+
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, settingFragment )
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
+		}
+	}
+
+	Button deleteAccountButton;
+
+	public void deleteButton_onClick(View view){
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, homeFragment )
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
+		}
+	}
+
+	ImageButton notificationSettingButton;
+
+	public void notificationBtn_Clicked(View view){
+
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, notificationSettingFragment )
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
 		}
 	}
 }

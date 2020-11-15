@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".ui.settings.AccountSetting">
+    tools:context=".ui.settings.AccountSettingFragment">
 
     <ImageButton
         android:id="@+id/general2btn"
@@ -17,9 +17,9 @@
         android:layout_marginTop="4dp"
         android:backgroundTint="#00FFFFFF"
 
+        android:onClick="generalBtn_Clicked"
         android:src="@drawable/general2"
         app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="generalBtn_Clicked"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -35,7 +35,7 @@
 
         android:src="@drawable/account2"
         app:layout_constraintEnd_toEndOf="parent"
-
+        android:onClick="accountBtn_Clicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -62,7 +62,7 @@
         android:layout_width="187dp"
         android:layout_height="29dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:text="@string/change_info"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -70,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/general2btn" />
 
     <EditText
         android:id="@+id/editText_firstName"
@@ -78,7 +78,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:autofillHints=".AUTOFILL_HINT_PERSON_NAME_GIVEN"
         android:ems="10"
@@ -87,12 +87,13 @@
         app:layout_constraintEnd_toStartOf="@+id/editText_lastName"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/textView_changeInfo" />
 
     <EditText
         android:id="@+id/editText_lastName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:autofillHints=".AUTOFILL_HINT_PERSON_NAME_FAMILY"
         android:ems="10"
@@ -101,14 +102,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/editText_firstName"
-        app:layout_constraintTop_toTopOf="@+id/editText_firstName" />
+        app:layout_constraintTop_toTopOf="@+id/textView_changeInfo" />
 
     <EditText
         android:id="@+id/editText_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:autofillHints=".AUTOFILL_HINT_EMAIL_ADDRESS"
         android:hint="@string/prompt_email"
@@ -124,7 +125,7 @@
         android:layout_width="187dp"
         android:layout_height="29dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="316dp"
+        android:layout_marginTop="85dp"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:text="@string/change_password"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -132,14 +133,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/editText_email" />
 
     <EditText
         android:id="@+id/editText_currPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:autofillHints=".AUTOFILL_HINT_NEW_PASSWORD"
         android:hint="@string/prompt_password"
@@ -150,14 +151,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_email" />
+        app:layout_constraintTop_toTopOf="@+id/textView_changePassword" />
 
     <EditText
         android:id="@+id/editText_newPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="61dp"
         android:layout_marginEnd="16dp"
         android:autofillHints=".AUTOFILL_HINT_NEW_PASSWORD"
         android:hint="@string/prompt_password"
@@ -167,38 +168,54 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_email" />
+        app:layout_constraintTop_toTopOf="@+id/editText_currPassword" />
 
-    <ImageButton
-        android:id="@+id/delAcctBtn"
-        android:layout_width="187dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="520dp"
-        android:backgroundTint="#00FFFFFF"
 
-        android:src="@drawable/delete_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="delAcctBtn_Clicked"
-        app:layout_constraintHorizontal_bias="0.142"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ImageButton>
-
-    <ImageButton
-        android:id="@+id/signOutBtn"
+    <Button
+        android:id="@+id/button_signOut"
         android:layout_width="160dp"
         android:layout_height="50dp"
-        android:layout_marginTop="520dp"
-        android:backgroundTint="#00FFFFFF"
+        android:layout_marginTop="70dp"
 
-        android:src="@drawable/signout_icon"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/design_default_color_primary"
         android:onClick="signOutBtn_Clicked"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:text="Sign Out"
 
-    </ImageButton>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.936"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_newPassword">
+
+    </Button>
+
+    <Button
+        android:id="@+id/button_confirm"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="68dp"
+        android:backgroundTint="@color/design_default_color_primary"
+
+        android:onClick="confirmBtn_Clicked"
+        android:text="Confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_newPassword">
+
+    </Button>
+
+    <Button
+        android:id="@+id/button_delete"
+        android:layout_width="160dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="132dp"
+        android:backgroundTint="@color/design_default_color_error"
+        android:onClick="deleteButton_onClick"
+        android:text="Delete Account"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_newPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

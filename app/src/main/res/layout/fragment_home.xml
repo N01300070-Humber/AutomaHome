@@ -22,8 +22,8 @@
 
 	<TextView
 		android:id="@+id/textView_currentHome"
-		android:layout_width="200dp"
-		android:layout_height="30dp"
+		android:layout_width="190dp"
+		android:layout_height="34dp"
 		android:layout_marginStart="@dimen/activity_horizontal_margin"
 		android:layout_marginTop="50dp"
 		android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -34,21 +34,17 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
-	<ImageButton
-		android:id="@+id/dropdown_menu1"
-		android:layout_width="16dp"
-		android:layout_height="16dp"
-		android:layout_marginStart="@android:dimen/thumbnail_height"
-		android:layout_marginTop="55dp"
-		android:src="@drawable/icon_navigation_arrow_drop_down_24_px"
-
+	<Spinner
+		android:id="@+id/spinner"
+		android:layout_width="43dp"
+		android:layout_height="32dp"
+		android:layout_marginTop="50dp"
+		android:layout_marginEnd="67dp"
+		android:spinnerMode="dropdown"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.428"
-
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent">
-
-	</ImageButton>
+		app:layout_constraintStart_toEndOf="@+id/textView_currentHome"
+		app:layout_constraintTop_toTopOf="parent"
+		tools:ignore="MissingConstraints"></Spinner>
 
 	<TextView
 		android:id="@+id/textView_wifiDetect"
@@ -186,7 +182,7 @@
 		android:layout_width="330dp"
 		android:layout_height="12dp"
 		android:layout_marginStart="@android:dimen/thumbnail_height"
-		android:layout_marginTop="27dp"
+		android:layout_marginTop="25dp"
 		android:layout_marginEnd="@android:dimen/thumbnail_height"
 		android:src="@drawable/light_devider"
 		app:layout_constraintEnd_toEndOf="parent"
@@ -234,7 +230,7 @@
 		android:layout_width="187dp"
 		android:layout_height="29dp"
 		android:layout_marginStart="@dimen/activity_horizontal_margin"
-		android:layout_marginTop="35dp"
+		android:layout_marginTop="60dp"
 		android:layout_marginEnd="@dimen/activity_horizontal_margin"
 		android:text="@string/users"
 		android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -249,7 +245,7 @@
 		android:layout_width="134dp"
 		android:layout_height="29dp"
 		android:layout_marginStart="@android:dimen/thumbnail_height"
-		android:layout_marginTop="35dp"
+		android:layout_marginTop="60dp"
 		android:backgroundTint="#00FFFFFF"
 
 		android:onClick="inviteUserBtn_Clicked"
@@ -305,23 +301,18 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="@+id/devider6" />
 
-	<ImageButton
-		android:id="@+id/deletebtn"
-		android:layout_width="134dp"
-		android:layout_height="29dp"
-		android:layout_marginStart="24dp"
-		android:layout_marginTop="68dp"
-
-		android:layout_marginEnd="24dp"
-		android:backgroundTint="#00FFFFFF"
-
-		android:src="@drawable/light_button_3_contained_a_text_enabled"
+	<Button
+		android:id="@+id/button_delete"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="60dp"
+		android:backgroundTint="@color/design_default_color_error"
+		android:onClick="deleteHomeBtn_Clicked"
+		android:text="Delete Home"
+		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.497"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/textView_user2">
-
-	</ImageButton>
+		app:layout_constraintHorizontal_bias="0.498"
+		app:layout_constraintStart_toStartOf="parent" />
 
 	<TextView
 		android:id="@+id/text_home"
@@ -338,4 +329,6 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:layout_constraintVertical_bias="0.863" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

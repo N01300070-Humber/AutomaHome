@@ -14,12 +14,11 @@
 		android:id="@+id/generalbtn"
 		android:layout_width="135dp"
 		android:layout_height="53dp"
-		android:layout_marginTop="4dp"
 		android:backgroundTint="#00FFFFFF"
 
 		android:src="@drawable/setting_general"
 		app:layout_constraintEnd_toEndOf="parent"
-
+		android:onClick="generalBtn_Clicked"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent">
@@ -30,12 +29,11 @@
 		android:id="@+id/accountbtn"
 		android:layout_width="135dp"
 		android:layout_height="53dp"
-		android:layout_marginTop="4dp"
 		android:backgroundTint="#00FFFFFF"
 
+		android:onClick="accountBtn_Clicked"
 		android:src="@drawable/setting_account"
 		app:layout_constraintEnd_toEndOf="parent"
-		android:onClick="accountBtn_Clicked"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent">
 
@@ -45,12 +43,11 @@
 		android:id="@+id/notificationbtn"
 		android:layout_width="135dp"
 		android:layout_height="53dp"
-		android:layout_marginTop="4dp"
 		android:backgroundTint="#00FFFFFF"
 
+		android:onClick="notificationBtn_Clicked"
 		android:src="@drawable/setting_notification"
 		app:layout_constraintEnd_toEndOf="parent"
-		android:onClick="notificationBtn_Clicked"
 		app:layout_constraintHorizontal_bias="1.0"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent">
@@ -81,7 +78,7 @@
 
 		android:src="@drawable/celcius"
 		app:layout_constraintEnd_toEndOf="parent"
-
+		android:onClick="celciusBtn_Clicked"
 		app:layout_constraintHorizontal_bias="0.789"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent">
@@ -97,7 +94,7 @@
 
 		android:src="@drawable/farenheit"
 		app:layout_constraintEnd_toEndOf="parent"
-
+		android:onClick="farenheitBtn_Clicked"
 		app:layout_constraintHorizontal_bias="0.9"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent">

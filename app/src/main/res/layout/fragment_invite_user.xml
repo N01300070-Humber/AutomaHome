@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".ui.home.InviteUser">
+    tools:context=".ui.home.InviteUserFragment">
 
     <EditText
         android:id="@+id/editText_email2"
@@ -25,21 +25,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_firstName" />
 
-    <ImageButton
+
+    <Button
         android:id="@+id/invitebtn"
-        android:layout_width="134dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="72dp"
-        android:backgroundTint="#00FFFFFF"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginBottom="448dp"
 
-        android:src="@drawable/light_button_4_contained_a_text_enabled"
+        android:backgroundTint="@color/design_default_color_primary"
+        android:onClick="inviteUserBtn_Clicked"
+        android:text="Invite"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintHorizontal_bias="0.884"
+        app:layout_constraintHorizontal_bias="0.872"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/editText_email2">
 
-    </ImageButton>
-
+    </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

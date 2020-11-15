@@ -60,13 +60,13 @@
     <string name="temperature">Temperature</string>
     <string name="night_light">Night Light</string>
     <string name="changes_brightness_automatically_when_light_changes">Changes brightness automatically when light changes</string>
-    
+
     <string name="content_description_type_device">Device button</string>
     <string name="content_description_device_type_lights">Lights device button</string>
     <string name="content_description_device_type_movement_sensor">Movement Sensor device button</string>
     <string name="content_description_device_type_thermostat">Thermostat device button</string>
     <string name="content_description_type_task">Task button</string>
-    
+
     <!-- Manage Home, Invite User -->
     <string name="title_activity_manageHome">Manage Home</string>
     <string name="title_activity_inviteUser">Invite User</string>
@@ -85,7 +85,7 @@
     <string name="title_activity_setting">Settings</string>
 
     <string name="displayTemp">Display Temperature</string>
-    
+
     <string name="logout">Logout</string>
     <string name="change_info">Change Info</string>
     <string name="change_password">Change Password</string>
@@ -94,7 +94,7 @@
 
     <string name="notifications">Notifications</string>
     <string name="notification_sound">Notification Sound</string>
-    
+
     <!-- Other Strings -->
     <!-- TODO: Remove placeholder string -->
     <string name="placeholder">Placeholder</string>

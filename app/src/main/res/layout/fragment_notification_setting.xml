@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTintMode="src_atop"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".ui.settings.NotificationaSetting">
+    tools:context=".ui.settings.NotificationSettingFragment">
 
 
     <ImageButton
@@ -18,15 +19,14 @@
         android:layout_marginTop="4dp"
         android:backgroundTint="#00FFFFFF"
 
+        android:onClick="generalBtn_Clicked"
         android:src="@drawable/general2"
         app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="generalBtn_Clicked"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </ImageButton>
-
 
 
     <ImageButton
@@ -36,9 +36,9 @@
         android:layout_marginTop="4dp"
         android:backgroundTint="#00FFFFFF"
 
+        android:onClick="accountBtn_Clicked"
         android:src="@drawable/setting_account"
         app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="accountBtn_Clicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -65,7 +65,7 @@
         android:layout_width="187dp"
         android:layout_height="29dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="84dp"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:text="@string/notifications"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -73,28 +73,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/general3btn" />
 
-    <ImageView
-        android:id="@+id/slide"
-        android:layout_width="45dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="92dp"
-        android:src="@drawable/slidebar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.669"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ImageView>
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="61dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="84dp"
+        android:checked="true"
+        android:switchMinWidth="56dp"
+        android:textOff="OFF"
+        android:textOn="ON"
+        android:thumbTint="#671DEC"
+        android:trackTint="#5D1BD1"
+        app:layout_constraintStart_toEndOf="@+id/textView_notifications"
+        app:layout_constraintTop_toTopOf="@+id/account2btn"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView_notiSound"
         android:layout_width="187dp"
         android:layout_height="29dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:text="@string/notification_sound"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -102,48 +104,55 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/textView_notifications" />
 
     <ImageView
         android:id="@+id/volumeSlideOff"
         android:layout_width="45dp"
         android:layout_height="28dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="48dp"
         android:src="@drawable/volume_off_black_18_dp"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintHorizontal_bias="0.043"
-
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/textView_notiSound">
 
     </ImageView>
 
-    <ImageView
-        android:id="@+id/volumSlide"
-        android:layout_width="247dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="196dp"
-        android:src="@drawable/light_slider_1_continuous_b_value_indicator_3_states"
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="256dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="50dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        android:thumbTint="#671DEC"
+        android:trackTint="#5D1BD1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.567"
-
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ImageView>
+        app:layout_constraintTop_toTopOf="@+id/textView_notiSound"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/volumeSlideOn"
         android:layout_width="45dp"
         android:layout_height="28dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="48dp"
         android:src="@drawable/volume_up_black_18_dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.991"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/textView_notiSound">
 
     </ImageView>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

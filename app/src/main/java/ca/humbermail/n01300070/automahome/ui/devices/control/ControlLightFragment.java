@@ -21,7 +21,7 @@ import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
 import ca.humbermail.n01300070.automahome.ui.devices.edit.EditDevicesActivity;
 
 
-public class DevicesControlLightFragment extends Fragment
+public class ControlLightFragment extends Fragment
 {
     private SeekBar brightnessSeekBar;
     private SeekBar temperatureSeekBar;
@@ -29,7 +29,7 @@ public class DevicesControlLightFragment extends Fragment
 
     private Context context;
 
-    public DevicesControlLightFragment()
+    public ControlLightFragment()
     {
         // Required empty public constructor
     }

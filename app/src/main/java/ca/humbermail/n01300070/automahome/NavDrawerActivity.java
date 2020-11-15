@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +25,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.data.UserInfo;
@@ -34,7 +39,9 @@ import ca.humbermail.n01300070.automahome.ui.settings.ConfirmAccountFragment;
 import ca.humbermail.n01300070.automahome.ui.settings.NotificationSettingFragment;
 import ca.humbermail.n01300070.automahome.ui.settings.SettingsFragment;
 
-public class NavDrawerActivity extends AppCompatActivity {
+public class NavDrawerActivity extends AppCompatActivity  {
+
+	private Spinner spnList;
 	
 	private AppBarConfiguration mAppBarConfiguration;
 	UserInfo userInfo;
@@ -91,7 +98,28 @@ public class NavDrawerActivity extends AppCompatActivity {
 		accountSettingFragment = new AccountSettingFragment();
 		notificationSettingFragment = new NotificationSettingFragment();
 		confirmAccountFragment = new ConfirmAccountFragment();
+
+		//Spinner in home branch
+		/*spnList = (Spinner) findViewById(R.id.spinner);
+
+		List<String> list = new ArrayList<>();
+		list.add("Home1"); list.add("Home2"); list.add("Home3");
+		ArrayAdapter<String> adapter = new ArrayAdapter (this, android.R.layout.simple_spinner_item, list);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spnList.setAdapter(adapter);
+		spnList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+				Toast.makeText(NavDrawerActivity.this, spnList.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO - Custom Code
+			}
+
+		});*/
 	}
+
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

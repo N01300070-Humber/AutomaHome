@@ -6,6 +6,53 @@
 	android:layout_height="match_parent"
 	tools:context=".ui.home.HomeFragment">
 
+	<RadioButton
+		android:id="@+id/radioButton5"
+		android:layout_width="33dp"
+		android:layout_height="27dp"
+		android:layout_marginStart="138dp"
+		android:layout_marginTop="24dp"
+		android:layout_marginEnd="52dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintStart_toEndOf="@+id/textView_user2"
+		app:layout_constraintTop_toTopOf="@+id/devider6" />
+
+	<RadioButton
+		android:id="@+id/radioButton4"
+		android:layout_width="33dp"
+		android:layout_height="27dp"
+		android:layout_marginStart="138dp"
+		android:layout_marginTop="24dp"
+		android:layout_marginEnd="50dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintStart_toEndOf="@+id/textView_you"
+		app:layout_constraintTop_toTopOf="@+id/devider4" />
+
+	<RadioButton
+		android:id="@+id/radioButton6"
+		android:layout_width="33dp"
+		android:layout_height="27dp"
+		android:layout_marginStart="148dp"
+		android:layout_marginTop="24dp"
+		android:layout_marginEnd="52dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintStart_toEndOf="@+id/textView_you"
+		app:layout_constraintTop_toTopOf="@+id/devider5" />
+
+	<RadioButton
+		android:id="@+id/radioButton2"
+		android:layout_width="33dp"
+		android:layout_height="27dp"
+		android:layout_marginStart="138dp"
+		android:layout_marginTop="25dp"
+		android:layout_marginEnd="50dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/textView_network1"
+		app:layout_constraintTop_toTopOf="@+id/devider" />
+
 	<ImageView
 		android:id="@+id/imageView_icon2"
 		android:layout_width="41dp"
@@ -93,41 +140,6 @@
 
 
 	<ImageButton
-		android:id="@+id/icon1"
-		android:layout_width="40dp"
-		android:layout_height="29dp"
-		android:layout_marginStart="@android:dimen/thumbnail_height"
-		android:layout_marginTop="25dp"
-		android:backgroundTint="#00FFFFFF"
-
-		android:src="@drawable/icon"
-		app:layout_constraintEnd_toEndOf="parent"
-
-		app:layout_constraintHorizontal_bias="0.776"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/devider">
-
-	</ImageButton>
-
-
-	<ImageButton
-		android:id="@+id/icon2"
-		android:layout_width="40dp"
-		android:layout_height="29dp"
-		android:layout_marginStart="@android:dimen/thumbnail_height"
-		android:layout_marginTop="25dp"
-		android:backgroundTint="#00FFFFFF"
-
-		android:src="@drawable/icon"
-		app:layout_constraintEnd_toEndOf="parent"
-
-		app:layout_constraintHorizontal_bias="0.776"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/devider3">
-
-	</ImageButton>
-
-	<ImageButton
 		android:id="@+id/addNetwork"
 		android:layout_width="133dp"
 		android:layout_height="31dp"
@@ -213,7 +225,7 @@
 		android:id="@+id/devider6"
 		android:layout_width="330dp"
 		android:layout_height="12dp"
-		android:layout_marginStart="@android:dimen/thumbnail_height"
+		android:layout_marginStart="138dp"
 		android:layout_marginTop="25dp"
 		android:layout_marginEnd="@android:dimen/thumbnail_height"
 		android:src="@drawable/light_devider"
@@ -329,6 +341,17 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:layout_constraintVertical_bias="0.863" />
+
+	<RadioButton
+		android:id="@+id/radioButton"
+		android:layout_width="33dp"
+		android:layout_height="27dp"
+		android:layout_marginStart="138dp"
+		android:layout_marginTop="25dp"
+		android:layout_marginEnd="50dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/textView_network2"
+		app:layout_constraintTop_toTopOf="@+id/devider3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

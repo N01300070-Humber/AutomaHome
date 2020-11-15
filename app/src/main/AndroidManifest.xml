@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AutomaHome">
-        <activity android:name=".ui.tasks.condition.TaskMovement"></activity>
+        <activity android:name=".ui.tasks.condition.TaskConditionMovementActivity"></activity>
         <activity android:name=".ui.settings.NotificationaSetting" />
         <activity android:name=".ui.settings.AccountSetting" />
         <activity android:name=".ui.settings.GeneralSetting" />

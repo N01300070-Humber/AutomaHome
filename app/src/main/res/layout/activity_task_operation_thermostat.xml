@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tasks.condition.TaskTemperature">
+    tools:context=".ui.tasks.condition.TaskConditionTemperatureActivity">
 
     <TextView
-        android:id="@+id/temperature"
+        android:id="@+id/thermostat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/temperature"
+        android:text="@string/thermostat"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -43,7 +43,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/temp_read"
+        android:id="@+id/therm_read"
         android:layout_width="234dp"
         android:layout_height="129dp"
         android:text="@string/default_temp"
@@ -68,7 +68,7 @@
         android:textAlignment="center"
         android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/temp_read"
+        app:layout_constraintStart_toEndOf="@+id/therm_read"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -81,7 +81,7 @@
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/temp_read"
+        app:layout_constraintStart_toEndOf="@+id/therm_read"
         app:layout_constraintTop_toBottomOf="@+id/temp_up_task"
         app:layout_constraintVertical_bias="0.011" />
 

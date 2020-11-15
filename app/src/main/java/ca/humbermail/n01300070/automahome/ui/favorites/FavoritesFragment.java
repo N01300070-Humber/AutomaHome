@@ -1,6 +1,7 @@
 package ca.humbermail.n01300070.automahome.ui.favorites;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.CategorizedDeviceOrTaskButtonRecyclerViewAdapter;
 import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonView;
 import ca.humbermail.n01300070.automahome.components.RecyclerViewCategoryPadding;
+import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
+import ca.humbermail.n01300070.automahome.ui.devices.control.ControlDevicesActivity;
 
 public class FavoritesFragment extends Fragment {
 	
@@ -36,9 +39,22 @@ public class FavoritesFragment extends Fragment {
 		categoryOnClickListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// TODO: Replace placeholder on click function with navigation to the correct Control Device or Edit Task Activity
 				DeviceOrTaskButtonView deviceOrTaskButtonView = (DeviceOrTaskButtonView) view;
-				deviceOrTaskButtonView.setExtraText("Clicked");
+				Intent intent = new Intent();
+				
+				switch (deviceOrTaskButtonView.getType()) {
+					case DeviceOrTaskData.TYPE_DEVICE:
+						intent.setClass(context, ControlDevicesActivity.class);
+						intent.putExtra(DeviceOrTaskData.ARG_DEVICE, deviceOrTaskButtonView.getDeviceType());
+						break;
+					case DeviceOrTaskData.TYPE_TASK:
+						//intent.setClass(context, EditTaskActivity.class); // TODO: Uncomment when EditTaskActivity is available
+						return; // TODO: Replace return with break when EditTaskActivity is available
+					default:
+						return;
+				}
+				
+				startActivity(intent);
 			}
 		};
 		categoryAdapter = new CategorizedDeviceOrTaskButtonRecyclerViewAdapter(context,

@@ -24,4 +24,11 @@
 		<item name="android:textColor">@color/design_default_color_on_primary</item>
 	</style>
 	
+	<style name="Widget.AutomaHome.Spinner" parent="Widget.AppCompat.Spinner.DropDown">
+		<item name="android:paddingLeft">8dp</item>
+		<item name="android:paddingRight">8dp</item>
+		<item name="android:paddingTop">8dp</item>
+		<item name="android:paddingBottom">8dp</item>
+	</style>
+	
 </resources>

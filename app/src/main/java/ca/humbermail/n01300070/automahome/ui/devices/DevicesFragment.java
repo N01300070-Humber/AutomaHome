@@ -1,34 +1,69 @@
 package ca.humbermail.n01300070.automahome.ui.devices;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import ca.humbermail.n01300070.automahome.R;
+import ca.humbermail.n01300070.automahome.components.CategorizedDeviceOrTaskButtonRecyclerViewAdapter;
+import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonView;
+import ca.humbermail.n01300070.automahome.components.RecyclerViewCategoryPadding;
+import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
+import ca.humbermail.n01300070.automahome.ui.devices.control.ControlDevicesActivity;
 
 public class DevicesFragment extends Fragment
 {
 	
-	public View onCreateView(@NonNull LayoutInflater inflater,
-							 ViewGroup container, Bundle savedInstanceState)
-	{
+	private Context context;
+	private RecyclerView recyclerView;
+	private Spinner spinner;
+	private ArrayAdapter<String> spinnerAdapter;
+	private CategorizedDeviceOrTaskButtonRecyclerViewAdapter categoryAdapter;
+	private View.OnClickListener categoryOnClickListener;
+	
+	public View onCreateView(@NonNull final LayoutInflater inflater,
+							 final ViewGroup container, Bundle savedInstanceState) {
 		DevicesViewModel devicesViewModel = new ViewModelProvider(this).get(DevicesViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_devices, container, false);
-		final TextView textView = root.findViewById(R.id.text_devices);
-		devicesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+		context = getActivity().getApplicationContext();
+
+		// Spinner
+		spinner = root.findViewById(R.id.spinner_device_rooms);
+		
+		// RecyclerView
+		recyclerView = root.findViewById(R.id.recyclerView_devices);
+		
+		categoryOnClickListener = new View.OnClickListener() {
 			@Override
-			public void onChanged(@Nullable String s) {
-				textView.setText(s);
+			public void onClick(View view) {
+				DeviceOrTaskButtonView deviceOrTaskButtonView = (DeviceOrTaskButtonView) view;
+				Intent intent = new Intent();
+				
+				intent.setClass(context, ControlDevicesActivity.class);
+				intent.putExtra(DeviceOrTaskData.ARG_DEVICE, deviceOrTaskButtonView.getDeviceType());
+				
+				startActivity(intent);
 			}
-		});
+		};
+		categoryAdapter = new CategorizedDeviceOrTaskButtonRecyclerViewAdapter( context,
+				devicesViewModel.generatePlaceholderCategoryDataList(context,
+						categoryOnClickListener) );
+		
+		recyclerView.setLayoutManager(new LinearLayoutManager(context));
+		recyclerView.setAdapter(categoryAdapter);
+		recyclerView.addItemDecoration(new RecyclerViewCategoryPadding( (int) getResources().getDimension(R.dimen.activity_vertical_margin) ));
+		
 		return root;
 	}
 }

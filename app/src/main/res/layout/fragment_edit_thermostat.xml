@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_thermoTempSensor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+
+    <Button
+        android:id="@+id/Button_thermoTempSensor_upArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:textSize="11sp"
+        app:icon="@android:drawable/arrow_up_float"
+        app:layout_constraintBottom_toTopOf="@+id/Button_thermoTempSensor_setButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_thermoTempSensor_targetTemp"
+        app:strokeColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/Button_thermoTempSensor_setButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toTopOf="@+id/Button_thermoTempSensor_downArrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Button_thermoTempSensor_upArrow"
+        app:strokeColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/textView_thermoTempSensor_targetTemperature"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/target_temperature"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_currentTemp" />
+
+    <TextView
+        android:id="@+id/textView_thermoTempSensor_currentTemperature"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/current_temperature"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.656"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView_thermoTempSensor_systemHeader"
+        android:layout_width="0dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/system"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_targetTemp" />
+
+    <Button
+        android:id="@+id/Button_thermoTempSensor_downArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="11sp"
+        app:icon="@android:drawable/arrow_down_float"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_thermoTempSensor_targetTemp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Button_thermoTempSensor_setButton"
+        app:strokeColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/textView_thermoTempSensor_currentTemp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_currentTemperature" />
+
+    <TextView
+        android:id="@+id/textView_thermoTempSensor_targetTemp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_targetTemperature" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton_thermoTempSensor_cool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/primary_700"
+        android:textOff="@string/cool"
+        android:textOn="@string/cool"
+        app:layout_constraintStart_toEndOf="@+id/toggleButton_thermoTempSensor_heat"
+        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_systemHeader" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton_thermoTempSensor_heat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#EF0606"
+        android:textOff="@string/heat"
+        android:textOn="@string/heat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_systemHeader" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

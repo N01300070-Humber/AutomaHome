@@ -24,6 +24,8 @@ public class DeviceOrTaskButtonView extends CardView {
 	private TextView nameTextView;
 	private TextView extraTextView;
 	
+	private int type = -1;
+	private String DeviceType;
 	private CharSequence name;
 	private CharSequence extraText;
 	private Drawable icon;
@@ -85,6 +87,22 @@ public class DeviceOrTaskButtonView extends CardView {
 		setContentDescription(contentDescription);
 		setCornerRadius(cornerRadius);
 		setBackgroundColour(backgroundColour);
+	}
+	
+	public int getType() {
+		return type;
+	}
+	
+	public void setType(int type) {
+		this.type = type;
+	}
+	
+	public String getDeviceType() {
+		return DeviceType;
+	}
+	
+	public void setDeviceType(String deviceType) {
+		DeviceType = deviceType;
 	}
 	
 	public String getName() {

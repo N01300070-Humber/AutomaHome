@@ -8,4 +8,17 @@
 		<item>Home 4</item>
 		<item>Home 5</item>
 	</string-array>
+	<string-array name="arrayRooms">
+		<item>Room 1</item>
+		<item>Room 2</item>
+		<item>Room 3</item>
+		<item>Room 4</item>
+	</string-array>
+	<string-array name="arrayRooms_withAll">
+		<item>All Rooms</item>
+		<item>Room 1</item>
+		<item>Room 2</item>
+		<item>Room 3</item>
+		<item>Room 4</item>
+	</string-array>
 </resources>

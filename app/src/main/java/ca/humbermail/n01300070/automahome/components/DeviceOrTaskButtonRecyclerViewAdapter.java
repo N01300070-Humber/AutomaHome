@@ -51,20 +51,22 @@ public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<
 	
 	@Override
 	public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-		DeviceOrTaskData itemData = itemDataList.get(position);
+		DeviceOrTaskData data = itemDataList.get(position);
 		
-		holder.deviceButtonView.setName(itemData.getName());
-		String extraText = itemData.getExtraText();
+		holder.deviceButtonView.setType(data.getType());
+		holder.deviceButtonView.setDeviceType(data.getDeviceType());
+		holder.deviceButtonView.setName(data.getName());
+		String extraText = data.getExtraText();
 		if (extraText != null && !extraText.isEmpty()) {
 			holder.deviceButtonView.setExtraText(extraText);
-			holder.deviceButtonView.setExtraTextVisible(itemData.isExtraTextVisible());
+			holder.deviceButtonView.setExtraTextVisible(data.isExtraTextVisible());
 		}
 		else {
 			holder.deviceButtonView.setExtraTextVisible(false);
 		}
-		holder.deviceButtonView.setIcon(itemData.getIcon());
-		holder.deviceButtonView.setIconContentDesc(itemData.getContentDescription());
-		holder.deviceButtonView.setBackgroundColour(itemData.getBackgroundColour());
+		holder.deviceButtonView.setIcon(data.getIcon());
+		holder.deviceButtonView.setIconContentDesc(data.getContentDescription());
+		holder.deviceButtonView.setBackgroundColour(data.getBackgroundColour());
 		holder.deviceButtonView.setCornerRadius(context.getResources().getDimension(R.dimen.device_or_task_button_corner_radius));
 		holder.deviceButtonView.setElevation(context.getResources().getDimension(R.dimen.device_or_task_button_elevation));
 	}

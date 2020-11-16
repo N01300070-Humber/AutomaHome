@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tasks.condition.TaskConditionMovementActivity">
-    
+    tools:context=".ui.tasks.condition.EditConditionTemperatureFragment">
+
     <TextView
-        android:id="@+id/Movement"
+        android:id="@+id/thermostat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/movement"
+        android:text="@string/thermostat"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -20,9 +20,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.052" />
-    
+
     <Button
-        android:id="@+id/move_done"
+        android:id="@+id/temp_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
@@ -30,9 +30,9 @@
         android:text="@string/done_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-    
+
     <Button
-        android:id="@+id/move_discard"
+        android:id="@+id/temp_discard"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,30 +41,48 @@
         android:text="@string/discard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-    
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="174dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="420dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.113"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        app:layout_constraintVertical_bias="1.0" />
-    
+
     <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/moving"
+        android:id="@+id/therm_read"
+        android:layout_width="234dp"
+        android:layout_height="129dp"
+        android:text="@string/default_temp"
+        android:textAlignment="center"
+        android:textColor="@color/accent_200"
+        android:textSize="80sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.103"
+        app:layout_constraintHorizontal_bias="0.367"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.181" />
+        app:layout_constraintVertical_bias="0.324" />
+
+    <Button
+        android:id="@+id/temp_up_task"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="140dp"
+        android:text="@string/up"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/therm_read"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/temp_down_task"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/down"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/therm_read"
+        app:layout_constraintTop_toBottomOf="@+id/temp_up_task"
+        app:layout_constraintVertical_bias="0.011" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

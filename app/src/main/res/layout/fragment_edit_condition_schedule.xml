@@ -4,107 +4,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tasks.condition.TaskConditionScheduleActivity">
-
+    tools:context=".ui.tasks.condition.EditConditionScheduleFragment">
+    
     <TextView
         android:id="@+id/schedule"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/schedule"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.052" />
-    <Button
-        android:id="@+id/sch_done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/done_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/sch_discard"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/discard"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent" />
+    
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/activate"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.169" />
-
+        app:layout_constraintTop_toBottomOf="@+id/schedule" />
+    
+    <Space
+        android:id="@+id/space4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/toggleGroup"
+        app:layout_constraintEnd_toStartOf="@+id/hour_input"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toggleGroup" />
+    
     <EditText
         android:id="@+id/hour_input"
         android:layout_width="67dp"
         android:layout_height="49dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/toggleGroup"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.246" />
-
-    <EditText
-        android:id="@+id/minunte_input"
-        android:layout_width="67dp"
-        android:layout_height="49dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.246" />
-
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/space4"
+        app:layout_constraintTop_toTopOf="@+id/toggleGroup"
+        app:layout_constraintVertical_bias="0.263" />
+    
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=":"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.298"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.245" />
-
+        app:layout_constraintBottom_toBottomOf="@+id/toggleGroup"
+        app:layout_constraintEnd_toStartOf="@+id/minunte_input"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/hour_input"
+        app:layout_constraintTop_toTopOf="@+id/toggleGroup"
+        app:layout_constraintVertical_bias="0.25" />
+    
+    <EditText
+        android:id="@+id/minunte_input"
+        android:layout_width="67dp"
+        android:layout_height="49dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/toggleGroup"
+        app:layout_constraintEnd_toStartOf="@+id/space5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/toggleGroup"
+        app:layout_constraintVertical_bias="0.263" />
+    
+    <Space
+        android:id="@+id/space5"
+        android:layout_width="16dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/toggleGroup"
+        app:layout_constraintEnd_toStartOf="@+id/toggleGroup"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/minunte_input"
+        app:layout_constraintTop_toTopOf="@+id/toggleGroup" />
+    
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggleGroup"
-        app:singleSelection="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/space6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/space5"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:selectionRequired="true"
-        android:layout_width="187dp"
-        android:layout_height="68dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/minunte_input"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.254">
-
+        app:singleSelection="true">
+        
         <com.google.android.material.button.MaterialButton
             android:id="@+id/am_toggle"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -118,7 +114,7 @@
             app:layout_constraintStart_toEndOf="@+id/minunte_input"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.254" />
-
+        
         <com.google.android.material.button.MaterialButton
             android:id="@+id/pm_toggle"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -130,61 +126,70 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.254" />
-
+    
     </com.google.android.material.button.MaterialButtonToggleGroup>
-
-    <RadioGroup
-        android:layout_width="404dp"
-        android:layout_height="131dp"
-        android:layout_marginEnd="4dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+    
+    <Space
+        android:id="@+id/space6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/toggleGroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.536">
-
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/toggleGroup"
+        app:layout_constraintTop_toTopOf="@+id/toggleGroup" />
+    
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleGroup">
+        
         <RadioButton
             android:layout_weight="1"
             android:button="@null"
             android:drawableBottom="@android:drawable/btn_radio"
             android:gravity="center"
             android:text="@string/sunday" />
-
+        
         <RadioButton
             android:layout_weight="1"
             android:button="@null"
             android:drawableBottom="@android:drawable/btn_radio"
             android:gravity="center"
             android:text="@string/monday" />
-
+        
         <RadioButton
             android:layout_weight="1"
             android:button="@null"
             android:drawableBottom="@android:drawable/btn_radio"
             android:gravity="center"
             android:text="@string/tuesday" />
-
+        
         <RadioButton
             android:layout_weight="1"
             android:button="@null"
             android:drawableBottom="@android:drawable/btn_radio"
             android:gravity="center"
             android:text="@string/wednesday" />
-
+        
         <RadioButton
             android:layout_weight="1"
             android:button="@null"
             android:drawableBottom="@android:drawable/btn_radio"
             android:gravity="center"
             android:text="@string/thursday" />
-
+        
         <RadioButton
             android:layout_weight="1"
             android:button="@null"
             android:drawableBottom="@android:drawable/btn_radio"
             android:gravity="center"
             android:text="@string/friday" />
-
+        
         <RadioButton
             android:layout_weight="1"
             android:button="@null"

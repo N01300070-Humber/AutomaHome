@@ -14,28 +14,34 @@ public class ConditionOrOperationData {
 	public static final String OPERATION_THERMOSTAT = "Thermostat";
 	
 	
-	int type;
-	String conditionOrOperationType;
+	private int type;
+	private String conditionOrOperationType;
 	private String mainText;
 	private String typeText;
+	private boolean dragHandleVisible;
 	
 	public ConditionOrOperationData() {
-		this(-1, null, null, null);
+		this(-1, null, null, null, true);
 	}
 	
 	public ConditionOrOperationData(int type, String conditionOrOperationType) {
-		this(type, conditionOrOperationType, null, null);
+		this(type, conditionOrOperationType, null, null, true);
 	}
 	
 	public ConditionOrOperationData(int type, String conditionOrOperationType, String mainText) {
-		this(type, conditionOrOperationType, mainText, null);
+		this(type, conditionOrOperationType, mainText, null, true);
 	}
 	
 	public ConditionOrOperationData(int type, String conditionOrOperationType, String mainText, String typeText) {
+		this(type, conditionOrOperationType, mainText, typeText, true);
+	}
+	
+	public ConditionOrOperationData(int type, String conditionOrOperationType, String mainText, String typeText, boolean dragHandleVisible) {
 		this.type = type;
 		this.conditionOrOperationType = conditionOrOperationType;
 		this.mainText = mainText;
 		this.typeText = typeText;
+		this.dragHandleVisible = dragHandleVisible;
 	}
 	
 	public int getType() {
@@ -68,5 +74,13 @@ public class ConditionOrOperationData {
 	
 	public void setTypeText(String typeText) {
 		this.typeText = typeText;
+	}
+	
+	public boolean isDragHandleVisible() {
+		return dragHandleVisible;
+	}
+	
+	public void setDragHandleVisible(boolean dragHandleVisible) {
+		this.dragHandleVisible = dragHandleVisible;
 	}
 }

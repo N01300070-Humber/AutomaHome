@@ -26,6 +26,7 @@ public class DevicesViewModel extends ViewModel {
 		Random random = new Random();
 		
 		String[] headers = {"Lights", "Sensors", "Heating / Cooling"};
+		String[] deviceNames = {"Name of Light", "Name of Movement Sensor", "Name of Thermostat"};
 		String[] deviceTypes = {DeviceOrTaskData.DEVICE_LIGHTS,
 				DeviceOrTaskData.DEVICE_MOVEMENT_SENSOR, DeviceOrTaskData.DEVICE_THERMOSTAT};
 		ArrayList<CategoryData> categoryDataList = new ArrayList<>(headers.length);
@@ -40,7 +41,7 @@ public class DevicesViewModel extends ViewModel {
 			int numDevices = random.nextInt(8) + 1;
 			categoryData.setLayoutManager(new NonScrollingGridLayoutManager(context, 2));
 			categoryData.setViewAdapter(new DeviceOrTaskButtonRecyclerViewAdapter( context,
-					generatePlaceholderDeviceDataList(context, numDevices, deviceTypes[i]), onClickListener ));
+					generatePlaceholderDeviceDataList(context, numDevices, deviceNames[i], deviceTypes[i]), onClickListener ));
 			categoryData.setItemDecoration(new RecyclerViewItemDivider(
 					(int) context.getResources().getDimension(R.dimen.recycler_divider_space),
 					(int) context.getResources().getDimension(R.dimen.category_divider_space),
@@ -53,13 +54,13 @@ public class DevicesViewModel extends ViewModel {
 	}
 	
 	// TODO: Remove placeholder data generator function
-	public ArrayList<DeviceOrTaskData> generatePlaceholderDeviceDataList(Context context, int numDevices, String deviceType) {
+	public ArrayList<DeviceOrTaskData> generatePlaceholderDeviceDataList(Context context, int numDevices, String deviceName, String deviceType) {
 		ArrayList<DeviceOrTaskData> deviceDataList = new ArrayList<>(numDevices);
 		
 		for (int i = 0; i < numDevices; i++) {
 			DeviceOrTaskData deviceData = new DeviceOrTaskData(
 					DeviceOrTaskData.TYPE_DEVICE,
-					"Device Name",
+					deviceName,
 					"Room",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),
 					context.getString(R.string.content_description_type_device),

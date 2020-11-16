@@ -17,15 +17,14 @@
             android:id="@+id/textView_conditions_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:text="@string/runIf"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/space_editTask_conditions"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView_conditions"
             app:layout_constraintEnd_toStartOf="@+id/space_editTask_conditions"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/space_editTask_conditions" />
+            app:layout_constraintTop_toTopOf="parent" />
     
         <Space
             android:id="@+id/space_editTask_conditions"
@@ -42,6 +41,7 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="addConditionButtonClicked"
             android:text="@string/add_cond"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,15 +70,16 @@
             android:id="@+id/textView_operations_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/thenDo"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/space_editTask_operations"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView_operations"
             app:layout_constraintEnd_toStartOf="@+id/space_editTask_operations"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/space_editTask_operations" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
     
         <Space
             android:id="@+id/space_editTask_operations"
@@ -95,6 +96,7 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="addOperationButtonClicked"
             android:text="@string/add_op"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -124,6 +126,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="buttonDiscardClicked"
             android:text="@string/discard" />
     
         <Space
@@ -136,6 +139,7 @@
             android:id="@+id/button_editTask_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="buttonSaveClicked"
             android:text="@string/saveChanges" />
 
     </LinearLayout>

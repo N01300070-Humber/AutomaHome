@@ -6,6 +6,7 @@ import androidx.appcompat.view.menu.ListMenuItemView;
 import ca.humbermail.n01300070.automahome.R;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -16,6 +17,8 @@ import java.util.List;
 
 public class EditTaskActivity extends AppCompatActivity {
 
+    
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,5 +26,17 @@ public class EditTaskActivity extends AppCompatActivity {
 
 
 
+    }
+    
+    public void addConditionButtonClicked(View view) {
+    }
+    
+    public void addOperationButtonClicked(View view) {
+    }
+    
+    public void buttonDiscardClicked(View view) {
+    }
+    
+    public void buttonSaveClicked(View view) {
     }
 }

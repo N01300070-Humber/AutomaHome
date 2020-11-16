@@ -99,12 +99,12 @@
         app:singleSelection="true">>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/more_than"
+            android:id="@+id/less_than"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="84dp"
-            android:text="<" />
+            android:text="@string/lt" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/equal"
@@ -115,12 +115,12 @@
             android:text="=" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/less_than"
+            android:id="@+id/more_than"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="112dp"
-            android:text=">" />
+            android:text="@string/gt"/>
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
 

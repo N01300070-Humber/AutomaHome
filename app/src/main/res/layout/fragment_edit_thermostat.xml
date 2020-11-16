@@ -5,7 +5,8 @@
     android:id="@+id/layout_thermoTempSensor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".ui.devices.edit.EditThermostatFragment">
 
 
     <Button
@@ -13,7 +14,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:textSize="11sp"
         app:icon="@android:drawable/arrow_up_float"
         app:layout_constraintBottom_toTopOf="@+id/Button_thermoTempSensor_setButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/set"
-        android:textSize="11sp"
         app:layout_constraintBottom_toTopOf="@+id/Button_thermoTempSensor_downArrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Button_thermoTempSensor_upArrow"
@@ -73,7 +72,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textSize="11sp"
         app:icon="@android:drawable/arrow_down_float"
         app:layout_constraintBottom_toBottomOf="@+id/textView_thermoTempSensor_targetTemp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,20 +83,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
         android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_currentTemperature" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_currentTemperature"
+        tools:text="23°C"/>
 
     <TextView
         android:id="@+id/textView_thermoTempSensor_targetTemp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="TextView"
         android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_targetTemperature" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_targetTemperature"
+        tools:text="28°C"/>
 
     <ToggleButton
         android:id="@+id/toggleButton_thermoTempSensor_cool"

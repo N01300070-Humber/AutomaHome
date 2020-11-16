@@ -34,7 +34,11 @@ public class ControlThermostatFragment extends Fragment {
         context = getActivity().getApplicationContext();
 
         temp = root.findViewById(R.id.textView_control_thermostat_temperature);
-        temp = root.findViewById(R.id.textView_control_thermostat_humidity);
+        humid = root.findViewById(R.id.textView_control_thermostat_humidity);
+
+        //TODO replace hardcoded strings for actual readings
+        temp.setText("23°C");
+        humid.setText("47.5%");
 
         return root;
     }

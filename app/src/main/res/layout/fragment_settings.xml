@@ -78,7 +78,7 @@
 
 		android:src="@drawable/celcius"
 		app:layout_constraintEnd_toEndOf="parent"
-		android:onClick="celciusBtn_Clicked"
+		android:onClick="celsiusButton_Clicked"
 		app:layout_constraintHorizontal_bias="0.789"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent">
@@ -94,7 +94,7 @@
 
 		android:src="@drawable/farenheit"
 		app:layout_constraintEnd_toEndOf="parent"
-		android:onClick="farenheitBtn_Clicked"
+		android:onClick="fahrenheitButton_Clicked"
 		app:layout_constraintHorizontal_bias="0.9"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent">

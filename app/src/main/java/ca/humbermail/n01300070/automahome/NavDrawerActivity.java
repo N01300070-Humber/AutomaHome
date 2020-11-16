@@ -245,9 +245,9 @@ public class NavDrawerActivity extends AppCompatActivity  {
 		}
 	}
 
-	ImageButton celciusButton;
+	ImageButton celsiusButton;
 
-	public void celciusBtn_Clicked(View view){
+	public void celsiusButton_Clicked(View view){
 
 		if (findViewById(R.id.nav_host_fragment) != null) {
 			// Set the Main Fragment
@@ -260,9 +260,9 @@ public class NavDrawerActivity extends AppCompatActivity  {
 		}
 	}
 
-	ImageButton farenheitButton;
+	ImageButton fahrenheitButton;
 
-	public void farenheitBtn_Clicked(View view){
+	public void fahrenheitButton_Clicked(View view){
 
 		if (findViewById(R.id.nav_host_fragment) != null) {
 			// Set the Main Fragment

@@ -125,7 +125,7 @@
     <string name="movement">Movement</string>
     <string name="activate">Activate at</string>
     <string name="moving">Moving towards</string>
-    <string name="default_temp">21 °C</string>
+    <string name="default_temp">21°C</string>
     <string name="up">↑</string>
     <string name="down">↓</string>
     <string name="gt">&gt;></string>

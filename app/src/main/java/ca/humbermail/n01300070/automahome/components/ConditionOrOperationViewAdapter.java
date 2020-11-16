@@ -56,6 +56,7 @@ public class ConditionOrOperationViewAdapter extends RecyclerView.Adapter<Condit
         holder.conditionOrOperationView.setConditionOrOperationType(data.getConditionOrOperationType());
         holder.conditionOrOperationView.setMainText(data.getMainText());
         holder.conditionOrOperationView.setTypeText(data.getTypeText());
+        holder.conditionOrOperationView.setDragHandleVisible(data.isDragHandleVisible());
     }
 
     @Override

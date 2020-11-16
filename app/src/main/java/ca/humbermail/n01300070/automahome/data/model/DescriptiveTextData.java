@@ -1,16 +1,16 @@
 package ca.humbermail.n01300070.automahome.data.model;
 
-public class LogViewData {
+public class DescriptiveTextData {
 
     private String mainText;
     private String timeText;
 
-    public LogViewData()
+    public DescriptiveTextData()
     {
 
     }
 
-    public LogViewData(String mainText, String timeText)
+    public DescriptiveTextData(String mainText, String timeText)
     {
         this.mainText = mainText;
         this.timeText = timeText;
@@ -24,11 +24,11 @@ public class LogViewData {
         this.mainText = mainText;
     }
 
-    public String getTimeText() {
+    public String getDescriptionText() {
         return timeText;
     }
 
-    public void setTimeText(String timeText) {
+    public void setDescriptionText(String timeText) {
         this.timeText = timeText;
     }
 

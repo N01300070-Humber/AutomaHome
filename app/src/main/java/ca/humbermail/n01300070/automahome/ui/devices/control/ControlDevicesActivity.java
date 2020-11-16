@@ -32,6 +32,11 @@ public class ControlDevicesActivity extends AppCompatActivity
 
         deviceType = getIntent().getExtras().getString(DeviceOrTaskData.ARG_DEVICE);
 
+        if (deviceType == null) {
+            Toast.makeText(getApplicationContext(), "Error: failed to get device type", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         switch(deviceType){
             case DeviceOrTaskData.DEVICE_LIGHTS:
                 fragment = new ControlLightFragment();
@@ -43,7 +48,7 @@ public class ControlDevicesActivity extends AppCompatActivity
                 fragment = new ControlThermostatFragment();
                 break;
             default:
-                Toast.makeText(getApplicationContext(), "Error: failed to get device type", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Error: device type " + deviceType + " is unknown", Toast.LENGTH_SHORT).show();
                 finish();
                 return;
         }

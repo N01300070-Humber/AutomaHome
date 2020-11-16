@@ -1,162 +1,171 @@
 <resources>
-    <string name="app_name">AutomaHome</string>
-    
-    <!-- Welcome, Login, Register -->
-    <string name="title_activity_welcome">Welcome</string>
-    <string name="title_activity_login">Login</string>
-    <string name="title_activity_register">Register</string>
-    
-    <string name="welcome">Welcome to AutomaHome!</string>
-    
-    <string name="button_sign_in">Sign in</string>
-    <string name="button_register">Register</string>
-    <string name="button_question_no_account">Don\'t have an account? Register</string>
-    <string name="button_question_have_account">Already have an account? Sign in</string>
-    
-    <string name="action_sign_in">Sign in</string>
-    <string name="action_register">Register</string>
-    
-    <string name="prompt_firstName">First Name</string>
-    <string name="prompt_lastName">Last Name</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    
-    <string name="error_required_field">This field is required</string>
-    <string name="error_email_invalid">Not a valid email address</string>
-    <string name="error_email_taken">An account with this email address already exists</string>
-    <string name="error_email_no_account">No account with this email address exists</string>
-    <string name="error_password_too_short">Password must be at least 8 characters long</string>
-    <string name="error_password_incorrect">Password is incorrect</string>
-    <string name="error_login_failed">"Login failed"</string>
-    <string name="error_registration_failed">"Registration failed"</string>
-    
-    <!-- Navigation Drawer -->
-    <string name="title_activity_nav_drawer">NavDrawerActivity</string>
-    
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    
-    <string name="menu_favorites">Favorites</string>
-    <string name="menu_devices">Devices</string>
-    <string name="menu_tasks">Tasks</string>
-    <string name="menu_home">Manage Home</string>
-    <string name="menu_settings">Settings</string>
-    
-    <!-- Devices -->
-    <string name="side_device_location">Side %1$s Device Location</string>
-    <string name="movement_detection_log">Movement Detection Log</string>
-    <string name="device_name">Device Name</string>
-    <string name="searching_devices">Searching for Devices</string>
-    <string name="save">Save</string>
-    <string name="discard_changes">Discard Changes</string>
-    <string name="device_location">Device Location</string>
-    <string name="fab_add_device">Add Device</string>
-    <string name="edit_device">Edit Device</string>
-    <string name="auto_calibrate">Auto Calibrate</string>
-    <string name="calibration">Calibration</string>
-    <string name="side_a_location">Side A Location</string>
-    <string name="side_b_location">Side B Location</string>
-    <string name="side_a_light_tolerance">Side A Light Tolerance</string>
-    <string name="side_b_light_tolerance">Side B Light Tolerance</string>
-    <string name="brightness">Brightness</string>
-    <string name="humidity">Humidity</string>
-    <string name="temperature">Temperature</string>
-    <string name="night_light">Night Light</string>
-    <string name="changes_brightness_automatically_when_light_changes">Changes brightness automatically when light changes</string>
-    <string name="target_temperature">Target Temperature</string>
-    <string name="current_temperature">Current Temperature</string>
-    <string name="system">System</string>
-    <string name="cool">Cool</string>
-    <string name="heat">Heat</string>
-    <string name="set">Set</string>
-    
-    <string name="content_description_type_device">Device button</string>
-    <string name="content_description_device_type_lights">Lights device button</string>
-    <string name="content_description_device_type_movement_sensor">Movement Sensor device button</string>
-    <string name="content_description_device_type_thermostat">Thermostat device button</string>
-    <string name="content_description_type_task">Task button</string>
-    
-    <!-- Manage Home, Invite User -->
-    <string name="title_activity_manageHome">Manage Home</string>
-    <string name="title_activity_inviteUser">Invite User</string>
-    
-    <string name="currentHome">Current Home</string>
-    <string name="wifiDetection">Wifi Detection</string>
-    <string name="network1">Network 1</string>
-    <string name="network2">Network 2</string>
-    
-    <string name="users">Users</string>
-    <string name="you">You</string>
-    <string name="user1">User 1</string>
-    <string name="user2">User 2</string>
-    
-    <!-- Settings -->
-    <string name="title_activity_setting">Settings</string>
-    
-    <string name="displayTemp">Display Temperature</string>
-    
-    <string name="logout">Logout</string>
-    <string name="change_info">Change Info</string>
-    <string name="change_password">Change Password</string>
-    <string name="curr_password">Current Password</string>
-    <string name="new_password">New Password</string>
-    
-    <string name="notifications">Notifications</string>
-    <string name="notification_sound">Notification Sound</string>
-    
-    <!-- Tasks -->
-    <string name="fab_add_task">Create Task</string>
-    <string name="runIf">Run If</string>
-    <string name="thenDo">Then Do</string>
-    <string name="discard">Discard Changes</string>
-    <string name="saveChanges">Save Task</string>
-    <string name="add_cond">+ Add Condition</string>
-    <string name="add_op">+ Add Operation</string>
-    <string name="done_btn">Done</string>
-    <string name="schedule">Schedule</string>
-    <string name="temp">Temperature</string>
-    <string name="name">Movement</string>
-    <string name="lights">Lights</string>
-    <string name="thermostat">Thermostat</string>
-    <string name="movement">Movement</string>
-    <string name="activate">Activate at</string>
-    <string name="moving">Moving towards</string>
-    <string name="default_temp">21°C</string>
-    <string name="up">↑</string>
-    <string name="down">↓</string>
-    <string name="gt">&gt;></string>
-    <string name="lt">&lt;</string>
-    <string name="sunday">Sun</string>
-    <string name="monday">Mon</string>
-    <string name="tuesday">Tues</string>
-    <string name="wednesday">Wed</string>
-    <string name="thursday">Thurs</string>
-    <string name="friday">Fri</string>
-    <string name="saturday">Sat</string>
-    
-    <string name="operation_lights">Control Lights</string>
-    <string name="operation_thermostat">Control Thermostat</string>
-    <string name="operation_lights_description">Create new operation that controls the brightness and temperature of lights</string>
-    <string name="operation_thermostat_description">Create new operation that controls the target temperature of a thermostat and toggle heating or cooling</string>
-    <string name="condition_schedule">Activate on Schedule</string>
-    <string name="condition_temperature">Activate at Temperature</string>
-    <string name="condition_movement">Activate on Movement</string>
-    <string name="condition_schedule_description">Create new condition based on time of day and days of the week</string>
-    <string name="condition_temperature_description">Create new condition based on the current temperature of a thermostat</string>
-    <string name="condition_movement_description">Create new condition based on a movement event from a Movement Sensor</string>
-    
-    <!-- Other Strings -->
-    <!-- TODO: Remove placeholder string -->
-    <string name="placeholder">Placeholder</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="tab_settings_general">General</string>
-    <string name="tab_settings_account">Account</string>
-    <string name="tab_settings_notification">Notification</string>
+	<string name="app_name">AutomaHome</string>
+	
+	<!-- Welcome, Login, Register -->
+	<string name="title_activity_welcome">Welcome</string>
+	<string name="title_activity_login">Login</string>
+	<string name="title_activity_register">Register</string>
+	
+	<string name="welcome">Welcome to AutomaHome!</string>
+	
+	<string name="button_sign_in">Sign in</string>
+	<string name="button_register">Register</string>
+	<string name="button_question_no_account">Don\'t have an account? Register</string>
+	<string name="button_question_have_account">Already have an account? Sign in</string>
+	
+	<string name="action_sign_in">Sign in</string>
+	<string name="action_register">Register</string>
+	
+	<string name="prompt_firstName">First Name</string>
+	<string name="prompt_lastName">Last Name</string>
+	<string name="prompt_email">Email</string>
+	<string name="prompt_password">Password</string>
+	
+	<string name="error_required_field">This field is required</string>
+	<string name="error_email_invalid">Not a valid email address</string>
+	<string name="error_email_taken">An account with this email address already exists</string>
+	<string name="error_email_no_account">No account with this email address exists</string>
+	<string name="error_password_too_short">Password must be at least 8 characters long</string>
+	<string name="error_password_incorrect">Password is incorrect</string>
+	<string name="error_login_failed">"Login failed"</string>
+	<string name="error_registration_failed">"Registration failed"</string>
+	
+	<!-- Navigation Drawer -->
+	<string name="title_activity_nav_drawer">NavDrawerActivity</string>
+	
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
+	<string name="nav_header_title">Android Studio</string>
+	<string name="nav_header_subtitle">android.studio@android.com</string>
+	<string name="nav_header_desc">Navigation header</string>
+	<string name="action_settings">Settings</string>
+	
+	<string name="menu_favorites">Favorites</string>
+	<string name="menu_devices">Devices</string>
+	<string name="menu_tasks">Tasks</string>
+	<string name="menu_home">Manage Home</string>
+	<string name="menu_settings">Settings</string>
+	
+	<!-- Devices -->
+	<string name="side_device_location">Side %1$s Device Location</string>
+	<string name="movement_detection_log">Movement Detection Log</string>
+	<string name="device_name">Device Name</string>
+	<string name="searching_devices">Searching for Devices</string>
+	<string name="save">Save</string>
+	<string name="discard_changes">Discard Changes</string>
+	<string name="device_location">Device Location</string>
+	<string name="fab_add_device">Add Device</string>
+	<string name="edit_device">Edit Device</string>
+	<string name="auto_calibrate">Auto Calibrate</string>
+	<string name="calibration">Calibration</string>
+	<string name="side_a_location">Side A Location</string>
+	<string name="side_b_location">Side B Location</string>
+	<string name="side_a_light_tolerance">Side A Light Tolerance</string>
+	<string name="side_b_light_tolerance">Side B Light Tolerance</string>
+	<string name="brightness">Brightness</string>
+	<string name="humidity">Humidity</string>
+	<string name="temperature">Temperature</string>
+	<string name="night_light">Night Light</string>
+	<string name="changes_brightness_automatically_when_light_changes">Changes brightness automatically when light changes</string>
+	<string name="target_temperature">Target Temperature</string>
+	<string name="current_temperature">Current Temperature</string>
+	<string name="system">System</string>
+	<string name="cool">Cool</string>
+	<string name="heat">Heat</string>
+	<string name="set">Set</string>
+	
+	<string name="content_description_type_device">Device button</string>
+	<string name="content_description_device_type_lights">Lights device button</string>
+	<string name="content_description_device_type_movement_sensor">Movement Sensor device button</string>
+	<string name="content_description_device_type_thermostat">Thermostat device button</string>
+	<string name="content_description_type_task">Task button</string>
+	
+	<!-- Tasks -->
+	<string name="fab_add_task">Create Task</string>
+	<string name="runIf">Run If</string>
+	<string name="thenDo">Then Do</string>
+	<string name="discard">Discard Changes</string>
+	<string name="saveChanges">Save Task</string>
+	<string name="add_cond">+ Add Condition</string>
+	<string name="add_op">+ Add Operation</string>
+	<string name="done_btn">Done</string>
+	<string name="schedule">Schedule</string>
+	<string name="temp">Temperature</string>
+	<string name="name">Movement</string>
+	<string name="lights">Lights</string>
+	<string name="thermostat">Thermostat</string>
+	<string name="movement">Movement</string>
+	<string name="activate">Activate at</string>
+	<string name="moving">Moving towards</string>
+	<string name="default_temp">21°C</string>
+	<string name="up">↑</string>
+	<string name="down">↓</string>
+	<string name="gt">&gt;></string>
+	<string name="lt">&lt;</string>
+	<string name="sunday">Sun</string>
+	<string name="monday">Mon</string>
+	<string name="tuesday">Tues</string>
+	<string name="wednesday">Wed</string>
+	<string name="thursday">Thurs</string>
+	<string name="friday">Fri</string>
+	<string name="saturday">Sat</string>
+	
+	<string name="operation_lights">Control Lights</string>
+	<string name="operation_thermostat">Control Thermostat</string>
+	<string name="operation_lights_description">Create new operation that controls the brightness and temperature of lights</string>
+	<string name="operation_thermostat_description">Create new operation that controls the target temperature of a thermostat and toggle heating or cooling</string>
+	<string name="condition_schedule">Activate on Schedule</string>
+	<string name="condition_temperature">Activate at Temperature</string>
+	<string name="condition_movement">Activate on Movement</string>
+	<string name="condition_schedule_description">Create new condition based on time of day and days of the week</string>
+	<string name="condition_temperature_description">Create new condition based on the current temperature of a thermostat</string>
+	<string name="condition_movement_description">Create new condition based on a movement event from a Movement Sensor</string>
+	
+	<!-- Manage Home -->
+	<string name="title_activity_manageHome">Manage Home</string>
+	<string name="title_activity_inviteUser">Invite User</string>
+	
+	<string name="currentHome">Current Home</string>
+	<string name="wifiDetection">Wifi Detection</string>
+	<string name="network1">Network 1</string>
+	<string name="network2">Network 2</string>
+	
+	<string name="users">Users</string>
+	<string name="you">You</string>
+	<string name="user1">User 1</string>
+	<string name="user2">User 2</string>
+	
+	<!-- Settings -->
+	<string name="title_activity_setting">Settings</string>
+	
+	<string name="displayTemp">Display Temperature</string>
+	
+	<string name="logout">Logout</string>
+	<string name="change_info">Change Info</string>
+	<string name="change_password">Change Password</string>
+	<string name="curr_password">Current Password</string>
+	<string name="new_password">New Password</string>
+	<string name="delete_account">Delete Account</string>
+	<string name="confirm">Confirm</string>
+	
+	<string name="notifications">Notifications</string>
+	<string name="notification_sound">Notification Sound</string>
+	
+	<string name="tab_settings_general">General</string>
+	<string name="tab_settings_account">Account</string>
+	<string name="tab_settings_notification">Notification</string>
+	<string name="show_error_notifications">Send error messages</string>
+	<string name="degrees_celsius">°C</string>
+	<string name="degrees_fahrenheit">°F</string>
+	<string name="prompt_current_password">Current Password</string>
+	<string name="prompt_new_password">New Password</string>
+	
+	
+	<!-- Other Strings -->
+	<!-- TODO: Remove placeholder string -->
+	<string name="placeholder">Placeholder</string>
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

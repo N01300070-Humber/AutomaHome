@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:autofillHints=".AUTOFILL_HINT_NEW_PASSWORD"
-        android:hint="@string/prompt_password"
+        android:hint="@string/prompt_current_password"
         android:imeActionLabel="@string/curr_password"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:autofillHints=".AUTOFILL_HINT_NEW_PASSWORD"
-        android:hint="@string/prompt_password"
+        android:hint="@string/prompt_new_password"
         android:imeActionLabel="@string/new_password"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
@@ -112,11 +112,8 @@
         android:id="@+id/button_signOut"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
-    
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-    
-        android:onClick="signOutBtn_Clicked"
         android:text="@string/logout"
         app:layout_constraintBottom_toTopOf="@+id/button_delete"
         app:layout_constraintStart_toStartOf="parent">
@@ -129,8 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/design_default_color_error"
-        android:onClick="deleteButton_onClick"
-        android:text="Delete Account"
+        android:text="@string/delete_account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/space7"
         app:layout_constraintHorizontal_bias="0.5"
@@ -149,10 +145,7 @@
         android:id="@+id/button_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-    
-        android:onClick="confirmBtn_Clicked"
-    
-        android:text="Confirm"
+        android:text="@string/confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

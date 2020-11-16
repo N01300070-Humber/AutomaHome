@@ -111,7 +111,7 @@
     <!-- Tasks -->
     <string name="fab_add_task">Create Task</string>
     <string name="runIf">Run If</string>
-    <string name="then">Then</string>
+    <string name="thenDo">Then Do</string>
     <string name="discard">Discard Changes</string>
     <string name="saveChanges">Save Task</string>
     <string name="add_cond">+ Add Condition</string>

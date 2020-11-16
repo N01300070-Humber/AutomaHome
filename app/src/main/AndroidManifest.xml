@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AutomaHome">
-        <activity android:name=".ui.devices.DeviceSearchActivity"></activity>
+        <activity android:name=".ui.devices.DeviceSearchActivity" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/splashScreen">

@@ -6,52 +6,33 @@
 	android:layout_height="match_parent"
 	tools:context=".ui.home.HomeFragment">
 
-	<RadioButton
-		android:id="@+id/radioButton5"
-		android:layout_width="33dp"
-		android:layout_height="27dp"
-		android:layout_marginStart="138dp"
-		android:layout_marginTop="24dp"
-		android:layout_marginEnd="52dp"
+	<RadioGroup
+		android:id="@+id/radioGroup"
+		android:layout_width="117dp"
+		android:layout_height="119dp"
+		android:layout_marginTop="49dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginBottom="320dp"
+		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="1.0"
-		app:layout_constraintStart_toEndOf="@+id/textView_user2"
-		app:layout_constraintTop_toTopOf="@+id/devider6" />
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/space5"
+		app:layout_constraintTop_toTopOf="@+id/addNetwork"
+		app:selectionRequired="true"
+		app:singleSelection="true">
 
-	<RadioButton
-		android:id="@+id/radioButton4"
-		android:layout_width="33dp"
-		android:layout_height="27dp"
-		android:layout_marginStart="138dp"
-		android:layout_marginTop="24dp"
-		android:layout_marginEnd="50dp"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="1.0"
-		app:layout_constraintStart_toEndOf="@+id/textView_you"
-		app:layout_constraintTop_toTopOf="@+id/devider4" />
+		<RadioButton
+			android:id="@+id/radio_a"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
 
-	<RadioButton
-		android:id="@+id/radioButton6"
-		android:layout_width="33dp"
-		android:layout_height="27dp"
-		android:layout_marginStart="148dp"
-		android:layout_marginTop="24dp"
-		android:layout_marginEnd="52dp"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="1.0"
-		app:layout_constraintStart_toEndOf="@+id/textView_you"
-		app:layout_constraintTop_toTopOf="@+id/devider5" />
+		<RadioButton
+			android:id="@+id/radio_b"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:checked="true" />
 
-	<RadioButton
-		android:id="@+id/radioButton2"
-		android:layout_width="33dp"
-		android:layout_height="27dp"
-		android:layout_marginStart="138dp"
-		android:layout_marginTop="25dp"
-		android:layout_marginEnd="50dp"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toEndOf="@+id/textView_network1"
-		app:layout_constraintTop_toTopOf="@+id/devider" />
+	</RadioGroup>
 
 	<ImageView
 		android:id="@+id/imageView_icon2"
@@ -226,12 +207,12 @@
 		android:layout_width="330dp"
 		android:layout_height="12dp"
 		android:layout_marginStart="138dp"
-		android:layout_marginTop="25dp"
+		android:layout_marginTop="28dp"
 		android:layout_marginEnd="@android:dimen/thumbnail_height"
 		android:src="@drawable/light_devider"
 		app:layout_constraintEnd_toEndOf="parent"
 
-		app:layout_constraintHorizontal_bias="0.504"
+		app:layout_constraintHorizontal_bias="0.397"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="@+id/textView_user1">
 
@@ -342,16 +323,39 @@
 		app:layout_constraintTop_toTopOf="parent"
 		app:layout_constraintVertical_bias="0.863" />
 
-	<RadioButton
-		android:id="@+id/radioButton"
-		android:layout_width="33dp"
-		android:layout_height="27dp"
-		android:layout_marginStart="138dp"
-		android:layout_marginTop="25dp"
-		android:layout_marginEnd="50dp"
+	<RadioGroup
+		android:id="@+id/radioGroup1"
+		android:layout_width="116dp"
+		android:layout_height="145dp"
+		android:layout_marginTop="32dp"
+		android:layout_marginEnd="8dp"
+		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toEndOf="@+id/textView_network2"
-		app:layout_constraintTop_toTopOf="@+id/devider3" />
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/space5"
+		app:layout_constraintTop_toTopOf="@+id/textView_users"
+		app:layout_constraintVertical_bias="0.042"
+		app:selectionRequired="true"
+		app:singleSelection="true">
+
+		<RadioButton
+			android:id="@+id/radio_c"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+
+		<RadioButton
+			android:id="@+id/radio_d"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:checked="true" />
+
+		<RadioButton
+			android:id="@+id/radio_e"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:checked="true" />
+
+	</RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

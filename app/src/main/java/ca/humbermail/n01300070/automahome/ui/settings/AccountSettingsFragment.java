@@ -12,23 +12,21 @@ import android.view.ViewGroup;
 import ca.humbermail.n01300070.automahome.R;
 
 public class AccountSettingsFragment extends Fragment {
-
-
-
+    
+    public AccountSettingsFragment() {
+        // Required empty public constructor
+    }
+    
+    public static AccountSettingsFragment newInstance() {
+        return new AccountSettingsFragment();
+    }
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        SettingsViewModel settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_settings_account, container, false);
-        //final TextView textView = root.findViewById(R.id.text_settings);
-        //settingsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-        //	@Override
-        //	public void onChanged(@Nullable String s) {
-        //	textView.setText(s);
-        //	}
-        //});
-
         // Inflate the layout for this fragment
+        View root = inflater.inflate(R.layout.fragment_settings_account, container, false);
+        
         return root;
     }
 }

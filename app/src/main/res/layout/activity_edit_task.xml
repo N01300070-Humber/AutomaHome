@@ -126,7 +126,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="buttonDiscardClicked"
+            android:onClick="discardButtonClicked"
             android:text="@string/discard" />
     
         <Space
@@ -139,7 +139,7 @@
             android:id="@+id/button_editTask_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="buttonSaveClicked"
+            android:onClick="saveButtonClicked"
             android:text="@string/saveChanges" />
 
     </LinearLayout>

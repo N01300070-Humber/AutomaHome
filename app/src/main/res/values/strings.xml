@@ -107,7 +107,7 @@
     
     <string name="notifications">Notifications</string>
     <string name="notification_sound">Notification Sound</string>
-
+    
     <!-- Tasks -->
     <string name="fab_add_task">Create Task</string>
     <string name="runIf">Run If</string>
@@ -137,7 +137,7 @@
     <string name="thursday">Thurs</string>
     <string name="friday">Fri</string>
     <string name="saturday">Sat</string>
-
+    
     <!-- Other Strings -->
     <!-- TODO: Remove placeholder string -->
     <string name="placeholder">Placeholder</string>

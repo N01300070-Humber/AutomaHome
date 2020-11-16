@@ -19,6 +19,7 @@ import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonView;
 import ca.humbermail.n01300070.automahome.components.RecyclerViewCategoryPadding;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
 import ca.humbermail.n01300070.automahome.ui.devices.control.ControlDevicesActivity;
+import ca.humbermail.n01300070.automahome.ui.tasks.EditTaskActivity;
 
 public class FavoritesFragment extends Fragment {
 	
@@ -48,8 +49,8 @@ public class FavoritesFragment extends Fragment {
 						intent.putExtra(DeviceOrTaskData.ARG_DEVICE, deviceOrTaskButtonView.getDeviceType());
 						break;
 					case DeviceOrTaskData.TYPE_TASK:
-						//intent.setClass(context, EditTaskActivity.class); // TODO: Uncomment when EditTaskActivity is available
-						return; // TODO: Replace return with break when EditTaskActivity is available
+						intent.setClass(context, EditTaskActivity.class);
+						break;
 					default:
 						return;
 				}

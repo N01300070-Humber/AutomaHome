@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.components.ListLineDividers;
+import ca.humbermail.n01300070.automahome.components.ListLinePadding;
 import ca.humbermail.n01300070.automahome.components.LogViewAdapter;
-import ca.humbermail.n01300070.automahome.data.LogViewData;
+import ca.humbermail.n01300070.automahome.data.model.LogViewData;
 
 public class ControlMovementSensorFragment extends Fragment
 {
@@ -44,7 +44,7 @@ public class ControlMovementSensorFragment extends Fragment
         detectionLog.setLayoutManager(new LinearLayoutManager(context));
         detectionLog.setAdapter(adapter);
 
-        detectionLog.addItemDecoration(new ListLineDividers((int) context.getResources().getDimension(R.dimen.recycler_divider_space)));
+        detectionLog.addItemDecoration(new ListLinePadding((int) context.getResources().getDimension(R.dimen.recycler_divider_space)));
         detectionLog.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
 
         return root;

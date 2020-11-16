@@ -64,23 +64,9 @@ public class EditDevicesActivity extends AppCompatActivity
                 return;
         }
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_editDevice, fragment).commit();
-
-    }
-    
-    /**
-     * Handles back button onClick event
-     * @param item non-null MenuItem
-     * @return Boolean
-     */
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        setResult(Activity.RESULT_CANCELED);
-        finish();
-        return true;
     }
 
-    public void buttonDiscardClicked(View view) {
+    public void discardButtonClicked(View view) {
         //TODO data handling
         setResult(Activity.RESULT_CANCELED);
         finish();
@@ -88,8 +74,20 @@ public class EditDevicesActivity extends AppCompatActivity
 
     public void saveButtonClicked(View view) {
         //TODO data handling
-        Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show(); // TODO: Remove placeholder toast
         setResult(Activity.RESULT_OK);
         finish();
+    }
+    
+    /**
+     * Handles back button onClick event
+     * @param item non-null MenuItem
+     * @return Boolean
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        setResult(Activity.RESULT_CANCELED);
+        finish();
+        return true;
     }
 }

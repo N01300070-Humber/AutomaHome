@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ca.humbermail.n01300070.automahome.data.LogViewData;
+import ca.humbermail.n01300070.automahome.data.model.LogViewData;
 
 public class LogViewAdapter extends RecyclerView.Adapter<LogViewAdapter.LogViewHolder> {
 

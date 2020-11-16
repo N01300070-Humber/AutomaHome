@@ -6,11 +6,11 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ListLineDividers extends RecyclerView.ItemDecoration {
+public class ListLinePadding extends RecyclerView.ItemDecoration {
 
     private int paddingSize;
 
-    public ListLineDividers(int paddingSize)
+    public ListLinePadding(int paddingSize)
     {
         this.paddingSize = paddingSize;
     }

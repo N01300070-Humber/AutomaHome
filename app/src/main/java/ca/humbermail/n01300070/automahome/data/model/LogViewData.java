@@ -1,4 +1,4 @@
-package ca.humbermail.n01300070.automahome.data;
+package ca.humbermail.n01300070.automahome.data.model;
 
 public class LogViewData {
 

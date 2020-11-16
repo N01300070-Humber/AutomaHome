@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import ca.humbermail.n01300070.automahome.R;
+import ca.humbermail.n01300070.automahome.components.ConditionOrOperationViewAdapter;
 import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationData;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
 
@@ -20,6 +21,8 @@ public class EditConditionActivity extends AppCompatActivity {
 	
 	private Button saveButton;
 	private Button discardButton;
+	
+	private Fragment fragment;
 	
 	private String conditionType;
 	
@@ -29,12 +32,28 @@ public class EditConditionActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_edit_condition);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		conditionType = getIntent().getExtras().getString(ConditionOrOperationData.ARG_CONDITION);
+		Bundle arguments = getIntent().getExtras();
+		if (arguments == null) {
+			conditionType = "";
+		}
+		else {
+			conditionType = arguments.getString(ConditionOrOperationData.ARG_CONDITION);
+		}
 		
 		saveButton = findViewById(R.id.button_editCondition_save);
 		discardButton = findViewById(R.id.button_editCondition_discard);
 		
-		Fragment fragment;
+		setActiveFragment(conditionType);
+	}
+	
+	public void changeActiveFragment(String conditionType) {
+		getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+		saveButton.setVisibility(View.VISIBLE);
+		discardButton.setVisibility(View.VISIBLE);
+		setActiveFragment(conditionType);
+	}
+	
+	private void setActiveFragment(String conditionType) {
 		switch (conditionType) {
 			case ConditionOrOperationData.CONDITION_SCHEDULE:
 				fragment = new EditConditionScheduleFragment();
@@ -50,10 +69,6 @@ public class EditConditionActivity extends AppCompatActivity {
 				saveButton.setVisibility(View.GONE);
 				discardButton.setVisibility(View.GONE);
 		}
-		changeActiveFragment(fragment);
-	}
-	
-	private void changeActiveFragment(Fragment fragment) {
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_editCondition, fragment).commit();
 	}
 	

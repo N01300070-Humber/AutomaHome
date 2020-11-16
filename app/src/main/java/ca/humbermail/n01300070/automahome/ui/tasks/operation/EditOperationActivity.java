@@ -20,6 +20,8 @@ public class EditOperationActivity extends AppCompatActivity {
 	private Button saveButton;
 	private Button discardButton;
 	
+	private Fragment fragment;
+	
 	private String operationType;
 	
 	@Override
@@ -28,12 +30,28 @@ public class EditOperationActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_edit_operation);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		operationType = getIntent().getExtras().getString(ConditionOrOperationData.ARG_OPERATION);
+		Bundle arguments = getIntent().getExtras();
+		if (arguments == null) {
+			operationType = "";
+		}
+		else {
+			operationType = arguments.getString(ConditionOrOperationData.ARG_OPERATION);
+		}
 		
 		saveButton = findViewById(R.id.button_editOperation_save);
 		discardButton = findViewById(R.id.button_editOperation_discard);
 		
-		Fragment fragment;
+		setActiveFragment(operationType);
+	}
+	
+	public void changeActiveFragment(String operationType) {
+		getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+		saveButton.setVisibility(View.VISIBLE);
+		discardButton.setVisibility(View.VISIBLE);
+		setActiveFragment(operationType);
+	}
+	
+	private void setActiveFragment(String operationType) {
 		switch (operationType) {
 			case ConditionOrOperationData.OPERATION_LIGHTS:
 				fragment = new EditOperationLightsFragment();
@@ -46,10 +64,6 @@ public class EditOperationActivity extends AppCompatActivity {
 				saveButton.setVisibility(View.GONE);
 				discardButton.setVisibility(View.GONE);
 		}
-		changeActiveFragment(fragment);
-	}
-	
-	private void changeActiveFragment(Fragment fragment) {
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_editOperation, fragment).commit();
 	}
 	

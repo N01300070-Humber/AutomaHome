@@ -21,8 +21,12 @@ import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
 
 public class DevicesViewModel extends ViewModel {
 	
+	public DevicesViewModel() {
+	
+	}
+	
 	// TODO: Replace placeholder data generator function with one that gets real data
-	public ArrayList<CategoryData> generatePlaceholderCategoryDataList(Context context, View.OnClickListener onClickListener) {
+	public ArrayList<CategoryData> generatePlaceholderCategorizedDeviceDataList(Context context, View.OnClickListener onClickListener) {
 		Random random = new Random();
 		
 		String[] headers = {"Lights", "Sensors", "Heating / Cooling"};

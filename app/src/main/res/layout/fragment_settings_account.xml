@@ -20,9 +20,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.072"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="47dp" />
 
     <EditText
         android:id="@+id/editText_firstName"

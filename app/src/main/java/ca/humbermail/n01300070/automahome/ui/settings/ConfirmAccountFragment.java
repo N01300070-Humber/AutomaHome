@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import ca.humbermail.n01300070.automahome.R;
 
@@ -30,5 +31,20 @@ public class ConfirmAccountFragment extends Fragment {
         // Inflate the layout for this fragment
         return root;
 
+    }
+
+    Button confirmAccountButton;
+
+    public void confirmBtn_Clicked(View view){
+
+        if (findViewById(R.id.nav_host_fragment) != null) {
+            // Set the Main Fragment
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment, confirmAccountFragment )
+                    .addToBackStack(null)
+                    .commit();
+            getSupportFragmentManager().executePendingTransactions();
+        }
     }
 }

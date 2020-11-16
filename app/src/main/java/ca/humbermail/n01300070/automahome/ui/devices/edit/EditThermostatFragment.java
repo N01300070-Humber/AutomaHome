@@ -47,6 +47,10 @@ public class EditThermostatFragment extends Fragment {
         down = root.findViewById(R.id.Button_thermoTempSensor_downArrow);
         set = root.findViewById(R.id.Button_thermoTempSensor_setButton);
 
+        //TODO replace hardcoded strings for actual readings
+        currentTemp.setText("23°C");
+        targetTemp.setText("28°C");
+
         return root;
     }
 

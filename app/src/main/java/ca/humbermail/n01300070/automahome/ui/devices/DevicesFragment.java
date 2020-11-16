@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -67,13 +66,14 @@ public class DevicesFragment extends Fragment {
 			}
 		};
 		categoryAdapter = new CategorizedDeviceOrTaskButtonRecyclerViewAdapter( context,
-				devicesViewModel.generatePlaceholderCategoryDataList(context,
+				devicesViewModel.generatePlaceholderCategorizedDeviceDataList(context,
 						categoryOnClickListener) );
 		
 		recyclerView.setLayoutManager(new LinearLayoutManager(context));
 		recyclerView.setAdapter(categoryAdapter);
 		recyclerView.addItemDecoration(new RecyclerViewCategoryPadding( (int) getResources().getDimension(R.dimen.activity_vertical_margin) ));
 		
+		// End of onCreateView
 		return root;
 	}
 }

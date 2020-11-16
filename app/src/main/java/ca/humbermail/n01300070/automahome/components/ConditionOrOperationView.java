@@ -3,6 +3,7 @@ package ca.humbermail.n01300070.automahome.components;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -79,5 +80,14 @@ public class ConditionOrOperationView extends ConstraintLayout {
     
     public void setConditionOrOperationType(String conditionOrOperationType) {
         this.conditionOrOperationType = conditionOrOperationType;
+    }
+    
+    public void setDragHandleVisible(boolean visible) {
+        if (visible) {
+            dragHandleImageVIew.setVisibility(View.VISIBLE);
+        }
+        else {
+            dragHandleImageVIew.setVisibility(View.GONE);
+        }
     }
 }

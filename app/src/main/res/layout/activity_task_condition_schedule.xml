@@ -93,7 +93,105 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.245" />
 
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleGroup"
+        app:singleSelection="true"
+        app:selectionRequired="true"
+        android:layout_width="187dp"
+        android:layout_height="68dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/minunte_input"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.254">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/am_toggle"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:text="AM"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/pm_toggle"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/minunte_input"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.254" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/pm_toggle"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="PM"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.254" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <RadioGroup
+        android:layout_width="404dp"
+        android:layout_height="131dp"
+        android:layout_marginEnd="4dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.536">
+
+        <RadioButton
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableBottom="@android:drawable/btn_radio"
+            android:gravity="center"
+            android:text="@string/sunday" />
+
+        <RadioButton
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableBottom="@android:drawable/btn_radio"
+            android:gravity="center"
+            android:text="@string/monday" />
+
+        <RadioButton
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableBottom="@android:drawable/btn_radio"
+            android:gravity="center"
+            android:text="@string/tuesday" />
+
+        <RadioButton
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableBottom="@android:drawable/btn_radio"
+            android:gravity="center"
+            android:text="@string/wednesday" />
+
+        <RadioButton
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableBottom="@android:drawable/btn_radio"
+            android:gravity="center"
+            android:text="@string/thursday" />
+
+        <RadioButton
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableBottom="@android:drawable/btn_radio"
+            android:gravity="center"
+            android:text="@string/friday" />
+
+        <RadioButton
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableBottom="@android:drawable/btn_radio"
+            android:gravity="center"
+            android:text="@string/saturday" />
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

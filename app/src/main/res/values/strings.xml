@@ -126,6 +126,13 @@
     <string name="default_temp">21 °C</string>
     <string name="up">↑</string>
     <string name="down">↓</string>
+    <string name="sunday">Sun</string>
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tues</string>
+    <string name="wednesday">Wed</string>
+    <string name="thursday">Thurs</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
 
     <!-- Other Strings -->
     <!-- TODO: Remove placeholder string -->

@@ -82,8 +82,8 @@ public class EditTaskActivity extends AppCompatActivity {
 	
 	// TODO: Replace placeholder data generator function with one that gets real data
 	private ArrayList<ConditionOrOperationData> generateConditionList() {
-		String[] mainTextList = {"10:30 on Week Days", "Temperature equal to 23°C", "Moving Toward Room 3"};
 		String[] typeList = {ConditionOrOperationData.CONDITION_SCHEDULE, ConditionOrOperationData.CONDITION_TEMPERATURE, ConditionOrOperationData.CONDITION_MOVEMENT};
+		String[] mainTextList = {"10:30 on Week Days", "Temperature equal to 23°C", "Moving Toward Room 3"};
 		String[] typeTextList = {"Schedule", "Temperature", "Movement"};
 		ArrayList<ConditionOrOperationData> operationDataList = new ArrayList<>();
 		
@@ -103,8 +103,8 @@ public class EditTaskActivity extends AppCompatActivity {
 	
 	// TODO: Replace placeholder data generator function with one that gets real data
 	private ArrayList<ConditionOrOperationData> generateOperationList() {
-		String[] mainTextList = {"Set Brightness to 70%, Temp to 30%", "Set target temp to 28°C"};
 		String[] typeList = {ConditionOrOperationData.OPERATION_LIGHTS, ConditionOrOperationData.OPERATION_THERMOSTAT};
+		String[] mainTextList = {"Set Brightness to 70%, Temp to 30%", "Set target temp to 28°C"};
 		String[] typeTextList = {"Lights", "Thermostat"};
 		ArrayList<ConditionOrOperationData> conditionDataList = new ArrayList<>();
 		

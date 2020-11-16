@@ -138,6 +138,17 @@
     <string name="friday">Fri</string>
     <string name="saturday">Sat</string>
     
+    <string name="operation_lights">Control Lights</string>
+    <string name="operation_thermostat">Control Thermostat</string>
+    <string name="operation_lights_description">Create new operation that controls the brightness and temperature of lights</string>
+    <string name="operation_thermostat_description">Create new operation that controls the target temperature of a thermostat and toggle heating or cooling</string>
+    <string name="condition_schedule">Activate on Schedule</string>
+    <string name="condition_temperature">Activate at Temperature</string>
+    <string name="condition_movement">Activate on Movement</string>
+    <string name="condition_schedule_description">Create new condition based on time of day and days of the week</string>
+    <string name="condition_temperature_description">Create new condition based on the current temperature of a thermostat</string>
+    <string name="condition_movement_description">Create new condition based on a movement event from a Movement Sensor</string>
+    
     <!-- Other Strings -->
     <!-- TODO: Remove placeholder string -->
     <string name="placeholder">Placeholder</string>

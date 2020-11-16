@@ -10,59 +10,11 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".ui.settings.AccountSettingsFragment">
 
-    <ImageButton
-        android:id="@+id/general2btn"
-        android:layout_width="135dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="4dp"
-        android:backgroundTint="#00FFFFFF"
-
-        android:onClick="generalBtn_Clicked"
-        android:src="@drawable/general2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ImageButton>
-
-    <ImageButton
-        android:id="@+id/account2btn"
-        android:layout_width="135dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="4dp"
-        android:backgroundTint="#00FFFFFF"
-
-        android:src="@drawable/account2"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="accountBtn_Clicked"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ImageButton>
-
-    <ImageButton
-        android:id="@+id/notification2btn"
-        android:layout_width="135dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="4dp"
-        android:backgroundTint="#00FFFFFF"
-
-        android:src="@drawable/setting_notification"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="notificationBtn_Clicked"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ImageButton>
-
     <TextView
         android:id="@+id/textView_changeInfo"
         android:layout_width="187dp"
         android:layout_height="29dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="75dp"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:text="@string/change_info"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -70,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/general2btn" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <EditText
         android:id="@+id/editText_firstName"

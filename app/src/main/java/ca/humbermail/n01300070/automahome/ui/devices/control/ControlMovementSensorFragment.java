@@ -13,15 +13,15 @@ import java.util.ArrayList;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.ListLinePadding;
-import ca.humbermail.n01300070.automahome.components.LogViewAdapter;
-import ca.humbermail.n01300070.automahome.data.model.LogViewData;
+import ca.humbermail.n01300070.automahome.components.DescriptiveTextViewAdapter;
+import ca.humbermail.n01300070.automahome.data.model.DescriptiveTextData;
 
 public class ControlMovementSensorFragment extends Fragment
 {
     private RecyclerView detectionLog;
-    private LogViewAdapter adapter;
+    private DescriptiveTextViewAdapter adapter;
     private Context context;
-    private ArrayList<LogViewData> logViewDataList;
+    private ArrayList<DescriptiveTextData> logViewDataList;
 
     public ControlMovementSensorFragment()
     {
@@ -39,7 +39,7 @@ public class ControlMovementSensorFragment extends Fragment
         detectionLog = root.findViewById(R.id.recyclerView_control_movementSensor);
 
         logViewDataList = generateLogViewDataList();
-        adapter = new LogViewAdapter(context, logViewDataList);
+        adapter = new DescriptiveTextViewAdapter(context, logViewDataList);
 
         detectionLog.setLayoutManager(new LinearLayoutManager(context));
         detectionLog.setAdapter(adapter);
@@ -52,8 +52,8 @@ public class ControlMovementSensorFragment extends Fragment
 
 
     //TODO replace with method that will receive real data
-    private ArrayList<LogViewData> generateLogViewDataList() {
-        ArrayList<LogViewData> logDataList = new ArrayList<>();
+    private ArrayList<DescriptiveTextData> generateLogViewDataList() {
+        ArrayList<DescriptiveTextData> logDataList = new ArrayList<>();
         String[] mainTextArray = {"Room 1 ➜ Room 2", "Room 2 ➜ Room 1"};
         String[] timeTextArray = {"Today 2:40pm", "Today 8:04am", "Yesterday 2:25pm",
                                         "Yesterday 8:07am", "Wednesday 2:43pm",
@@ -61,9 +61,9 @@ public class ControlMovementSensorFragment extends Fragment
 
         for(int i = 0; i < timeTextArray.length; i++)
         {
-            LogViewData logData = new LogViewData();
+            DescriptiveTextData logData = new DescriptiveTextData();
             logData.setMainText(mainTextArray[i % 2]);
-            logData.setTimeText(timeTextArray[i]);
+            logData.setDescriptionText(timeTextArray[i]);
             logDataList.add(logData);
         }
         return logDataList;

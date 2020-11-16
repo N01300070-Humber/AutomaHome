@@ -87,14 +87,14 @@
     
     <RadioGroup
         android:id="@+id/toggleGroup"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:checkedButton="@id/equal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/temp_read"
         app:layout_constraintStart_toStartOf="@+id/temp_read"
-        app:layout_constraintTop_toBottomOf="@+id/temp_read" >
+        app:layout_constraintTop_toBottomOf="@+id/temp_read">
     
         <ToggleButton
             android:id="@+id/more_than"
@@ -112,8 +112,7 @@
             android:id="@+id/less_than"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:icon="@drawable/ic_settings" />
+            android:layout_weight="1" />
     </RadioGroup>
 
 

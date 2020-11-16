@@ -109,6 +109,7 @@
     <string name="notification_sound">Notification Sound</string>
 
     <!-- Tasks -->
+    <string name="fab_add_task">Create Task</string>
     <string name="runIf">Run If</string>
     <string name="then">Then</string>
     <string name="discard">Discard Changes</string>

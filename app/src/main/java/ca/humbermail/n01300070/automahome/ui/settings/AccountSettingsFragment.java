@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import ca.humbermail.n01300070.automahome.R;
 
-public class AccountSettingFragment extends Fragment {
+public class AccountSettingsFragment extends Fragment {
 
 
 
@@ -19,7 +19,7 @@ public class AccountSettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         SettingsViewModel settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_account_setting, container, false);
+        View root = inflater.inflate(R.layout.fragment_settings_account, container, false);
         //final TextView textView = root.findViewById(R.id.text_settings);
         //settingsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
         //	@Override

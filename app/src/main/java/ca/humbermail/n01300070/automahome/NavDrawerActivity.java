@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -25,8 +22,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.data.UserInfo;
@@ -34,9 +29,9 @@ import ca.humbermail.n01300070.automahome.ui.home.AddNetworkFragment;
 import ca.humbermail.n01300070.automahome.ui.home.DeleteHomeFragment;
 import ca.humbermail.n01300070.automahome.ui.home.HomeFragment;
 import ca.humbermail.n01300070.automahome.ui.home.InviteUserFragment;
-import ca.humbermail.n01300070.automahome.ui.settings.AccountSettingFragment;
+import ca.humbermail.n01300070.automahome.ui.settings.AccountSettingsFragment;
 import ca.humbermail.n01300070.automahome.ui.settings.ConfirmAccountFragment;
-import ca.humbermail.n01300070.automahome.ui.settings.NotificationSettingFragment;
+import ca.humbermail.n01300070.automahome.ui.settings.NotificationSettingsFragment;
 import ca.humbermail.n01300070.automahome.ui.settings.SettingsFragment;
 
 public class NavDrawerActivity extends AppCompatActivity  {
@@ -54,8 +49,8 @@ public class NavDrawerActivity extends AppCompatActivity  {
 
 	//declare classes in setting branch
 	public SettingsFragment settingFragment;
-	public AccountSettingFragment accountSettingFragment;
-	public NotificationSettingFragment notificationSettingFragment;
+	public AccountSettingsFragment accountSettingFragment;
+	public NotificationSettingsFragment notificationSettingFragment;
 	public ConfirmAccountFragment confirmAccountFragment;
 	
 	@Override
@@ -95,8 +90,8 @@ public class NavDrawerActivity extends AppCompatActivity  {
 
 		//initial classes in settings branch
 		settingFragment = new SettingsFragment();
-		accountSettingFragment = new AccountSettingFragment();
-		notificationSettingFragment = new NotificationSettingFragment();
+		accountSettingFragment = new AccountSettingsFragment();
+		notificationSettingFragment = new NotificationSettingsFragment();
 		confirmAccountFragment = new ConfirmAccountFragment();
 
 		//Spinner in home branch

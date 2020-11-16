@@ -1,31 +1,25 @@
-package ca.humbermail.n01300070.automahome.ui.home;
+package ca.humbermail.n01300070.automahome.ui.manageHome;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import ca.humbermail.n01300070.automahome.R;
 
-public class HomeFragment extends Fragment {
+public class ManageHomeFragment extends Fragment {
 
 	private Spinner spinner;
 
 	public View onCreateView(@NonNull LayoutInflater inflater,
 							 ViewGroup container, Bundle savedInstanceState) {
 		HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-		View root = inflater.inflate(R.layout.fragment_home, container, false);
+		View root = inflater.inflate(R.layout.fragment_manage_home, container, false);
 
 
 

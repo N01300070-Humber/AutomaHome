@@ -1,4 +1,4 @@
-package ca.humbermail.n01300070.automahome.ui.home;
+package ca.humbermail.n01300070.automahome.ui.manageHome;
 
 import android.os.Bundle;
 
@@ -32,8 +32,8 @@ public class AddNetworkFragment extends Fragment {
     ImageButton addNetworkButton;
 
     public void addNetworkBtn_Clicked(View view){
-
-        if (findViewById(R.id.nav_host_fragment) != null) {
+        // TODO: Open add network
+        /*if (findViewById(R.id.nav_host_fragment) != null) {
             // Set the Main Fragment
             getSupportFragmentManager()
                     .beginTransaction()
@@ -41,6 +41,6 @@ public class AddNetworkFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
             getSupportFragmentManager().executePendingTransactions();
-        }
+        }*/
     }
 }

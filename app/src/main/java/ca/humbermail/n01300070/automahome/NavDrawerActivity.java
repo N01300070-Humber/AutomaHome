@@ -1,7 +1,5 @@
 package ca.humbermail.n01300070.automahome;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +7,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -25,14 +22,6 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.data.UserInfo;
-import ca.humbermail.n01300070.automahome.ui.home.AddNetworkFragment;
-import ca.humbermail.n01300070.automahome.ui.home.DeleteHomeFragment;
-import ca.humbermail.n01300070.automahome.ui.home.HomeFragment;
-import ca.humbermail.n01300070.automahome.ui.home.InviteUserFragment;
-import ca.humbermail.n01300070.automahome.ui.settings.AccountSettingsFragment;
-import ca.humbermail.n01300070.automahome.ui.settings.ConfirmAccountFragment;
-import ca.humbermail.n01300070.automahome.ui.settings.NotificationSettingsFragment;
-import ca.humbermail.n01300070.automahome.ui.settings.SettingsFragment;
 
 public class NavDrawerActivity extends AppCompatActivity  {
 
@@ -40,18 +29,6 @@ public class NavDrawerActivity extends AppCompatActivity  {
 	
 	private AppBarConfiguration mAppBarConfiguration;
 	UserInfo userInfo;
-
-	//declare classes in home branch
-	public HomeFragment homeFragment;
-	public InviteUserFragment inviteUserFragment;
-	public AddNetworkFragment addNetworkFragment;
-	public DeleteHomeFragment deleteHomeFragment;
-
-	//declare classes in setting branch
-	public SettingsFragment settingFragment;
-	public AccountSettingsFragment accountSettingFragment;
-	public NotificationSettingsFragment notificationSettingFragment;
-	public ConfirmAccountFragment confirmAccountFragment;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,38 +58,6 @@ public class NavDrawerActivity extends AppCompatActivity  {
 			fullName = "ERROR!";
 		}
 		navHeaderTextView.setText(fullName);
-
-		//initial classes in home branch
-		homeFragment = new HomeFragment();
-		inviteUserFragment = new InviteUserFragment();
-		addNetworkFragment = new AddNetworkFragment();
-		deleteHomeFragment = new DeleteHomeFragment();
-
-		//initial classes in settings branch
-		settingFragment = new SettingsFragment();
-		accountSettingFragment = new AccountSettingsFragment();
-		notificationSettingFragment = new NotificationSettingsFragment();
-		confirmAccountFragment = new ConfirmAccountFragment();
-
-		//Spinner in home branch
-		/*spnList = (Spinner) findViewById(R.id.spinner);
-
-		List<String> list = new ArrayList<>();
-		list.add("Home1"); list.add("Home2"); list.add("Home3");
-		ArrayAdapter<String> adapter = new ArrayAdapter (this, android.R.layout.simple_spinner_item, list);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spnList.setAdapter(adapter);
-		spnList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-			@Override
-			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-				Toast.makeText(NavDrawerActivity.this, spnList.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-			}
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO - Custom Code
-			}
-
-		});*/
 	}
 
 	
@@ -145,7 +90,7 @@ public class NavDrawerActivity extends AppCompatActivity  {
 		Intent intent0 = new Intent(this, NavDrawerActivity.class);
 		startActivity(intent0);*/
 
-		if (findViewById(R.id.nav_host_fragment) != null) {
+		/*if (findViewById(R.id.nav_host_fragment) != null) {
 			// Set the Main Fragment
 			getSupportFragmentManager()
 					.beginTransaction()
@@ -153,7 +98,7 @@ public class NavDrawerActivity extends AppCompatActivity  {
 					.addToBackStack(null)
 					.commit();
 			getSupportFragmentManager().executePendingTransactions();
-		}
+		}*/
 	}
 
 	// Home fragment event handlers
@@ -165,7 +110,7 @@ public class NavDrawerActivity extends AppCompatActivity  {
 
 	public void addNetworkBtn_Clicked(View view){
 
-		if (findViewById(R.id.nav_host_fragment) != null) {
+		/*if (findViewById(R.id.nav_host_fragment) != null) {
 			// Set the Main Fragment
 			getSupportFragmentManager()
 					.beginTransaction()
@@ -173,7 +118,7 @@ public class NavDrawerActivity extends AppCompatActivity  {
 					.addToBackStack(null)
 					.commit();
 			getSupportFragmentManager().executePendingTransactions();
-		}
+		}*/
 	}
 
 	// Home fragment event handlers
@@ -187,39 +132,15 @@ public class NavDrawerActivity extends AppCompatActivity  {
 
 		if (findViewById(R.id.nav_host_fragment) != null) {
 			// Set the Main Fragment
-			getSupportFragmentManager()
+			/*getSupportFragmentManager()
 					.beginTransaction()
 					.replace(R.id.nav_host_fragment, deleteHomeFragment )
 					.addToBackStack(null)
 					.commit();
-			getSupportFragmentManager().executePendingTransactions();
+			getSupportFragmentManager().executePendingTransactions();*/
 		}
 	}
-
-
-	// Settings fragment event handlers
-	/**
-	 * onClick event handler for logoutButton
-	 * @param view Source view
-	 */
-	public void logoutButton_onClick(View view) {
-		SharedPreferences.Editor loginInfoEditor = getSharedPreferences(
-				getString(R.string.Preference_Login), MODE_PRIVATE ).edit();
-		loginInfoEditor.putBoolean(getString(R.string.Preference_Login_LoggedIn), false);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_FirstName), null);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_LastName), null);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_EmailAddress), null);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_Password), null);
-		if (!loginInfoEditor.commit()) {
-			Toast.makeText(this, "Failed to properly logout", Toast.LENGTH_LONG).show(); // TODO: Fix hardcoded string
-		}
-		else {
-			Toast.makeText(this, "Successfully logged out", Toast.LENGTH_LONG).show(); // TODO: Fix hardcoded string
-			startActivity(new Intent(this, WelcomeActivity.class));
-			finish();
-		}
-	}
-
+	
 	// Settings fragment event handlers
 	/**
 	 * onClick event handler for general setting Button
@@ -231,12 +152,12 @@ public class NavDrawerActivity extends AppCompatActivity  {
 
 		if (findViewById(R.id.nav_host_fragment) != null) {
 			// Set the Main Fragment
-			getSupportFragmentManager()
+			/*getSupportFragmentManager()
 					.beginTransaction()
 					.replace(R.id.nav_host_fragment, settingFragment )
 					.addToBackStack(null)
 					.commit();
-			getSupportFragmentManager().executePendingTransactions();
+			getSupportFragmentManager().executePendingTransactions();*/
 		}
 	}
 
@@ -246,12 +167,12 @@ public class NavDrawerActivity extends AppCompatActivity  {
 
 		if (findViewById(R.id.nav_host_fragment) != null) {
 			// Set the Main Fragment
-			getSupportFragmentManager()
+			/*getSupportFragmentManager()
 					.beginTransaction()
 					.replace(R.id.nav_host_fragment, settingFragment )
 					.addToBackStack(null)
 					.commit();
-			getSupportFragmentManager().executePendingTransactions();
+			getSupportFragmentManager().executePendingTransactions();*/
 		}
 	}
 
@@ -261,12 +182,12 @@ public class NavDrawerActivity extends AppCompatActivity  {
 
 		if (findViewById(R.id.nav_host_fragment) != null) {
 			// Set the Main Fragment
-			getSupportFragmentManager()
+			/*getSupportFragmentManager()
 					.beginTransaction()
 					.replace(R.id.nav_host_fragment, settingFragment )
 					.addToBackStack(null)
 					.commit();
-			getSupportFragmentManager().executePendingTransactions();
+			getSupportFragmentManager().executePendingTransactions();*/
 		}
 	}
 
@@ -276,12 +197,12 @@ public class NavDrawerActivity extends AppCompatActivity  {
 
 		if (findViewById(R.id.nav_host_fragment) != null) {
 			// Set the Main Fragment
-			getSupportFragmentManager()
+			/*getSupportFragmentManager()
 					.beginTransaction()
 					.replace(R.id.nav_host_fragment, accountSettingFragment )
 					.addToBackStack(null)
 					.commit();
-			getSupportFragmentManager().executePendingTransactions();
+			getSupportFragmentManager().executePendingTransactions();*/
 		}
 	}
 
@@ -291,12 +212,12 @@ public class NavDrawerActivity extends AppCompatActivity  {
 
 		if (findViewById(R.id.nav_host_fragment) != null) {
 			// Set the Main Fragment
-			getSupportFragmentManager()
+			/*getSupportFragmentManager()
 					.beginTransaction()
 					.replace(R.id.nav_host_fragment, confirmAccountFragment )
 					.addToBackStack(null)
 					.commit();
-			getSupportFragmentManager().executePendingTransactions();
+			getSupportFragmentManager().executePendingTransactions();*/
 		}
 	}
 
@@ -306,12 +227,12 @@ public class NavDrawerActivity extends AppCompatActivity  {
 
 		if (findViewById(R.id.nav_host_fragment) != null) {
 			// Set the Main Fragment
-			getSupportFragmentManager()
+			/*getSupportFragmentManager()
 					.beginTransaction()
 					.replace(R.id.nav_host_fragment, settingFragment )
 					.addToBackStack(null)
 					.commit();
-			getSupportFragmentManager().executePendingTransactions();
+			getSupportFragmentManager().executePendingTransactions();*/
 		}
 	}
 
@@ -320,27 +241,12 @@ public class NavDrawerActivity extends AppCompatActivity  {
 	public void deleteButton_onClick(View view){
 		if (findViewById(R.id.nav_host_fragment) != null) {
 			// Set the Main Fragment
-			getSupportFragmentManager()
+			/*getSupportFragmentManager()
 					.beginTransaction()
 					.replace(R.id.nav_host_fragment, homeFragment )
 					.addToBackStack(null)
 					.commit();
-			getSupportFragmentManager().executePendingTransactions();
-		}
-	}
-
-	ImageButton notificationSettingButton;
-
-	public void notificationBtn_Clicked(View view){
-
-		if (findViewById(R.id.nav_host_fragment) != null) {
-			// Set the Main Fragment
-			getSupportFragmentManager()
-					.beginTransaction()
-					.replace(R.id.nav_host_fragment, notificationSettingFragment )
-					.addToBackStack(null)
-					.commit();
-			getSupportFragmentManager().executePendingTransactions();
+			getSupportFragmentManager().executePendingTransactions();*/
 		}
 	}
 }

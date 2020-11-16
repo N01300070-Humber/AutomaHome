@@ -7,40 +7,8 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     tools:context=".ui.devices.edit.EditThermostatFragment">
-
-
-    <Button
-        android:id="@+id/Button_thermoTempSensor_upArrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:icon="@android:drawable/arrow_up_float"
-        app:layout_constraintBottom_toTopOf="@+id/Button_thermoTempSensor_setButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_thermoTempSensor_targetTemp"
-        app:strokeColor="#FFFFFF" />
-
-    <Button
-        android:id="@+id/Button_thermoTempSensor_setButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/set"
-        app:layout_constraintBottom_toTopOf="@+id/Button_thermoTempSensor_downArrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Button_thermoTempSensor_upArrow"
-        app:strokeColor="#FFFFFF" />
-
-    <TextView
-        android:id="@+id/textView_thermoTempSensor_targetTemperature"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/target_temperature"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_currentTemp" />
-
+    
+    
     <TextView
         android:id="@+id/textView_thermoTempSensor_currentTemperature"
         android:layout_width="0dp"
@@ -52,8 +20,70 @@
         app:layout_constraintHorizontal_bias="0.656"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    
+    <TextView
+        android:id="@+id/textView_thermoTempSensor_currentTemp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_currentTemperature"
+        tools:text="23°C" />
+    
+    <TextView
+        android:id="@+id/textView_thermoTempSensor_targetTemperature"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/target_temperature"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/Button_thermoTempSensor_upArrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_currentTemp" />
+    
+    <TextView
+        android:id="@+id/textView_thermoTempSensor_targetTemp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_targetTemperature"
+        tools:text="28°C" />
+    
+    <Button
+        android:id="@+id/Button_thermoTempSensor_upArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon="@android:drawable/arrow_up_float"
+        app:layout_constraintBottom_toTopOf="@+id/Button_thermoTempSensor_setButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_thermoTempSensor_targetTemp" />
 
-
+    <Button
+        android:id="@+id/Button_thermoTempSensor_setButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set"
+        app:layout_constraintBottom_toTopOf="@+id/Button_thermoTempSensor_downArrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Button_thermoTempSensor_upArrow"
+        app:strokeColor="#FFFFFF" />
+    
+    <Button
+        android:id="@+id/Button_thermoTempSensor_downArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon="@android:drawable/arrow_down_float"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_thermoTempSensor_targetTemp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Button_thermoTempSensor_setButton"
+        app:strokeColor="#FFFFFF" />
+    
+    
     <TextView
         android:id="@+id/textView_thermoTempSensor_systemHeader"
         android:layout_width="0dp"
@@ -66,38 +96,19 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_targetTemp" />
-
-    <Button
-        android:id="@+id/Button_thermoTempSensor_downArrow"
+    
+    <ToggleButton
+        android:id="@+id/toggleButton_thermoTempSensor_heat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:icon="@android:drawable/arrow_down_float"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_thermoTempSensor_targetTemp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Button_thermoTempSensor_setButton"
-        app:strokeColor="#FFFFFF" />
-
-    <TextView
-        android:id="@+id/textView_thermoTempSensor_currentTemp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#EF0606"
+        android:textColor="@color/white"
+        android:textOff="@string/heat"
+        android:textOn="@string/heat"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_currentTemperature"
-        tools:text="23°C"/>
-
-    <TextView
-        android:id="@+id/textView_thermoTempSensor_targetTemp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_targetTemperature"
-        tools:text="28°C"/>
-
+        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_systemHeader" />
+    
     <ToggleButton
         android:id="@+id/toggleButton_thermoTempSensor_cool"
         android:layout_width="wrap_content"
@@ -105,20 +116,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/primary_700"
+        android:textColor="@color/white"
         android:textOff="@string/cool"
         android:textOn="@string/cool"
         app:layout_constraintStart_toEndOf="@+id/toggleButton_thermoTempSensor_heat"
-        app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_systemHeader" />
-
-    <ToggleButton
-        android:id="@+id/toggleButton_thermoTempSensor_heat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#EF0606"
-        android:textOff="@string/heat"
-        android:textOn="@string/heat"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_thermoTempSensor_systemHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

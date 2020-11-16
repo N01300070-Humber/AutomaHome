@@ -110,13 +110,13 @@
     
     <Button
         android:id="@+id/button_signOut"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
+    
         android:layout_height="wrap_content"
-    
         android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/design_default_color_primary"
-        android:onClick="signOutBtn_Clicked"
     
+        android:onClick="signOutBtn_Clicked"
         android:text="@string/logout"
         app:layout_constraintBottom_toTopOf="@+id/button_delete"
         app:layout_constraintStart_toStartOf="parent">
@@ -150,7 +150,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
     
-        android:backgroundTint="@color/design_default_color_primary"
         android:onClick="confirmBtn_Clicked"
     
         android:text="Confirm"

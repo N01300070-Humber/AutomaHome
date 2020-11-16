@@ -154,6 +154,9 @@
     <string name="placeholder">Placeholder</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_settings_general">General</string>
+    <string name="tab_settings_account">Account</string>
+    <string name="tab_settings_notification">Notification</string>
 
 
 </resources>

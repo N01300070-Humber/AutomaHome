@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -38,5 +39,35 @@ public class SettingsFragment extends Fragment {
 		tabs.setupWithViewPager(viewPager);
 		
 		return root;
+
+	}
+
+	Button deleteAccountButton;
+
+	public void deleteButton_onClick(View view){
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, settingFragment )
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
+		}
+	}
+
+	Button signOutButton;
+
+	public void signOutBtn_Clicked(View view){
+
+		if (findViewById(R.id.nav_host_fragment) != null) {
+			// Set the Main Fragment
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.nav_host_fragment, settingFragment )
+					.addToBackStack(null)
+					.commit();
+			getSupportFragmentManager().executePendingTransactions();
+		}
 	}
 }

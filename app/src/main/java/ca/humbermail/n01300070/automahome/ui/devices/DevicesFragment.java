@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.CategorizedDeviceOrTaskButtonRecyclerViewAdapter;
 import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonView;
@@ -22,13 +24,14 @@ import ca.humbermail.n01300070.automahome.components.RecyclerViewCategoryPadding
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
 import ca.humbermail.n01300070.automahome.ui.devices.control.ControlDevicesActivity;
 
-public class DevicesFragment extends Fragment
-{
+public class DevicesFragment extends Fragment {
 	
 	private Context context;
-	private RecyclerView recyclerView;
+	
 	private Spinner spinner;
-	private ArrayAdapter<String> spinnerAdapter;
+	private RecyclerView recyclerView;
+	private ExtendedFloatingActionButton addDeviceFAB;
+	
 	private CategorizedDeviceOrTaskButtonRecyclerViewAdapter categoryAdapter;
 	private View.OnClickListener categoryOnClickListener;
 	
@@ -38,12 +41,19 @@ public class DevicesFragment extends Fragment
 		View root = inflater.inflate(R.layout.fragment_devices, container, false);
 		context = getActivity().getApplicationContext();
 
-		// Spinner
 		spinner = root.findViewById(R.id.spinner_device_rooms);
-		
-		// RecyclerView
+		addDeviceFAB = root.findViewById(R.id.extendedFAB_add_device);
 		recyclerView = root.findViewById(R.id.recyclerView_devices);
 		
+		//Floating Action Button
+		addDeviceFAB.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				startActivity(new Intent(context, DeviceSearchActivity.class));
+			}
+		});
+		
+		//Recycler View
 		categoryOnClickListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {

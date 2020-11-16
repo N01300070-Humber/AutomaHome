@@ -1,26 +1,26 @@
 <resources>
     <string name="app_name">AutomaHome</string>
-
+    
     <!-- Welcome, Login, Register -->
     <string name="title_activity_welcome">Welcome</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_register">Register</string>
-
+    
     <string name="welcome">Welcome to AutomaHome!</string>
-
+    
     <string name="button_sign_in">Sign in</string>
     <string name="button_register">Register</string>
     <string name="button_question_no_account">Don\'t have an account? Register</string>
     <string name="button_question_have_account">Already have an account? Sign in</string>
-
+    
     <string name="action_sign_in">Sign in</string>
     <string name="action_register">Register</string>
-
+    
     <string name="prompt_firstName">First Name</string>
     <string name="prompt_lastName">Last Name</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-
+    
     <string name="error_required_field">This field is required</string>
     <string name="error_email_invalid">Not a valid email address</string>
     <string name="error_email_taken">An account with this email address already exists</string>
@@ -29,23 +29,23 @@
     <string name="error_password_incorrect">Password is incorrect</string>
     <string name="error_login_failed">"Login failed"</string>
     <string name="error_registration_failed">"Registration failed"</string>
-
+    
     <!-- Navigation Drawer -->
     <string name="title_activity_nav_drawer">NavDrawerActivity</string>
-
+    
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
+    
     <string name="menu_favorites">Favorites</string>
     <string name="menu_devices">Devices</string>
     <string name="menu_tasks">Tasks</string>
     <string name="menu_home">Manage Home</string>
     <string name="menu_settings">Settings</string>
-
+    
     <!-- Devices -->
     <string name="side_device_location">Side %1$s Device Location</string>
     <string name="movement_detection_log">Movement Detection Log</string>
@@ -66,46 +66,46 @@
     <string name="temperature">Temperature</string>
     <string name="night_light">Night Light</string>
     <string name="changes_brightness_automatically_when_light_changes">Changes brightness automatically when light changes</string>
-
+    
     <string name="content_description_type_device">Device button</string>
     <string name="content_description_device_type_lights">Lights device button</string>
     <string name="content_description_device_type_movement_sensor">Movement Sensor device button</string>
     <string name="content_description_device_type_thermostat">Thermostat device button</string>
     <string name="content_description_type_task">Task button</string>
-
+    
     <!-- Manage Home, Invite User -->
     <string name="title_activity_manageHome">Manage Home</string>
     <string name="title_activity_inviteUser">Invite User</string>
-
+    
     <string name="currentHome">Current Home</string>
     <string name="wifiDetection">Wifi Detection</string>
     <string name="network1">Network 1</string>
     <string name="network2">Network 2</string>
-
+    
     <string name="users">Users</string>
     <string name="you">You</string>
     <string name="user1">User 1</string>
     <string name="user2">User 2</string>
-
+    
     <!-- Settings -->
     <string name="title_activity_setting">Settings</string>
-
+    
     <string name="displayTemp">Display Temperature</string>
-
+    
     <string name="logout">Logout</string>
     <string name="change_info">Change Info</string>
     <string name="change_password">Change Password</string>
     <string name="curr_password">Current Password</string>
     <string name="new_password">New Password</string>
-
+    
     <string name="notifications">Notifications</string>
     <string name="notification_sound">Notification Sound</string>
-
+    
     <!-- Other Strings -->
-
+    
     <!-- TODO: Remove placeholder string -->
     <string name="placeholder">Placeholder</string>
-
+    
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="target_temperature">Target Temperature</string>
@@ -114,6 +114,7 @@
     <string name="cool">Cool</string>
     <string name="heat">Heat</string>
     <string name="set">Set</string>
+    <string name="searching_devices">Searching for Devices</string>
 
 
 </resources>

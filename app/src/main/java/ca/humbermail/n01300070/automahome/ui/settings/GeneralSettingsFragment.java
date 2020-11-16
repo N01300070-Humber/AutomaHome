@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import ca.humbermail.n01300070.automahome.R;
 
@@ -28,4 +29,5 @@ public class GeneralSettingsFragment extends Fragment {
 		
 		return root;
 	}
+
 }

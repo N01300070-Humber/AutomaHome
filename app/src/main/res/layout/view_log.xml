@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/textView_log_main"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+    />
+
+    <TextView
+        android:id="@+id/textView_log_time"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        />
+</merge>

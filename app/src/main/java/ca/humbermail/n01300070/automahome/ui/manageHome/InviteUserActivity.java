@@ -9,12 +9,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.PersistableBundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import ca.humbermail.n01300070.automahome.R;
@@ -32,6 +34,14 @@ public class InviteUserActivity extends AppCompatActivity {
         
         emailEditText = findViewById(R.id.editText_inviteUser_email);
         inviteButton = findViewById(R.id.button_inviteUser);
+        
+        emailEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                inviteUser();
+                return true;
+            }
+        });
     }
     
     /**
@@ -50,7 +60,11 @@ public class InviteUserActivity extends AppCompatActivity {
      * @param view Source view
      */
     public void inviteButton_Clicked(View view) {
+        inviteUser();
+    }
+    
+    public void inviteUser() {
         Toast.makeText(getApplicationContext(), "User invited", Toast.LENGTH_SHORT).show();
-		finish();
+        finish();
     }
 }

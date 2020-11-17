@@ -11,6 +11,7 @@ import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -129,6 +130,7 @@ public class ManageHomeFragment extends Fragment {
 	
 	public void deleteHomeButton_Clicked(View view){
 		// TODO: Delete the currently selected home
+		Toast.makeText(context, "Home Deleted", Toast.LENGTH_SHORT).show();
 	}
 	
 	private ArrayList<IconTextData> generateNetworksDataList() {

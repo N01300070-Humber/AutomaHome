@@ -102,12 +102,12 @@ public class ManageHomeFragment extends Fragment {
 		
 		NetworksRecyclerView.setLayoutManager(new NonScrollingLinerLayoutManager(context));
 		NetworksRecyclerView.setAdapter(networksAdapter);
-		NetworksRecyclerView.addItemDecoration(new ListLinePadding((int) getResources().getDimension(R.dimen.recycler_divider_space)));
+		NetworksRecyclerView.addItemDecoration(new ListLinePadding((int) getResources().getDimension(R.dimen.recycler_divider_text_item_padding)));
 		NetworksRecyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
 		
 		UsersRecyclerView.setLayoutManager(new NonScrollingLinerLayoutManager(context));
 		UsersRecyclerView.setAdapter(usersAdapter);
-		UsersRecyclerView.addItemDecoration(new ListLinePadding((int) getResources().getDimension(R.dimen.recycler_divider_space)));
+		UsersRecyclerView.addItemDecoration(new ListLinePadding((int) getResources().getDimension(R.dimen.recycler_divider_text_item_padding)));
 		UsersRecyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
 		
 		return root;

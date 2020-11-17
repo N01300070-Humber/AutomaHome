@@ -12,4 +12,5 @@
 	<dimen name="recycler_divider_space">8dp</dimen>
 	<dimen name="category_divider_space">16dp</dimen>
 	<dimen name="scroll_bottom_padding">64dp</dimen>
+	<dimen name="recycler_divider_text_item_padding">16dp</dimen>
 </resources>

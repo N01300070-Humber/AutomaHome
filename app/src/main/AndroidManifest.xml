@@ -37,7 +37,8 @@
 		<activity android:name=".ui.tasks.EditTaskActivity" />
 		<activity android:name=".ui.tasks.condition.EditConditionActivity" />
 		<activity android:name=".ui.tasks.operation.EditOperationActivity" />
-		<activity android:name=".ui.manageHome.InviteUserActivity" />
+		<activity android:name=".ui.manageHome.InviteUserActivity"
+			android:windowSoftInputMode="adjustResize"/>
 	</application>
 
 </manifest>

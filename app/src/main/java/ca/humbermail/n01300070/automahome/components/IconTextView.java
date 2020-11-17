@@ -82,6 +82,13 @@ public class IconTextView extends LinearLayout {
 		iconImageView.setImageTintList(ColorStateList.valueOf(colour));
 	}
 	
+	public boolean isIconVisible() {
+		if (iconImageView.getVisibility() == VISIBLE) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void setIconVisible(boolean visible) {
 		if (visible) {
 			iconImageView.setVisibility(VISIBLE);

@@ -1,6 +1,7 @@
 package ca.humbermail.n01300070.automahome.ui.manageHome;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.util.Log;
@@ -117,7 +118,10 @@ public class ManageHomeFragment extends Fragment {
 	}
 	
 	public void usersRecyclerItemClicked(View view) {
-		// TODO Open edit user activity (Needed for Milestone 2)
+		if (((IconTextView) view).isIconVisible()) {
+			// TODO Open edit user activity (Needed for Milestone 2)
+			startActivity(new Intent());
+		}
 	}
 	
 	public void addNetworkButton_Clicked(View view){

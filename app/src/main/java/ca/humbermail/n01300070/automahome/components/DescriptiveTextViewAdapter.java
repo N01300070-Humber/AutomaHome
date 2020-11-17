@@ -37,8 +37,10 @@ public class DescriptiveTextViewAdapter extends RecyclerView.Adapter<Descriptive
     @Override
     public DescriptiveTextViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         DescriptiveTextView logView = new DescriptiveTextView(parent.getContext());
+        
         logView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         logView.setOrientation(LinearLayout.VERTICAL);
+        
         return new DescriptiveTextViewHolder(logView);
     }
 

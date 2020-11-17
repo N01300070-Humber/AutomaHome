@@ -125,8 +125,12 @@
 	<string name="title_activity_manageHome">Manage Home</string>
 	<string name="title_activity_inviteUser">Invite User</string>
 	
+	<string name="add_network">Add Network</string>
+	<string name="invite_user">Invite User</string>
+	<string name="delete_home">Delete Home</string>
+	<string name="invite">Invite</string>
 	<string name="currentHome">Current Home</string>
-	<string name="wifiDetection">Wifi Detection</string>
+	<string name="wifiDetection">Wi-Fi Detection</string>
 	<string name="network1">Network 1</string>
 	<string name="network2">Network 2</string>
 	
@@ -166,9 +170,6 @@
 	<string name="placeholder">Placeholder</string>
 	<!-- TODO: Remove or change this placeholder text -->
 	<string name="hello_blank_fragment">Hello blank fragment</string>
-	<string name="add_network">Add Network</string>
-	<string name="invite_user">Invite User</string>
-	<string name="delete_home">Delete Home</string>
 
 
 </resources>

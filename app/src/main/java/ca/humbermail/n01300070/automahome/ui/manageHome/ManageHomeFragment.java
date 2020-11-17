@@ -2,22 +2,16 @@ package ca.humbermail.n01300070.automahome.ui.manageHome;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Icon;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -25,19 +19,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.RandomAccess;
 
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.components.ConditionOrOperationViewAdapter;
 import ca.humbermail.n01300070.automahome.components.IconTextData;
 import ca.humbermail.n01300070.automahome.components.IconTextView;
 import ca.humbermail.n01300070.automahome.components.IconTextViewAdapter;
 import ca.humbermail.n01300070.automahome.components.ListLinePadding;
-import ca.humbermail.n01300070.automahome.components.NonScrollingGridLayoutManager;
 import ca.humbermail.n01300070.automahome.components.NonScrollingLinerLayoutManager;
 
 public class ManageHomeFragment extends Fragment {
-
+	
 	Context context;
 	
 	private Spinner selectHomeSpinner;
@@ -51,7 +42,7 @@ public class ManageHomeFragment extends Fragment {
 	private IconTextViewAdapter usersAdapter;
 	private View.OnClickListener networksOnClickListener;
 	private View.OnClickListener usersOnClickListener;
-
+	
 	public View onCreateView(@NonNull LayoutInflater inflater,
 							 ViewGroup container, Bundle savedInstanceState) {
 		HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -114,40 +105,39 @@ public class ManageHomeFragment extends Fragment {
 	}
 	
 	public void networksRecyclerItemClicked(View view) {
-		// TODO Open edit network activity (Needed for Milestone 2)
+		// TODO: Remove network from list
 	}
 	
 	public void usersRecyclerItemClicked(View view) {
 		if (((IconTextView) view).isIconVisible()) {
-			// TODO Open edit user activity (Needed for Milestone 2)
-			startActivity(new Intent());
+			// TODO: Remove user from list
 		}
 	}
 	
-	public void addNetworkButton_Clicked(View view){
+	public void addNetworkButton_Clicked(View view) {
 		// TODO: Open add network activity (Needed for Milestone 2)
 	}
 	
-	public void addUserButton_Clicked(View view){
+	public void addUserButton_Clicked(View view) {
 		startActivity(new Intent(context, InviteUserActivity.class));
 		// TODO: Add new user to the list
 	}
 	
-	public void deleteHomeButton_Clicked(View view){
+	public void deleteHomeButton_Clicked(View view) {
 		// TODO: Delete the currently selected home
 		Toast.makeText(context, "Home Deleted", Toast.LENGTH_SHORT).show();
 	}
 	
 	private ArrayList<IconTextData> generateNetworksDataList() {
-		int arrayLength = new Random().nextInt(3)+2;
+		int arrayLength = new Random().nextInt(3) + 2;
 		ArrayList<IconTextData> iconTextDataList = new ArrayList<>(arrayLength);
 		
 		for (int i = 0; i < arrayLength; i++) {
 			IconTextData iconTextData = new IconTextData(
 					"Network " + (i + 1),
 					R.style.TextAppearance_MaterialComponents_Body1,
-					ContextCompat.getDrawable(context, R.drawable.ic_edit),
-					getResources().getColor(R.color.design_default_color_primary, context.getTheme()),
+					ContextCompat.getDrawable(context, R.drawable.ic_remove_circle_outline),
+					getResources().getColor(R.color.design_default_color_error, context.getTheme()),
 					"Edit"
 			);
 			
@@ -158,7 +148,7 @@ public class ManageHomeFragment extends Fragment {
 	}
 	
 	private ArrayList<IconTextData> generateUsersDataList() {
-		int arrayLength = new Random().nextInt(7)+2;
+		int arrayLength = new Random().nextInt(7) + 2;
 		ArrayList<IconTextData> iconTextDataList = new ArrayList<>(arrayLength);
 		
 		IconTextData firstIconTextData = new IconTextData(
@@ -171,8 +161,8 @@ public class ManageHomeFragment extends Fragment {
 			IconTextData iconTextData = new IconTextData(
 					"User " + (i + 1),
 					R.style.TextAppearance_MaterialComponents_Body1,
-					ContextCompat.getDrawable(context, R.drawable.ic_edit),
-					getResources().getColor(R.color.design_default_color_primary, context.getTheme()),
+					ContextCompat.getDrawable(context, R.drawable.ic_person_remove),
+					getResources().getColor(R.color.design_default_color_error, context.getTheme()),
 					"Edit"
 			);
 			

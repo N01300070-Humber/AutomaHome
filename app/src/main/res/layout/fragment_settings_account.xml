@@ -115,13 +115,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/logout"
-        app:layout_constraintBottom_toTopOf="@+id/button_delete"
+        app:layout_constraintBottom_toTopOf="@+id/button_deleteAccount"
         app:layout_constraintStart_toStartOf="parent">
     
     </Button>
     
     <Button
-        android:id="@+id/button_delete"
+        android:id="@+id/button_deleteAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -139,7 +139,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_confirm"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button_delete" />
+        app:layout_constraintStart_toEndOf="@+id/button_deleteAccount" />
     
     <Button
         android:id="@+id/button_confirm"

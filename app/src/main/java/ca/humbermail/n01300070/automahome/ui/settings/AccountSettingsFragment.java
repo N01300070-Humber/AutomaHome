@@ -6,14 +6,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import ca.humbermail.n01300070.automahome.R;
@@ -52,7 +50,7 @@ public class AccountSettingsFragment extends Fragment {
 		currentPasswordEditText = root.findViewById(R.id.editText_currPassword);
 		newPasswordEditText = root.findViewById(R.id.editText_newPassword);
 		logoutButton = root.findViewById(R.id.button_signOut);
-		deleteAccountButton = root.findViewById(R.id.button_delete);
+		deleteAccountButton = root.findViewById(R.id.button_deleteAccount);
 		confirmButton = root.findViewById(R.id.button_confirm);
 		
 		logoutButton.setOnClickListener(new View.OnClickListener() {

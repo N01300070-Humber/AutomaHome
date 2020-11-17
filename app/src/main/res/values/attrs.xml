@@ -12,4 +12,11 @@
 		<attr name="android:text" format="string" />
 		<attr name="android:textAppearance" format="reference" />
 	</declare-styleable>
+	
+	<declare-styleable name="IconTextView">
+		<attr name="android:text" format="string" />
+		<attr name="android:textAppearance" format="reference" />
+		<attr name="android:icon" format="integer" />
+		<attr name="android:iconTint" format="color" />
+	</declare-styleable>
 </resources>

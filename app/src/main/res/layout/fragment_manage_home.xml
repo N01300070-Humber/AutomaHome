@@ -106,7 +106,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginTop="16dp"
 				android:text="@string/invite_user"
-				app:icon="@drawable/ic_person_add_black_24dp"
+				app:icon="@drawable/ic_person_add"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintHorizontal_bias="0.5"
 				app:layout_constraintStart_toEndOf="@+id/textView_users"

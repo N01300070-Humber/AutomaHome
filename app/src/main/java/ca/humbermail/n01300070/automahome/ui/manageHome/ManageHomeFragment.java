@@ -131,7 +131,7 @@ public class ManageHomeFragment extends Fragment {
 		// TODO: Delete the currently selected home
 	}
 	
-	private ArrayList<IconTextData> generateUsersDataList() {
+	private ArrayList<IconTextData> generateNetworksDataList() {
 		int arrayLength = new Random().nextInt(3)+2;
 		ArrayList<IconTextData> iconTextDataList = new ArrayList<>(arrayLength);
 		
@@ -150,7 +150,7 @@ public class ManageHomeFragment extends Fragment {
 		return iconTextDataList;
 	}
 	
-	private ArrayList<IconTextData> generateNetworksDataList() {
+	private ArrayList<IconTextData> generateUsersDataList() {
 		int arrayLength = new Random().nextInt(7)+2;
 		ArrayList<IconTextData> iconTextDataList = new ArrayList<>(arrayLength);
 		

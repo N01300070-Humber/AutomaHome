@@ -129,7 +129,8 @@ public class ManageHomeFragment extends Fragment {
 	}
 	
 	public void addUserButton_Clicked(View view){
-		// TODO: Open invite user activity (Needed for Milestone 2)
+		startActivity(new Intent(context, InviteUserActivity.class));
+		// TODO: Add new user to the list
 	}
 	
 	public void deleteHomeButton_Clicked(View view){

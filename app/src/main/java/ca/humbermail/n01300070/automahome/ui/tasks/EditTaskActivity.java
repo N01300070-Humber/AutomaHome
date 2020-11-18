@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.ConditionOrOperationView;
 import ca.humbermail.n01300070.automahome.components.ConditionOrOperationViewAdapter;
+import ca.humbermail.n01300070.automahome.components.FavoriteSelectView;
 import ca.humbermail.n01300070.automahome.components.ListLinePadding;
 import ca.humbermail.n01300070.automahome.components.NonScrollingLinerLayoutManager;
 import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationData;
@@ -31,9 +32,10 @@ public class EditTaskActivity extends AppCompatActivity {
 	private Button addOperationButton;
 	private Button saveButton;
 	private Button discardButton;
+	private FavoriteSelectView favoriteSelectView;
 	private RecyclerView conditionsRecyclerView;
 	private RecyclerView operationsRecyclerView;
-    
+	
     private ConditionOrOperationViewAdapter conditionsAdapter;
     private ConditionOrOperationViewAdapter operationsAdapter;
     private View.OnClickListener conditionsOnClickListener;
@@ -49,6 +51,7 @@ public class EditTaskActivity extends AppCompatActivity {
         addOperationButton = findViewById(R.id.button_addOperation);
         saveButton = findViewById(R.id.button_editTask_save);
         discardButton = findViewById(R.id.button_editTask_discard);
+        favoriteSelectView = findViewById(R.id.favoriteSelectView_editTask);
         conditionsRecyclerView = findViewById(R.id.recyclerView_conditions);
         operationsRecyclerView = findViewById(R.id.recyclerView_operations);
         
@@ -64,6 +67,7 @@ public class EditTaskActivity extends AppCompatActivity {
                 operationsRecyclerViewItemClicked(view);
             }
         };
+        favoriteSelectView.setAutoCompleteLabels(generateCategoryList());
         conditionsAdapter = new ConditionOrOperationViewAdapter(getApplicationContext(), generateConditionList(), conditionsOnClickListener);
 		operationsAdapter = new ConditionOrOperationViewAdapter(getApplicationContext(), generateOperationList(), operationsOnClickListener);
 		
@@ -79,6 +83,17 @@ public class EditTaskActivity extends AppCompatActivity {
 		operationsRecyclerView.addItemDecoration(new ListLinePadding((int) getResources().getDimension(R.dimen.recycler_divider_space)));
 		operationsRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
 		
+	}
+	
+	private ArrayList<String> generateCategoryList() {
+		int numCategories = 6;
+		ArrayList<String> categoryList = new ArrayList<>(numCategories);
+		
+		for (int i = 0; i < numCategories; i++) {
+			categoryList.add("Category " + (i + 1));
+		}
+		
+		return categoryList;
 	}
 	
 	// TODO: Replace placeholder data generator function with one that gets real data

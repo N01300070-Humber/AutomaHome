@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<declare-styleable name="Theme">
+		<!-- Default disabled alpha for widgets that set enabled/disabled alpha programmatically. -->
+		<attr name="disabledAlpha" format="float" />
+	</declare-styleable>
+	
 	<declare-styleable name="DeviceOrTaskButtonView">
 		<attr name="android:text" format="string" />
 		<attr name="android:src" format="integer" />

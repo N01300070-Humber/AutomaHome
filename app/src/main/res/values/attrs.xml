@@ -19,4 +19,11 @@
 		<attr name="android:icon" format="integer" />
 		<attr name="android:iconTint" format="color" />
 	</declare-styleable>
+	
+	<declare-styleable name="NumberPickerView">
+		<attr name="initialNumber" format="float" />
+		<attr name="prefixText" format="string" />
+		<attr name="suffixText" format="string" />
+		<attr name="android:textAppearance" format="reference" />
+	</declare-styleable>
 </resources>

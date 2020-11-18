@@ -1,6 +1,7 @@
 package ca.humbermail.n01300070.automahome.components;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ public class NumberPickerView extends ConstraintLayout {
 	
 	TextView prefixTextView;
 	TextView suffixTextView;
-	TextInputEditText numEditText;
+	TextInputEditText numberEditText;
 	AppCompatImageButton increaseButton;
 	AppCompatImageButton decreaseButton;
 	
@@ -45,12 +46,30 @@ public class NumberPickerView extends ConstraintLayout {
 		
 		prefixTextView = findViewById(R.id.textView_prefix);
 		suffixTextView = findViewById(R.id.textView_suffix);
-		numEditText = findViewById(R.id.textInputEditText_number);
+		numberEditText = findViewById(R.id.textInputEditText_number);
 		increaseButton = findViewById(R.id.imageView_increaseNumber);
 		decreaseButton = findViewById(R.id.imageView_decreaseNumber);
 	}
 	
 	private void setAttributes(Context context, AttributeSet attrs) {
+		TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.NumberPickerView);
+		
+		setNumber(attributes.getFloat(R.styleable.NumberPickerView_initialNumber, 0));
+		setPrefixText(attributes.getString(R.styleable.NumberPickerView_prefixText));
+		setSuffixText(attributes.getString(R.styleable.NumberPickerView_suffixText));
+		setTextAppearance(attributes.getResourceId(
+				R.styleable.NumberPickerView_android_textAppearance,
+				R.style.TextAppearance_MaterialComponents_Body1 ));
+		
+		attributes.recycle();
+	}
 	
+	private void setNumber(float number) {
+	}
+	
+	private void setSuffixText(String text) {
+	}
+	
+	private void setTextAppearance(int textAppearance) {
 	}
 }

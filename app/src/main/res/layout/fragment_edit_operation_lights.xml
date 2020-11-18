@@ -6,16 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.tasks.operation.EditOperationLightsFragment">
     
-    <TextView
-        android:id="@+id/lights"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_controlLight_deviceSelect"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/lights"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:textStyle="bold"
+        android:hint="@string/select_device"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+        
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteText_controlLight_deviceSelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
     
     <TextView
         android:id="@+id/textView3"
@@ -27,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.087"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lights" />
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout_controlLight_deviceSelect" />
     
     <LinearLayout
         android:id="@+id/linearLayout3"

@@ -6,15 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.tasks.operation.EditOperationActivity">
     
-    <TextView
-        android:id="@+id/editOperationThermostat_header"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_editOperationThermostat_deviceSelect"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/thermostat"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:hint="@string/select_device"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+        
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteText_editOperationThermostat_deviceSelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
     
     <ca.humbermail.n01300070.automahome.components.NumberPickerView
         android:id="@+id/numberPickerView_editOperationThermostat_temperature"
@@ -23,11 +35,11 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:hint="@string/temperature"
+        android:hint="@string/target_temperature"
         android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editOperationThermostat_header"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_editOperationThermostat_deviceSelect"
         app:numberAlignment="right"
         app:numberInterval="0.5" />
     

@@ -6,25 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.tasks.condition.EditConditionMovementFragment">
     
-    <TextView
-        android:id="@+id/Movement"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_conditionMovement_deviceSelect"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/movement"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:textStyle="bold"
+        android:hint="@string/select_device"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:entries="@array/arrayRooms"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+        
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteText_conditionMovement_deviceSelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
     
     <TextView
         android:id="@+id/textView10"
@@ -34,6 +36,15 @@
         android:text="@string/moving"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Movement" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_conditionMovement_deviceSelect" />
+    
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:entries="@array/arrayRooms"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

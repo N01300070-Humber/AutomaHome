@@ -39,12 +39,11 @@
 		android:layout_marginEnd="32dp"
 		android:hint="@string/target_temperature"
 		android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
-		app:initialNumber="28"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/textView_editThermostat_currentTemp"
 		app:numberAlignment="right"
-		app:suffixText="@string/degrees_celsius" />
+		app:numberInterval="0.5" />
     
     
     <com.google.android.material.button.MaterialButtonToggleGroup

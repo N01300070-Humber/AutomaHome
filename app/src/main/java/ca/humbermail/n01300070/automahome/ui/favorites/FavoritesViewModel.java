@@ -68,6 +68,7 @@ public class FavoritesViewModel extends ViewModel {
 	
 	// TODO: Remove placeholder data generator function
 	public static ArrayList<DeviceOrTaskData> generatePlaceholderDeviceAndTaskDataList(Context context, int numTasks, int numDevices) {
+		Random random = new Random();
 		ArrayList<DeviceOrTaskData> deviceOrTaskDataList = new ArrayList<>(numTasks + numDevices);
 		
 		for (int i = 0; i < numTasks; i++) {
@@ -83,15 +84,47 @@ public class FavoritesViewModel extends ViewModel {
 			deviceOrTaskDataList.add(taskData);
 		}
 		
-		for (int i = 0; i < numDevices; i++) {
+		
+		int numLights = random.nextInt(numDevices);
+		for (int i = 0; i < numLights; i++) {
 			DeviceOrTaskData deviceData = new DeviceOrTaskData(
 					DeviceOrTaskData.TYPE_DEVICE,
-					"Device Name",
+					"Light Name",
 					"Room",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),
 					context.getString(R.string.content_description_type_device),
 					context.getColor(R.color.accent_200)
 			);
+			deviceData.setDeviceType(DeviceOrTaskData.DEVICE_LIGHTS);
+			
+			deviceOrTaskDataList.add(deviceData);
+		}
+		
+		int numSensors = random.nextInt(numDevices - numLights);
+		for (int i = 0; i < numSensors; i++) {
+			DeviceOrTaskData deviceData = new DeviceOrTaskData(
+					DeviceOrTaskData.TYPE_DEVICE,
+					"Movement Sensor Name",
+					"Room",
+					ContextCompat.getDrawable(context, R.drawable.ic_devices),
+					context.getString(R.string.content_description_type_device),
+					context.getColor(R.color.accent_200)
+			);
+			deviceData.setDeviceType(DeviceOrTaskData.DEVICE_MOVEMENT_SENSOR);
+			
+			deviceOrTaskDataList.add(deviceData);
+		}
+		
+		for (int i = 0; i < numDevices - numLights - numSensors; i++) {
+			DeviceOrTaskData deviceData = new DeviceOrTaskData(
+					DeviceOrTaskData.TYPE_DEVICE,
+					"Thermostat Name",
+					"Room",
+					ContextCompat.getDrawable(context, R.drawable.ic_devices),
+					context.getString(R.string.content_description_type_device),
+					context.getColor(R.color.accent_200)
+			);
+			deviceData.setDeviceType(DeviceOrTaskData.DEVICE_THERMOSTAT);
 			
 			deviceOrTaskDataList.add(deviceData);
 		}

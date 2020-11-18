@@ -1,95 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.tasks.condition.EditConditionTemperatureFragment">
-    
-    <TextView
-        android:id="@+id/temperature"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/temperature"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    
-    <TextView
-        android:id="@+id/temp_read"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/default_temp"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
-        android:textSize="80sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/toggleGroup"
-        app:layout_constraintStart_toStartOf="@+id/toggleGroup"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
-    
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/toggleGroup"
-        app:layout_constraintTop_toBottomOf="@+id/temperature">
-    
-        <Button
-            android:id="@+id/temp_up_task"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:text="@string/up"
-            android:textAlignment="center"
-            android:textSize="36sp"
-            android:textStyle="bold" />
-    
-        <Button
-            android:id="@+id/temp_down_task"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:text="@string/down"
-            android:textSize="36sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-    
-    <RadioGroup
-        android:id="@+id/toggleGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:checkedButton="@id/equal"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-    
-        <ToggleButton
-            android:id="@+id/more_than"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-        
-        <ToggleButton
-            android:id="@+id/equal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-        
-        <ToggleButton
-            android:id="@+id/less_than"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </RadioGroup>
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ui.tasks.condition.EditConditionTemperatureFragment">
+	
+	<TextView
+		android:id="@+id/textView_editConditionTemperature_header"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:text="@string/temperature"
+		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+	
+	<com.google.android.material.textfield.TextInputLayout
+		android:id="@+id/textInputLayout_temperature"
+		style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+		android:layout_width="96dp"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
+		app:layout_constraintEnd_toStartOf="@+id/textView_editConditionTemperature_unit"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintHorizontal_chainStyle="packed"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/textView_editConditionTemperature_header">
+		
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/textInputEditText_temperature"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:hint="@string/temp"
+			android:inputType="number"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+			tools:text="21" />
+	</com.google.android.material.textfield.TextInputLayout>
+	
+	<TextView
+		android:id="@+id/textView_editConditionTemperature_unit"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="4dp"
+		android:layout_marginEnd="8dp"
+		android:textAlignment="center"
+		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toBottomOf="@+id/textInputLayout_temperature"
+		app:layout_constraintEnd_toStartOf="@+id/linearLayout_editConditionTemperature"
+		app:layout_constraintStart_toEndOf="@+id/textInputLayout_temperature"
+		app:layout_constraintTop_toTopOf="@+id/textInputLayout_temperature"
+		tools:text="@string/degrees_celsius" />
+	
+	<LinearLayout
+		android:id="@+id/linearLayout_editConditionTemperature"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintBottom_toBottomOf="@+id/textInputLayout_temperature"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/textView_editConditionTemperature_unit"
+		app:layout_constraintTop_toTopOf="@+id/textInputLayout_temperature">
+		
+		<ImageView
+			android:id="@+id/imageView_editConditionTemperature_increase"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="?attr/selectableItemBackground"
+			android:contentDescription="@string/increase_temperature"
+			android:src="@drawable/ic_arrow_up" />
+		
+		<ImageView
+			android:id="@+id/imageView_editConditionTemperature_decrease"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:contentDescription="@string/decrease_temperature"
+			android:src="@drawable/ic_arrow_down" />
+	
+	</LinearLayout>
+	
+	<com.google.android.material.button.MaterialButtonToggleGroup
+		android:id="@+id/buttonToggleGroup_logic"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
+		app:checkedButton="@id/toggleButton_equal"
+		app:layout_constraintEnd_toEndOf="@+id/linearLayout_editConditionTemperature"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="@+id/textInputLayout_temperature"
+		app:layout_constraintTop_toBottomOf="@+id/textInputLayout_temperature"
+		app:selectionRequired="true"
+		app:singleSelection="true">
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_lessThan"
+			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:contentDescription="@string/less_than"
+			android:drawablePadding="0dp"
+			android:insetLeft="0dp"
+			android:insetTop="0dp"
+			android:insetRight="0dp"
+			android:insetBottom="0dp"
+			app:icon="@drawable/ic_less_than"
+			app:iconGravity="textStart"
+			app:iconPadding="0dp" />
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_equal"
+			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:contentDescription="@string/equal_to"
+			android:insetLeft="0dp"
+			android:insetTop="0dp"
+			android:insetRight="0dp"
+			android:insetBottom="0dp"
+			app:icon="@drawable/ic_equal_sign"
+			app:iconGravity="textStart"
+			app:iconPadding="0dp" />
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_moreThan"
+			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:contentDescription="@string/more_than"
+			android:insetLeft="0dp"
+			android:insetTop="0dp"
+			android:insetRight="0dp"
+			android:insetBottom="0dp"
+			app:icon="@drawable/ic_more_than"
+			app:iconGravity="textStart"
+			app:iconPadding="0dp" />
+	
+	</com.google.android.material.button.MaterialButtonToggleGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

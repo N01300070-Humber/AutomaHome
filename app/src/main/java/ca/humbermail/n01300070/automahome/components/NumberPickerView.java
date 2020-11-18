@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,6 +52,19 @@ public class NumberPickerView extends ConstraintLayout {
 		numberEditText = findViewById(R.id.textInputEditText_number);
 		increaseButton = findViewById(R.id.imageView_increaseNumber);
 		decreaseButton = findViewById(R.id.imageView_decreaseNumber);
+		
+		increaseButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				increaseNumber(interval);
+			}
+		});
+		decreaseButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				decreaseNumber(interval);
+			}
+		});
 	}
 	
 	private void setAttributes(Context context, AttributeSet attrs) {
@@ -68,49 +82,58 @@ public class NumberPickerView extends ConstraintLayout {
 		attributes.recycle();
 	}
 	
-	private float getNumber() {
+	public float getNumber() {
 		return Float.parseFloat(numberEditText.getText().toString());
 	}
 	
-	private void setNumber(float number) {
+	public void setNumber(float number) {
 		numberEditText.setText(String.format("%s", number));
 	}
 	
-	private float getInterval() {
+	public float getInterval() {
 		return interval;
 	}
 	
-	private void setInterval(float interval) {
+	public void setInterval(float interval) {
 		this.interval = interval;
 	}
 	
-	private String getHint() {
+	public String getHint() {
 		return (String) numberEditText.getHint();
 	}
 	
-	private void setHint(String hint) {
+	public void setHint(String hint) {
 		numberEditText.setHint(hint);
 	}
 	
-	private String getPrefixText() {
+	public String getPrefixText() {
 		return prefixTextView.getText().toString();
 	}
 	
-	private void setPrefixText(String text) {
+	public void setPrefixText(String text) {
 		prefixTextView.setText(text);
 	}
 	
-	private String getSuffixText() {
+	public String getSuffixText() {
 		return suffixTextView.getText().toString();
 	}
 	
-	private void setSuffixText(String text) {
+	public void setSuffixText(String text) {
 		suffixTextView.setText(text);
 	}
 	
-	private void setTextAppearance(int textAppearance) {
+	public void setTextAppearance(int textAppearance) {
 		prefixTextView.setTextAppearance(textAppearance);
 		numberEditText.setTextAppearance(textAppearance);
 		suffixTextView.setTextAppearance(textAppearance);
+	}
+	
+	
+	public void increaseNumber(float interval) {
+		setNumber(getNumber() + interval);
+	}
+	
+	public void decreaseNumber(float interval) {
+		setNumber(getNumber() - interval);
 	}
 }

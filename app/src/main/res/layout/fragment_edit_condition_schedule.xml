@@ -1,201 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.tasks.condition.EditConditionScheduleFragment">
-    
-    <TextView
-        android:id="@+id/schedule"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/schedule"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/activate"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/schedule" />
-    
-    <Space
-        android:id="@+id/space4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/toggleGroup"
-        app:layout_constraintEnd_toStartOf="@+id/hour_input"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toggleGroup" />
-    
-    <EditText
-        android:id="@+id/hour_input"
-        android:layout_width="67dp"
-        android:layout_height="49dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@+id/toggleGroup"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/space4"
-        app:layout_constraintTop_toTopOf="@+id/toggleGroup"
-        app:layout_constraintVertical_bias="0.263" />
-    
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=":"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="@+id/toggleGroup"
-        app:layout_constraintEnd_toStartOf="@+id/minunte_input"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/hour_input"
-        app:layout_constraintTop_toTopOf="@+id/toggleGroup"
-        app:layout_constraintVertical_bias="0.25" />
-    
-    <EditText
-        android:id="@+id/minunte_input"
-        android:layout_width="67dp"
-        android:layout_height="49dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@+id/toggleGroup"
-        app:layout_constraintEnd_toStartOf="@+id/space5"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/toggleGroup"
-        app:layout_constraintVertical_bias="0.263" />
-    
-    <Space
-        android:id="@+id/space5"
-        android:layout_width="16dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/toggleGroup"
-        app:layout_constraintEnd_toStartOf="@+id/toggleGroup"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/minunte_input"
-        app:layout_constraintTop_toTopOf="@+id/toggleGroup" />
-    
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/toggleGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/space6"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/space5"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:selectionRequired="true"
-        app:singleSelection="true">
-        
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/am_toggle"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:text="AM"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/pm_toggle"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/minunte_input"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.254" />
-        
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/pm_toggle"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="PM"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.254" />
-    
-    </com.google.android.material.button.MaterialButtonToggleGroup>
-    
-    <Space
-        android:id="@+id/space6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/toggleGroup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/toggleGroup"
-        app:layout_constraintTop_toTopOf="@+id/toggleGroup" />
-    
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toggleGroup">
-        
-        <RadioButton
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="@string/sunday" />
-        
-        <RadioButton
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="@string/monday" />
-        
-        <RadioButton
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="@string/tuesday" />
-        
-        <RadioButton
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="@string/wednesday" />
-        
-        <RadioButton
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="@string/thursday" />
-        
-        <RadioButton
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="@string/friday" />
-        
-        <RadioButton
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableBottom="@android:drawable/btn_radio"
-            android:gravity="center"
-            android:text="@string/saturday" />
-    </RadioGroup>
-
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ui.tasks.condition.EditConditionScheduleFragment">
+	
+	<TextView
+		android:id="@+id/textView_editConditionSchedule_header"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:text="@string/schedule"
+		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+	
+	<com.google.android.material.textfield.TextInputLayout
+		android:id="@+id/textInputLayout_editConditionSchedule_time"
+		style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
+		android:hint="@string/activate_at"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/textView_editConditionSchedule_header">
+		
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/textInputEditText_editConditionSchedule_time"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:inputType="none" />
+	</com.google.android.material.textfield.TextInputLayout>
+	
+	<com.google.android.material.button.MaterialButtonToggleGroup
+		android:id="@+id/buttonToggleGroup_weekDays"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		app:checkedButton="@id/toggleButton_equal"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/textInputLayout_editConditionSchedule_time"
+		app:selectionRequired="false"
+		app:singleSelection="false">
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_sunday"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:drawableBottom="@drawable/btn_radio_material_anim"
+			android:text="@string/sunday"
+			android:textAllCaps="false"
+			app:backgroundTint="@android:color/transparent"
+			app:iconPadding="0dp"
+			app:rippleColor="@null" />
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_monday"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:drawableBottom="@drawable/btn_radio_material_anim"
+			android:text="@string/monday"
+			android:textAllCaps="false"
+			app:backgroundTint="@android:color/transparent"
+			app:iconPadding="0dp"
+			app:rippleColor="@null" />
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_tuesday"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:drawableBottom="@drawable/btn_radio_material_anim"
+			android:text="@string/tuesday"
+			android:textAllCaps="false"
+			app:backgroundTint="@android:color/transparent"
+			app:iconPadding="0dp"
+			app:rippleColor="@null" />
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_wednesday"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:drawableBottom="@drawable/btn_radio_material_anim"
+			android:text="@string/wednesday"
+			android:textAllCaps="false"
+			app:backgroundTint="@android:color/transparent"
+			app:iconPadding="0dp"
+			app:rippleColor="@null" />
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_thursday"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:drawableBottom="@drawable/btn_radio_material_anim"
+			android:text="@string/thursday"
+			android:textAllCaps="false"
+			app:backgroundTint="@android:color/transparent"
+			app:iconPadding="0dp"
+			app:rippleColor="@null" />
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_friday"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:drawableBottom="@drawable/btn_radio_material_anim"
+			android:text="@string/friday"
+			android:textAllCaps="false"
+			app:backgroundTint="@android:color/transparent"
+			app:iconPadding="0dp"
+			app:rippleColor="@null" />
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_saturday"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:drawableBottom="@drawable/btn_radio_material_anim"
+			android:text="@string/saturday"
+			android:textAllCaps="false"
+			app:backgroundTint="@android:color/transparent"
+			app:iconPadding="0dp"
+			app:rippleColor="@null" />
+	
+	</com.google.android.material.button.MaterialButtonToggleGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

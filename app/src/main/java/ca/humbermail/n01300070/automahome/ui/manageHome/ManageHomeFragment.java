@@ -105,22 +105,23 @@ public class ManageHomeFragment extends Fragment {
 	}
 	
 	public void networksRecyclerItemClicked(View view) {
-		// TODO: Remove network from list
+		// TODO: Remove network from Wi-Fi Detection list
 	}
 	
 	public void usersRecyclerItemClicked(View view) {
 		if (((IconTextView) view).isIconVisible()) {
-			// TODO: Remove user from list
+			// TODO: Remove user from users list
 		}
 	}
 	
 	public void addNetworkButton_Clicked(View view) {
-		// TODO: Open add network activity (Needed for Milestone 2)
+		startActivity(new Intent(context, AddNetworkActivity.class));
+		// TODO: Add network to Wi-Fi Detection list
 	}
 	
 	public void addUserButton_Clicked(View view) {
 		startActivity(new Intent(context, InviteUserActivity.class));
-		// TODO: Add new user to the list
+		// TODO: Add new user to users list
 	}
 	
 	public void deleteHomeButton_Clicked(View view) {
@@ -128,6 +129,7 @@ public class ManageHomeFragment extends Fragment {
 		Toast.makeText(context, "Home Deleted", Toast.LENGTH_SHORT).show();
 	}
 	
+	// TODO: Remove placeholder content generation function
 	private ArrayList<IconTextData> generateNetworksDataList() {
 		int arrayLength = new Random().nextInt(3) + 2;
 		ArrayList<IconTextData> iconTextDataList = new ArrayList<>(arrayLength);
@@ -147,6 +149,7 @@ public class ManageHomeFragment extends Fragment {
 		return iconTextDataList;
 	}
 	
+	// TODO: Remove placeholder content generation function
 	private ArrayList<IconTextData> generateUsersDataList() {
 		int arrayLength = new Random().nextInt(7) + 2;
 		ArrayList<IconTextData> iconTextDataList = new ArrayList<>(arrayLength);

@@ -1,147 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".ui.tasks.EditTaskActivity">
-    
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-    
-        <TextView
-            android:id="@+id/textView_conditions_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="@string/runIf"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView_conditions"
-            app:layout_constraintEnd_toStartOf="@+id/space_editTask_conditions"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    
-        <Space
-            android:id="@+id/space_editTask_conditions"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/button_addCondition"
-            app:layout_constraintEnd_toStartOf="@+id/button_addCondition"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView_conditions_header"
-            app:layout_constraintTop_toTopOf="@+id/button_addCondition" />
-    
-        <Button
-            android:id="@+id/button_addCondition"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="addConditionButtonClicked"
-            android:text="@string/add_cond"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/space_editTask_conditions"
-            app:layout_constraintTop_toTopOf="parent" />
-    
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_conditions"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_addCondition" />
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:padding="16dp"
+	tools:context=".ui.tasks.EditTaskActivity">
+	
+	
+	<ScrollView
+		android:id="@+id/scrollView2"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toTopOf="@+id/button_editTask_discard"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+		
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<TextView
+				android:id="@+id/textView_conditions_header"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="8dp"
+				android:text="@string/run_if"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+				app:layout_constraintBottom_toBottomOf="@+id/button_addCondition"
+				app:layout_constraintEnd_toStartOf="@+id/button_addCondition"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="@+id/button_addCondition" />
+			
+			<Button
+				android:id="@+id/button_addCondition"
+				style="@style/Widget.MaterialComponents.Button.TextButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:onClick="addConditionButtonClicked"
+				android:text="@string/add_cond"
+				android:textStyle="bold"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+			
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/recyclerView_conditions"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/button_addCondition" />
+			
+			<TextView
+				android:id="@+id/textView_operations_header"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="8dp"
+				android:text="@string/then_do"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+				app:layout_constraintBottom_toBottomOf="@+id/button_addOperation"
+				app:layout_constraintEnd_toStartOf="@+id/button_addOperation"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="@+id/button_addOperation" />
+			
+			<Button
+				android:id="@+id/button_addOperation"
+				style="@style/Widget.MaterialComponents.Button.TextButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="16dp"
+				android:onClick="addOperationButtonClicked"
+				android:text="@string/add_op"
+				android:textStyle="bold"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/recyclerView_conditions" />
+			
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/recyclerView_operations"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/button_addOperation" />
+		
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</ScrollView>
+	
+	<Button
+		android:id="@+id/button_editTask_discard"
+		style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:onClick="discardButtonClicked"
+		android:text="@string/discard"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/space_editTask_buttons"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="parent" />
+	
+	<Space
+		android:id="@+id/space_editTask_buttons"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/button_editTask_save"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/button_editTask_discard" />
+	
+	<Button
+		android:id="@+id/button_editTask_save"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:onClick="saveButtonClicked"
+		android:text="@string/saveChanges"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/space_editTask_buttons" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-    
-        <TextView
-            android:id="@+id/textView_operations_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/thenDo"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView_operations"
-            app:layout_constraintEnd_toStartOf="@+id/space_editTask_operations"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-    
-        <Space
-            android:id="@+id/space_editTask_operations"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/button_addOperation"
-            app:layout_constraintEnd_toStartOf="@+id/button_addOperation"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView_operations_header"
-            app:layout_constraintTop_toTopOf="@+id/button_addOperation" />
-    
-        <Button
-            android:id="@+id/button_addOperation"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="addOperationButtonClicked"
-            android:text="@string/add_op"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/space_editTask_operations"
-            app:layout_constraintTop_toTopOf="parent" />
-    
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_operations"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_addOperation" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    
-        <Button
-            android:id="@+id/button_editTask_discard"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="discardButtonClicked"
-            android:text="@string/discard" />
-    
-        <Space
-            android:id="@+id/space_editTask_saveDiscard"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    
-        <Button
-            android:id="@+id/button_editTask_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="saveButtonClicked"
-            android:text="@string/saveChanges" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

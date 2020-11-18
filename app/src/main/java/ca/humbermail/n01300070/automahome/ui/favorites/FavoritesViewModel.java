@@ -44,7 +44,7 @@ public class FavoritesViewModel extends ViewModel {
 		for (int i = 0; i < numCategories; i++) {
 			CategoryData categoryData = new CategoryData();
 			
-			categoryData.setHeaderText("Category " + i);
+			categoryData.setHeaderText("Category " + (i + 1));
 			categoryData.setHeaderTextAppearance(R.style.TextAppearance_MaterialComponents_Headline6);
 			categoryData.setHeaderSidePadding((int) context.getResources().getDimension(R.dimen.activity_horizontal_margin));
 			

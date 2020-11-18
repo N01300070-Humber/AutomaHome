@@ -66,8 +66,8 @@ public class IconTextView extends LinearLayout {
 		textView.setText(text);
 	}
 	
-	public void setTextAppearance(int colour) {
-		 textView.setTextAppearance(colour);
+	public void setTextAppearance(int textAppearance) {
+		 textView.setTextAppearance(textAppearance);
 	}
 	
 	public Drawable getIcon() {
@@ -83,10 +83,7 @@ public class IconTextView extends LinearLayout {
 	}
 	
 	public boolean isIconVisible() {
-		if (iconImageView.getVisibility() == VISIBLE) {
-			return true;
-		}
-		return false;
+		return iconImageView.getVisibility() == VISIBLE;
 	}
 	
 	public void setIconVisible(boolean visible) {

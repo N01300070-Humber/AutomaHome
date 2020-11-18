@@ -16,71 +16,20 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 	
-	<com.google.android.material.textfield.TextInputLayout
-		android:id="@+id/textInputLayout_temperature"
-		style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-		android:layout_width="96dp"
+	<ca.humbermail.n01300070.automahome.components.NumberPickerView
+		android:id="@+id/numberPickerView_editConditionTemperature"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
+		android:layout_marginStart="32dp"
 		android:layout_marginTop="16dp"
-		app:layout_constraintEnd_toStartOf="@+id/textView_editConditionTemperature_unit"
-		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintHorizontal_chainStyle="packed"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/textView_editConditionTemperature_header">
-		
-		<com.google.android.material.textfield.TextInputEditText
-			android:id="@+id/textInputEditText_temperature"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:gravity="center"
-			android:hint="@string/temp"
-			android:inputType="number"
-			android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-			tools:text="21" />
-	</com.google.android.material.textfield.TextInputLayout>
-	
-	<TextView
-		android:id="@+id/textView_editConditionTemperature_unit"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="4dp"
-		android:layout_marginEnd="8dp"
-		android:textAlignment="center"
-		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-		android:textStyle="bold"
-		app:layout_constraintBottom_toBottomOf="@+id/textInputLayout_temperature"
-		app:layout_constraintEnd_toStartOf="@+id/linearLayout_editConditionTemperature"
-		app:layout_constraintStart_toEndOf="@+id/textInputLayout_temperature"
-		app:layout_constraintTop_toTopOf="@+id/textInputLayout_temperature"
-		tools:text="@string/degrees_celsius" />
-	
-	<LinearLayout
-		android:id="@+id/linearLayout_editConditionTemperature"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		app:layout_constraintBottom_toBottomOf="@+id/textInputLayout_temperature"
+		android:layout_marginEnd="32dp"
+		android:hint="@string/temperature"
+		android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toEndOf="@+id/textView_editConditionTemperature_unit"
-		app:layout_constraintTop_toTopOf="@+id/textInputLayout_temperature">
-		
-		<ImageView
-			android:id="@+id/imageView_editConditionTemperature_increase"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:background="?attr/selectableItemBackground"
-			android:contentDescription="@string/increase_temperature"
-			android:src="@drawable/ic_arrow_up" />
-		
-		<ImageView
-			android:id="@+id/imageView_editConditionTemperature_decrease"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:contentDescription="@string/decrease_temperature"
-			android:src="@drawable/ic_arrow_down" />
-	
-	</LinearLayout>
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/textView_editConditionTemperature_header"
+		app:numberAlignment="right"
+		app:numberInterval="0.5" />
 	
 	<com.google.android.material.button.MaterialButtonToggleGroup
 		android:id="@+id/buttonToggleGroup_logic"
@@ -88,10 +37,9 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="16dp"
 		app:checkedButton="@id/toggleButton_equal"
-		app:layout_constraintEnd_toEndOf="@+id/linearLayout_editConditionTemperature"
-		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toStartOf="@+id/textInputLayout_temperature"
-		app:layout_constraintTop_toBottomOf="@+id/textInputLayout_temperature"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/numberPickerView_editConditionTemperature"
 		app:selectionRequired="true"
 		app:singleSelection="true">
 		

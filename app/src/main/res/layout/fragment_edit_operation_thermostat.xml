@@ -4,61 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tasks.condition.EditConditionTemperatureFragment">
+    tools:context=".ui.tasks.operation.EditOperationActivity">
     
     <TextView
-        android:id="@+id/thermostat"
+        android:id="@+id/editOperationThermostat_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/thermostat"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     
-    <TextView
-        android:id="@+id/therm_read"
-        android:layout_width="234dp"
-        android:layout_height="129dp"
-        android:text="@string/default_temp"
-        android:textAlignment="center"
-        android:textColor="@color/accent_200"
-        android:textSize="80sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
-    
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
+    <ca.humbermail.n01300070.automahome.components.NumberPickerView
+        android:id="@+id/numberPickerView_editOperationThermostat_temperature"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:orientation="vertical"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/temperature"
+        android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/therm_read"
-        app:layout_constraintTop_toBottomOf="@+id/thermostat">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editOperationThermostat_header"
+        app:numberAlignment="right"
+        app:numberInterval="0.5" />
     
-        <Button
-            android:id="@+id/temp_up_task"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:text="@string/up"
-            android:textAlignment="center"
-            android:textSize="36sp"
-            android:textStyle="bold" />
-    
-        <Button
-            android:id="@+id/temp_down_task"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:text="@string/down"
-            android:textSize="36sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

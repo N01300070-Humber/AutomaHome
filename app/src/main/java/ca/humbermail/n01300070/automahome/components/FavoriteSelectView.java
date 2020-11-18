@@ -4,23 +4,29 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
 
 import ca.humbermail.n01300070.automahome.R;
 
 public class FavoriteSelectView extends ConstraintLayout {
 	
-	MaterialButton button;
-	TextInputLayout categoryInputLayout;
-	MaterialAutoCompleteTextView categoryAutoCompleteText;
+	private MaterialButton button;
+	private TextInputLayout categoryInputLayout;
+	private AutoCompleteTextView categoryAutoCompleteText;
+	
+	private ArrayAdapter<String> adapter;
+	private ArrayList<String> autoCompleteLabels;
+	private boolean checked;
 	
 	public FavoriteSelectView(@NonNull Context context) {
 		super(context);
@@ -46,6 +52,14 @@ public class FavoriteSelectView extends ConstraintLayout {
 		button = findViewById(R.id.button_favoriteSelect);
 		categoryInputLayout = findViewById(R.id.textInputLayout_favoriteSelect);
 		categoryAutoCompleteText = findViewById(R.id.autoCompleteText_favoriteSelect);
+		
+		button.addOnCheckedChangeListener(new MaterialButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(MaterialButton button, boolean isChecked) {
+				setInputVisible(isChecked);
+			}
+		});
+		setInputVisible(isChecked());
 	}
 	
 	private void setAttributes(Context context, AttributeSet attrs) {
@@ -70,5 +84,19 @@ public class FavoriteSelectView extends ConstraintLayout {
 	
 	public void setText(String text) {
 		categoryAutoCompleteText.setText(text);
+	}
+	
+	private void setInputVisible(boolean visible) {
+		if (visible) {
+			categoryInputLayout.setVisibility(VISIBLE);
+		}
+		else {
+			categoryInputLayout.setVisibility(INVISIBLE);
+		}
+	}
+	
+	public void setAutoCompleteLabels(ArrayList<String> autoCompleteLabels) {
+		adapter = new ArrayAdapter<String>(getContext(), R.layout.text_view_auto_complete_label, autoCompleteLabels);
+		categoryAutoCompleteText.setAdapter(adapter);
 	}
 }

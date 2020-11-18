@@ -5,6 +5,13 @@
 	<string name="title_activity_welcome">Welcome</string>
 	<string name="title_activity_login">Login</string>
 	<string name="title_activity_register">Register</string>
+	<string name="title_activity_device_search">Device Search</string>
+	<string name="title_activity_edit_device">Edit Device</string>
+	<string name="title_activity_edit_task">Edit Task</string>
+	<string name="title_activity_control_device">Control Device</string>
+	<string name="title_activity_edit_condition">Edit Condition</string>
+	<string name="title_activity_edit_operation">Edit Operation</string>
+	<string name="title_activity_add_network">Add Network</string>
 	
 	<string name="welcome">Welcome to AutomaHome!</string>
 	
@@ -123,7 +130,7 @@
 	
 	<!-- Manage Home -->
 	<string name="title_activity_manageHome">Manage Home</string>
-	<string name="title_activity_inviteUser">Invite User</string>
+	<string name="title_activity_invite_user">Invite User</string>
 	
 	<string name="add_network">Add Network</string>
 	<string name="invite_user">Invite User</string>
@@ -171,6 +178,5 @@
 	<string name="placeholder">Placeholder</string>
 	<!-- TODO: Remove or change this placeholder text -->
 	<string name="hello_blank_fragment">Hello blank fragment</string>
-
 
 </resources>

@@ -21,7 +21,9 @@
 	</declare-styleable>
 	
 	<declare-styleable name="NumberPickerView">
+		<attr name="android:hint" format="string" />
 		<attr name="initialNumber" format="float" />
+		<attr name="increaseDecreaseInterval" format="float" />
 		<attr name="prefixText" format="string" />
 		<attr name="suffixText" format="string" />
 		<attr name="android:textAppearance" format="reference" />

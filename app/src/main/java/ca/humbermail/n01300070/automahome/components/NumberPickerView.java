@@ -23,6 +23,8 @@ public class NumberPickerView extends ConstraintLayout {
 	AppCompatImageButton increaseButton;
 	AppCompatImageButton decreaseButton;
 	
+	private float interval;
+	
 	public NumberPickerView(@NonNull Context context) {
 		super(context);
 		inflateViews(context);
@@ -55,6 +57,8 @@ public class NumberPickerView extends ConstraintLayout {
 		TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.NumberPickerView);
 		
 		setNumber(attributes.getFloat(R.styleable.NumberPickerView_initialNumber, 0));
+		setInterval(attributes.getFloat(R.styleable.NumberPickerView_increaseDecreaseInterval, 1));
+		setHint(attributes.getString(R.styleable.NumberPickerView_android_hint));
 		setPrefixText(attributes.getString(R.styleable.NumberPickerView_prefixText));
 		setSuffixText(attributes.getString(R.styleable.NumberPickerView_suffixText));
 		setTextAppearance(attributes.getResourceId(
@@ -64,12 +68,49 @@ public class NumberPickerView extends ConstraintLayout {
 		attributes.recycle();
 	}
 	
+	private float getNumber() {
+		return Float.parseFloat(numberEditText.getText().toString());
+	}
+	
 	private void setNumber(float number) {
+		numberEditText.setText(String.format("%s", number));
+	}
+	
+	private float getInterval() {
+		return interval;
+	}
+	
+	private void setInterval(float interval) {
+		this.interval = interval;
+	}
+	
+	private String getHint() {
+		return (String) numberEditText.getHint();
+	}
+	
+	private void setHint(String hint) {
+		numberEditText.setHint(hint);
+	}
+	
+	private String getPrefixText() {
+		return prefixTextView.getText().toString();
+	}
+	
+	private void setPrefixText(String text) {
+		prefixTextView.setText(text);
+	}
+	
+	private String getSuffixText() {
+		return suffixTextView.getText().toString();
 	}
 	
 	private void setSuffixText(String text) {
+		suffixTextView.setText(text);
 	}
 	
 	private void setTextAppearance(int textAppearance) {
+		prefixTextView.setTextAppearance(textAppearance);
+		numberEditText.setTextAppearance(textAppearance);
+		suffixTextView.setTextAppearance(textAppearance);
 	}
 }

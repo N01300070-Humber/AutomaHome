@@ -1,10 +1,13 @@
 package ca.humbermail.n01300070.automahome.components;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,16 +16,21 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import ca.humbermail.n01300070.automahome.R;
 
 public class NumberPickerView extends ConstraintLayout {
+	private static final int TEXT_ALIGNMENT_LEFT = 0;
+	private static final int TEXT_ALIGNMENT_CENTER = 1;
+	private static final int TEXT_ALIGNMENT_RIGHT = 2;
+	private static final int TEXT_ALIGNMENT_START = 3;
+	private static final int TEXT_ALIGNMENT_END = 4;
 	
-	TextView prefixTextView;
-	TextView suffixTextView;
-	TextInputEditText numberEditText;
-	AppCompatImageButton increaseButton;
-	AppCompatImageButton decreaseButton;
+	private TextInputLayout numberInputLayout;
+	private TextInputEditText numberEditText;
+	private AppCompatImageButton increaseButton;
+	private AppCompatImageButton decreaseButton;
 	
 	private float interval;
 	
@@ -47,8 +55,7 @@ public class NumberPickerView extends ConstraintLayout {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.view_number_picker, this);
 		
-		prefixTextView = findViewById(R.id.textView_prefix);
-		suffixTextView = findViewById(R.id.textView_suffix);
+		numberInputLayout = findViewById(R.id.textInputLayout_number);
 		numberEditText = findViewById(R.id.textInputEditText_number);
 		increaseButton = findViewById(R.id.imageView_increaseNumber);
 		decreaseButton = findViewById(R.id.imageView_decreaseNumber);
@@ -71,7 +78,8 @@ public class NumberPickerView extends ConstraintLayout {
 		TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.NumberPickerView);
 		
 		setNumber(attributes.getFloat(R.styleable.NumberPickerView_initialNumber, 0));
-		setInterval(attributes.getFloat(R.styleable.NumberPickerView_increaseDecreaseInterval, 1));
+		setNumberAlignment(attributes.getInteger(R.styleable.NumberPickerView_numberAlignment, 0));
+		setInterval(attributes.getFloat(R.styleable.NumberPickerView_numberInterval, 1));
 		setHint(attributes.getString(R.styleable.NumberPickerView_android_hint));
 		setPrefixText(attributes.getString(R.styleable.NumberPickerView_prefixText));
 		setSuffixText(attributes.getString(R.styleable.NumberPickerView_suffixText));
@@ -90,6 +98,35 @@ public class NumberPickerView extends ConstraintLayout {
 		numberEditText.setText(String.format("%s", number));
 	}
 	
+	public int getNumberGravity() {
+		return numberEditText.getGravity();
+	}
+	
+	public void setNumberGravity(int gravity) {
+		numberEditText.setGravity(gravity);
+	}
+	
+	@SuppressLint("RtlHardcoded")
+	public void setNumberAlignment(int alignment) {
+		switch (alignment) {
+			case TEXT_ALIGNMENT_LEFT:
+				setNumberGravity(Gravity.LEFT);
+				break;
+			case TEXT_ALIGNMENT_CENTER:
+				setNumberGravity(Gravity.CENTER_HORIZONTAL);
+				break;
+			case TEXT_ALIGNMENT_RIGHT:
+				setNumberGravity(Gravity.RIGHT);
+				break;
+			case TEXT_ALIGNMENT_START:
+				setNumberGravity(Gravity.START);
+				break;
+			case TEXT_ALIGNMENT_END:
+				setNumberGravity(Gravity.END);
+				break;
+		}
+	}
+	
 	public float getInterval() {
 		return interval;
 	}
@@ -99,33 +136,33 @@ public class NumberPickerView extends ConstraintLayout {
 	}
 	
 	public String getHint() {
-		return (String) numberEditText.getHint();
+		return (String) numberInputLayout.getHint();
 	}
 	
 	public void setHint(String hint) {
-		numberEditText.setHint(hint);
+		numberInputLayout.setHint(hint);
 	}
 	
 	public String getPrefixText() {
-		return prefixTextView.getText().toString();
+		return numberInputLayout.getPrefixText().toString();
 	}
 	
 	public void setPrefixText(String text) {
-		prefixTextView.setText(text);
+		numberInputLayout.setPrefixText(text);
 	}
 	
 	public String getSuffixText() {
-		return suffixTextView.getText().toString();
+		return numberInputLayout.getSuffixText().toString();
 	}
 	
 	public void setSuffixText(String text) {
-		suffixTextView.setText(text);
+		numberInputLayout.setSuffixText(text);
 	}
 	
 	public void setTextAppearance(int textAppearance) {
-		prefixTextView.setTextAppearance(textAppearance);
 		numberEditText.setTextAppearance(textAppearance);
-		suffixTextView.setTextAppearance(textAppearance);
+		numberInputLayout.setPrefixTextAppearance(textAppearance);
+		numberInputLayout.setSuffixTextAppearance(textAppearance);
 	}
 	
 	

@@ -23,9 +23,16 @@
 	<declare-styleable name="NumberPickerView">
 		<attr name="android:hint" format="string" />
 		<attr name="initialNumber" format="float" />
-		<attr name="increaseDecreaseInterval" format="float" />
+		<attr name="numberInterval" format="float" />
 		<attr name="prefixText" format="string" />
 		<attr name="suffixText" format="string" />
 		<attr name="android:textAppearance" format="reference" />
+		<attr name="numberAlignment" format="enum">
+			<enum name="left" value="0" />
+			<enum name="center" value="1" />
+			<enum name="right" value="2" />
+			<enum name="start" value="3" />
+			<enum name="end" value="4" />
+		</attr>
 	</declare-styleable>
 </resources>

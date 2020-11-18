@@ -40,4 +40,8 @@
 			<enum name="end" value="4" />
 		</attr>
 	</declare-styleable>
+	
+	<declare-styleable name="FavoriteSelectView">
+		<attr name="android:state_checked" format="boolean" />
+	</declare-styleable>
 </resources>

@@ -132,8 +132,8 @@
 	<string name="add">Add</string>
 	<string name="currentHome">Current Home</string>
 	<string name="wifiDetection">Wi-Fi Detection</string>
-	<string name="network1">Network 1</string>
-	<string name="network2">Network 2</string>
+	<string name="network_ssid">Wi-Fi Network Name</string>
+	<string name="add_current_network">Add current network</string>
 	
 	<string name="users">Users</string>
 	<string name="you">You</string>

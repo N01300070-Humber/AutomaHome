@@ -4,11 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".ui.manageHome.AddNetworkActivity">
     
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_ssid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText_ssid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/network_ssid"
+            android:imeOptions="actionDone"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+    
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_addNetworkFromSSID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add" />
+        android:layout_marginTop="8dp"
+        android:onClick="addNetworkBySSIDButton_Clicked"
+        android:text="@string/add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_ssid" />
+    
+    <Button
+        android:id="@+id/button_addNetworkFromCurrent"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="addCurrentNetworkButton_Clicked"
+        android:text="@string/add_current_network"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

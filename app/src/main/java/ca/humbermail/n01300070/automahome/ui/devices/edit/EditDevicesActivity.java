@@ -15,9 +15,6 @@ import android.widget.Toast;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
-import ca.humbermail.n01300070.automahome.ui.devices.control.ControlLightFragment;
-import ca.humbermail.n01300070.automahome.ui.devices.control.ControlMovementSensorFragment;
-import ca.humbermail.n01300070.automahome.ui.devices.control.ControlThermostatFragment;
 
 public class EditDevicesActivity extends AppCompatActivity
 {
@@ -38,9 +35,9 @@ public class EditDevicesActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         roomSpinner = findViewById(R.id.spinner_editDevice);
-        roomSpinner2 = findViewById(R.id.spinner_editDevice2);
+        roomSpinner2 = findViewById(R.id.spinner_editDevice_2);
         roomLocationHeader = findViewById(R.id.textView_deviceLocation_editDevice);
-        roomLocationHeader2 = findViewById(R.id.textView_deviceLocation_editDevice2);
+        roomLocationHeader2 = findViewById(R.id.textView_editDevice_deviceLocation2);
 
         deviceType = getIntent().getExtras().getString(DeviceOrTaskData.ARG_DEVICE);
 

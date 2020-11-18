@@ -57,20 +57,30 @@
         app:layout_constraintTop_toBottomOf="@+id/numberPickerView_editThermostat_targetTemp"
         app:selectionRequired="false"
         app:singleSelection="true">
-        
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/toggleButton_editThermostat_heating"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/heat" />
-        
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/toggleButton_editThermostat_cooling"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cool" />
+	
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_editThermostat_heating"
+			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/heat"
+			android:textColor="@color/button_red_text"
+			app:backgroundTint="@color/button_red_background"
+			app:iconTint="@color/button_red_text"
+			app:rippleColor="@color/button_red_ripple"
+			app:strokeColor="@color/button_red_stroke" />
+	
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_editThermostat_cooling"
+			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/cool"
+			android:textColor="@color/button_blue_text"
+			app:backgroundTint="@color/button_blue_background"
+			app:iconTint="@color/button_blue_text"
+			app:rippleColor="@color/button_blue_ripple"
+			app:strokeColor="@color/button_blue_stroke" />
     
     </com.google.android.material.button.MaterialButtonToggleGroup>
 

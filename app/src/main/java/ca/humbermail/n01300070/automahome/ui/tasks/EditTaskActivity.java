@@ -10,6 +10,7 @@ import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.ConditionOrOperationView;
 import ca.humbermail.n01300070.automahome.components.ConditionOrOperationViewAdapter;
 import ca.humbermail.n01300070.automahome.components.ListLinePadding;
+import ca.humbermail.n01300070.automahome.components.NonScrollingLinerLayoutManager;
 import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationData;
 import ca.humbermail.n01300070.automahome.ui.tasks.condition.EditConditionActivity;
 import ca.humbermail.n01300070.automahome.ui.tasks.operation.EditOperationActivity;
@@ -67,13 +68,13 @@ public class EditTaskActivity extends AppCompatActivity {
 		operationsAdapter = new ConditionOrOperationViewAdapter(getApplicationContext(), generateOperationList(), operationsOnClickListener);
 		
 		//Conditions Recycler
-		conditionsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+		conditionsRecyclerView.setLayoutManager(new NonScrollingLinerLayoutManager(getApplicationContext()));
 		conditionsRecyclerView.setAdapter(conditionsAdapter);
 		conditionsRecyclerView.addItemDecoration(new ListLinePadding((int) getResources().getDimension(R.dimen.recycler_divider_space)));
 		conditionsRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
 		
 		//Operations Recycler
-		operationsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+		operationsRecyclerView.setLayoutManager(new NonScrollingLinerLayoutManager(getApplicationContext()));
 		operationsRecyclerView.setAdapter(operationsAdapter);
 		operationsRecyclerView.addItemDecoration(new ListLinePadding((int) getResources().getDimension(R.dimen.recycler_divider_space)));
 		operationsRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));

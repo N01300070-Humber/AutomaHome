@@ -30,7 +30,7 @@ public class EditMovementSensorFragment extends Fragment {
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_edit_movement_sensor, container, false);
+        View root = inflater.inflate(R.layout.fragment_edit_device_movement_sensor, container, false);
         context = getActivity().getApplicationContext();
 
         sideA = root.findViewById(R.id.seekBar_edit_movementSensor_tolerance1);

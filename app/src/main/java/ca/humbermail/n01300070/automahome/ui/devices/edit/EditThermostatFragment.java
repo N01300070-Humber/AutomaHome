@@ -34,7 +34,7 @@ public class EditThermostatFragment extends Fragment {
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_edit_thermostat, container, false);
+        View root = inflater.inflate(R.layout.fragment_edit_device_thermostat, container, false);
         context = getActivity().getApplicationContext();
 
         currentTemp = root.findViewById(R.id.textView_thermoTempSensor_currentTemp);

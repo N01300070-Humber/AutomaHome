@@ -11,18 +11,15 @@ public class UserInfo {
 	
 	public UserInfo(Context appContext) {
 		this.appContext = appContext;
-		userInfo = appContext.getSharedPreferences(
-				(String) appContext.getText(R.string.Preference_Login), Context.MODE_PRIVATE);
+		userInfo = appContext.getSharedPreferences(PreferenceKeys.LOGIN, Context.MODE_PRIVATE);
 	}
 	
 	public String getFirstName() {
-		return userInfo.getString(
-				(String) appContext.getText(R.string.Preference_Login_FirstName), null);
+		return userInfo.getString(PreferenceKeys.LOGIN_FIRST_NAME, null);
 	}
 	
 	public String getLastName() {
-		return userInfo.getString(
-				(String) appContext.getText(R.string.Preference_Login_LastName), null);
+		return userInfo.getString(PreferenceKeys.LOGIN_LAST_NAME, null);
 	}
 	
 	public String getFullName() {
@@ -30,7 +27,6 @@ public class UserInfo {
 	}
 	
 	public String getEmailAddress() {
-		return userInfo.getString(
-				(String) appContext.getText(R.string.Preference_Login_EmailAddress), null);
+		return userInfo.getString(PreferenceKeys.LOGIN_EMAIL_ADDRESS, null);
 	}
 }

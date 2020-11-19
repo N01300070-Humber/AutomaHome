@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string name="Preference.Login">Login</string>
-	<string name="Preference.Login.LoggedIn">LoggedIn</string>
-	<string name="Preference.Login.FirstName">FirstName</string>
-	<string name="Preference.Login.LastName">LastName</string>
-	<string name="Preference.Login.EmailAddress">EmailAddress</string>
-	<string name="Preference.Login.Password">Password</string>
-</resources>

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.WelcomeActivity;
+import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
 
 public class AccountSettingsFragment extends Fragment {
 	Context context;
@@ -77,12 +78,12 @@ public class AccountSettingsFragment extends Fragment {
 	
 	public void logoutButton_onClick(View view) {
 		SharedPreferences.Editor loginInfoEditor = context.getSharedPreferences(
-				getString(R.string.Preference_Login), Context.MODE_PRIVATE).edit();
-		loginInfoEditor.putBoolean(getString(R.string.Preference_Login_LoggedIn), false);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_FirstName), null);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_LastName), null);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_EmailAddress), null);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_Password), null);
+				PreferenceKeys.LOGIN, Context.MODE_PRIVATE).edit();
+		loginInfoEditor.putBoolean(PreferenceKeys.LOGIN_LOGGED_IN, false);
+		loginInfoEditor.putString(PreferenceKeys.LOGIN_FIRST_NAME, null);
+		loginInfoEditor.putString(PreferenceKeys.LOGIN_LAST_NAME, null);
+		loginInfoEditor.putString(PreferenceKeys.LOGIN_EMAIL_ADDRESS, null);
+		loginInfoEditor.putString(PreferenceKeys.LOGIN_PASSWORD, null);
 		if (!loginInfoEditor.commit()) {
 			Toast.makeText(context, "Failed to properly logout", Toast.LENGTH_LONG).show(); // TODO: Fix hardcoded string
 		} else {
@@ -95,12 +96,12 @@ public class AccountSettingsFragment extends Fragment {
 	private void deleteAccountButton_onClick(View view) {
 		// TODO: delete user account
 		SharedPreferences.Editor loginInfoEditor = context.getSharedPreferences(
-				getString(R.string.Preference_Login), Context.MODE_PRIVATE).edit();
-		loginInfoEditor.putBoolean(getString(R.string.Preference_Login_LoggedIn), false);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_FirstName), null);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_LastName), null);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_EmailAddress), null);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_Password), null);
+				PreferenceKeys.LOGIN, Context.MODE_PRIVATE).edit();
+		loginInfoEditor.putBoolean(PreferenceKeys.LOGIN_LOGGED_IN, false);
+		loginInfoEditor.putString(PreferenceKeys.LOGIN_FIRST_NAME, null);
+		loginInfoEditor.putString(PreferenceKeys.LOGIN_LAST_NAME, null);
+		loginInfoEditor.putString(PreferenceKeys.LOGIN_EMAIL_ADDRESS, null);
+		loginInfoEditor.putString(PreferenceKeys.LOGIN_PASSWORD, null);
 		if (!loginInfoEditor.commit()) {
 			Toast.makeText(context, "Failed to properly delete account", Toast.LENGTH_LONG).show(); // TODO: Fix hardcoded string
 		} else {

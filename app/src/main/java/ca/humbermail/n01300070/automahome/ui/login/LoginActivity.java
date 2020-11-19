@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
+import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
 
 public class LoginActivity extends AppCompatActivity {
 	
@@ -188,12 +189,12 @@ public class LoginActivity extends AppCompatActivity {
 		
 		// Successful sign-in/register
 		SharedPreferences.Editor loginInfoEditor = getSharedPreferences(
-				getString(R.string.Preference_Login), MODE_PRIVATE).edit();
-		loginInfoEditor.putBoolean(getString(R.string.Preference_Login_LoggedIn), true);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_FirstName), firstName);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_LastName), lastName);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_EmailAddress), emailAddress);
-		loginInfoEditor.putString(getString(R.string.Preference_Login_Password), password); // TODO: hash and encrypt password before storing OR replace with authorization token acquired during login attempt (After Milestone 2)
+				PreferenceKeys.LOGIN, MODE_PRIVATE).edit();
+		loginInfoEditor.putBoolean(PreferenceKeys.LOGIN_LOGGED_IN, true);
+		loginInfoEditor.putString(PreferenceKeys.LOGIN_FIRST_NAME, firstName);
+		loginInfoEditor.putString(PreferenceKeys.LOGIN_LAST_NAME, lastName);
+		loginInfoEditor.putString(PreferenceKeys.LOGIN_EMAIL_ADDRESS, emailAddress);
+		loginInfoEditor.putString(PreferenceKeys.LOGIN_PASSWORD, password); // TODO: hash and encrypt password before storing OR replace with authorization token acquired during login attempt (After Milestone 2)
 		if (!loginInfoEditor.commit()) {
 			Toast.makeText(this, "Failed to save info", Toast.LENGTH_LONG).show();
 			loadingProgressBar.setVisibility(View.GONE);

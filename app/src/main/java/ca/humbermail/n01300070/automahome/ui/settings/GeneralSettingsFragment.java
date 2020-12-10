@@ -3,15 +3,14 @@ package ca.humbermail.n01300070.automahome.ui.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
@@ -43,7 +42,7 @@ public class GeneralSettingsFragment extends Fragment {
 							 Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View root = inflater.inflate(R.layout.fragment_settings_general, container, false);
-		context = getActivity().getApplicationContext();
+		context = requireActivity().getApplicationContext();
 		
 		displayTempToggleGroup = root.findViewById(R.id.toggleGroup_displayTemp);
 		celsiusButton = root.findViewById(R.id.toggleButton_celsius);

@@ -11,4 +11,8 @@
 	<!-- Accent colour (Teal) -->
 	<color name="accent_200">#FF03DAC5</color>
 	<color name="accent_700">#FF018786</color>
+	
+	<!-- Device and Task button colours -->
+	<color name="task_button_default">@color/primary_200</color>
+	<color name="device_button_default">@color/accent_200</color>
 </resources>

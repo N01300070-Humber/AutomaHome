@@ -78,7 +78,7 @@ public class FavoritesViewModel extends ViewModel {
 					"Note",
 					ContextCompat.getDrawable(context, R.drawable.ic_task),
 					context.getString(R.string.content_description_type_task),
-					context.getColor(R.color.primary_200)
+					context.getColor(R.color.task_button_default)
 			);
 			
 			deviceOrTaskDataList.add(taskData);
@@ -93,7 +93,7 @@ public class FavoritesViewModel extends ViewModel {
 					"Room",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),
 					context.getString(R.string.content_description_type_device),
-					context.getColor(R.color.accent_200)
+					context.getColor(R.color.device_button_default)
 			);
 			deviceData.setDeviceType(DeviceOrTaskData.DEVICE_LIGHTS);
 			

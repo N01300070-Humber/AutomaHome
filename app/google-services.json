@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "386358765288",
+    "firebase_url": "https://automahome-b3334.firebaseio.com",
+    "project_id": "automahome-b3334",
+    "storage_bucket": "automahome-b3334.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386358765288:android:db56939626da29901f0b5d",
+        "android_client_info": {
+          "package_name": "ca.humbermail.n01300070.automahome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "386358765288-lvsuj1mrs0p5fqvhbptkkpv3ssonm7sb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbBzf7IZaR4gRRiBmepz9iy8wR_L8w6MU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "386358765288-lvsuj1mrs0p5fqvhbptkkpv3ssonm7sb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

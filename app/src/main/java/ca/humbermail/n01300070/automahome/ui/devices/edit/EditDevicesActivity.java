@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +26,6 @@ public class EditDevicesActivity extends AppCompatActivity
     private Spinner roomSpinner2;
     private TextView roomLocationHeader;
     private TextView roomLocationHeader2;
-
     private String deviceType;
     
     @Override

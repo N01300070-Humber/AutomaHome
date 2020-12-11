@@ -10,6 +10,8 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+
+
 import androidx.fragment.app.Fragment;
 
 import ca.humbermail.n01300070.automahome.R;
@@ -22,7 +24,7 @@ public class ControlThermostatFragment extends Fragment {
 
     public ControlThermostatFragment()
     {
-
+        
     }
 
     @Override

@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.ListLinePadding;
 import ca.humbermail.n01300070.automahome.components.DescriptiveTextViewAdapter;
@@ -55,9 +58,14 @@ public class ControlMovementSensorFragment extends Fragment
     private ArrayList<DescriptiveTextData> generateLogViewDataList() {
         ArrayList<DescriptiveTextData> logDataList = new ArrayList<>();
         String[] mainTextArray = {"Room 1 ➜ Room 2", "Room 2 ➜ Room 1"};
-        String[] timeTextArray = {"Today 2:40pm", "Today 8:04am", "Yesterday 2:25pm",
+
+        /*String[] timeTextArray = {"Today 2:40pm", "Today 8:04am", "Yesterday 2:25pm",
                                         "Yesterday 8:07am", "Wednesday 2:43pm",
-                                    "Wednesday 7:58am", "Tuesday 2:36pm", "Tuesday 8:02am"};
+                                    "Wednesday 7:58am", "Tuesday 2:36pm", "Tuesday 8:02am"};*/
+
+        //Modified it to where it shows the real time
+        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
+        String[] timeTextArray = {sdf.format(new Date())};
 
         for(int i = 0; i < timeTextArray.length; i++)
         {

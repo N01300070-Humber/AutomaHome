@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.humbermail.n01300070.automahome.data.model.Condition;
 import ca.humbermail.n01300070.automahome.data.model.Device;
 import ca.humbermail.n01300070.automahome.data.model.Home;
 import ca.humbermail.n01300070.automahome.data.model.Task;
@@ -31,6 +32,13 @@ public class RealtimeDatabaseDataSource {
 	private final static String TASKS_HOME_ID_PATH = "homeId";
 	private final static String TASKS_NAME_PATH = "name";
 	private final static String TASKS_CATEGORY_PATH = "category";
+	private final static String TASK_CONDITIONS_PATH = "conditions";
+	private final static String TASK_CONDITIONS_POSITION_PATH = "position";
+	private final static String TASK_CONDITIONS_DEVICE_ID_PATH = "deviceId";
+	private final static String TASK_CONDITIONS_DATA_PATH = "data";
+	
+	private final static String NO_CATEGORY = ""; //Used for devices and tasks that are not favourited
+	private final static String NO_DEVICE = ""; //Used for conditions and operations that do not interact with a device
 	
 	
 	private String currentHomeId;
@@ -42,11 +50,13 @@ public class RealtimeDatabaseDataSource {
 	private final MutableLiveData<List<Pair<String, Boolean>>> homeEditorValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Device>> deviceValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Task>> taskValues = new MutableLiveData<>();
+	private final MutableLiveData<List<Condition>> taskConditionValues = new MutableLiveData<>();
 	
 	private ValueEventListener homesValueEventListener;
 	private ValueEventListener homeEditorsValueEventListener;
 	private ValueEventListener devicesValueEventListener;
 	private ValueEventListener tasksValueEventListener;
+	private ValueEventListener taskConditionsValueEventListener;
 	
 	
 	public void setCurrentHome(String homeId) {
@@ -69,17 +79,17 @@ public class RealtimeDatabaseDataSource {
 		// TODO: Add current user to editors
 	}
 	
-	public void removeHome(String key) {
+	public void removeHome(String homeId) {
 		database.getReference(HOMES_REFERENCE)
-				.child(key)
+				.child(homeId)
 				.removeValue();
 		// TODO: Remove connected devices
 		// TODO: Remove connected tasks
 	}
 	
-	public void updateHomeName(String key, String name) {
+	public void updateHomeName(String homeId, String name) {
 		database.getReference(HOMES_REFERENCE)
-				.child(key)
+				.child(homeId)
 				.child(HOMES_NAME_PATH)
 				.setValue(name);
 	}
@@ -204,22 +214,22 @@ public class RealtimeDatabaseDataSource {
 		reference.child(key).setValue( createDevice(key, name, type, category) );
 	}
 	
-	public void removeDevice(String key) {
+	public void removeDevice(String deviceId) {
 		database.getReference(DEVICES_REFERENCE)
-				.child(key)
+				.child(deviceId)
 				.removeValue();
 	}
 	
-	public void updateDeviceName(String key, String name) {
+	public void updateDeviceName(String deviceId, String name) {
 		database.getReference(DEVICES_REFERENCE)
-				.child(key)
+				.child(deviceId)
 				.child(DEVICES_NAME_PATH)
 				.setValue(name);
 	}
 	
-	public void updateDeviceCategory(String key, String category) {
+	public void updateDeviceCategory(String deviceId, String category) {
 		database.getReference(DEVICES_REFERENCE)
-				.child(key)
+				.child(deviceId)
 				.child(DEVICES_CATEGORY_PATH)
 				.setValue(category);
 	}
@@ -274,7 +284,7 @@ public class RealtimeDatabaseDataSource {
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue( createDevice(key, name, type, category) );
+		reference.child(key).setValue( createTask(key, name, category) );
 	}
 	
 	public void removeTask(String key) {
@@ -335,4 +345,91 @@ public class RealtimeDatabaseDataSource {
 		return taskValues;
 	}
 	
+	
+	// Task Conditions
+	private Condition createTaskCondition(String key, int position, String type, String referenceDeviceId) {
+		return new Condition(key, position, type, referenceDeviceId);
+	}
+	
+	public void addTaskCondition(String taskId, int position, String type, String referenceDeviceId) {
+		DatabaseReference reference = database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH);
+		
+		String key = reference.push().getKey();
+		assert key != null;
+		
+		reference.child(key).setValue( createTaskCondition(key, position, type, referenceDeviceId) );
+	}
+	
+	public void removeTaskCondition(String taskId, String taskConditionId) {
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.child(taskConditionId)
+				.removeValue();
+	}
+	
+	public void updateTaskConditionPosition(String taskId, String taskConditionId, int position) {
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.child(taskConditionId)
+				.child(TASK_CONDITIONS_POSITION_PATH)
+				.setValue(position);
+	}
+	
+	public void updateTaskConditionReferenceDevice(String taskId, String taskConditionId, String referenceDeviceId) {
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.child(taskConditionId)
+				.child(TASK_CONDITIONS_DEVICE_ID_PATH)
+				.setValue(referenceDeviceId);
+	}
+	
+	public void listenForTaskConditionValueChanges(String taskId) {
+		taskConditionsValueEventListener = new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				ArrayList<Condition> conditions = new ArrayList<>();
+				
+				if (snapshot.exists()) {
+					Iterable<DataSnapshot> iterable = snapshot.getChildren();
+					
+					for (DataSnapshot dataSnapshot : iterable) {
+						conditions.add((Condition) dataSnapshot.getValue());
+					}
+				}
+				
+				taskConditionValues.postValue(conditions);
+			}
+			
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+			
+			}
+		};
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.addValueEventListener(taskConditionsValueEventListener);
+	}
+	
+	public void removeTaskConditionsValueChangesListener(String taskId) {
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.removeEventListener(taskConditionsValueEventListener);
+	}
+	
+	public LiveData<List<Condition>> onTaskConditionValuesChange(String taskId) {
+		listenForTaskConditionValueChanges(taskId);
+		return taskConditionValues;
+	}
+	
+	
+	// Task Operations
+	// TODO: Create task operations handling code
 }

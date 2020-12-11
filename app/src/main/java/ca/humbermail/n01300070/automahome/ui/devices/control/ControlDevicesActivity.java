@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
+import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 import ca.humbermail.n01300070.automahome.ui.devices.edit.EditDevicesActivity;
 
 public class ControlDevicesActivity extends AppCompatActivity
@@ -30,7 +30,7 @@ public class ControlDevicesActivity extends AppCompatActivity
 
         editDeviceButton = findViewById(R.id.button_editDevice);
 
-        deviceType = getIntent().getExtras().getString(DeviceOrTaskData.ARG_DEVICE);
+        deviceType = getIntent().getExtras().getString(DeviceOrTaskButtonData.ARG_DEVICE);
 
         if (deviceType == null) {
             Toast.makeText(getApplicationContext(), "Error: failed to get device type", Toast.LENGTH_SHORT).show();
@@ -38,13 +38,13 @@ public class ControlDevicesActivity extends AppCompatActivity
             return;
         }
         switch(deviceType){
-            case DeviceOrTaskData.DEVICE_LIGHTS:
+            case DeviceOrTaskButtonData.DEVICE_LIGHTS:
                 fragment = new ControlLightFragment();
                 break;
-            case DeviceOrTaskData.DEVICE_MOVEMENT_SENSOR:
+            case DeviceOrTaskButtonData.DEVICE_MOVEMENT_SENSOR:
                 fragment = new ControlMovementSensorFragment();
                 break;
-            case DeviceOrTaskData.DEVICE_THERMOSTAT:
+            case DeviceOrTaskButtonData.DEVICE_THERMOSTAT:
                 fragment = new ControlThermostatFragment();
                 break;
             default:
@@ -70,7 +70,7 @@ public class ControlDevicesActivity extends AppCompatActivity
 
     public void buttonEditDeviceClicked(View view) {
         Intent intent = new Intent(getApplicationContext(), EditDevicesActivity.class);
-        intent.putExtra(DeviceOrTaskData.ARG_DEVICE, deviceType);
+        intent.putExtra(DeviceOrTaskButtonData.ARG_DEVICE, deviceType);
         startActivity(intent);
     }
 }

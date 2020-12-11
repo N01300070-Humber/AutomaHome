@@ -1,6 +1,6 @@
 package ca.humbermail.n01300070.automahome.data.model;
 
-public class ConditionOrOperationData {
+public class ConditionOrOperationViewData {
 	public static final int TYPE_CONDITION = 0;
 	public static final int TYPE_OPERATION = 1;
 	
@@ -20,23 +20,23 @@ public class ConditionOrOperationData {
 	private String typeText;
 	private boolean dragHandleVisible;
 	
-	public ConditionOrOperationData() {
+	public ConditionOrOperationViewData() {
 		this(-1, null, null, null, true);
 	}
 	
-	public ConditionOrOperationData(int type, String conditionOrOperationType) {
+	public ConditionOrOperationViewData(int type, String conditionOrOperationType) {
 		this(type, conditionOrOperationType, null, null, true);
 	}
 	
-	public ConditionOrOperationData(int type, String conditionOrOperationType, String mainText) {
+	public ConditionOrOperationViewData(int type, String conditionOrOperationType, String mainText) {
 		this(type, conditionOrOperationType, mainText, null, true);
 	}
 	
-	public ConditionOrOperationData(int type, String conditionOrOperationType, String mainText, String typeText) {
+	public ConditionOrOperationViewData(int type, String conditionOrOperationType, String mainText, String typeText) {
 		this(type, conditionOrOperationType, mainText, typeText, true);
 	}
 	
-	public ConditionOrOperationData(int type, String conditionOrOperationType, String mainText, String typeText, boolean dragHandleVisible) {
+	public ConditionOrOperationViewData(int type, String conditionOrOperationType, String mainText, String typeText, boolean dragHandleVisible) {
 		this.type = type;
 		this.conditionOrOperationType = conditionOrOperationType;
 		this.mainText = mainText;

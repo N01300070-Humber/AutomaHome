@@ -3,7 +3,6 @@ package ca.humbermail.n01300070.automahome.ui.tasks;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import ca.humbermail.n01300070.automahome.R;
@@ -12,7 +11,7 @@ import ca.humbermail.n01300070.automahome.components.ConditionOrOperationViewAda
 import ca.humbermail.n01300070.automahome.components.FavoriteSelectView;
 import ca.humbermail.n01300070.automahome.components.ListLinePadding;
 import ca.humbermail.n01300070.automahome.components.NonScrollingLinerLayoutManager;
-import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationData;
+import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
 import ca.humbermail.n01300070.automahome.ui.tasks.condition.EditConditionActivity;
 import ca.humbermail.n01300070.automahome.ui.tasks.operation.EditOperationActivity;
 
@@ -97,15 +96,15 @@ public class EditTaskActivity extends AppCompatActivity {
 	}
 	
 	// TODO: Replace placeholder data generator function with one that gets real data
-	private ArrayList<ConditionOrOperationData> generateConditionList() {
-		String[] typeList = {ConditionOrOperationData.CONDITION_SCHEDULE, ConditionOrOperationData.CONDITION_TEMPERATURE, ConditionOrOperationData.CONDITION_MOVEMENT};
+	private ArrayList<ConditionOrOperationViewData> generateConditionList() {
+		String[] typeList = {ConditionOrOperationViewData.CONDITION_SCHEDULE, ConditionOrOperationViewData.CONDITION_TEMPERATURE, ConditionOrOperationViewData.CONDITION_MOVEMENT};
 		String[] mainTextList = {"10:30 on Week Days", "Temperature equal to 23°C", "Moving Toward Room 3"};
 		String[] typeTextList = {"Schedule", "Temperature", "Movement"};
-		ArrayList<ConditionOrOperationData> operationDataList = new ArrayList<>();
+		ArrayList<ConditionOrOperationViewData> operationDataList = new ArrayList<>();
 		
 		for (int i = 0; i < typeList.length; i++) {
-			ConditionOrOperationData operationData = new ConditionOrOperationData(
-					ConditionOrOperationData.TYPE_OPERATION,
+			ConditionOrOperationViewData operationData = new ConditionOrOperationViewData(
+					ConditionOrOperationViewData.TYPE_OPERATION,
 					typeList[i],
 					mainTextList[i],
 					typeTextList[i]
@@ -118,15 +117,15 @@ public class EditTaskActivity extends AppCompatActivity {
 	}
 	
 	// TODO: Replace placeholder data generator function with one that gets real data
-	private ArrayList<ConditionOrOperationData> generateOperationList() {
-		String[] typeList = {ConditionOrOperationData.OPERATION_LIGHTS, ConditionOrOperationData.OPERATION_THERMOSTAT};
+	private ArrayList<ConditionOrOperationViewData> generateOperationList() {
+		String[] typeList = {ConditionOrOperationViewData.OPERATION_LIGHTS, ConditionOrOperationViewData.OPERATION_THERMOSTAT};
 		String[] mainTextList = {"Set Brightness to 70%, Temp to 30%", "Set target temp to 28°C"};
 		String[] typeTextList = {"Lights", "Thermostat"};
-		ArrayList<ConditionOrOperationData> conditionDataList = new ArrayList<>();
+		ArrayList<ConditionOrOperationViewData> conditionDataList = new ArrayList<>();
 		
 		for (int i = 0; i < typeList.length; i++) {
-			ConditionOrOperationData conditionData = new ConditionOrOperationData(
-					ConditionOrOperationData.TYPE_CONDITION,
+			ConditionOrOperationViewData conditionData = new ConditionOrOperationViewData(
+					ConditionOrOperationViewData.TYPE_CONDITION,
 					typeList[i],
 					mainTextList[i],
 					typeTextList[i]
@@ -143,7 +142,7 @@ public class EditTaskActivity extends AppCompatActivity {
 		Intent intent = new Intent();
 		
 		intent.setClass(this, EditConditionActivity.class);
-		intent.putExtra(ConditionOrOperationData.ARG_CONDITION, conditionView.getConditionOrOperationType());
+		intent.putExtra(ConditionOrOperationViewData.ARG_CONDITION, conditionView.getConditionOrOperationType());
 		
 		startActivity(intent);
     }
@@ -153,7 +152,7 @@ public class EditTaskActivity extends AppCompatActivity {
 		Intent intent = new Intent();
 		
 		intent.setClass(this, EditOperationActivity.class);
-		intent.putExtra(ConditionOrOperationData.ARG_OPERATION, operationView.getConditionOrOperationType());
+		intent.putExtra(ConditionOrOperationViewData.ARG_OPERATION, operationView.getConditionOrOperationType());
 		
 		startActivity(intent);
     }

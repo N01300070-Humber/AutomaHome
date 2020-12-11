@@ -1,6 +1,5 @@
 package ca.humbermail.n01300070.automahome.ui.tasks.condition;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -18,9 +17,8 @@ import java.util.ArrayList;
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.ConditionOrOperationView;
 import ca.humbermail.n01300070.automahome.components.ConditionOrOperationViewAdapter;
-import ca.humbermail.n01300070.automahome.components.DescriptiveTextView;
 import ca.humbermail.n01300070.automahome.components.ListLinePadding;
-import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationData;
+import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
 
 public class ChooseConditionFragment extends Fragment {
 	Context context;
@@ -58,15 +56,15 @@ public class ChooseConditionFragment extends Fragment {
 		return root;
 	}
 	
-	public ArrayList<ConditionOrOperationData> getConditionsDataList() {
-		String[] conditionTypeList = {ConditionOrOperationData.CONDITION_SCHEDULE, ConditionOrOperationData.CONDITION_TEMPERATURE, ConditionOrOperationData.CONDITION_MOVEMENT};
+	public ArrayList<ConditionOrOperationViewData> getConditionsDataList() {
+		String[] conditionTypeList = {ConditionOrOperationViewData.CONDITION_SCHEDULE, ConditionOrOperationViewData.CONDITION_TEMPERATURE, ConditionOrOperationViewData.CONDITION_MOVEMENT};
 		String[] conditionNameList = {getString(R.string.condition_schedule), getString(R.string.condition_temperature), getString(R.string.condition_movement)};
 		String[] conditionDescriptionList = {getString(R.string.condition_schedule_description), getString(R.string.condition_temperature_description), getString(R.string.condition_movement_description)};
-		ArrayList<ConditionOrOperationData> conditionsDataList = new ArrayList<>(conditionTypeList.length);
+		ArrayList<ConditionOrOperationViewData> conditionsDataList = new ArrayList<>(conditionTypeList.length);
 		
 		for (int i = 0; i < conditionTypeList.length; i++) {
-			ConditionOrOperationData conditionData = new ConditionOrOperationData(
-					ConditionOrOperationData.TYPE_CONDITION,
+			ConditionOrOperationViewData conditionData = new ConditionOrOperationViewData(
+					ConditionOrOperationViewData.TYPE_CONDITION,
 					conditionTypeList[i],
 					conditionNameList[i],
 					conditionDescriptionList[i],

@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
+import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 
 public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<DeviceOrTaskButtonRecyclerViewAdapter.ItemViewHolder> {
 	
 	private final Context context;
-	private final ArrayList<DeviceOrTaskData> itemDataList;
+	private final ArrayList<DeviceOrTaskButtonData> itemDataList;
 	private final View.OnClickListener onClickListener;
 	
 	/**
@@ -30,7 +30,7 @@ public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<
 		}
 	}
 	
-	public DeviceOrTaskButtonRecyclerViewAdapter(Context context, ArrayList<DeviceOrTaskData> itemDataList, View.OnClickListener onClickListener) {
+	public DeviceOrTaskButtonRecyclerViewAdapter(Context context, ArrayList<DeviceOrTaskButtonData> itemDataList, View.OnClickListener onClickListener) {
 		this.context = context;
 		this.itemDataList = itemDataList;
 		this.onClickListener = onClickListener;
@@ -51,7 +51,7 @@ public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<
 	
 	@Override
 	public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-		DeviceOrTaskData data = itemDataList.get(position);
+		DeviceOrTaskButtonData data = itemDataList.get(position);
 		
 		holder.deviceButtonView.setType(data.getType());
 		holder.deviceButtonView.setDeviceType(data.getDeviceType());
@@ -76,7 +76,7 @@ public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<
 		return itemDataList.size();
 	}
 	
-	public void addItem(int position, DeviceOrTaskData deviceOrTaskData) {
+	public void addItem(int position, DeviceOrTaskButtonData deviceOrTaskData) {
 		itemDataList.add(position, deviceOrTaskData);
 		notifyItemInserted(position);
 	}
@@ -86,17 +86,17 @@ public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<
 		notifyItemRemoved(position);
 	}
 	
-	public DeviceOrTaskData getItemData(int position) {
+	public DeviceOrTaskButtonData getItemData(int position) {
 		return itemDataList.get(position);
 	}
 	
-	public void setItemData(int position, DeviceOrTaskData data) {
+	public void setItemData(int position, DeviceOrTaskButtonData data) {
 		itemDataList.set(position, data);
 		notifyItemChanged(position);
 	}
 	
 	public void setAllExtraTextVisible(boolean visible) {
-		for (DeviceOrTaskData itemData : itemDataList) {
+		for (DeviceOrTaskButtonData itemData : itemDataList) {
 			itemData.setExtraTextVisible(visible);
 		}
 		notifyDataSetChanged();

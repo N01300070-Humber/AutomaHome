@@ -1,16 +1,16 @@
 package ca.humbermail.n01300070.automahome.data.model;
 
-public class DescriptiveTextData {
+public class DescriptiveTextViewData {
 
     private String mainText;
     private String timeText;
 
-    public DescriptiveTextData()
+    public DescriptiveTextViewData()
     {
 
     }
 
-    public DescriptiveTextData(String mainText, String timeText)
+    public DescriptiveTextViewData(String mainText, String timeText)
     {
         this.mainText = mainText;
         this.timeText = timeText;

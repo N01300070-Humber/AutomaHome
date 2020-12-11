@@ -17,7 +17,7 @@ import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.CategorizedDeviceOrTaskButtonRecyclerViewAdapter;
 import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonView;
 import ca.humbermail.n01300070.automahome.components.RecyclerViewCategoryPadding;
-import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
+import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 import ca.humbermail.n01300070.automahome.ui.devices.control.ControlDevicesActivity;
 import ca.humbermail.n01300070.automahome.ui.tasks.EditTaskActivity;
 
@@ -44,11 +44,11 @@ public class FavoritesFragment extends Fragment {
 				Intent intent = new Intent();
 				
 				switch (deviceOrTaskButtonView.getType()) {
-					case DeviceOrTaskData.TYPE_DEVICE:
+					case DeviceOrTaskButtonData.TYPE_DEVICE:
 						intent.setClass(context, ControlDevicesActivity.class);
-						intent.putExtra(DeviceOrTaskData.ARG_DEVICE, deviceOrTaskButtonView.getDeviceType());
+						intent.putExtra(DeviceOrTaskButtonData.ARG_DEVICE, deviceOrTaskButtonView.getDeviceType());
 						break;
-					case DeviceOrTaskData.TYPE_TASK:
+					case DeviceOrTaskButtonData.TYPE_TASK:
 						intent.setClass(context, EditTaskActivity.class);
 						break;
 					default:

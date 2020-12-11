@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import ca.humbermail.n01300070.automahome.data.model.CategoryData;
-import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
+import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 
 public class CategorizedDeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<CategorizedDeviceOrTaskButtonRecyclerViewAdapter.CategoryViewHolder> {
 	
@@ -91,7 +91,7 @@ public class CategorizedDeviceOrTaskButtonRecyclerViewAdapter extends RecyclerVi
 	}
 	
 	
-	public void addCategoryItem(int categoryPosition, int itemPosition, DeviceOrTaskData deviceOrTaskData) {
+	public void addCategoryItem(int categoryPosition, int itemPosition, DeviceOrTaskButtonData deviceOrTaskData) {
 		categoryDataList.get(categoryPosition).getViewAdapter().addItem(itemPosition, deviceOrTaskData);
 		notifyItemChanged(categoryPosition);
 	}
@@ -101,11 +101,11 @@ public class CategorizedDeviceOrTaskButtonRecyclerViewAdapter extends RecyclerVi
 		notifyItemChanged(categoryPosition);
 	}
 	
-	public DeviceOrTaskData getCategoryItemData(int categoryPosition, int itemPosition) {
+	public DeviceOrTaskButtonData getCategoryItemData(int categoryPosition, int itemPosition) {
 		return categoryDataList.get(categoryPosition).getViewAdapter().getItemData(itemPosition);
 	}
 	
-	public void setCategoryItemData(int categoryPosition, int itemPosition, DeviceOrTaskData deviceOrTaskData) {
+	public void setCategoryItemData(int categoryPosition, int itemPosition, DeviceOrTaskButtonData deviceOrTaskData) {
 		categoryDataList.get(categoryPosition).getViewAdapter().setItemData(itemPosition, deviceOrTaskData);
 		notifyItemChanged(categoryPosition);
 	}

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.FavoriteSelectView;
-import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
+import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 
 public class EditDevicesActivity extends AppCompatActivity
 {
@@ -40,21 +40,21 @@ public class EditDevicesActivity extends AppCompatActivity
         roomLocationHeader2 = findViewById(R.id.textView_editDevice_deviceLocation2);
         favoriteSelectView = findViewById(R.id.favoriteSelectView_editDevice);
 
-        deviceType = getIntent().getExtras().getString(DeviceOrTaskData.ARG_DEVICE);
+        deviceType = getIntent().getExtras().getString(DeviceOrTaskButtonData.ARG_DEVICE);
         favoriteSelectView.setAutoCompleteLabels(generateCategoryList());
 
         switch(deviceType){
-            case DeviceOrTaskData.DEVICE_LIGHTS:
+            case DeviceOrTaskButtonData.DEVICE_LIGHTS:
                 fragment = new EditLightFragment();
                 break;
-            case DeviceOrTaskData.DEVICE_MOVEMENT_SENSOR:
+            case DeviceOrTaskButtonData.DEVICE_MOVEMENT_SENSOR:
                 roomLocationHeader.setText(getString(R.string.side_device_location, "A"));
                 roomLocationHeader2.setText(getString(R.string.side_device_location, "B"));
                 roomLocationHeader2.setVisibility(View.VISIBLE);
                 roomSpinner2.setVisibility(View.VISIBLE);
                 fragment = new EditMovementSensorFragment();
                 break;
-            case DeviceOrTaskData.DEVICE_THERMOSTAT:
+            case DeviceOrTaskButtonData.DEVICE_THERMOSTAT:
                 fragment = new EditThermostatFragment();
                 break;
             default:

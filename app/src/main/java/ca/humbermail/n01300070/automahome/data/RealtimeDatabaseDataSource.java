@@ -21,6 +21,7 @@ import ca.humbermail.n01300070.automahome.data.model.Task;
 public class RealtimeDatabaseDataSource {
 	private final static String HOMES_REFERENCE = "homes";
 	private final static String HOMES_NAME_PATH = "name";
+	private final static String HOMES_EDITORS_PATH = "editors";
 	private final static String DEVICES_REFERENCE = "devices";
 	private final static String DEVICES_NAME_PATH = "name";
 	private final static String DEVICES_CATEGORY_PATH = "category";
@@ -32,9 +33,9 @@ public class RealtimeDatabaseDataSource {
 	
 	private final FirebaseDatabase database = FirebaseDatabase.getInstance();
 	
-	private MutableLiveData<List<Device>> homeValues;
-	private MutableLiveData<List<Device>> deviceValues;
-	private MutableLiveData<List<Task>> taskValues;
+	private final MutableLiveData<List<Home>> homeValues = new MutableLiveData<>();
+	private final MutableLiveData<List<Device>> deviceValues = new MutableLiveData<>();
+	private final MutableLiveData<List<Task>> taskValues = new MutableLiveData<>();
 	
 	private ValueEventListener homesValueEventListener;
 	private ValueEventListener devicesValueEventListener;
@@ -44,6 +45,72 @@ public class RealtimeDatabaseDataSource {
 	public void setCurrentHome(String homeId) {
 		this.currentHomeId = homeId;
 	}
+	
+	
+	// Homes
+	private Home createHome(String key, String name) {
+		return new Home(key, name, loginDataSource.getCurrentUID());
+	}
+	
+	public void addHome(String name) {
+		DatabaseReference reference = database.getReference(HOMES_REFERENCE);
+		
+		String key = reference.push().getKey();
+		assert key != null;
+		
+		reference.child(key).setValue( createHome(key, name) );
+	}
+	
+	public void removeHome(String key) {
+		database.getReference(HOMES_REFERENCE)
+				.child(key)
+				.removeValue();
+	}
+	
+	public void updateHomeName(String key, String name) {
+		database.getReference(HOMES_REFERENCE)
+				.child(key)
+				.child(HOMES_NAME_PATH)
+				.setValue(name);
+	}
+	
+	public void listenForHomesValueChanges() {
+		homesValueEventListener = new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				ArrayList<Home> homes = new ArrayList<>();
+				
+				if (snapshot.exists()) {
+					Iterable<DataSnapshot> iterable = snapshot.getChildren();
+					
+					for (DataSnapshot dataSnapshot : iterable) {
+						homes.add((Home) dataSnapshot.getValue());
+					}
+				}
+				
+				homeValues.postValue(homes);
+			}
+			
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+			
+			}
+		};
+		
+		database.getReference(HOMES_REFERENCE).addValueEventListener(homesValueEventListener);
+	}
+	
+	public void removeHomesValueChangesListener() {
+		database.getReference(HOMES_REFERENCE).addValueEventListener(homesValueEventListener);
+	}
+	
+	public LiveData<List<Home>> onHomeValuesChange() {
+		listenForHomesValueChanges();
+		return homeValues;
+	}
+	
+	
+	// Home Editors
 	
 	
 	// Devices

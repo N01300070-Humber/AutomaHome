@@ -70,6 +70,8 @@ public class RealtimeDatabaseDataSource {
 		database.getReference(HOMES_REFERENCE)
 				.child(key)
 				.removeValue();
+		// TODO: Remove connected devices
+		// TODO: Remove connected tasks
 	}
 	
 	public void updateHomeName(String key, String name) {
@@ -106,7 +108,7 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeHomesValueChangesListener() {
-		database.getReference(HOMES_REFERENCE).addValueEventListener(homesValueEventListener);
+		database.getReference(HOMES_REFERENCE).removeEventListener(homesValueEventListener);
 	}
 	
 	public LiveData<List<Home>> onHomeValuesChange() {
@@ -249,7 +251,7 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeDevicesValueChangesListener() {
-		database.getReference(DEVICES_REFERENCE).addValueEventListener(devicesValueEventListener);
+		database.getReference(DEVICES_REFERENCE).removeEventListener(devicesValueEventListener);
 	}
 	
 	public LiveData<List<Device>> onDeviceValuesChange() {

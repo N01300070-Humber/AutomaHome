@@ -18,6 +18,7 @@ import java.util.List;
 import ca.humbermail.n01300070.automahome.data.model.Condition;
 import ca.humbermail.n01300070.automahome.data.model.Device;
 import ca.humbermail.n01300070.automahome.data.model.Home;
+import ca.humbermail.n01300070.automahome.data.model.Operation;
 import ca.humbermail.n01300070.automahome.data.model.Task;
 
 public class RealtimeDatabaseDataSource {
@@ -36,6 +37,10 @@ public class RealtimeDatabaseDataSource {
 	private final static String TASK_CONDITIONS_POSITION_PATH = "position";
 	private final static String TASK_CONDITIONS_DEVICE_ID_PATH = "deviceId";
 	private final static String TASK_CONDITIONS_DATA_PATH = "data";
+	private final static String TASK_OPERATIONS_PATH = "operations";
+	private final static String TASK_OPERATIONS_POSITION_PATH = "position";
+	private final static String TASK_OPERATIONS_DEVICE_ID_PATH = "deviceId";
+	private final static String TASK_OPERATIONS_DATA_PATH = "data";
 	
 	private final static String NO_CATEGORY = ""; //Used for devices and tasks that are not favourited
 	private final static String NO_DEVICE = ""; //Used for conditions and operations that do not interact with a device
@@ -51,12 +56,14 @@ public class RealtimeDatabaseDataSource {
 	private final MutableLiveData<List<Device>> deviceValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Task>> taskValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Condition>> taskConditionValues = new MutableLiveData<>();
+	private final MutableLiveData<List<Operation>> taskOperationValues = new MutableLiveData<>();
 	
 	private ValueEventListener homesValueEventListener;
 	private ValueEventListener homeEditorsValueEventListener;
 	private ValueEventListener devicesValueEventListener;
 	private ValueEventListener tasksValueEventListener;
 	private ValueEventListener taskConditionsValueEventListener;
+	private ValueEventListener taskOperationsValueEventListener;
 	
 	
 	public void setCurrentHome(String homeId) {
@@ -431,5 +438,85 @@ public class RealtimeDatabaseDataSource {
 	
 	
 	// Task Operations
-	// TODO: Create task operations handling code
+	private Operation createTaskOperation(String key, int position, String type, String referenceDeviceId) {
+		return new Operation(key, position, type, referenceDeviceId);
+	}
+	
+	public void addTaskOperation(String taskId, int position, String type, String referenceDeviceId) {
+		DatabaseReference reference = database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_OPERATIONS_PATH);
+		
+		String key = reference.push().getKey();
+		assert key != null;
+		
+		reference.child(key).setValue( createTaskOperation(key, position, type, referenceDeviceId) );
+	}
+	
+	public void removeTaskOperation(String taskId, String taskOperationId) {
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_OPERATIONS_PATH)
+				.child(taskOperationId)
+				.removeValue();
+	}
+	
+	public void updateTaskOperationPosition(String taskId, String taskOperationId, int position) {
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_OPERATIONS_PATH)
+				.child(taskOperationId)
+				.child(TASK_OPERATIONS_POSITION_PATH)
+				.setValue(position);
+	}
+	
+	public void updateTaskOperationReferenceDevice(String taskId, String taskOperationId, String referenceDeviceId) {
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_OPERATIONS_PATH)
+				.child(taskOperationId)
+				.child(TASK_OPERATIONS_DEVICE_ID_PATH)
+				.setValue(referenceDeviceId);
+	}
+	
+	public void listenForTaskOperationValueChanges(String taskId) {
+		taskOperationsValueEventListener = new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				ArrayList<Operation> operations = new ArrayList<>();
+				
+				if (snapshot.exists()) {
+					Iterable<DataSnapshot> iterable = snapshot.getChildren();
+					
+					for (DataSnapshot dataSnapshot : iterable) {
+						operations.add((Operation) dataSnapshot.getValue());
+					}
+				}
+				
+				taskOperationValues.postValue(operations);
+			}
+			
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+			
+			}
+		};
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_OPERATIONS_PATH)
+				.addValueEventListener(taskOperationsValueEventListener);
+	}
+	
+	public void removeTaskOperationsValueChangesListener(String taskId) {
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_OPERATIONS_PATH)
+				.removeEventListener(taskOperationsValueEventListener);
+	}
+	
+	public LiveData<List<Operation>> onTaskOperationValuesChange(String taskId) {
+		listenForTaskOperationValueChanges(taskId);
+		return taskOperationValues;
+	}
 }

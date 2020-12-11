@@ -1,5 +1,7 @@
 package ca.humbermail.n01300070.automahome.data;
 
+import android.util.Pair;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -11,7 +13,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import ca.humbermail.n01300070.automahome.data.model.Device;
@@ -35,10 +36,12 @@ public class RealtimeDatabaseDataSource {
 	private final FirebaseDatabase database = FirebaseDatabase.getInstance();
 	
 	private final MutableLiveData<List<Home>> homeValues = new MutableLiveData<>();
+	private final MutableLiveData<List<Pair<String, Boolean>>> homeEditorValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Device>> deviceValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Task>> taskValues = new MutableLiveData<>();
 	
 	private ValueEventListener homesValueEventListener;
+	private ValueEventListener homeEditorsValueEventListener;
 	private ValueEventListener devicesValueEventListener;
 	private ValueEventListener tasksValueEventListener;
 	
@@ -60,6 +63,7 @@ public class RealtimeDatabaseDataSource {
 		assert key != null;
 		
 		reference.child(key).setValue( createHome(key, name) );
+		// TODO: Add current user to editors
 	}
 	
 	public void removeHome(String key) {
@@ -112,6 +116,73 @@ public class RealtimeDatabaseDataSource {
 	
 	
 	// Home Editors
+	public void addHomeEditor(String uid) {
+		database.getReference(HOMES_REFERENCE)
+				.child(currentHomeId)
+				.child(HOMES_EDITORS_PATH)
+				.child(uid)
+				.setValue(false);
+	}
+	
+	public void removeHomeEditor(String uid) {
+		database.getReference(HOMES_REFERENCE)
+				.child(currentHomeId)
+				.child(HOMES_EDITORS_PATH)
+				.child(uid)
+				.removeValue();
+	}
+	
+	public void updateHomeEditor(String uid, boolean accepted) {
+		database.getReference(HOMES_REFERENCE)
+				.child(currentHomeId)
+				.child(HOMES_EDITORS_PATH)
+				.child(uid)
+				.setValue(accepted);
+	}
+	
+	public void listenForHomeEditorsValueChanges() {
+		homeEditorsValueEventListener = new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				ArrayList<Pair<String, Boolean>> editors = new ArrayList<>();
+				
+				if (snapshot.exists()) {
+					Iterable<DataSnapshot> iterable = snapshot.getChildren();
+					
+					for (DataSnapshot dataSnapshot : iterable) {
+						editors.add(new Pair<>(
+								dataSnapshot.getKey(),
+								(Boolean) dataSnapshot.getValue()
+						));
+					}
+				}
+				
+				homeEditorValues.postValue(editors);
+			}
+			
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+			
+			}
+		};
+		
+		database.getReference(HOMES_REFERENCE)
+				.child(currentHomeId)
+				.child(HOMES_EDITORS_PATH)
+				.addValueEventListener(homeEditorsValueEventListener);
+	}
+	
+	public void removeHomeEditorsValueChangesListener() {
+		database.getReference(HOMES_REFERENCE)
+				.child(currentHomeId)
+				.child(HOMES_EDITORS_PATH)
+				.removeEventListener(homeEditorsValueEventListener);
+	}
+	
+	public LiveData<List<Pair<String, Boolean>>> onHomeEditorValuesChange() {
+		listenForHomeEditorsValueChanges();
+		return homeEditorValues;
+	}
 	
 	
 	// Devices

@@ -28,6 +28,9 @@ public class RealtimeDatabaseDataSource {
 	private final static String DEVICES_NAME_PATH = "name";
 	private final static String DEVICES_CATEGORY_PATH = "category";
 	private final static String TASKS_REFERENCE = "tasks";
+	private final static String TASKS_HOME_ID_PATH = "homeId";
+	private final static String TASKS_NAME_PATH = "name";
+	private final static String TASKS_CATEGORY_PATH = "category";
 	
 	
 	private String currentHomeId;
@@ -261,6 +264,75 @@ public class RealtimeDatabaseDataSource {
 	
 	
 	// Tasks
+	private Task createTask(String key, String name, String category) {
+		return new Task(key, currentHomeId, name, category);
+	}
 	
+	public void addTask(String name, String type, String category) {
+		DatabaseReference reference = database.getReference(TASKS_REFERENCE);
+		
+		String key = reference.push().getKey();
+		assert key != null;
+		
+		reference.child(key).setValue( createDevice(key, name, type, category) );
+	}
+	
+	public void removeTask(String key) {
+		database.getReference(TASKS_REFERENCE)
+				.child(key)
+				.removeValue();
+	}
+	
+	public void updateTaskName(String key, String name) {
+		database.getReference(TASKS_REFERENCE)
+				.child(key)
+				.child(TASKS_NAME_PATH)
+				.setValue(name);
+	}
+	
+	public void updateTaskCategory(String key, String category) {
+		database.getReference(TASKS_REFERENCE)
+				.child(key)
+				.child(TASKS_CATEGORY_PATH)
+				.setValue(category);
+	}
+	
+	public void listenForTaskValueChanges() {
+		tasksValueEventListener = new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				ArrayList<Task> tasks = new ArrayList<>();
+				
+				if (snapshot.exists()) {
+					Iterable<DataSnapshot> iterable = snapshot.getChildren();
+					
+					for (DataSnapshot dataSnapshot : iterable) {
+						tasks.add((Task) dataSnapshot.getValue());
+					}
+				}
+				
+				taskValues.postValue(tasks);
+			}
+			
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+			
+			}
+		};
+		
+		database.getReference(TASKS_REFERENCE)
+				.orderByChild(TASKS_HOME_ID_PATH)
+				.equalTo(currentHomeId)
+				.addValueEventListener(tasksValueEventListener);
+	}
+	
+	public void removeTasksValueChangesListener() {
+		database.getReference(TASKS_REFERENCE).removeEventListener(tasksValueEventListener);
+	}
+	
+	public LiveData<List<Task>> onTaskValuesChange() {
+		listenForTaskValueChanges();
+		return taskValues;
+	}
 	
 }

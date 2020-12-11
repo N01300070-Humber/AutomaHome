@@ -23,6 +23,7 @@ public class RealtimeDatabaseDataSource {
 	private final static String HOMES_NAME_PATH = "name";
 	private final static String HOMES_EDITORS_PATH = "editors";
 	private final static String DEVICES_REFERENCE = "devices";
+	private final static String DEVICES_HOME_ID_PATH = "homeId";
 	private final static String DEVICES_NAME_PATH = "name";
 	private final static String DEVICES_CATEGORY_PATH = "category";
 	private final static String TASKS_REFERENCE = "tasks";
@@ -170,7 +171,10 @@ public class RealtimeDatabaseDataSource {
 			}
 		};
 		
-		database.getReference(DEVICES_REFERENCE).addValueEventListener(devicesValueEventListener);
+		database.getReference(DEVICES_REFERENCE)
+				.orderByChild(DEVICES_HOME_ID_PATH)
+				.equalTo(currentHomeId)
+				.addValueEventListener(devicesValueEventListener);
 	}
 	
 	public void removeDevicesValueChangesListener() {

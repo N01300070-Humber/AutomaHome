@@ -40,4 +40,8 @@ public class LoginDataSource {
 	public void logout() {
 		// TODO: revoke authentication
 	}
+	
+	public String getCurrentUID() {
+		return "testuser"; // TODO: replace with actual data
+	}
 }

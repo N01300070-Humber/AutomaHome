@@ -1,7 +1,6 @@
 package ca.humbermail.n01300070.automahome.ui.login;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -9,18 +8,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
 
 import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
+import ca.humbermail.n01300070.automahome.data.LoginDataSource;
 
 public class LoginActivity extends AppCompatActivity {
 	
@@ -78,11 +79,13 @@ public class LoginActivity extends AppCompatActivity {
 			setTitle(getString(R.string.title_activity_register));
 			firstNameTextLayout.setVisibility(View.VISIBLE);
 			lastNameTextLayout.setVisibility(View.VISIBLE);
+			confirmButton.setText(getString(R.string.button_register));
 			switchLoginButton.setText(R.string.button_question_have_account);
 		} else {
-			setTitle(getString(R.string.title_activity_login));
+			setTitle(getString(R.string.title_activity_sign_in));
 			firstNameTextLayout.setVisibility(View.GONE);
 			lastNameTextLayout.setVisibility(View.GONE);
+			confirmButton.setText(getString(R.string.button_sign_in));
 			switchLoginButton.setText(R.string.button_question_no_account);
 		}
 	}
@@ -185,26 +188,50 @@ public class LoginActivity extends AppCompatActivity {
 		
 		
 		// Attempt sign-in/register
-		// TODO: Attempt to sign-in/register (After Milestone 2)
-		
-		// Successful sign-in/register
-		SharedPreferences.Editor loginInfoEditor = getSharedPreferences(
-				PreferenceKeys.LOGIN, MODE_PRIVATE).edit();
-		loginInfoEditor.putBoolean(PreferenceKeys.LOGIN_LOGGED_IN, true);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_FIRST_NAME, firstName);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_LAST_NAME, lastName);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_EMAIL_ADDRESS, emailAddress);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_PASSWORD, password); // TODO: hash and encrypt password before storing OR replace with authorization token acquired during login attempt (After Milestone 2)
-		if (!loginInfoEditor.commit()) {
-			Toast.makeText(this, "Failed to save info", Toast.LENGTH_LONG).show();
-			loadingProgressBar.setVisibility(View.GONE);
-			return;
+		final LoginDataSource loginDataSource = new LoginDataSource();
+		final String displayName = (firstName + " " + lastName).trim();
+		if (registering) {
+			loginDataSource.register(this.getMainExecutor(), emailAddress, password,
+					new OnCompleteListener<AuthResult>() {
+				
+						@Override
+						public void onComplete(@NonNull Task<AuthResult> task) {
+							if (task.isSuccessful()) {
+								loginDataSource.updateCurrentUser();
+								loginDataSource.setDisplayName(displayName);
+								// TODO: Add user info to users in database
+								loginFinished();
+							} else {
+								Objects.requireNonNull(task.getException()).printStackTrace();
+								passwordEditText.setError(getString(R.string.error_registration_failed, task.getException().toString()));
+								loadingProgressBar.setVisibility(View.GONE);
+							}
+						}
+					});
+		} else {
+			loginDataSource.login(this.getMainExecutor(), emailAddress, password,
+					new OnCompleteListener<AuthResult>() {
+				
+				@Override
+				public void onComplete(@NonNull Task<AuthResult> task) {
+					if (task.isSuccessful()) {
+						loginDataSource.updateCurrentUser();
+						loginFinished();
+					} else {
+						Objects.requireNonNull(task.getException()).printStackTrace();
+						passwordEditText.setError(getString(R.string.error_login_failed, task.getException().toString()));
+						loadingProgressBar.setVisibility(View.GONE);
+					}
+				}
+			});
 		}
-		
+	}
+	
+	private void loginFinished() {
+		// Successful sign-in/register
 		loadingProgressBar.setVisibility(View.GONE);
 		
 		setResult(Activity.RESULT_OK);
 		finish();
 	}
-	
 }

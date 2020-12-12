@@ -37,6 +37,7 @@
 			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
 			android:layout_width="50dp"
 			android:layout_height="50dp"
+			android:checked="true"
 			android:text="@string/degrees_celsius" />
 		
 		<com.google.android.material.button.MaterialButton
@@ -44,6 +45,7 @@
 			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
 			android:layout_width="50dp"
 			android:layout_height="50dp"
+			android:checked="true"
 			android:text="@string/degrees_fahrenheit" />
 	
 	</com.google.android.material.button.MaterialButtonToggleGroup>

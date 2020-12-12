@@ -2,11 +2,7 @@ package ca.humbermail.n01300070.automahome.ui.settings;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,21 +10,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.WelcomeActivity;
-import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
+import ca.humbermail.n01300070.automahome.data.LoginDataSource;
 
 public class AccountSettingsFragment extends Fragment {
-	Context context;
+	private Context context;
 	
-	EditText firstNameEditText;
-	EditText lastNameEditText;
-	EditText emailEditText;
-	EditText currentPasswordEditText;
-	EditText newPasswordEditText;
-	Button logoutButton;
-	Button deleteAccountButton;
-	Button confirmButton;
+	private EditText firstNameEditText;
+	private EditText lastNameEditText;
+	private EditText emailEditText;
+	private EditText currentPasswordEditText;
+	private EditText newPasswordEditText;
+	private Button logoutButton;
+	private Button deleteAccountButton;
+	private Button confirmButton;
 	
 	public AccountSettingsFragment() {
 		// Required empty public constructor
@@ -43,7 +41,7 @@ public class AccountSettingsFragment extends Fragment {
 							 Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View root = inflater.inflate(R.layout.fragment_settings_account, container, false);
-		context = getActivity().getApplicationContext();
+		context = requireActivity().getApplicationContext();
 		
 		firstNameEditText = root.findViewById(R.id.editText_firstName);
 		lastNameEditText = root.findViewById(R.id.editText_lastName);
@@ -77,38 +75,17 @@ public class AccountSettingsFragment extends Fragment {
 	}
 	
 	public void logoutButton_onClick(View view) {
-		SharedPreferences.Editor loginInfoEditor = context.getSharedPreferences(
-				PreferenceKeys.LOGIN, Context.MODE_PRIVATE).edit();
-		loginInfoEditor.putBoolean(PreferenceKeys.LOGIN_LOGGED_IN, false);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_FIRST_NAME, null);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_LAST_NAME, null);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_EMAIL_ADDRESS, null);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_PASSWORD, null);
-		if (!loginInfoEditor.commit()) {
-			Toast.makeText(context, "Failed to properly logout", Toast.LENGTH_LONG).show(); // TODO: Fix hardcoded string
-		} else {
-			Toast.makeText(context, "Successfully logged out", Toast.LENGTH_LONG).show(); // TODO: Fix hardcoded string
-			startActivity(new Intent(context, WelcomeActivity.class));
-			getActivity().finish();
-		}
+		new LoginDataSource().logout();
+		
+		startActivity(new Intent(context, WelcomeActivity.class));
+		requireActivity().finish();
 	}
 	
 	private void deleteAccountButton_onClick(View view) {
-		// TODO: delete user account
-		SharedPreferences.Editor loginInfoEditor = context.getSharedPreferences(
-				PreferenceKeys.LOGIN, Context.MODE_PRIVATE).edit();
-		loginInfoEditor.putBoolean(PreferenceKeys.LOGIN_LOGGED_IN, false);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_FIRST_NAME, null);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_LAST_NAME, null);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_EMAIL_ADDRESS, null);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_PASSWORD, null);
-		if (!loginInfoEditor.commit()) {
-			Toast.makeText(context, "Failed to properly delete account", Toast.LENGTH_LONG).show(); // TODO: Fix hardcoded string
-		} else {
-			Toast.makeText(context, "Successfully deleted account", Toast.LENGTH_LONG).show(); // TODO: Fix hardcoded string
-			startActivity(new Intent(context, WelcomeActivity.class));
-			getActivity().finish();
-		}
+		new LoginDataSource().deleteAccount();
+		
+		startActivity(new Intent(context, WelcomeActivity.class));
+		requireActivity().finish();
 	}
 	
 	private void confirmButton_onClick(View view) {

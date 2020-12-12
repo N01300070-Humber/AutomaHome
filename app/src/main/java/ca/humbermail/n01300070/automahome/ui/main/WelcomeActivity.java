@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import ca.humbermail.n01300070.automahome.R;
@@ -16,17 +17,23 @@ public class WelcomeActivity extends AppCompatActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d("WelcomeActivity", "onCreate called");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome);
 	}
 	
 	public void buttonPressed_signIn(View view) {
+		Log.d("WelcomeActivity", "buttonPressed_signIn called");
+		
 		Intent intent = new Intent(this, LoginActivity.class);
 		intent.putExtra("Register", false);
 		startActivityForResult(intent, REQUEST_LOGIN);
 	}
 	
 	public void buttonPressed_register(View view) {
+		Log.d("WelcomeActivity", "buttonPressed_register called");
+		
 		Intent intent = new Intent(this, LoginActivity.class);
 		intent.putExtra("Registering", true);
 		startActivityForResult(intent, REQUEST_LOGIN);
@@ -34,13 +41,26 @@ public class WelcomeActivity extends AppCompatActivity {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+		Log.d("WelcomeActivity", "onActivityResult called");
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		if (requestCode == REQUEST_LOGIN) {
+			Log.d("WelcomeActivity", "ActivityResult from LoginActivity");
 			if (resultCode == RESULT_OK) {
+				Log.d("WelcomeActivity", "ActivityResult came back as OK");
+				Log.d("WelcomeActivity", "launching NavDrawerActivity");
 				startActivity(new Intent(this, NavDrawerActivity.class));
+				Log.d("WelcomeActivity", "finish");
 				finish();
+			} else {
+				Log.d("WelcomeActivity", "ActivityResult came back as NOT OK");
 			}
 		}
+	}
+	
+	@Override
+	public void finish() {
+		Log.d("WelcomeActivity", "finish called");
+		super.finish();
 	}
 }

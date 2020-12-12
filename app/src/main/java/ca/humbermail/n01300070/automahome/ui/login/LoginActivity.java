@@ -3,6 +3,7 @@ package ca.humbermail.n01300070.automahome.ui.login;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 
 public class LoginActivity extends AppCompatActivity {
 	
@@ -47,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Log.d("LoginActivity", "onCreate called");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -121,6 +124,8 @@ public class LoginActivity extends AppCompatActivity {
 	 * @param view Source view.
 	 */
 	public void confirmButton_onClick(View view) {
+		Log.d("LoginActivity", "confirmButton_onClick called");
+		
 		String firstName;
 		String lastName;
 		final String emailAddress;
@@ -203,36 +208,47 @@ public class LoginActivity extends AppCompatActivity {
 	}
 	
 	private void attemptLogin(String emailAddress, String password, final String displayName) {
+		Log.d("LoginActivity", "attemptLogin called");
 		if (registering) {
+			Log.d("LoginActivity", "registering for new account");
 			loginDataSource.register(this.getMainExecutor(), emailAddress, password,
 					new OnCompleteListener<AuthResult>() {
 						
 						@Override
 						public void onComplete(@NonNull Task<AuthResult> task) {
+							Log.d("LoginActivity", "register task called");
 							if (task.isSuccessful()) {
+								Log.d("LoginActivity", "register task successful");
 								loginDataSource.setDisplayName(displayName);
 								// TODO: Add user info to users in database
 								loginFinished();
 							} else {
+								Log.d("LoginActivity", "register task failed");
 								Objects.requireNonNull(task.getException()).printStackTrace();
 								passwordEditText.setError(getString(R.string.error_registration_failed, task.getException().toString()));
 								loadingProgressBar.setVisibility(View.GONE);
 							}
+							Log.d("LoginActivity", "register task finished");
 						}
 					});
 		} else {
+			Log.d("LoginActivity", "logging in to existing account");
 			loginDataSource.login(this.getMainExecutor(), emailAddress, password,
 					new OnCompleteListener<AuthResult>() {
 						
 						@Override
 						public void onComplete(@NonNull Task<AuthResult> task) {
+							Log.d("LoginActivity", "sign in task called");
 							if (task.isSuccessful()) {
+								Log.d("LoginActivity", "sign in task successful");
 								loginFinished();
 							} else {
+								Log.d("LoginActivity", "sign in task failed");
 								Objects.requireNonNull(task.getException()).printStackTrace();
 								passwordEditText.setError(getString(R.string.error_login_failed, task.getException().toString()));
 								loadingProgressBar.setVisibility(View.GONE);
 							}
+							Log.d("LoginActivity", "sign in task finished");
 						}
 					});
 		}
@@ -240,9 +256,17 @@ public class LoginActivity extends AppCompatActivity {
 	
 	private void loginFinished() {
 		// Successful sign-in/register
+		Log.d("LoginActivity", "loginFinished called");
 		loadingProgressBar.setVisibility(View.GONE);
 		
+		Log.d("LoginActivity", "closing LoginActivity");
 		setResult(Activity.RESULT_OK);
 		finish();
+	}
+	
+	@Override
+	public void finish() {
+		Log.d("LoginActivity", "finish called");
+		super.finish();
 	}
 }

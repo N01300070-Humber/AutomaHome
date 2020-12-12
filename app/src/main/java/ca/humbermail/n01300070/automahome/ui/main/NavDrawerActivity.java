@@ -1,6 +1,7 @@
 package ca.humbermail.n01300070.automahome.ui.main;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class NavDrawerActivity extends CustomActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d("NavDrawerActivity", "onCreate called");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nav_drawer);
 		Toolbar toolbar = findViewById(R.id.toolbar);
@@ -52,8 +54,9 @@ public class NavDrawerActivity extends CustomActivity {
 		setLoginDataSource(new LoginDataSource(new LoginDataSource.LoginStateListener() {
 			@Override
 			public void onLoginStateChanged(@NonNull FirebaseAuth firebaseAuth, boolean loggedIn) {
+				Log.d("NavDrawerActivity", "detected login state change. Value is now " + loggedIn);
 				if (loggedIn) {
-					updateUI();
+					updateUI(Objects.requireNonNull(firebaseAuth.getCurrentUser()));
 				} else {
 					// TODO: handle unexpected logout
 				}
@@ -61,8 +64,9 @@ public class NavDrawerActivity extends CustomActivity {
 		}));
 	}
 	
-	private void updateUI() {
-		String displayName = getLoginDataSource().getDisplayName();
+	private void updateUI(FirebaseUser currentUser) {
+		Log.d("NavDrawerActivity", "updateUI called");
+		String displayName = currentUser.getDisplayName();
 		if (displayName == null) {
 			displayName = "NO NAME!";
 		}
@@ -79,9 +83,16 @@ public class NavDrawerActivity extends CustomActivity {
 
 	@Override
 	public boolean onSupportNavigateUp() {
+		Log.d("NavDrawerActivity", "onSupportNavigateUp called");
 		NavController navController = Navigation
 				.findNavController(this, R.id.nav_host_fragment);
 		return NavigationUI.navigateUp(navController, mAppBarConfiguration)
 				|| super.onSupportNavigateUp();
+	}
+	
+	@Override
+	public void finish() {
+		Log.d("NavDrawerActivity", "finish called");
+		super.finish();
 	}
 }

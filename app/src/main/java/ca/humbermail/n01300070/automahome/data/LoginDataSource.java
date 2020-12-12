@@ -1,5 +1,7 @@
 package ca.humbermail.n01300070.automahome.data;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,7 +29,8 @@ public class LoginDataSource {
 	
 	
 	public LoginDataSource(final LoginStateListener loginStateListener) {
-		authentication.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+		Log.d("LoginDataSource", "constructor called");
+		authStateListener = new FirebaseAuth.AuthStateListener() {
 			@Override
 			public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 				currentUser = firebaseAuth.getCurrentUser();
@@ -46,6 +49,7 @@ public class LoginDataSource {
 	
 	public void login(Executor executor, String emailAddress, String password,
 					  OnCompleteListener<AuthResult> onCompleteListener) {
+		Log.d("LoginDataSource", "login called");
 		
 		authentication.signInWithEmailAndPassword(emailAddress, password)
 				.addOnCompleteListener(executor, onCompleteListener);
@@ -53,6 +57,7 @@ public class LoginDataSource {
 	
 	public void register(Executor executor, String emailAddress, String password,
 						 OnCompleteListener<AuthResult> onCompleteListener) {
+		Log.d("LoginDataSource", "register called");
 		
 		authentication.createUserWithEmailAndPassword(emailAddress, password)
 				.addOnCompleteListener(executor, onCompleteListener);
@@ -65,11 +70,15 @@ public class LoginDataSource {
 	}
 	
 	public void logout() {
+		Log.d("LoginDataSource", "logout called");
+		
 		authentication.signOut();
 		currentUser = null;
 	}
 	
 	public void deleteAccount() {
+		Log.d("LoginDataSource", "deleteAccount called");
+		
 		// TODO: Remove all user data from the database
 		currentUser.delete();
 		currentUser = null;

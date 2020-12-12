@@ -47,7 +47,6 @@ public class RealtimeDatabaseDataSource {
 	
 	
 	private String currentHomeId;
-	private final LoginDataSource loginDataSource = new LoginDataSource();
 	
 	private final FirebaseDatabase database = FirebaseDatabase.getInstance();
 	
@@ -72,17 +71,17 @@ public class RealtimeDatabaseDataSource {
 	
 	
 	// Homes
-	private Home createHome(String key, String name) {
-		return new Home(key, name, loginDataSource.getUserID());
+	private Home createHome(String key, String name, String userID) {
+		return new Home(key, name, userID);
 	}
 	
-	public void addHome(String name) {
+	public void addHome(String name, LoginDataSource loginDataSource) {
 		DatabaseReference reference = database.getReference(HOMES_REFERENCE);
 		
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue( createHome(key, name) );
+		reference.child(key).setValue( createHome(key, name, loginDataSource.getUserID()) );
 		// TODO: Add current user to editors
 	}
 	

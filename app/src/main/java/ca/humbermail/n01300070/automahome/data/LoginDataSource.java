@@ -90,17 +90,18 @@ public class LoginDataSource {
 				.addOnCompleteListener(executor, onCompleteListener);
 	}
 	
-	public void setDisplayName(String displayName) {
-		currentUser.updateProfile(
-				new UserProfileChangeRequest.Builder().setDisplayName(displayName).build()
-		);
-	}
-	
 	public void logout() {
 		Log.d("LoginDataSource", "logout called");
 		
 		authentication.signOut();
 		currentUser = null;
+	}
+	
+	public void setDisplayName(String displayName) {
+		Log.d("LoginDataSource", "setDisplayName called");
+		currentUser.updateProfile(
+				new UserProfileChangeRequest.Builder().setDisplayName(displayName).build()
+		);
 	}
 	
 	public void deleteAccount() {

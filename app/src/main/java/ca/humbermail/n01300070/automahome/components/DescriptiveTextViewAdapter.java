@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ca.humbermail.n01300070.automahome.data.model.DescriptiveTextData;
+import ca.humbermail.n01300070.automahome.data.model.DescriptiveTextViewData;
 
 public class DescriptiveTextViewAdapter extends RecyclerView.Adapter<DescriptiveTextViewAdapter.DescriptiveTextViewHolder> {
 
     private Context context;
-    private ArrayList<DescriptiveTextData> dataList;
+    private ArrayList<DescriptiveTextViewData> dataList;
 
 
     public class DescriptiveTextViewHolder extends RecyclerView.ViewHolder
@@ -27,7 +27,7 @@ public class DescriptiveTextViewAdapter extends RecyclerView.Adapter<Descriptive
         }
     }
 
-    public DescriptiveTextViewAdapter(Context context, ArrayList<DescriptiveTextData> dataList)
+    public DescriptiveTextViewAdapter(Context context, ArrayList<DescriptiveTextViewData> dataList)
     {
         this.context = context;
         this.dataList = dataList;
@@ -46,7 +46,7 @@ public class DescriptiveTextViewAdapter extends RecyclerView.Adapter<Descriptive
 
     @Override
     public void onBindViewHolder(@NonNull DescriptiveTextViewHolder holder, int position) {
-        DescriptiveTextData data = dataList.get(position);
+        DescriptiveTextViewData data = dataList.get(position);
 
         holder.descriptiveTextView.setMainText(data.getMainText());
         holder.descriptiveTextView.setDescriptionText(data.getDescriptionText());

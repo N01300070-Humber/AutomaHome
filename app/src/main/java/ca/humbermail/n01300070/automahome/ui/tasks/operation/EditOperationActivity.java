@@ -3,7 +3,6 @@ package ca.humbermail.n01300070.automahome.ui.tasks.operation;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,7 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationData;
+import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
 
 public class EditOperationActivity extends AppCompatActivity {
 	
@@ -35,7 +34,7 @@ public class EditOperationActivity extends AppCompatActivity {
 			operationType = "";
 		}
 		else {
-			operationType = arguments.getString(ConditionOrOperationData.ARG_OPERATION);
+			operationType = arguments.getString(ConditionOrOperationViewData.ARG_OPERATION);
 		}
 		
 		saveButton = findViewById(R.id.button_editOperation_save);
@@ -53,10 +52,10 @@ public class EditOperationActivity extends AppCompatActivity {
 	
 	private void setActiveFragment(String operationType) {
 		switch (operationType) {
-			case ConditionOrOperationData.OPERATION_LIGHTS:
+			case ConditionOrOperationViewData.OPERATION_LIGHTS:
 				fragment = new EditOperationLightsFragment();
 				break;
-			case ConditionOrOperationData.OPERATION_THERMOSTAT:
+			case ConditionOrOperationViewData.OPERATION_THERMOSTAT:
 				fragment = new EditOperationThermostatFragment();
 				break;
 			default:

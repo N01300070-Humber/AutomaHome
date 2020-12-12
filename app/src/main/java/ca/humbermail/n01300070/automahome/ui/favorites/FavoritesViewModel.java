@@ -14,7 +14,7 @@ import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonRecyclerV
 import ca.humbermail.n01300070.automahome.components.NonScrollingGridLayoutManager;
 import ca.humbermail.n01300070.automahome.components.RecyclerViewItemDivider;
 import ca.humbermail.n01300070.automahome.data.model.CategoryData;
-import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
+import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 
 public class FavoritesViewModel extends ViewModel {
 	
@@ -22,9 +22,9 @@ public class FavoritesViewModel extends ViewModel {
 	
 	}
 	
-	public ArrayList<DeviceOrTaskData> getDeviceAndTaskDataList() {
+	public ArrayList<DeviceOrTaskButtonData> getDeviceAndTaskDataList() {
 		int numItems;
-		ArrayList<DeviceOrTaskData> deviceAndTaskDataList;
+		ArrayList<DeviceOrTaskButtonData> deviceAndTaskDataList;
 		
 		numItems = 0; // TODO: Get number of items from device storage or database
 		deviceAndTaskDataList = new ArrayList<>(numItems);
@@ -67,13 +67,13 @@ public class FavoritesViewModel extends ViewModel {
 	}
 	
 	// TODO: Remove placeholder data generator function
-	public static ArrayList<DeviceOrTaskData> generatePlaceholderDeviceAndTaskDataList(Context context, int numTasks, int numDevices) {
+	public static ArrayList<DeviceOrTaskButtonData> generatePlaceholderDeviceAndTaskDataList(Context context, int numTasks, int numDevices) {
 		Random random = new Random();
-		ArrayList<DeviceOrTaskData> deviceOrTaskDataList = new ArrayList<>(numTasks + numDevices);
+		ArrayList<DeviceOrTaskButtonData> deviceOrTaskDataList = new ArrayList<>(numTasks + numDevices);
 		
 		for (int i = 0; i < numTasks; i++) {
-			DeviceOrTaskData taskData = new DeviceOrTaskData(
-					DeviceOrTaskData.TYPE_TASK,
+			DeviceOrTaskButtonData taskData = new DeviceOrTaskButtonData(
+					DeviceOrTaskButtonData.TYPE_TASK,
 					"Task Name",
 					"Note",
 					ContextCompat.getDrawable(context, R.drawable.ic_task),
@@ -87,44 +87,44 @@ public class FavoritesViewModel extends ViewModel {
 		
 		int numLights = random.nextInt(numDevices);
 		for (int i = 0; i < numLights; i++) {
-			DeviceOrTaskData deviceData = new DeviceOrTaskData(
-					DeviceOrTaskData.TYPE_DEVICE,
+			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
+					DeviceOrTaskButtonData.TYPE_DEVICE,
 					"Light Name",
 					"Room",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),
 					context.getString(R.string.content_description_type_device),
 					context.getColor(R.color.device_button_default)
 			);
-			deviceData.setDeviceType(DeviceOrTaskData.DEVICE_LIGHTS);
+			deviceData.setDeviceType(DeviceOrTaskButtonData.DEVICE_LIGHTS);
 			
 			deviceOrTaskDataList.add(deviceData);
 		}
 		
 		int numSensors = random.nextInt(numDevices - numLights);
 		for (int i = 0; i < numSensors; i++) {
-			DeviceOrTaskData deviceData = new DeviceOrTaskData(
-					DeviceOrTaskData.TYPE_DEVICE,
+			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
+					DeviceOrTaskButtonData.TYPE_DEVICE,
 					"Movement Sensor Name",
 					"Room",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),
 					context.getString(R.string.content_description_type_device),
 					context.getColor(R.color.accent_200)
 			);
-			deviceData.setDeviceType(DeviceOrTaskData.DEVICE_MOVEMENT_SENSOR);
+			deviceData.setDeviceType(DeviceOrTaskButtonData.DEVICE_MOVEMENT_SENSOR);
 			
 			deviceOrTaskDataList.add(deviceData);
 		}
 		
 		for (int i = 0; i < numDevices - numLights - numSensors; i++) {
-			DeviceOrTaskData deviceData = new DeviceOrTaskData(
-					DeviceOrTaskData.TYPE_DEVICE,
+			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
+					DeviceOrTaskButtonData.TYPE_DEVICE,
 					"Thermostat Name",
 					"Room",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),
 					context.getString(R.string.content_description_type_device),
 					context.getColor(R.color.accent_200)
 			);
-			deviceData.setDeviceType(DeviceOrTaskData.DEVICE_THERMOSTAT);
+			deviceData.setDeviceType(DeviceOrTaskButtonData.DEVICE_THERMOSTAT);
 			
 			deviceOrTaskDataList.add(deviceData);
 		}

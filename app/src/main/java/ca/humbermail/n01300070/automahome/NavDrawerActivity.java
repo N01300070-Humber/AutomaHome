@@ -1,10 +1,6 @@
 package ca.humbermail.n01300070.automahome;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,14 +17,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.Objects;
 
-import ca.humbermail.n01300070.automahome.data.UserInfo;
+import ca.humbermail.n01300070.automahome.data.LoginDataSource;
 
 public class NavDrawerActivity extends AppCompatActivity  {
 
 	private Spinner spnList;
 	
 	private AppBarConfiguration mAppBarConfiguration;
-	UserInfo userInfo;
+	LoginDataSource loginDataSource = new LoginDataSource();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +45,13 @@ public class NavDrawerActivity extends AppCompatActivity  {
 		NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 		NavigationUI.setupWithNavController(navigationView, navController);
 		
-		userInfo = new UserInfo(this);
-		
 		TextView navHeaderTextView = navigationView.getHeaderView(0).findViewById(R.id.textView_navHeader);
 		
-		String fullName = userInfo.getFullName();
-		if (fullName == null) {
-			fullName = "ERROR!";
+		String displayName = loginDataSource.getDisplayName();
+		if (displayName == null) {
+			displayName = "ERROR!";
 		}
-		navHeaderTextView.setText(fullName);
+		navHeaderTextView.setText(displayName);
 	}
 
 	

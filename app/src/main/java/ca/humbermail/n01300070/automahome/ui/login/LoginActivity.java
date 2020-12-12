@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
@@ -26,6 +27,8 @@ import ca.humbermail.n01300070.automahome.data.LoginDataSource;
 public class LoginActivity extends AppCompatActivity {
 	
 	private boolean registering;
+	
+	LoginDataSource loginDataSource;
 	
 	private TextInputLayout firstNameTextLayout;
 	private TextInputLayout lastNameTextLayout;
@@ -70,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 	
 	/**
 	 * Set activity to sign in mode or register mode
+	 *
 	 * @param registering True = register, False = sign in
 	 */
 	private void setLoginType(boolean registering) {
@@ -92,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 	
 	/**
 	 * Handles back button onClick event
+	 *
 	 * @param item non-null MenuItem
 	 * @return Boolean
 	 */
@@ -103,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 	
 	/**
 	 * Handles switchLoginButton onClick event.
+	 *
 	 * @param view Source view.
 	 */
 	public void switchLoginButton_onClick(View view) {
@@ -111,13 +117,14 @@ public class LoginActivity extends AppCompatActivity {
 	
 	/**
 	 * Handles confirmButton onClick event.
+	 *
 	 * @param view Source view.
 	 */
 	public void confirmButton_onClick(View view) {
 		String firstName;
 		String lastName;
-		String emailAddress;
-		String password;
+		final String emailAddress;
+		final String password;
 		
 		boolean firstNameValid = false;
 		boolean lastNameValid = false;
@@ -138,20 +145,18 @@ public class LoginActivity extends AppCompatActivity {
 		password = passwordEditText.getText().toString();
 		
 		// Check input
-		// TODO: Break checks into functions that can be called when typing
+		// TODO: Break input checks into functions that can be called when typing
 		if (registering) {
 			if (TextUtils.isEmpty(firstName)) {
 				firstNameEditText.setError(getString(R.string.error_required_field));
-			}
-			else {
+			} else {
 				firstNameValid = true;
 				firstNameEditText.setError(null);
 			}
 			
 			if (TextUtils.isEmpty(lastName)) {
 				lastNameEditText.setError(getString(R.string.error_required_field));
-			}
-			else {
+			} else {
 				lastNameValid = true;
 				lastNameEditText.setError(null);
 			}
@@ -159,45 +164,52 @@ public class LoginActivity extends AppCompatActivity {
 		
 		if (TextUtils.isEmpty(emailAddress)) {
 			emailAddressEditText.setError(getString(R.string.error_required_field));
-		}
-		else if (!Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()) {
+		} else if (!Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()) {
 			emailAddressEditText.setError(getString(R.string.error_email_invalid));
-		}
-		else {
+		} else {
 			emailAddressValid = true;
 			emailAddressEditText.setError(null);
 		}
 		
 		if (TextUtils.isEmpty(password)) {
 			passwordEditText.setError(getString(R.string.error_required_field));
-		}
-		else if (password.length() < 8 && registering) {
+		} else if (password.length() < 8 && registering) {
 			passwordEditText.setError(getString(R.string.error_password_too_short));
-		}
-		else {
+		} else {
 			passwordValid = true;
 			passwordEditText.setError(null);
 		}
 		
 		
-		if ( !emailAddressValid && !passwordValid &&
-				((!firstNameValid && !lastNameValid) || !registering) ) {
+		if (!emailAddressValid && !passwordValid &&
+				((!firstNameValid && !lastNameValid) || !registering)) {
 			loadingProgressBar.setVisibility(View.GONE);
 			return;
 		}
 		
 		
 		// Attempt sign-in/register
-		final LoginDataSource loginDataSource = new LoginDataSource();
 		final String displayName = (firstName + " " + lastName).trim();
+		loginDataSource = new LoginDataSource(new LoginDataSource.LoginStateListener() {
+			@Override
+			public void onLoginStateChanged(@NonNull FirebaseAuth auth, boolean loggedIn) {
+				if (loggedIn) {
+					loginFinished();
+				} else {
+					attemptLogin(emailAddress, password, displayName);
+				}
+			}
+		});
+	}
+	
+	private void attemptLogin(String emailAddress, String password, final String displayName) {
 		if (registering) {
 			loginDataSource.register(this.getMainExecutor(), emailAddress, password,
 					new OnCompleteListener<AuthResult>() {
-				
+						
 						@Override
 						public void onComplete(@NonNull Task<AuthResult> task) {
 							if (task.isSuccessful()) {
-								loginDataSource.updateCurrentUser();
 								loginDataSource.setDisplayName(displayName);
 								// TODO: Add user info to users in database
 								loginFinished();
@@ -211,19 +223,18 @@ public class LoginActivity extends AppCompatActivity {
 		} else {
 			loginDataSource.login(this.getMainExecutor(), emailAddress, password,
 					new OnCompleteListener<AuthResult>() {
-				
-				@Override
-				public void onComplete(@NonNull Task<AuthResult> task) {
-					if (task.isSuccessful()) {
-						loginDataSource.updateCurrentUser();
-						loginFinished();
-					} else {
-						Objects.requireNonNull(task.getException()).printStackTrace();
-						passwordEditText.setError(getString(R.string.error_login_failed, task.getException().toString()));
-						loadingProgressBar.setVisibility(View.GONE);
-					}
-				}
-			});
+						
+						@Override
+						public void onComplete(@NonNull Task<AuthResult> task) {
+							if (task.isSuccessful()) {
+								loginFinished();
+							} else {
+								Objects.requireNonNull(task.getException()).printStackTrace();
+								passwordEditText.setError(getString(R.string.error_login_failed, task.getException().toString()));
+								loadingProgressBar.setVisibility(View.GONE);
+							}
+						}
+					});
 		}
 	}
 	

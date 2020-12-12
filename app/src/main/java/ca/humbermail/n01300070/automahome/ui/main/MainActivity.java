@@ -11,9 +11,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 
-public class MainActivity extends AppCompatActivity {
-	LoginDataSource loginDataSource;
+public class MainActivity extends CustomActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		loginDataSource = new LoginDataSource(new LoginDataSource.LoginStateListener() {
+		setLoginDataSource(new LoginDataSource(new LoginDataSource.LoginStateListener() {
 			@Override
 			public void onLoginStateChanged(@NonNull FirebaseAuth auth, boolean loggedIn) {
 				Log.d("MainActivity", "detected login state change. Value is now " + loggedIn);
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 					continueToActivity(WelcomeActivity.class);
 				}
 			}
-		});
+		}));
 	}
 	
 	private void continueToActivity(Class<?> activityClass) {

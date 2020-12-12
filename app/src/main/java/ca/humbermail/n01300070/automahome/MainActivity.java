@@ -6,23 +6,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import ca.humbermail.n01300070.automahome.data.LoginDataSource;
 import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
 
 public class MainActivity extends AppCompatActivity {
-	// Display a splash screen while loading app
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		//WindowInsetsController.
+		// Display a splash screen while loading app
 		setTheme(R.style.splashScreen);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		SharedPreferences loginInfo = getSharedPreferences(PreferenceKeys.LOGIN, MODE_PRIVATE);
+		LoginDataSource loginDataSource = new LoginDataSource();
 		Intent intent;
 		
 		// Automatically login from saved info
-		boolean loggedIn = loginInfo.getBoolean(PreferenceKeys.LOGIN_LOGGED_IN, false); // TODO: replace this with an actual login attempt
-		if (loggedIn) {
+		if (loginDataSource.isLoggedIn()) {
 			// Successfully logged in with saved info
 			intent = new Intent(this, NavDrawerActivity.class);
 		}

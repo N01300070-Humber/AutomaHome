@@ -1,5 +1,6 @@
 package ca.humbermail.n01300070.automahome.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Spinner;
@@ -16,6 +17,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -58,7 +60,7 @@ public class NavDrawerActivity extends CustomActivity {
 				if (loggedIn) {
 					updateUI(Objects.requireNonNull(firebaseAuth.getCurrentUser()));
 				} else {
-					// TODO: handle unexpected logout
+					onLoggedOut();
 				}
 			}
 		}));
@@ -72,7 +74,15 @@ public class NavDrawerActivity extends CustomActivity {
 		}
 		navHeaderTextView.setText(displayName);
 	}
-
+	
+	private void onLoggedOut() {
+		Log.d("NavDrawerActivity", "onLoggedOut called");
+		Log.d("NavDrawerActivity", "starting WelcomeActivity");
+		startActivity(new Intent(this, WelcomeActivity.class));
+		Log.d("NavDrawerActivity", "finishing");
+		finish();
+	}
+	
 	
 	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

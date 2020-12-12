@@ -82,17 +82,11 @@ public class AccountSettingsFragment extends Fragment {
 	public void logoutButton_onClick(View view) {
 		Log.d("AccountSettingsFragment", "logoutButton_onClick called");
 		((CustomActivity) requireActivity()).getLoginDataSource().logout();
-		
-		startActivity(new Intent(context, WelcomeActivity.class));
-		requireActivity().finish();
 	}
 	
 	private void deleteAccountButton_onClick(View view) {
 		Log.d("AccountSettingsFragment", "deleteAccountButton_onClick called");
 		((CustomActivity) requireActivity()).getLoginDataSource().deleteAccount();
-		
-		startActivity(new Intent(context, WelcomeActivity.class));
-		requireActivity().finish();
 	}
 	
 	private void confirmButton_onClick(View view) {

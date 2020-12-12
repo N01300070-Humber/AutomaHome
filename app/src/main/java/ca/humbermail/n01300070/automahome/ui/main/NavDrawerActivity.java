@@ -1,4 +1,4 @@
-package ca.humbermail.n01300070.automahome;
+package ca.humbermail.n01300070.automahome.ui.main;
 
 import android.os.Bundle;
 import android.widget.Spinner;
@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.Objects;
 
+import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
 
 public class NavDrawerActivity extends AppCompatActivity  {

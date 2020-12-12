@@ -20,17 +20,29 @@ public class LoginDataSource {
 	
 	private FirebaseUser currentUser;
 	
-	public LoginDataSource() {
-		updateCurrentUser();
+	
+	public interface LoginStateListener {
+		void onLoginStateChanged(@NonNull FirebaseAuth auth, boolean loggedIn);
 	}
 	
-	public boolean isLoggedIn() {
-		return currentUser != null;
+	
+	public LoginDataSource(final LoginStateListener loginStateListener) {
+		authentication.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+			@Override
+			public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+				currentUser = firebaseAuth.getCurrentUser();
+				loginStateListener.onLoginStateChanged(firebaseAuth, currentUser != null);
+			}
+		});
 	}
 	
-	public void updateCurrentUser() {
-		currentUser = authentication.getCurrentUser();
-	}
+//	public boolean isLoggedIn() {
+//		return currentUser != null;
+//	}
+	
+//	public void updateCurrentUser() {
+//		currentUser = authentication.getCurrentUser();
+//	}
 	
 	public void login(Executor executor, String emailAddress, String password,
 					  OnCompleteListener<AuthResult> onCompleteListener) {

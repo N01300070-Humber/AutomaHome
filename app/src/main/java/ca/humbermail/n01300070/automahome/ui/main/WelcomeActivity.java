@@ -1,4 +1,4 @@
-package ca.humbermail.n01300070.automahome;
+package ca.humbermail.n01300070.automahome.ui.main;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.ui.login.LoginActivity;
 
 public class WelcomeActivity extends AppCompatActivity {

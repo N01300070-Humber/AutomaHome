@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class EditOperationLightsFragment extends Fragment {
     private Context context;
+
     
     private AutoCompleteTextView autoCompleteTextView;
     

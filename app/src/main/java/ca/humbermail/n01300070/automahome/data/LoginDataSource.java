@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
 /**
@@ -22,6 +23,8 @@ public class LoginDataSource {
 	
 	private FirebaseUser currentUser;
 	
+	ArrayList<LoginStateListener> loginStateListeners = new ArrayList<>(1);
+	FirebaseAuth.AuthStateListener authStateListener;
 	
 	public interface LoginStateListener {
 		void onLoginStateChanged(@NonNull FirebaseAuth auth, boolean loggedIn);
@@ -34,9 +37,33 @@ public class LoginDataSource {
 			@Override
 			public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 				currentUser = firebaseAuth.getCurrentUser();
-				loginStateListener.onLoginStateChanged(firebaseAuth, currentUser != null);
+				for (LoginStateListener listener : loginStateListeners) {
+					listener.onLoginStateChanged(firebaseAuth, currentUser != null);
+				}
 			}
-		});
+		};
+		
+		addLoginStateListener(loginStateListener);
+		authentication.addAuthStateListener(authStateListener);
+	}
+	
+	public void addLoginStateListener(LoginStateListener loginStateListener) {
+		this.loginStateListeners.add(loginStateListener);
+	}
+	
+	public void removeLoginStateListener(LoginStateListener loginStateListener) {
+		this.loginStateListeners.remove(loginStateListener);
+	}
+	
+	public void removeAllLoginStateListeners() {
+		Log.d("LoginDataSource", "removeAllLoginStateListeners called");
+		this.loginStateListeners = new ArrayList<>();
+	}
+	
+	public void removeAllListeners() {
+		Log.d("LoginDataSource", "removeAllListeners called");
+		removeAllLoginStateListeners();
+		authentication.removeAuthStateListener(authStateListener);
 	}
 	
 //	public boolean isLoggedIn() {

@@ -1,47 +1,73 @@
 package ca.humbermail.n01300070.automahome.data;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import androidx.annotation.NonNull;
 
-import ca.humbermail.n01300070.automahome.MainActivity;
-import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.data.model.LoggedInUser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
-import java.io.IOException;
+import java.util.concurrent.Executor;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 public class LoginDataSource {
 	
-	private SharedPreferences loginInfo;
-	private SharedPreferences userInfo;
-	private SharedPreferences.Editor loginInfoEditor;
-	private SharedPreferences.Editor userInfoEditor;
+	private final FirebaseAuth authentication = FirebaseAuth.getInstance();
 	
-	public Result<LoggedInUser> login(String emailAddress, String password) {
+	private FirebaseUser currentUser;
+	
+	public LoginDataSource() {
+		updateCurrentUser();
+	}
+	
+	public boolean isLoggedIn() {
+		return currentUser != null;
+	}
+	
+	public void updateCurrentUser() {
+		currentUser = authentication.getCurrentUser();
+	}
+	
+	public void login(Executor executor, String emailAddress, String password,
+					  OnCompleteListener<AuthResult> onCompleteListener) {
 		
-		try {
-			// TODO: handle loggedInUser authentication
-			LoggedInUser fakeUser =
-					new LoggedInUser(
-							java.util.UUID.randomUUID().toString(),
-							emailAddress,
-							"Jane",
-							"Doe");
-			
-			loginInfoEditor.putBoolean("", true);
-			return new Result.Success<>(fakeUser);
-		} catch (Exception e) {
-			return new Result.Error(new IOException("Error logging in", e));
-		}
+		authentication.signInWithEmailAndPassword(emailAddress, password)
+				.addOnCompleteListener(executor, onCompleteListener);
+	}
+	
+	public void register(Executor executor, String emailAddress, String password,
+						 OnCompleteListener<AuthResult> onCompleteListener) {
+		
+		authentication.createUserWithEmailAndPassword(emailAddress, password)
+				.addOnCompleteListener(executor, onCompleteListener);
+	}
+	
+	public void setDisplayName(String displayName) {
+		currentUser.updateProfile(
+				new UserProfileChangeRequest.Builder().setDisplayName(displayName).build()
+		);
 	}
 	
 	public void logout() {
-		// TODO: revoke authentication
+		authentication.signOut();
+		currentUser = null;
 	}
 	
-	public String getCurrentUID() {
-		return "testuser"; // TODO: replace with actual data
+	public void deleteAccount() {
+		// TODO: Remove all user data from the database
+		currentUser.delete();
+		currentUser = null;
+	}
+	
+	public String getUserID() {
+		return currentUser.getUid();
+	}
+	
+	public String getDisplayName() {
+		return currentUser.getDisplayName();
 	}
 }

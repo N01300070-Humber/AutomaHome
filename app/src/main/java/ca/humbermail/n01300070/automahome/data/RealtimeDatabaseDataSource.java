@@ -73,7 +73,7 @@ public class RealtimeDatabaseDataSource {
 	
 	// Homes
 	private Home createHome(String key, String name) {
-		return new Home(key, name, loginDataSource.getCurrentUID());
+		return new Home(key, name, loginDataSource.getUserID());
 	}
 	
 	public void addHome(String name) {

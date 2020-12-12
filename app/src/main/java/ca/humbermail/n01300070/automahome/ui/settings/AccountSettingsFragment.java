@@ -1,5 +1,6 @@
 package ca.humbermail.n01300070.automahome.ui.settings;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +13,11 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.Objects;
+
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.WelcomeActivity;
-import ca.humbermail.n01300070.automahome.data.LoginDataSource;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
+import ca.humbermail.n01300070.automahome.ui.main.WelcomeActivity;
 
 public class AccountSettingsFragment extends Fragment {
 	private Context context;
@@ -75,14 +78,14 @@ public class AccountSettingsFragment extends Fragment {
 	}
 	
 	public void logoutButton_onClick(View view) {
-		new LoginDataSource().logout();
+		((CustomActivity) requireActivity()).getLoginDataSource().logout();
 		
 		startActivity(new Intent(context, WelcomeActivity.class));
 		requireActivity().finish();
 	}
 	
 	private void deleteAccountButton_onClick(View view) {
-		new LoginDataSource().deleteAccount();
+		((CustomActivity) requireActivity()).getLoginDataSource().deleteAccount();
 		
 		startActivity(new Intent(context, WelcomeActivity.class));
 		requireActivity().finish();

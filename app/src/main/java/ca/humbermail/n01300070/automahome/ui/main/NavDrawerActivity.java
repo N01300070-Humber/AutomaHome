@@ -4,28 +4,29 @@ import android.os.Bundle;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 
-public class NavDrawerActivity extends AppCompatActivity  {
-
-	private Spinner spnList;
+public class NavDrawerActivity extends CustomActivity {
 	
 	private AppBarConfiguration mAppBarConfiguration;
-	LoginDataSource loginDataSource = new LoginDataSource();
+	private TextView navHeaderTextView;
+	private Spinner homeSpinner;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +47,24 @@ public class NavDrawerActivity extends AppCompatActivity  {
 		NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 		NavigationUI.setupWithNavController(navigationView, navController);
 		
-		TextView navHeaderTextView = navigationView.getHeaderView(0).findViewById(R.id.textView_navHeader);
+		navHeaderTextView = navigationView.getHeaderView(0).findViewById(R.id.textView_navHeader);
 		
-		String displayName = loginDataSource.getDisplayName();
+		setLoginDataSource(new LoginDataSource(new LoginDataSource.LoginStateListener() {
+			@Override
+			public void onLoginStateChanged(@NonNull FirebaseAuth firebaseAuth, boolean loggedIn) {
+				if (loggedIn) {
+					updateUI();
+				} else {
+					// TODO: handle unexpected logout
+				}
+			}
+		}));
+	}
+	
+	private void updateUI() {
+		String displayName = getLoginDataSource().getDisplayName();
 		if (displayName == null) {
-			displayName = "ERROR!";
+			displayName = "NO NAME!";
 		}
 		navHeaderTextView.setText(displayName);
 	}

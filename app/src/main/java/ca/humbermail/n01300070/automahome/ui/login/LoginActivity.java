@@ -26,7 +26,7 @@ import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
 import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends CustomActivity {
 	
 	private boolean registering;
 	
@@ -195,16 +195,16 @@ public class LoginActivity extends AppCompatActivity {
 		
 		// Attempt sign-in/register
 		final String displayName = (firstName + " " + lastName).trim();
-		loginDataSource = new LoginDataSource(new LoginDataSource.LoginStateListener() {
+		setLoginDataSource(new LoginDataSource(new LoginDataSource.LoginStateListener() {
 			@Override
 			public void onLoginStateChanged(@NonNull FirebaseAuth auth, boolean loggedIn) {
-				if (loggedIn) {
-					loginFinished();
-				} else {
+				Log.d("LoginActivity", "detected login state change. Value is now " + loggedIn);
+				if (!loggedIn) {
 					attemptLogin(emailAddress, password, displayName);
 				}
 			}
-		});
+		}));
+		loginDataSource = getLoginDataSource();
 	}
 	
 	private void attemptLogin(String emailAddress, String password, final String displayName) {
@@ -213,7 +213,6 @@ public class LoginActivity extends AppCompatActivity {
 			Log.d("LoginActivity", "registering for new account");
 			loginDataSource.register(this.getMainExecutor(), emailAddress, password,
 					new OnCompleteListener<AuthResult>() {
-						
 						@Override
 						public void onComplete(@NonNull Task<AuthResult> task) {
 							Log.d("LoginActivity", "register task called");
@@ -235,7 +234,6 @@ public class LoginActivity extends AppCompatActivity {
 			Log.d("LoginActivity", "logging in to existing account");
 			loginDataSource.login(this.getMainExecutor(), emailAddress, password,
 					new OnCompleteListener<AuthResult>() {
-						
 						@Override
 						public void onComplete(@NonNull Task<AuthResult> task) {
 							Log.d("LoginActivity", "sign in task called");

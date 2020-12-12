@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d("MainActivity", "onCreate called");
 		// Display a splash screen while loading app
 		setTheme(R.style.splashScreen);
 		super.onCreate(savedInstanceState);
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 		loginDataSource = new LoginDataSource(new LoginDataSource.LoginStateListener() {
 			@Override
 			public void onLoginStateChanged(@NonNull FirebaseAuth auth, boolean loggedIn) {
+				Log.d("MainActivity", "detected login state change. Value is now " + loggedIn);
 				if (loggedIn) {
 					continueToActivity(NavDrawerActivity.class);
 				} else {
@@ -34,7 +37,14 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	private void continueToActivity(Class<?> activityClass) {
+		Log.d("MainActivity", "continueToActivity called. Opening " + activityClass.toString());
 		startActivity(new Intent(this, activityClass));
 		finish();
+	}
+	
+	@Override
+	public void finish() {
+		Log.d("MainActivity", "finish called");
+		super.finish();
 	}
 }

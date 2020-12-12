@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class AccountSettingsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
+		Log.d("AccountSettingsFragment", "onCreateView called");
 		// Inflate the layout for this fragment
 		View root = inflater.inflate(R.layout.fragment_settings_account, container, false);
 		context = requireActivity().getApplicationContext();
@@ -78,6 +80,7 @@ public class AccountSettingsFragment extends Fragment {
 	}
 	
 	public void logoutButton_onClick(View view) {
+		Log.d("AccountSettingsFragment", "logoutButton_onClick called");
 		((CustomActivity) requireActivity()).getLoginDataSource().logout();
 		
 		startActivity(new Intent(context, WelcomeActivity.class));
@@ -85,6 +88,7 @@ public class AccountSettingsFragment extends Fragment {
 	}
 	
 	private void deleteAccountButton_onClick(View view) {
+		Log.d("AccountSettingsFragment", "deleteAccountButton_onClick called");
 		((CustomActivity) requireActivity()).getLoginDataSource().deleteAccount();
 		
 		startActivity(new Intent(context, WelcomeActivity.class));
@@ -92,6 +96,7 @@ public class AccountSettingsFragment extends Fragment {
 	}
 	
 	private void confirmButton_onClick(View view) {
+		Log.d("AccountSettingsFragment", "confirmButton_onClick called");
 		// TODO: save changes
 		Toast.makeText(context, "Changes saved", Toast.LENGTH_SHORT).show(); // TODO: Fix hardcoded string
 	}

@@ -1,6 +1,5 @@
 package ca.humbermail.n01300070.automahome.ui.manageHome;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,12 +7,13 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -41,6 +41,8 @@ public class ManageHomeFragment extends Fragment {
 	
 	private LoginDataSource loginDataSource;
 	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
+	
+	private final ArrayList<Home> homes = new ArrayList<>();
 	
 	private Spinner selectHomeSpinner;
 	private RecyclerView NetworksRecyclerView;
@@ -74,6 +76,17 @@ public class ManageHomeFragment extends Fragment {
 		deleteHomeButton = root.findViewById(R.id.button_deleteHome);
 		
 		
+		selectHomeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+				selectHomeSpinner_ItemSelected(adapterView, view, i, l);
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> adapterView) {
+				selectHomeSpinner_NothingSelected(adapterView);
+			}
+		});
 		addNetworkButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -150,6 +163,16 @@ public class ManageHomeFragment extends Fragment {
 		realtimeDatabaseDataSource.removeHomeEditorsValueChangesListener();
 	}
 	
+	private void selectHomeSpinner_ItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+		Home selectedHome = homes.get(position);
+		
+		realtimeDatabaseDataSource.setCurrentHomeId(selectedHome.getId());
+	}
+	
+	private void selectHomeSpinner_NothingSelected(AdapterView<?> adapterView) {
+		Toast.makeText(context, R.string.error_current_home_inaccessible, Toast.LENGTH_SHORT).show();
+	}
+	
 	public void networksRecyclerItemClicked(View view) {
 		// TODO: Remove network from Wi-Fi Detection list
 	}
@@ -187,28 +210,15 @@ public class ManageHomeFragment extends Fragment {
 //	}
 	
 	private void setHomesDataList(List<Home> homes) {
-		int currentHomePosition = -1;
-//		String currentHomeName = "";
-		
+		this.homes.clear();
 		homesAdapter.clear();
 		
 		for (Home home : homes) {
 			homesAdapter.add(home.getName());
-			
-			if (home.getId().equals(realtimeDatabaseDataSource.getCurrentHomeId())) {
-				currentHomePosition = homesAdapter.getPosition(home.getId());
-//				currentHomeName = home.getName();
-			}
 		}
 		
+		this.homes.addAll(homes);
 		homesAdapter.notifyDataSetChanged();
-		
-		// TODO: Handle case when current home is not in list
-//		if (currentHomePosition != -1) {
-			selectHomeSpinner.setSelection(currentHomePosition);
-//		} else {
-//			Toast.makeText(context, getString(R.string.error_current_home_inacessable, currentHomeName), Toast.LENGTH_SHORT).show();
-//		}
 	}
 	
 	// TODO: Remove placeholder content generation function

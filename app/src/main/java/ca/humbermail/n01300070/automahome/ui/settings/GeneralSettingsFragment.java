@@ -29,7 +29,9 @@ public class GeneralSettingsFragment extends Fragment {
 	
 	SharedPreferences settings;
 	SharedPreferences.Editor settingsEditor;
-	
+
+	static final String KIND_OF_DEGREE_DEFAULT = "KIND_OF_DEGREE_DEFAULT";
+
 	public GeneralSettingsFragment() {
 		// Required empty public constructor
 	}
@@ -48,14 +50,13 @@ public class GeneralSettingsFragment extends Fragment {
 		displayTempToggleGroup = root.findViewById(R.id.toggleGroup_displayTemp);
 		celsiusButton = root.findViewById(R.id.toggleButton_celsius);
 		fahrenheitTempButton = root.findViewById(R.id.toggleButton_fahrenheit);
-		saveToggleGroupBtn();
-		loadToggleButtons();
-
 
 		themeSpinner = root.findViewById(R.id.spinner_selectTheme);
 
 		settings = context.getSharedPreferences(PreferenceKeys.SETTINGS, Context.MODE_PRIVATE);
 		settingsEditor = settings.edit();
+
+		loadToggleButtons();
 
 		//displayTempToggleGroup.setOn
 		displayTempToggleGroup.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
@@ -63,24 +64,21 @@ public class GeneralSettingsFragment extends Fragment {
 			public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
 				if(isChecked){
 
-					String kind_of_degree = "";
+					String kind_of_degree = getString(R.string.celsius);
 
 					if(checkedId==R.id.toggleButton_celsius){
 						System.out.println(checkedId);
 						System.out.println("-------------+++++");
-						kind_of_degree = "celsius";
+
 
 					}else if (checkedId==R.id.toggleButton_fahrenheit){
 						System.out.println("-------------");
 						System.out.println(checkedId);
-						kind_of_degree = "fahrenheit";
+						kind_of_degree = getString(R.string.fahrenheit);
 					}
-
-					SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-					SharedPreferences.Editor editor = sharedPref.edit();
-					String KIND_OF_DEGREE_DEFAULT = "KIND_OF_DEGREE_DEFAULT";
-					editor.putString(KIND_OF_DEGREE_DEFAULT, kind_of_degree);
-					editor.apply();
+					System.out.print("--------------"+kind_of_degree+"---------------");
+					settingsEditor.putString(getString(R.string.KIND_OF_DEGREE_DEFAULT), kind_of_degree);
+					settingsEditor.apply();
 				}
 
 			}
@@ -110,27 +108,22 @@ public class GeneralSettingsFragment extends Fragment {
 		return root;
 	}
 
-	public void saveToggleGroupBtn(){
-		settings = getActivity().getSharedPreferences("AppPreferences", context.MODE_PRIVATE);
-		settingsEditor = settings.edit();
-		settingsEditor.putBoolean("buttons checked",celsiusButton.isChecked());
-		settingsEditor.putBoolean("buttons checked",fahrenheitTempButton.isChecked());
-		settingsEditor.apply();
-	}
 
 	public void loadToggleButtons(){
+		String kind_of_degree_default = getString(R.string.celsius);
+		String kind_of_degree = settings.getString(getString(R.string.KIND_OF_DEGREE_DEFAULT), kind_of_degree_default);
 
-		SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-
-		String KIND_OF_DEGREE_DEFAULT = "KIND_OF_DEGREE_DEFAULT";
-		String kind_of_degree_default = "celsius";
-		String kind_of_degree = sharedPref.getString(KIND_OF_DEGREE_DEFAULT, kind_of_degree_default);
-
-		if (kind_of_degree == "celsius")
+		//System.out.println("--------------");
+		//System.out.println(kind_of_degree);
+		//System.out.println(getString(R.string.fahrenheit));
+		//System.out.println("--------------");
+		if (kind_of_degree.equals(getString(R.string.celsius))) {
 			celsiusButton.setChecked(true);
-		else if (kind_of_degree == "fahrenheit")
+			//System.out.println("--------------++++++++++++++"+getString(R.string.celsius));
+		} else if (kind_of_degree.equals(getString(R.string.fahrenheit))) {
 			fahrenheitTempButton.setChecked(true);
-
+			//System.out.println("--------------++++++++++++++"+getString(R.string.fahrenheit));
+		}
 
 	}
 

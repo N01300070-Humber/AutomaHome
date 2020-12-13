@@ -176,6 +176,12 @@
 	<string name="degrees_fahrenheit">°F</string>
 	<string name="prompt_current_password">Current Password</string>
 	<string name="prompt_new_password">New Password</string>
+	<string name="KIND_OF_DEGREE_DEFAULT">KIND_OF_DEGREE_DEFAULT</string>
+	<string name="fahrenheit">fahrenheit</string>
+	<string name="celsius">celsius</string>
+
+
+
 	
 	
 	<!-- Other Strings -->

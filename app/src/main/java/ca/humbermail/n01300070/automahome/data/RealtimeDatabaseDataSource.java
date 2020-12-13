@@ -212,7 +212,7 @@ public class RealtimeDatabaseDataSource {
 				.setValue(acceptedInvite);
 	}
 	
-	public void listenForHomeEditorsValueChanges() {
+	private void listenForHomeEditorsValueChanges() {
 		homeEditorsValueEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -291,7 +291,7 @@ public class RealtimeDatabaseDataSource {
 				.setValue(category);
 	}
 	
-	public void listenForDevicesValueChanges() {
+	private void listenForDevicesValueChanges() {
 		devicesValueEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -364,7 +364,7 @@ public class RealtimeDatabaseDataSource {
 				.setValue(category);
 	}
 	
-	public void listenForTaskValueChanges() {
+	private void listenForTaskValueChanges() {
 		tasksValueEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -445,7 +445,7 @@ public class RealtimeDatabaseDataSource {
 				.setValue(referenceDeviceId);
 	}
 	
-	public void listenForTaskConditionValueChanges(String taskId) {
+	private void listenForTaskConditionValueChanges(String taskId) {
 		taskConditionsValueEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -529,7 +529,7 @@ public class RealtimeDatabaseDataSource {
 				.setValue(referenceDeviceId);
 	}
 	
-	public void listenForTaskOperationValueChanges(String taskId) {
+	private void listenForTaskOperationValueChanges(String taskId) {
 		taskOperationsValueEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {

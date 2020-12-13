@@ -189,5 +189,11 @@
 	<string name="remove_user">Remove user</string>
 	<string name="invited">Invited</string>
 	<string name="error_current_home_inaccessible">Failed to access the current home</string>
+	<string name="new_home">New Home</string>
+	<string name="rename_home">Rename Home</string>
+	<string name="prompt_new_home_name">Name for New Home</string>
+	<string name="cancel">Cancel</string>
+	<string name="rename">Rename</string>
+	<string name="delete">Delete</string>
 
 </resources>

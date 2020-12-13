@@ -45,7 +45,7 @@ public class ManageHomeFragment extends Fragment {
 	
 	public View onCreateView(@NonNull LayoutInflater inflater,
 							 ViewGroup container, Bundle savedInstanceState) {
-		HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+		ManageHomeViewModel homeViewModel = new ViewModelProvider(this).get(ManageHomeViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_manage_home, container, false);
 		context = getActivity().getApplicationContext();
 		

@@ -14,6 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.data.model.Condition;
 import ca.humbermail.n01300070.automahome.data.model.Device;
@@ -27,7 +28,9 @@ public class RealtimeDatabaseDataSource {
 	private final static String USERS_NAME_PATH = "name";
 	private final static String USERS_EMAIL_PATH = "email";
 	private final static String HOMES_REFERENCE = "homes";
+	private final static String HOMES_ID_PATH = "id";
 	private final static String HOMES_NAME_PATH = "name";
+	private final static String HOMES_OWNER_PATH = "owner";
 	private final static String HOMES_EDITORS_PATH = "editors";
 	private final static String DEVICES_REFERENCE = "devices";
 	private final static String DEVICES_HOME_ID_PATH = "homeId";
@@ -139,17 +142,25 @@ public class RealtimeDatabaseDataSource {
 				.setValue(name);
 	}
 	
-	public void listenForHomesValueChanges() {
+	private void listenForHomesValueChanges(final String uid) {
 		homesValueEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
-				ArrayList<Home> homes = new ArrayList<>();
+				final ArrayList<Home> homes = new ArrayList<>();
 				
 				if (snapshot.exists()) {
 					Iterable<DataSnapshot> iterable = snapshot.getChildren();
 					
 					for (DataSnapshot dataSnapshot : iterable) {
-						homes.add((Home) dataSnapshot.getValue());
+						Boolean acceptedInvite = (Boolean) dataSnapshot.child(HOMES_EDITORS_PATH).child(uid).getValue();
+						
+						if (acceptedInvite != null && acceptedInvite) {
+							homes.add(new Home(
+									(String) Objects.requireNonNull(dataSnapshot.child(HOMES_ID_PATH).getValue()),
+									(String) Objects.requireNonNull(dataSnapshot.child(HOMES_NAME_PATH).getValue()),
+									(String) Objects.requireNonNull(dataSnapshot.child(HOMES_OWNER_PATH).getValue())
+							));
+						}
 					}
 				}
 				
@@ -162,15 +173,16 @@ public class RealtimeDatabaseDataSource {
 			}
 		};
 		
-		database.getReference(HOMES_REFERENCE).addValueEventListener(homesValueEventListener);
+		database.getReference(HOMES_REFERENCE)
+				.addValueEventListener(homesValueEventListener);
 	}
 	
 	public void removeHomesValueChangesListener() {
 		database.getReference(HOMES_REFERENCE).removeEventListener(homesValueEventListener);
 	}
 	
-	public LiveData<List<Home>> onHomeValuesChange() {
-		listenForHomesValueChanges();
+	public LiveData<List<Home>> onHomeValuesChange(LoginDataSource loginDataSource) {
+		listenForHomesValueChanges(loginDataSource.getUserID());
 		return homeValues;
 	}
 	
@@ -192,12 +204,12 @@ public class RealtimeDatabaseDataSource {
 				.removeValue();
 	}
 	
-	public void updateHomeEditor(String uid, boolean accepted) {
+	public void updateHomeEditor(String uid, boolean acceptedInvite) {
 		database.getReference(HOMES_REFERENCE)
 				.child(currentHomeId)
 				.child(HOMES_EDITORS_PATH)
 				.child(uid)
-				.setValue(accepted);
+				.setValue(acceptedInvite);
 	}
 	
 	public void listenForHomeEditorsValueChanges() {

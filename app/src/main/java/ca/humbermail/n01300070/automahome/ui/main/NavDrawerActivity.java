@@ -3,12 +3,20 @@ package ca.humbermail.n01300070.automahome.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -19,18 +27,30 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
 import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
+import ca.humbermail.n01300070.automahome.data.model.Home;
 import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 
 public class NavDrawerActivity extends CustomActivity {
 	
+	private LoginDataSource loginDataSource;
+	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
+	
+	private boolean dataSourcesInitialized = false;
+	private final ArrayList<Home> homes = new ArrayList<>();
+	private OnHomeSpinnerItemChangedListener homeSpinnerListener = null;
+	
 	private AppBarConfiguration mAppBarConfiguration;
 	private TextView navHeaderTextView;
 	private Spinner homeSpinner;
+	
+	private ArrayAdapter<String> homesAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +73,79 @@ public class NavDrawerActivity extends CustomActivity {
 		NavigationUI.setupWithNavController(navigationView, navController);
 		
 		navHeaderTextView = navigationView.getHeaderView(0).findViewById(R.id.textView_navHeader);
+		homeSpinner = navigationView.getHeaderView(0).findViewById(R.id.spinner_home);
+		
+		homeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+				homeSpinner_ItemSelected(adapterView, view, i, l);
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> adapterView) {
+				homeSpinner_NothingSelected(adapterView);
+			}
+		});
+		
+		homesAdapter = new ArrayAdapter<>(this, R.layout.text_view_auto_complete_label);
+		homeSpinner.setAdapter(homesAdapter);
 		
 		setRealtimeDatabaseDataSource(new RealtimeDatabaseDataSource());
+		realtimeDatabaseDataSource = getRealtimeDatabaseDataSource();
+		
 		setLoginDataSource(new LoginDataSource(new LoginDataSource.LoginStateListener() {
 			@Override
 			public void onLoginStateChanged(@NonNull FirebaseAuth firebaseAuth, boolean loggedIn) {
 				Log.d("NavDrawerActivity", "detected login state change. Value is now " + loggedIn);
 				if (loggedIn) {
 					updateUI(Objects.requireNonNull(firebaseAuth.getCurrentUser()));
+					setOnHomeValuesChangeListener();
+					dataSourcesInitialized = true;
 				} else {
 					onLoggedOut();
 				}
 			}
 		}));
+		loginDataSource = getLoginDataSource();
+		
+		realtimeDatabaseDataSource.setCurrentHomeId("testhome"); // TODO: Replace with real data
+	}
+	
+	@Override
+	protected void onStart() {
+		Log.d("NavDrawerActivity", "onStart called");
+		super.onStart();
+		
+		if (dataSourcesInitialized) {
+			setOnHomeValuesChangeListener();
+		}
+	}
+	
+	private void setOnHomeValuesChangeListener() {
+		Log.d("NavDrawerActivity", "setOnHomeValuesChangeListener called");
+		realtimeDatabaseDataSource.onHomeValuesChange(loginDataSource).observe(this, new Observer<List<Home>>() {
+			@Override
+			public void onChanged(List<Home> homes) {
+				setHomesDataList(homes);
+				setHomeSpinnerHome(realtimeDatabaseDataSource.getCurrentHomeId());
+			}
+		});
+	}
+	
+	public void homeSpinner_ItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+		Log.d("NavDrawerActivity", "homeSpinner_ItemSelected called");
+		
+		Home selectedHome = homes.get(position);
+		realtimeDatabaseDataSource.setCurrentHomeId(selectedHome.getId());
+		
+		if (homeSpinnerListener != null) {
+			homeSpinnerListener.onHomeSpinnerItemChanged(adapterView, view, position, id);
+		}
+	}
+	
+	public void homeSpinner_NothingSelected(AdapterView<?> adapterView) {
+		Log.d("NavDrawerActivity", "homeSpinner_NothingSelected called");
+		handleCurrentHomeInaccessible();
 	}
 	
 	private void updateUI(FirebaseUser currentUser) {
@@ -85,14 +165,59 @@ public class NavDrawerActivity extends CustomActivity {
 		finish();
 	}
 	
+	private void setHomesDataList(List<Home> homes) {
+		Log.d("NavDrawerActivity", "setHomesDataList called");
+		this.homes.clear();
+		homesAdapter.clear();
+		
+		for (Home home : homes) {
+			homesAdapter.add(home.getName());
+		}
+		
+		this.homes.addAll(homes);
+		homesAdapter.notifyDataSetChanged();
+	}
+	
+	private void setHomeSpinnerHome(String homeId) {
+		Log.d("NavDrawerActivity", "setHomeSpinnerHome called");
+		int currentHomePosition = -1;
+		
+		for (int i = 0; i < homes.size(); i++) {
+			if (homes.get(i).getId().equals(homeId)) {
+				currentHomePosition = i;
+				break;
+			}
+		}
+		
+		if (currentHomePosition == -1) {
+			handleCurrentHomeInaccessible();
+		} else {
+			homeSpinner.setSelection(currentHomePosition);
+		}
+	}
+	
+	private void handleCurrentHomeInaccessible() {
+		Log.d("NavDrawerActivity", "handleCurrentHomeInaccessible called");
+		Toast.makeText(this, R.string.error_current_home_inaccessible, Toast.LENGTH_SHORT).show();
+		realtimeDatabaseDataSource.setCurrentHomeId(homes.get(0).getId());
+	}
 	
 	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
+		Log.d("NavDrawerActivity", "onCreateOptionsMenu called");
 		getMenuInflater().inflate(R.menu.nav_drawer, menu);
 		return true;
 	}*/
-
+	
+	@Override
+	protected void onStop() {
+		Log.d("NavDrawerActivity", "onStop called");
+		super.onStop();
+		
+		realtimeDatabaseDataSource.removeHomesValueChangesListener();
+	}
+	
 	@Override
 	public boolean onSupportNavigateUp() {
 		Log.d("NavDrawerActivity", "onSupportNavigateUp called");
@@ -106,5 +231,35 @@ public class NavDrawerActivity extends CustomActivity {
 	public void finish() {
 		Log.d("NavDrawerActivity", "finish called");
 		super.finish();
+	}
+	
+	
+	public interface OnHomeSpinnerItemChangedListener {
+		void onHomeSpinnerItemChanged(AdapterView<?> adapterView, View view, int position, long id);
+	}
+	
+	public void setHomesSpinnerPosition(int position) {
+		Log.d("NavDrawerActivity", "setHomesSpinnerPosition called");
+		homeSpinner.setSelection(position);
+	}
+	
+	public int getHomesSpinnerPosition() {
+		Log.d("NavDrawerActivity", "getHomesSpinnerPosition called");
+		return homeSpinner.getSelectedItemPosition();
+	}
+	
+	public ArrayAdapter<String> getHomesAdapter() {
+		Log.d("NavDrawerActivity", "getHomesAdapter called");
+		return homesAdapter;
+	}
+	
+	public void setOnHomeSpinnerItemChangedListener(OnHomeSpinnerItemChangedListener itemChangedListener) {
+		Log.d("NavDrawerActivity", "setOnHomeSpinnerItemChangedListener called");
+		homeSpinnerListener = itemChangedListener;
+	}
+	
+	public void removeOnHomeSpinnerItemChangedListener() {
+		Log.d("NavDrawerActivity", "removeOnHomeSpinnerItemChangedListener called");
+		homeSpinnerListener = null;
 	}
 }

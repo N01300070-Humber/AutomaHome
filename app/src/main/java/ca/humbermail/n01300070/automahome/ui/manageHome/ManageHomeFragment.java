@@ -1,23 +1,28 @@
 package ca.humbermail.n01300070.automahome.ui.manageHome;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import ca.humbermail.n01300070.automahome.R;
@@ -26,10 +31,16 @@ import ca.humbermail.n01300070.automahome.components.IconTextView;
 import ca.humbermail.n01300070.automahome.components.IconTextViewAdapter;
 import ca.humbermail.n01300070.automahome.components.ListLinePadding;
 import ca.humbermail.n01300070.automahome.components.NonScrollingLinerLayoutManager;
+import ca.humbermail.n01300070.automahome.data.LoginDataSource;
+import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
+import ca.humbermail.n01300070.automahome.data.model.Home;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 
 public class ManageHomeFragment extends Fragment {
+	private Context context;
 	
-	Context context;
+	private LoginDataSource loginDataSource;
+	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
 	
 	private Spinner selectHomeSpinner;
 	private RecyclerView NetworksRecyclerView;
@@ -38,6 +49,7 @@ public class ManageHomeFragment extends Fragment {
 	private Button addUserButton;
 	private Button deleteHomeButton;
 	
+	private ArrayAdapter<String> homesAdapter;
 	private IconTextViewAdapter networksAdapter;
 	private IconTextViewAdapter usersAdapter;
 	private View.OnClickListener networksOnClickListener;
@@ -47,7 +59,12 @@ public class ManageHomeFragment extends Fragment {
 							 ViewGroup container, Bundle savedInstanceState) {
 		ManageHomeViewModel homeViewModel = new ViewModelProvider(this).get(ManageHomeViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_manage_home, container, false);
-		context = getActivity().getApplicationContext();
+		context = requireActivity().getApplicationContext();
+		
+		CustomActivity parentActivity = (CustomActivity) requireActivity();
+		loginDataSource = parentActivity.getLoginDataSource();
+		realtimeDatabaseDataSource = parentActivity.getRealtimeDatabaseDataSource();
+		realtimeDatabaseDataSource.setCurrentHomeId("testhome"); // TODO: Replace with real data
 		
 		selectHomeSpinner = root.findViewById(R.id.spinner_mangeHome_selectHome);
 		NetworksRecyclerView = root.findViewById(R.id.recyclerView_networks);
@@ -88,8 +105,11 @@ public class ManageHomeFragment extends Fragment {
 			}
 		};
 		
+		homesAdapter = new ArrayAdapter<>(getContext(), R.layout.text_view_auto_complete_label);
 		networksAdapter = new IconTextViewAdapter(context, generateNetworksDataList(), networksOnClickListener);
-		usersAdapter = new IconTextViewAdapter(context, generateUsersDataList(), usersOnClickListener);
+		usersAdapter = new IconTextViewAdapter(context, usersOnClickListener);
+		
+		selectHomeSpinner.setAdapter(homesAdapter);
 		
 		NetworksRecyclerView.setLayoutManager(new NonScrollingLinerLayoutManager(context));
 		NetworksRecyclerView.setAdapter(networksAdapter);
@@ -102,6 +122,32 @@ public class ManageHomeFragment extends Fragment {
 		UsersRecyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
 		
 		return root;
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		
+		realtimeDatabaseDataSource.onHomeValuesChange(loginDataSource).observe(this, new Observer<List<Home>>() {
+			@Override
+			public void onChanged(List<Home> homes) {
+				setHomesDataList(homes);
+			}
+		});
+		realtimeDatabaseDataSource.onHomeEditorValuesChange().observe(this, new Observer<List<Pair<String, Boolean>>>() {
+			@Override
+			public void onChanged(List<Pair<String, Boolean>> editors) {
+				setUsersDataList(editors);
+			}
+		});
+	}
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+		
+		realtimeDatabaseDataSource.removeHomesValueChangesListener();
+		realtimeDatabaseDataSource.removeHomeEditorsValueChangesListener();
 	}
 	
 	public void networksRecyclerItemClicked(View view) {
@@ -125,8 +171,44 @@ public class ManageHomeFragment extends Fragment {
 	}
 	
 	public void deleteHomeButton_Clicked(View view) {
-		// TODO: Delete the currently selected home
-		Toast.makeText(context, "Home Deleted", Toast.LENGTH_SHORT).show();
+		// TODO: Show confirmation prompt before deleting
+		realtimeDatabaseDataSource.removeHome(realtimeDatabaseDataSource.getCurrentHomeId());
+	}
+	
+//	@Override
+//	public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//		super.onActivityResult(requestCode, resultCode, data);
+//
+//		if (requestCode == INVITE_REQUEST) {
+//			if (resultCode == Activity.RESULT_OK) {
+//				// TODO: send invite to
+//			}
+//		}
+//	}
+	
+	private void setHomesDataList(List<Home> homes) {
+		int currentHomePosition = -1;
+//		String currentHomeName = "";
+		
+		homesAdapter.clear();
+		
+		for (Home home : homes) {
+			homesAdapter.add(home.getName());
+			
+			if (home.getId().equals(realtimeDatabaseDataSource.getCurrentHomeId())) {
+				currentHomePosition = homesAdapter.getPosition(home.getId());
+//				currentHomeName = home.getName();
+			}
+		}
+		
+		homesAdapter.notifyDataSetChanged();
+		
+		// TODO: Handle case when current home is not in list
+//		if (currentHomePosition != -1) {
+			selectHomeSpinner.setSelection(currentHomePosition);
+//		} else {
+//			Toast.makeText(context, getString(R.string.error_current_home_inacessable, currentHomeName), Toast.LENGTH_SHORT).show();
+//		}
 	}
 	
 	// TODO: Remove placeholder content generation function
@@ -147,6 +229,35 @@ public class ManageHomeFragment extends Fragment {
 		}
 		
 		return iconTextDataList;
+	}
+	
+	private void setUsersDataList(List<Pair<String, Boolean>> editors) {
+		ArrayList<IconTextData> iconTextDataList = new ArrayList<>(editors.size());
+		
+		for (Pair<String, Boolean> editor : editors) {
+			IconTextData iconTextData = new IconTextData();
+			
+			String text = editor.first;
+			boolean isCurrentUser = loginDataSource.getUserID().equals(text);
+			if (isCurrentUser) {
+				text = "You";
+			}
+			if (!editor.second) {
+				text += " (" + getString(R.string.invited) + ")";
+			}
+			iconTextData.setText(text);
+			iconTextData.setTextAppearance(R.style.TextAppearance_MaterialComponents_Body1);
+			if (!isCurrentUser) {
+				iconTextData.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_person_remove));
+				iconTextData.setIconContentDescription(getString(R.string.remove_user));
+				iconTextData.setIconTint(getResources().getColor(R.color.design_default_color_error, context.getTheme()));
+			}
+			iconTextData.setIconVisible(!isCurrentUser);
+			
+			iconTextDataList.add(iconTextData);
+		}
+		
+		usersAdapter.setIconTextDataList(iconTextDataList);
 	}
 	
 	// TODO: Remove placeholder content generation function

@@ -12,18 +12,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class IconTextViewAdapter extends RecyclerView.Adapter<IconTextViewAdapter.IconTextViewHolder> {
-	private Context context;
+	private final Context context;
 	
 	private ArrayList<IconTextData> iconTextDataList;
 	View.OnClickListener onClickListener;
 	
-	public class IconTextViewHolder extends RecyclerView.ViewHolder {
+	public static class IconTextViewHolder extends RecyclerView.ViewHolder {
 		public IconTextView iconTextView;
 		
 		public IconTextViewHolder(IconTextView iconTextView) {
 			super(iconTextView);
 			this.iconTextView = iconTextView;
 		}
+	}
+	
+	public IconTextViewAdapter(Context context, View.OnClickListener onClickListener) {
+		this.context = context;
+		this.iconTextDataList = new ArrayList<>();
+		this.onClickListener = onClickListener;
 	}
 	
 	public IconTextViewAdapter(Context context, ArrayList<IconTextData> iconTextDataList, View.OnClickListener onClickListener) {
@@ -54,6 +60,11 @@ public class IconTextViewAdapter extends RecyclerView.Adapter<IconTextViewAdapte
 		holder.iconTextView.setIconTint(data.getIconTint());
 		holder.iconTextView.setIconContentDescription(data.getIconContentDescription());
 		holder.iconTextView.setIconVisible(data.isIconVisible());
+	}
+	
+	public void setIconTextDataList(ArrayList<IconTextData> iconTextDataList) {
+		this.iconTextDataList = iconTextDataList;
+		notifyDataSetChanged();
 	}
 	
 	@Override

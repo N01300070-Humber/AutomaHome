@@ -1,8 +1,11 @@
 package ca.humbermail.n01300070.automahome.ui.manageHome;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -50,6 +54,8 @@ public class ManageHomeFragment extends Fragment {
 	private Button addNetworkButton;
 	private Button addUserButton;
 	private Button deleteHomeButton;
+	private Button renameHomeButton;
+	private Button createHomeButton;
 	
 	private ArrayAdapter<String> homesAdapter;
 	private IconTextViewAdapter networksAdapter;
@@ -61,7 +67,7 @@ public class ManageHomeFragment extends Fragment {
 							 ViewGroup container, Bundle savedInstanceState) {
 		ManageHomeViewModel homeViewModel = new ViewModelProvider(this).get(ManageHomeViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_manage_home, container, false);
-		context = requireActivity().getApplicationContext();
+		context = requireContext();
 		
 		CustomActivity parentActivity = (CustomActivity) requireActivity();
 		loginDataSource = parentActivity.getLoginDataSource();
@@ -74,6 +80,8 @@ public class ManageHomeFragment extends Fragment {
 		addNetworkButton = root.findViewById(R.id.button_addNetwork);
 		addUserButton = root.findViewById(R.id.button_addUser);
 		deleteHomeButton = root.findViewById(R.id.button_deleteHome);
+		renameHomeButton = root.findViewById(R.id.button_renameHome);
+		createHomeButton = root.findViewById(R.id.button_createHome);
 		
 		
 		selectHomeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -103,6 +111,18 @@ public class ManageHomeFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				deleteHomeButton_Clicked(view);
+			}
+		});
+		renameHomeButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				renameHomeButton_Clicked(view);
+			}
+		});
+		createHomeButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				createHomeButton_Clicked(view);
 			}
 		});
 		networksOnClickListener = new View.OnClickListener() {
@@ -145,6 +165,7 @@ public class ManageHomeFragment extends Fragment {
 			@Override
 			public void onChanged(List<Home> homes) {
 				setHomesDataList(homes);
+				setHomeSpinnerToHome(realtimeDatabaseDataSource.getCurrentHomeId());
 			}
 		});
 		realtimeDatabaseDataSource.onHomeEditorValuesChange().observe(this, new Observer<List<Pair<String, Boolean>>>() {
@@ -170,32 +191,102 @@ public class ManageHomeFragment extends Fragment {
 	}
 	
 	private void selectHomeSpinner_NothingSelected(AdapterView<?> adapterView) {
-		Toast.makeText(context, R.string.error_current_home_inaccessible, Toast.LENGTH_SHORT).show();
+		handleCurrentHomeInaccessible();
 	}
 	
-	public void networksRecyclerItemClicked(View view) {
+	private void networksRecyclerItemClicked(View view) {
 		// TODO: Remove network from Wi-Fi Detection list
 	}
 	
-	public void usersRecyclerItemClicked(View view) {
+	private void usersRecyclerItemClicked(View view) {
 		if (((IconTextView) view).isIconVisible()) {
 			// TODO: Remove user from users list
 		}
 	}
 	
-	public void addNetworkButton_Clicked(View view) {
+	private void addNetworkButton_Clicked(View view) {
 		startActivity(new Intent(context, AddNetworkActivity.class));
 		// TODO: Add network to Wi-Fi Detection list
 	}
 	
-	public void addUserButton_Clicked(View view) {
+	private void addUserButton_Clicked(View view) {
 		startActivity(new Intent(context, InviteUserActivity.class));
 		// TODO: Add new user to users list
 	}
 	
-	public void deleteHomeButton_Clicked(View view) {
+	private void deleteHomeButton_Clicked(View view) {
 		// TODO: Show confirmation prompt before deleting
 		realtimeDatabaseDataSource.removeHome(realtimeDatabaseDataSource.getCurrentHomeId());
+	}
+	
+	private void renameHomeButton_Clicked(View view) {
+		final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+		dialogBuilder.setTitle(getString(R.string.prompt_new_home_name));
+		
+		final EditText nameEditText = new EditText(context);
+		nameEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+		dialogBuilder.setView(nameEditText);
+		
+		dialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				realtimeDatabaseDataSource.updateHomeName(nameEditText.getText().toString());
+			}
+		});
+		dialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				dialogInterface.cancel();
+			}
+		});
+		
+		dialogBuilder.show();
+	}
+	
+	private void createHomeButton_Clicked(View view) {
+		final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+		dialogBuilder.setTitle(getString(R.string.prompt_new_home_name));
+		
+		final EditText nameEditText = new EditText(context);
+		nameEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+		dialogBuilder.setView(nameEditText);
+		
+		dialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				realtimeDatabaseDataSource.addHome(nameEditText.getText().toString(), loginDataSource);
+			}
+		});
+		dialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				dialogInterface.cancel();
+			}
+		});
+		
+		dialogBuilder.show();
+	}
+	
+	private void setHomeSpinnerToHome(String homeId) {
+		int currentHomePosition = -1;
+		
+		for (int i = 0; i < homes.size(); i++) {
+			if (homes.get(i).getId().equals(homeId)) {
+				currentHomePosition = i;
+				break;
+			}
+		}
+		
+		if (currentHomePosition == -1) {
+			handleCurrentHomeInaccessible();
+		} else {
+			selectHomeSpinner.setSelection(currentHomePosition);
+		}
+	}
+	
+	private void handleCurrentHomeInaccessible() {
+		Toast.makeText(context, R.string.error_current_home_inaccessible, Toast.LENGTH_SHORT).show();
+		realtimeDatabaseDataSource.setCurrentHomeId(homes.get(0).getId());
 	}
 	
 //	@Override

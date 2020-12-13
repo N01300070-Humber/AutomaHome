@@ -20,8 +20,12 @@ import ca.humbermail.n01300070.automahome.data.model.Device;
 import ca.humbermail.n01300070.automahome.data.model.Home;
 import ca.humbermail.n01300070.automahome.data.model.Operation;
 import ca.humbermail.n01300070.automahome.data.model.Task;
+import ca.humbermail.n01300070.automahome.data.model.User;
 
 public class RealtimeDatabaseDataSource {
+	private final static String USERS_REFERENCE = "users";
+	private final static String USERS_NAME_PATH = "name";
+	private final static String USERS_EMAIL_PATH = "email";
 	private final static String HOMES_REFERENCE = "homes";
 	private final static String HOMES_NAME_PATH = "name";
 	private final static String HOMES_EDITORS_PATH = "editors";
@@ -50,6 +54,7 @@ public class RealtimeDatabaseDataSource {
 	
 	private final FirebaseDatabase database = FirebaseDatabase.getInstance();
 	
+	private final MutableLiveData<List<User>> userValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Home>> homeValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Pair<String, Boolean>>> homeEditorValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Device>> deviceValues = new MutableLiveData<>();
@@ -57,6 +62,7 @@ public class RealtimeDatabaseDataSource {
 	private final MutableLiveData<List<Condition>> taskConditionValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Operation>> taskOperationValues = new MutableLiveData<>();
 	
+	private ValueEventListener usersValueEventListener;
 	private ValueEventListener homesValueEventListener;
 	private ValueEventListener homeEditorsValueEventListener;
 	private ValueEventListener devicesValueEventListener;
@@ -64,13 +70,46 @@ public class RealtimeDatabaseDataSource {
 	private ValueEventListener taskConditionsValueEventListener;
 	private ValueEventListener taskOperationsValueEventListener;
 	
+	// Users
+	private User createUser(String key, String name, String email) {
+		return new User(key, name, email);
+	}
 	
+	public void addCurrentUser(LoginDataSource loginDataSource, String displayName, String emailAddress) {
+		DatabaseReference reference = database.getReference(USERS_REFERENCE);
+		
+		String key = loginDataSource.getUserID();
+		
+		reference.child(key).setValue(createUser(key, displayName, emailAddress));
+	}
+	
+	public void removeCurrentUser(LoginDataSource loginDataSource) {
+		database.getReference(USERS_REFERENCE)
+				.child(loginDataSource.getUserID())
+				.removeValue();
+	}
+	
+	public void updateCurrentUserDisplayName(LoginDataSource loginDataSource, String displayName) {
+		database.getReference(USERS_REFERENCE)
+				.child(loginDataSource.getUserID())
+				.child(USERS_NAME_PATH)
+				.setValue(displayName);
+	}
+	
+	public void updateCurrentUserEmailAddress(LoginDataSource loginDataSource, String emailAddress) {
+		database.getReference(USERS_REFERENCE)
+				.child(loginDataSource.getUserID())
+				.child(USERS_EMAIL_PATH)
+				.setValue(emailAddress);
+	}
+	
+	
+	// Homes
 	public void setCurrentHome(String homeId) {
 		this.currentHomeId = homeId;
 	}
 	
 	
-	// Homes
 	private Home createHome(String key, String name, String userID) {
 		return new Home(key, name, userID);
 	}
@@ -81,7 +120,7 @@ public class RealtimeDatabaseDataSource {
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue( createHome(key, name, loginDataSource.getUserID()) );
+		reference.child(key).setValue(createHome(key, name, loginDataSource.getUserID()));
 		// TODO: Add current user to editors
 	}
 	
@@ -217,7 +256,7 @@ public class RealtimeDatabaseDataSource {
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue( createDevice(key, name, type, category) );
+		reference.child(key).setValue(createDevice(key, name, type, category));
 	}
 	
 	public void removeDevice(String deviceId) {
@@ -290,7 +329,7 @@ public class RealtimeDatabaseDataSource {
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue( createTask(key, name, category) );
+		reference.child(key).setValue(createTask(key, name, category));
 	}
 	
 	public void removeTask(String key) {
@@ -365,7 +404,7 @@ public class RealtimeDatabaseDataSource {
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue( createTaskCondition(key, position, type, referenceDeviceId) );
+		reference.child(key).setValue(createTaskCondition(key, position, type, referenceDeviceId));
 	}
 	
 	public void removeTaskCondition(String taskId, String taskConditionId) {
@@ -449,7 +488,7 @@ public class RealtimeDatabaseDataSource {
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue( createTaskOperation(key, position, type, referenceDeviceId) );
+		reference.child(key).setValue(createTaskOperation(key, position, type, referenceDeviceId));
 	}
 	
 	public void removeTaskOperation(String taskId, String taskOperationId) {

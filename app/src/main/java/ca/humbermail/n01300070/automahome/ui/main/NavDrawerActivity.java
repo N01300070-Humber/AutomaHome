@@ -23,6 +23,7 @@ import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
+import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 
 public class NavDrawerActivity extends CustomActivity {
@@ -53,6 +54,7 @@ public class NavDrawerActivity extends CustomActivity {
 		
 		navHeaderTextView = navigationView.getHeaderView(0).findViewById(R.id.textView_navHeader);
 		
+		setRealtimeDatabaseDataSource(new RealtimeDatabaseDataSource());
 		setLoginDataSource(new LoginDataSource(new LoginDataSource.LoginStateListener() {
 			@Override
 			public void onLoginStateChanged(@NonNull FirebaseAuth firebaseAuth, boolean loggedIn) {

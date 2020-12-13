@@ -17,11 +17,16 @@ import androidx.fragment.app.Fragment;
 import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
+import ca.humbermail.n01300070.automahome.data.LoginDataSource;
+import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 import ca.humbermail.n01300070.automahome.ui.main.WelcomeActivity;
 
 public class AccountSettingsFragment extends Fragment {
 	private Context context;
+	
+	private LoginDataSource loginDataSource;
+	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
 	
 	private EditText firstNameEditText;
 	private EditText lastNameEditText;
@@ -47,6 +52,10 @@ public class AccountSettingsFragment extends Fragment {
 		// Inflate the layout for this fragment
 		View root = inflater.inflate(R.layout.fragment_settings_account, container, false);
 		context = requireActivity().getApplicationContext();
+		
+		CustomActivity parentActivity = (CustomActivity) requireActivity();
+		loginDataSource = parentActivity.getLoginDataSource();
+		realtimeDatabaseDataSource = parentActivity.getRealtimeDatabaseDataSource();
 		
 		firstNameEditText = root.findViewById(R.id.editText_firstName);
 		lastNameEditText = root.findViewById(R.id.editText_lastName);
@@ -81,12 +90,12 @@ public class AccountSettingsFragment extends Fragment {
 	
 	public void logoutButton_onClick(View view) {
 		Log.d("AccountSettingsFragment", "logoutButton_onClick called");
-		((CustomActivity) requireActivity()).getLoginDataSource().logout();
+		loginDataSource.logout();
 	}
 	
 	private void deleteAccountButton_onClick(View view) {
 		Log.d("AccountSettingsFragment", "deleteAccountButton_onClick called");
-		((CustomActivity) requireActivity()).getLoginDataSource().deleteAccount();
+		loginDataSource.deleteAccount(realtimeDatabaseDataSource);
 	}
 	
 	private void confirmButton_onClick(View view) {

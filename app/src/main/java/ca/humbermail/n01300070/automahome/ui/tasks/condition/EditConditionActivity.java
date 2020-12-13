@@ -72,12 +72,17 @@ public class EditConditionActivity extends AppCompatActivity {
 	public void discardButtonClicked(View view) {
 		//TODO data handling
 		setResult(Activity.RESULT_CANCELED);
+
 		finish();
 	}
 	
 	public void saveButtonClicked(View view) {
 		//TODO data handling
 		Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show(); // TODO: Remove placeholder toast
+		System.out.println(fragment);
+		if(fragment instanceof EditConditionTemperatureFragment) {
+			((EditConditionTemperatureFragment) fragment).saveTemp();
+		}
 		setResult(Activity.RESULT_OK);
 		finish();
 	}

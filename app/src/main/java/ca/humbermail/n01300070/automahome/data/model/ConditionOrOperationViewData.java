@@ -1,9 +1,6 @@
 package ca.humbermail.n01300070.automahome.data.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class ConditionOrOperationViewData implements Parcelable {
+public class ConditionOrOperationViewData {
 	public static final int TYPE_CONDITION = 0;
 	public static final int TYPE_OPERATION = 1;
 	
@@ -46,41 +43,7 @@ public class ConditionOrOperationViewData implements Parcelable {
 		this.typeText = typeText;
 		this.dragHandleVisible = dragHandleVisible;
 	}
-
-	protected ConditionOrOperationViewData(Parcel in) {
-		type = in.readInt();
-		conditionOrOperationType = in.readString();
-		mainText = in.readString();
-		typeText = in.readString();
-		dragHandleVisible = in.readByte() != 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(type);
-		dest.writeString(conditionOrOperationType);
-		dest.writeString(mainText);
-		dest.writeString(typeText);
-		dest.writeByte((byte) (dragHandleVisible ? 1 : 0));
-	}
-
-	@Override
-	public int describeContents() {
-		return 0;
-	}
-
-	public static final Creator<ConditionOrOperationViewData> CREATOR = new Creator<ConditionOrOperationViewData>() {
-		@Override
-		public ConditionOrOperationViewData createFromParcel(Parcel in) {
-			return new ConditionOrOperationViewData(in);
-		}
-
-		@Override
-		public ConditionOrOperationViewData[] newArray(int size) {
-			return new ConditionOrOperationViewData[size];
-		}
-	};
-
+	
 	public int getType() {
 		return type;
 	}

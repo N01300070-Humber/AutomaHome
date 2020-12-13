@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -73,18 +71,14 @@ public class EditConditionActivity extends AppCompatActivity {
 	
 	public void discardButtonClicked(View view) {
 		//TODO data handling
-		Intent sendData = new Intent();
-		setResult(Activity.RESULT_CANCELED,sendData);
+		setResult(Activity.RESULT_CANCELED);
 		finish();
 	}
 	
 	public void saveButtonClicked(View view) {
 		//TODO data handling
-		Intent sendData = new Intent();
-		ConditionOrOperationViewData newObject = ((EditConditionMovementFragment)fragment).createObject();
-		sendData.putExtra("New Condition", newObject);
-		Toast.makeText(getApplicationContext(), "Saved 2", Toast.LENGTH_SHORT).show(); // TODO: Remove placeholder toast
-		setResult(Activity.RESULT_OK,sendData);
+		Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show(); // TODO: Remove placeholder toast
+		setResult(Activity.RESULT_OK);
 		finish();
 	}
 	

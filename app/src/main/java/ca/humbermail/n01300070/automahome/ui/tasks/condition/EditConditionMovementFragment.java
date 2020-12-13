@@ -10,13 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.FavoriteSelectView;
-import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
 
 public class EditConditionMovementFragment extends Fragment {
     private Context context;
@@ -36,6 +34,7 @@ public class EditConditionMovementFragment extends Fragment {
     
         adapter = new ArrayAdapter<String>(getContext(), R.layout.text_view_auto_complete_label, generateDeviceList());
         autoCompleteTextView.setAdapter(adapter);
+        
         return root;
     }
     
@@ -49,20 +48,4 @@ public class EditConditionMovementFragment extends Fragment {
         
         return categoryList;
     }
-
-    private String MainTextBuilder(View view) {
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinner2);
-        String maintext = "Moving towards "+spinner.getSelectedItem().toString();
-        return maintext;
-    }
-
-     public ConditionOrOperationViewData createObject() {
-           return new ConditionOrOperationViewData (
-                ConditionOrOperationViewData.TYPE_CONDITION,
-                ConditionOrOperationViewData.CONDITION_MOVEMENT,
-                MainTextBuilder(getView()),
-                "Movement");
-    }
-
-
 }

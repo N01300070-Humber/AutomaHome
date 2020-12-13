@@ -127,8 +127,14 @@ public class RealtimeDatabaseDataSource {
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue(createHome(key, name, loginDataSource.getUserID()));
-		// TODO: Add current user to editors
+		String uid = loginDataSource.getUserID();
+		reference.child(key).setValue(createHome(key, name, uid));
+		addHomeEditor(key, uid, true);
+		setCurrentHomeId(key);
+	}
+	
+	public void removeHome() {
+		removeHome(currentHomeId);
 	}
 	
 	public void removeHome(String homeId) {
@@ -137,6 +143,10 @@ public class RealtimeDatabaseDataSource {
 				.removeValue();
 		// TODO: Remove connected devices
 		// TODO: Remove connected tasks
+	}
+	
+	public void updateHomeName(String name) {
+		updateHomeName(currentHomeId, name);
 	}
 	
 	public void updateHomeName(String homeId, String name) {
@@ -193,11 +203,15 @@ public class RealtimeDatabaseDataSource {
 	
 	// Home Editors
 	public void addHomeEditor(String uid) {
+		addHomeEditor(currentHomeId, uid, false);
+	}
+	
+	private void addHomeEditor(String homeId, String uid, boolean acceptedInvite) {
 		database.getReference(HOMES_REFERENCE)
-				.child(currentHomeId)
+				.child(homeId)
 				.child(HOMES_EDITORS_PATH)
 				.child(uid)
-				.setValue(false);
+				.setValue(acceptedInvite);
 	}
 	
 	public void removeHomeEditor(String uid) {

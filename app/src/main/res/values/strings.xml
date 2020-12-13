@@ -3,7 +3,7 @@
 	
 	<!-- Welcome, Login, Register -->
 	<string name="title_activity_welcome">Welcome</string>
-	<string name="title_activity_login">Login</string>
+	<string name="title_activity_sign_in">Sign In</string>
 	<string name="title_activity_register">Register</string>
 	<string name="title_activity_device_search">Device Search</string>
 	<string name="title_activity_edit_device">Edit Device</string>
@@ -34,8 +34,8 @@
 	<string name="error_email_no_account">No account with this email address exists</string>
 	<string name="error_password_too_short">Password must be at least 8 characters long</string>
 	<string name="error_password_incorrect">Password is incorrect</string>
-	<string name="error_login_failed">"Login failed"</string>
-	<string name="error_registration_failed">"Registration failed"</string>
+	<string name="error_login_failed">"Login failed: %1$s"</string>
+	<string name="error_registration_failed">"Registration failed: %1$s"</string>
 	
 	<!-- Navigation Drawer -->
 	<string name="title_activity_nav_drawer">NavDrawerActivity</string>

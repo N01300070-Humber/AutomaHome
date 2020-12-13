@@ -1,30 +1,37 @@
 package ca.humbermail.n01300070.automahome.ui.login;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
+import ca.humbermail.n01300070.automahome.data.LoginDataSource;
+import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends CustomActivity {
 	
 	private boolean registering;
+	
+	LoginDataSource loginDataSource;
 	
 	private TextInputLayout firstNameTextLayout;
 	private TextInputLayout lastNameTextLayout;
@@ -43,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Log.d("LoginActivity", "onCreate called");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -69,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 	
 	/**
 	 * Set activity to sign in mode or register mode
+	 *
 	 * @param registering True = register, False = sign in
 	 */
 	private void setLoginType(boolean registering) {
@@ -78,17 +87,20 @@ public class LoginActivity extends AppCompatActivity {
 			setTitle(getString(R.string.title_activity_register));
 			firstNameTextLayout.setVisibility(View.VISIBLE);
 			lastNameTextLayout.setVisibility(View.VISIBLE);
+			confirmButton.setText(getString(R.string.button_register));
 			switchLoginButton.setText(R.string.button_question_have_account);
 		} else {
-			setTitle(getString(R.string.title_activity_login));
+			setTitle(getString(R.string.title_activity_sign_in));
 			firstNameTextLayout.setVisibility(View.GONE);
 			lastNameTextLayout.setVisibility(View.GONE);
+			confirmButton.setText(getString(R.string.button_sign_in));
 			switchLoginButton.setText(R.string.button_question_no_account);
 		}
 	}
 	
 	/**
 	 * Handles back button onClick event
+	 *
 	 * @param item non-null MenuItem
 	 * @return Boolean
 	 */
@@ -100,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
 	
 	/**
 	 * Handles switchLoginButton onClick event.
+	 *
 	 * @param view Source view.
 	 */
 	public void switchLoginButton_onClick(View view) {
@@ -108,13 +121,16 @@ public class LoginActivity extends AppCompatActivity {
 	
 	/**
 	 * Handles confirmButton onClick event.
+	 *
 	 * @param view Source view.
 	 */
 	public void confirmButton_onClick(View view) {
+		Log.d("LoginActivity", "confirmButton_onClick called");
+		
 		String firstName;
 		String lastName;
-		String emailAddress;
-		String password;
+		final String emailAddress;
+		final String password;
 		
 		boolean firstNameValid = false;
 		boolean lastNameValid = false;
@@ -124,31 +140,24 @@ public class LoginActivity extends AppCompatActivity {
 		// Set values of variables
 		loadingProgressBar.setVisibility(View.VISIBLE);
 		
-		if (registering) {
-			firstName = firstNameEditText.getText().toString();
-			lastName = lastNameEditText.getText().toString();
-		} else {
-			firstName = "Jane";
-			lastName = "Doe";
-		}
+		firstName = firstNameEditText.getText().toString();
+		lastName = lastNameEditText.getText().toString();
 		emailAddress = emailAddressEditText.getText().toString();
 		password = passwordEditText.getText().toString();
 		
 		// Check input
-		// TODO: Break checks into functions that can be called when typing
+		// TODO: Break input checks into functions that can be called when typing
 		if (registering) {
 			if (TextUtils.isEmpty(firstName)) {
 				firstNameEditText.setError(getString(R.string.error_required_field));
-			}
-			else {
+			} else {
 				firstNameValid = true;
 				firstNameEditText.setError(null);
 			}
 			
 			if (TextUtils.isEmpty(lastName)) {
 				lastNameEditText.setError(getString(R.string.error_required_field));
-			}
-			else {
+			} else {
 				lastNameValid = true;
 				lastNameEditText.setError(null);
 			}
@@ -156,55 +165,104 @@ public class LoginActivity extends AppCompatActivity {
 		
 		if (TextUtils.isEmpty(emailAddress)) {
 			emailAddressEditText.setError(getString(R.string.error_required_field));
-		}
-		else if (!Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()) {
+		} else if (!Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()) {
 			emailAddressEditText.setError(getString(R.string.error_email_invalid));
-		}
-		else {
+		} else {
 			emailAddressValid = true;
 			emailAddressEditText.setError(null);
 		}
 		
 		if (TextUtils.isEmpty(password)) {
 			passwordEditText.setError(getString(R.string.error_required_field));
-		}
-		else if (password.length() < 8 && registering) {
+		} else if (password.length() < 8 && registering) {
 			passwordEditText.setError(getString(R.string.error_password_too_short));
-		}
-		else {
+		} else {
 			passwordValid = true;
 			passwordEditText.setError(null);
 		}
 		
 		
-		if ( !emailAddressValid && !passwordValid &&
-				((!firstNameValid && !lastNameValid) || !registering) ) {
+		if (!emailAddressValid && !passwordValid &&
+				((!firstNameValid && !lastNameValid) || !registering)) {
 			loadingProgressBar.setVisibility(View.GONE);
 			return;
 		}
 		
+		setRealtimeDatabaseDataSource(new RealtimeDatabaseDataSource());
 		
 		// Attempt sign-in/register
-		// TODO: Attempt to sign-in/register (After Milestone 2)
-		
-		// Successful sign-in/register
-		SharedPreferences.Editor loginInfoEditor = getSharedPreferences(
-				PreferenceKeys.LOGIN, MODE_PRIVATE).edit();
-		loginInfoEditor.putBoolean(PreferenceKeys.LOGIN_LOGGED_IN, true);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_FIRST_NAME, firstName);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_LAST_NAME, lastName);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_EMAIL_ADDRESS, emailAddress);
-		loginInfoEditor.putString(PreferenceKeys.LOGIN_PASSWORD, password); // TODO: hash and encrypt password before storing OR replace with authorization token acquired during login attempt (After Milestone 2)
-		if (!loginInfoEditor.commit()) {
-			Toast.makeText(this, "Failed to save info", Toast.LENGTH_LONG).show();
-			loadingProgressBar.setVisibility(View.GONE);
-			return;
+		final String displayName = (firstName + " " + lastName).trim();
+		setLoginDataSource(new LoginDataSource(new LoginDataSource.LoginStateListener() {
+			@Override
+			public void onLoginStateChanged(@NonNull FirebaseAuth auth, boolean loggedIn) {
+				Log.d("LoginActivity", "detected login state change. Value is now " + loggedIn);
+				if (!loggedIn) {
+					attemptLogin(emailAddress, password, displayName);
+				}
+			}
+		}));
+		loginDataSource = getLoginDataSource();
+	}
+	
+	private void attemptLogin(final String emailAddress, String password, final String displayName) {
+		Log.d("LoginActivity", "attemptLogin called");
+		if (registering) {
+			Log.d("LoginActivity", "registering for new account");
+			loginDataSource.register(this.getMainExecutor(), emailAddress, password,
+					new OnCompleteListener<AuthResult>() {
+						@Override
+						public void onComplete(@NonNull Task<AuthResult> task) {
+							Log.d("LoginActivity", "register task called");
+							if (task.isSuccessful()) {
+								Log.d("LoginActivity", "register task successful");
+								loginDataSource.setDisplayName(displayName);
+								getRealtimeDatabaseDataSource().addCurrentUser(loginDataSource, displayName, emailAddress);
+								loginFinished();
+							} else {
+								Log.d("LoginActivity", "register task failed");
+								Objects.requireNonNull(task.getException()).printStackTrace();
+								passwordEditText.setError(getString(R.string.error_registration_failed, task.getException().toString()));
+								loadingProgressBar.setVisibility(View.GONE);
+							}
+							Log.d("LoginActivity", "register task finished");
+						}
+					});
+		} else {
+			Log.d("LoginActivity", "logging in to existing account");
+			loginDataSource.login(this.getMainExecutor(), emailAddress, password,
+					new OnCompleteListener<AuthResult>() {
+						@Override
+						public void onComplete(@NonNull Task<AuthResult> task) {
+							Log.d("LoginActivity", "sign in task called");
+							if (task.isSuccessful()) {
+								Log.d("LoginActivity", "sign in task successful");
+								loginFinished();
+							} else {
+								Log.d("LoginActivity", "sign in task failed");
+								Objects.requireNonNull(task.getException()).printStackTrace();
+								passwordEditText.setError(getString(R.string.error_login_failed, task.getException().toString()));
+								loadingProgressBar.setVisibility(View.GONE);
+							}
+							Log.d("LoginActivity", "sign in task finished");
+						}
+					});
 		}
-		
+		Log.d("LoginActivity", "attemptLogin finished");
+	}
+	
+	private void loginFinished() {
+		// Successful sign-in/register
+		Log.d("LoginActivity", "loginFinished called");
 		loadingProgressBar.setVisibility(View.GONE);
 		
+		Log.d("LoginActivity", "closing LoginActivity");
 		setResult(Activity.RESULT_OK);
 		finish();
 	}
 	
+	@Override
+	public void finish() {
+		Log.d("LoginActivity", "finish called");
+		super.finish();
+	}
 }

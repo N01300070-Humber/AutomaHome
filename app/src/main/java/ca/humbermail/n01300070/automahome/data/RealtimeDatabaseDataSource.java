@@ -108,8 +108,12 @@ public class RealtimeDatabaseDataSource {
 	
 	
 	// Homes
-	public void setCurrentHome(String homeId) {
+	public void setCurrentHomeId(String homeId) {
 		this.currentHomeId = homeId;
+	}
+	
+	public String getCurrentHomeId() {
+		return currentHomeId;
 	}
 	
 	

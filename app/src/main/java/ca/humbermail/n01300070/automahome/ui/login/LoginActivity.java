@@ -24,6 +24,7 @@ import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
+import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 
 public class LoginActivity extends CustomActivity {
@@ -139,13 +140,8 @@ public class LoginActivity extends CustomActivity {
 		// Set values of variables
 		loadingProgressBar.setVisibility(View.VISIBLE);
 		
-		if (registering) {
-			firstName = firstNameEditText.getText().toString();
-			lastName = lastNameEditText.getText().toString();
-		} else {
-			firstName = "Jane";
-			lastName = "Doe";
-		}
+		firstName = firstNameEditText.getText().toString();
+		lastName = lastNameEditText.getText().toString();
 		emailAddress = emailAddressEditText.getText().toString();
 		password = passwordEditText.getText().toString();
 		
@@ -192,6 +188,7 @@ public class LoginActivity extends CustomActivity {
 			return;
 		}
 		
+		setRealtimeDatabaseDataSource(new RealtimeDatabaseDataSource());
 		
 		// Attempt sign-in/register
 		final String displayName = (firstName + " " + lastName).trim();
@@ -207,7 +204,7 @@ public class LoginActivity extends CustomActivity {
 		loginDataSource = getLoginDataSource();
 	}
 	
-	private void attemptLogin(String emailAddress, String password, final String displayName) {
+	private void attemptLogin(final String emailAddress, String password, final String displayName) {
 		Log.d("LoginActivity", "attemptLogin called");
 		if (registering) {
 			Log.d("LoginActivity", "registering for new account");
@@ -219,7 +216,7 @@ public class LoginActivity extends CustomActivity {
 							if (task.isSuccessful()) {
 								Log.d("LoginActivity", "register task successful");
 								loginDataSource.setDisplayName(displayName);
-								// TODO: Add user info to users in database
+								getRealtimeDatabaseDataSource().addCurrentUser(loginDataSource, displayName, emailAddress);
 								loginFinished();
 							} else {
 								Log.d("LoginActivity", "register task failed");
@@ -250,6 +247,7 @@ public class LoginActivity extends CustomActivity {
 						}
 					});
 		}
+		Log.d("LoginActivity", "attemptLogin finished");
 	}
 	
 	private void loginFinished() {

@@ -104,9 +104,10 @@ public class LoginDataSource {
 		);
 	}
 	
-	public void deleteAccount() {
+	public void deleteAccount(RealtimeDatabaseDataSource realtimeDatabaseDataSource) {
 		Log.d("LoginDataSource", "deleteAccount called");
 		
+		realtimeDatabaseDataSource.removeCurrentUser(this);
 		// TODO: Remove all user data from the database
 		currentUser.delete();
 		currentUser = null;
@@ -118,5 +119,9 @@ public class LoginDataSource {
 	
 	public String getDisplayName() {
 		return currentUser.getDisplayName();
+	}
+	
+	public String getEmailAddress() {
+		return currentUser.getEmail();
 	}
 }

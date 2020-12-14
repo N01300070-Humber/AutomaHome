@@ -323,13 +323,14 @@ public class RealtimeDatabaseDataSource {
 		return new Task(key, currentHomeId, name, category);
 	}
 	
-	public void addTask(String name, String type, String category) {
+	public String addTask(String name, String type, String category) {
 		DatabaseReference reference = database.getReference(TASKS_REFERENCE);
 		
 		String key = reference.push().getKey();
 		assert key != null;
 		
 		reference.child(key).setValue(createTask(key, name, category));
+		return key;
 	}
 	
 	public void removeTask(String key) {

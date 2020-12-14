@@ -34,11 +34,15 @@ public class CustomActivity extends AppCompatActivity {
 		this.realtimeDatabaseDataSource = realtimeDatabaseDataSource;
 	}
 	
-	@Override
-	public void finish() {
+	public void removeAllListeners() {
 		if (loginDataSource != null) {
 			loginDataSource.removeAllListeners();
 		}
+	}
+	
+	@Override
+	public void finish() {
+		removeAllListeners();
 		super.finish();
 	}
 }

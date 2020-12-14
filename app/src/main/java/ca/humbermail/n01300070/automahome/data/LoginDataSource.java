@@ -93,7 +93,6 @@ public class LoginDataSource {
 		Log.d("LoginDataSource", "logout called");
 		
 		authentication.signOut();
-		currentUser = null;
 	}
 	
 	public void setDisplayName(String displayName) {
@@ -108,7 +107,6 @@ public class LoginDataSource {
 		
 		realtimeDatabaseDataSource.removeCurrentUser(this);
 		currentUser.delete();
-		currentUser = null;
 	}
 	
 	public String getUserID() {

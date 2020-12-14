@@ -244,20 +244,22 @@ public class ManageHomeFragment extends Fragment {
 	private void renameHomeButton_Clicked(View view) {
 		Log.d("ManageHomeFragment", "renameHomeButton_Clicked called");
 		
-		final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-		dialogBuilder.setTitle(getString(R.string.prompt_new_home_name));
+		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+		dialogBuilder.setTitle(R.string.prompt_rename_home_title);
+		dialogBuilder.setMessage(R.string.prompt_rename_home_message);
 		
 		final EditText nameEditText = new EditText(context);
 		nameEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+		// TODO: Show current home name
 		dialogBuilder.setView(nameEditText);
 		
-		dialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+		dialogBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialogInterface, int i) {
 				realtimeDatabaseDataSource.updateHomeName(nameEditText.getText().toString());
 			}
 		});
-		dialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+		dialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialogInterface, int i) {
 				dialogInterface.cancel();
@@ -270,27 +272,7 @@ public class ManageHomeFragment extends Fragment {
 	private void createHomeButton_Clicked(View view) {
 		Log.d("ManageHomeFragment", "createHomeButton_Clicked called");
 		
-		final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-		dialogBuilder.setTitle(getString(R.string.prompt_new_home_name));
-		
-		final EditText nameEditText = new EditText(context);
-		nameEditText.setInputType(InputType.TYPE_CLASS_TEXT);
-		dialogBuilder.setView(nameEditText);
-		
-		dialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialogInterface, int i) {
-				realtimeDatabaseDataSource.addHome(nameEditText.getText().toString(), loginDataSource);
-			}
-		});
-		dialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialogInterface, int i) {
-				dialogInterface.cancel();
-			}
-		});
-		
-		dialogBuilder.show();
+		navDrawerActivity.showCreateNewHomeDialog();
 	}
 	
 //	@Override

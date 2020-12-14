@@ -1,12 +1,15 @@
 package ca.humbermail.n01300070.automahome.ui.main;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,8 +17,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -198,8 +199,55 @@ public class NavDrawerActivity extends CustomActivity {
 	
 	private void handleCurrentHomeInaccessible() {
 		Log.d("NavDrawerActivity", "handleCurrentHomeInaccessible called");
-		Toast.makeText(this, R.string.error_current_home_inaccessible, Toast.LENGTH_SHORT).show();
-		realtimeDatabaseDataSource.setCurrentHomeId(homes.get(0).getId());
+		if (homes.size() > 0) {
+			Toast.makeText(this, R.string.error_current_home_inaccessible, Toast.LENGTH_SHORT).show();
+			realtimeDatabaseDataSource.setCurrentHomeId(homes.get(0).getId());
+		} else {
+			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+			
+			dialogBuilder.setTitle(R.string.prompt_no_homes_title);
+			dialogBuilder.setMessage(R.string.prompt_no_homes_message);
+			
+			dialogBuilder.setPositiveButton(R.string.create_home, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialogInterface, int i) {
+					showCreateNewHomeDialog();
+				}
+			});
+			dialogBuilder.setNeutralButton(R.string.check_invites, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialogInterface, int i) {
+					// TODO: Check invites
+				}
+			});
+			
+			dialogBuilder.show();
+		}
+	}
+	
+	public void showCreateNewHomeDialog() {
+		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+		dialogBuilder.setTitle(R.string.prompt_create_home_title);
+		dialogBuilder.setMessage(R.string.prompt_create_home_message);
+		
+		final EditText nameEditText = new EditText(this);
+		nameEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+		dialogBuilder.setView(nameEditText);
+		
+		dialogBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				realtimeDatabaseDataSource.addHome(nameEditText.getText().toString(), loginDataSource);
+			}
+		});
+		dialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				dialogInterface.cancel();
+			}
+		});
+		
+		dialogBuilder.show();
 	}
 	
 	/*@Override
@@ -261,5 +309,16 @@ public class NavDrawerActivity extends CustomActivity {
 	public void removeOnHomeSpinnerItemChangedListener() {
 		Log.d("NavDrawerActivity", "removeOnHomeSpinnerItemChangedListener called");
 		homeSpinnerListener = null;
+	}
+	
+	public void removeHomeListeners() {
+		removeOnHomeSpinnerItemChangedListener();
+		realtimeDatabaseDataSource.removeHomesValueChangesListener();
+	}
+	
+	@Override
+	public void removeAllListeners() {
+		removeHomeListeners();
+		super.removeAllListeners();
 	}
 }

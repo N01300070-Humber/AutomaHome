@@ -17,14 +17,14 @@ import java.util.Date;
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.ListLinePadding;
 import ca.humbermail.n01300070.automahome.components.DescriptiveTextViewAdapter;
-import ca.humbermail.n01300070.automahome.data.model.DescriptiveTextData;
+import ca.humbermail.n01300070.automahome.data.model.DescriptiveTextViewData;
 
 public class ControlMovementSensorFragment extends Fragment
 {
     private RecyclerView detectionLog;
     private DescriptiveTextViewAdapter adapter;
     private Context context;
-    private ArrayList<DescriptiveTextData> logViewDataList;
+    private ArrayList<DescriptiveTextViewData> logViewDataList;
 
     public ControlMovementSensorFragment()
     {
@@ -55,8 +55,8 @@ public class ControlMovementSensorFragment extends Fragment
 
 
     //TODO replace with method that will receive real data
-    private ArrayList<DescriptiveTextData> generateLogViewDataList() {
-        ArrayList<DescriptiveTextData> logDataList = new ArrayList<>();
+    private ArrayList<DescriptiveTextViewData> generateLogViewDataList() {
+        ArrayList<DescriptiveTextViewData> logDataList = new ArrayList<>();
         String[] mainTextArray = {"Room 1 ➜ Room 2", "Room 2 ➜ Room 1"};
 
         /*String[] timeTextArray = {"Today 2:40pm", "Today 8:04am", "Yesterday 2:25pm",
@@ -69,7 +69,7 @@ public class ControlMovementSensorFragment extends Fragment
 
         for(int i = 0; i < timeTextArray.length; i++)
         {
-            DescriptiveTextData logData = new DescriptiveTextData();
+            DescriptiveTextViewData logData = new DescriptiveTextViewData();
             logData.setMainText(mainTextArray[i % 2]);
             logData.setDescriptionText(timeTextArray[i]);
             logDataList.add(logData);

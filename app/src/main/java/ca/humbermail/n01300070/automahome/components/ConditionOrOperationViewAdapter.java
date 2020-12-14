@@ -3,19 +3,18 @@ package ca.humbermail.n01300070.automahome.components;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationData;
+import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
 
 public class ConditionOrOperationViewAdapter extends RecyclerView.Adapter<ConditionOrOperationViewAdapter.ConditionOrOperationViewHolder> {
 
     private Context context;
-    private ArrayList<ConditionOrOperationData> dataList;
+    private ArrayList<ConditionOrOperationViewData> dataList;
     private View.OnClickListener onClickListener;
 
     public class ConditionOrOperationViewHolder extends RecyclerView.ViewHolder
@@ -28,7 +27,7 @@ public class ConditionOrOperationViewAdapter extends RecyclerView.Adapter<Condit
         }
     }
 
-    public ConditionOrOperationViewAdapter(Context context, ArrayList<ConditionOrOperationData> dataList, View.OnClickListener onClickListener)
+    public ConditionOrOperationViewAdapter(Context context, ArrayList<ConditionOrOperationViewData> dataList, View.OnClickListener onClickListener)
     {
         this.context = context;
         this.dataList = dataList;
@@ -50,7 +49,7 @@ public class ConditionOrOperationViewAdapter extends RecyclerView.Adapter<Condit
 
     @Override
     public void onBindViewHolder(@NonNull ConditionOrOperationViewHolder holder, int position) {
-        ConditionOrOperationData data = dataList.get(position);
+        ConditionOrOperationViewData data = dataList.get(position);
 
         holder.conditionOrOperationView.setType(data.getType());
         holder.conditionOrOperationView.setConditionOrOperationType(data.getConditionOrOperationType());

@@ -1,24 +1,17 @@
 package ca.humbermail.n01300070.automahome.ui.devices.control;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
-import ca.humbermail.n01300070.automahome.ui.devices.edit.EditDevicesActivity;
 
 
 public class ControlLightFragment extends Fragment

@@ -2,7 +2,7 @@ package ca.humbermail.n01300070.automahome.data.model;
 
 import android.graphics.drawable.Drawable;
 
-public class DeviceOrTaskData {
+public class DeviceOrTaskButtonData {
 	public static final int TYPE_DEVICE = 0;
 	public static final int TYPE_TASK = 1;
 	
@@ -20,15 +20,15 @@ public class DeviceOrTaskData {
 	private String contentDescription;
 	private int backgroundColour;
 	
-	public DeviceOrTaskData(int type) {
+	public DeviceOrTaskButtonData(int type) {
 		this(type, null, null, null, null);
 	}
 	
-	public DeviceOrTaskData(int type, String name, String extraText) {
+	public DeviceOrTaskButtonData(int type, String name, String extraText) {
 		this(type, name, extraText, null, null);
 	}
 	
-	public DeviceOrTaskData(int type, String name, String extraText, Drawable icon, String contentDescription) {
+	public DeviceOrTaskButtonData(int type, String name, String extraText, Drawable icon, String contentDescription) {
 		this.type = type;
 		this.name = name;
 		this.extraText = extraText;
@@ -37,13 +37,13 @@ public class DeviceOrTaskData {
 		this.contentDescription = contentDescription;
 	}
 	
-	public DeviceOrTaskData(int type, String name, String extraText, Drawable icon, String contentDescription, int backgroundColour) {
+	public DeviceOrTaskButtonData(int type, String name, String extraText, Drawable icon, String contentDescription, int backgroundColour) {
 		this(type, name, extraText, icon, contentDescription);
 		this.extraTextVisible = isExtraTextNotEmpty();
 		this.backgroundColour = backgroundColour;
 	}
 	
-	public DeviceOrTaskData(int type, String name, String extraText, Drawable icon, String contentDescription, int backgroundColour, boolean extraTextVisible) {
+	public DeviceOrTaskButtonData(int type, String name, String extraText, Drawable icon, String contentDescription, int backgroundColour, boolean extraTextVisible) {
 		this(type, name, extraText, icon, contentDescription);
 		this.extraTextVisible = extraTextVisible;
 		this.backgroundColour = backgroundColour;
@@ -65,7 +65,7 @@ public class DeviceOrTaskData {
 		this.deviceType = deviceType;
 	}
 	
-	public DeviceOrTaskData(int type, String name) {
+	public DeviceOrTaskButtonData(int type, String name) {
 		this(type, name, null);
 	}
 	

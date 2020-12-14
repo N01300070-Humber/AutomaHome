@@ -18,8 +18,7 @@ import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.ConditionOrOperationView;
 import ca.humbermail.n01300070.automahome.components.ConditionOrOperationViewAdapter;
 import ca.humbermail.n01300070.automahome.components.ListLinePadding;
-import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationData;
-import ca.humbermail.n01300070.automahome.ui.tasks.condition.EditConditionActivity;
+import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
 
 public class ChooseOperationFragment extends Fragment {
 	Context context;
@@ -57,15 +56,15 @@ public class ChooseOperationFragment extends Fragment {
 		return root;
 	}
 	
-	public ArrayList<ConditionOrOperationData> getOperationsDataList() {
-		String[] operationTypeList = {ConditionOrOperationData.OPERATION_LIGHTS, ConditionOrOperationData.OPERATION_THERMOSTAT};
+	public ArrayList<ConditionOrOperationViewData> getOperationsDataList() {
+		String[] operationTypeList = {ConditionOrOperationViewData.OPERATION_LIGHTS, ConditionOrOperationViewData.OPERATION_THERMOSTAT};
 		String[] operationNameList = {getString(R.string.operation_lights), getString(R.string.operation_thermostat)};
 		String[] operationDescriptionList = {getString(R.string.operation_lights_description), getString(R.string.operation_thermostat_description)};
-		ArrayList<ConditionOrOperationData> operationsDataList = new ArrayList<>(operationTypeList.length);
+		ArrayList<ConditionOrOperationViewData> operationsDataList = new ArrayList<>(operationTypeList.length);
 		
 		for (int i = 0; i < operationTypeList.length; i++) {
-			ConditionOrOperationData conditionData = new ConditionOrOperationData(
-					ConditionOrOperationData.TYPE_OPERATION,
+			ConditionOrOperationViewData conditionData = new ConditionOrOperationViewData(
+					ConditionOrOperationViewData.TYPE_OPERATION,
 					operationTypeList[i],
 					operationNameList[i],
 					operationDescriptionList[i],

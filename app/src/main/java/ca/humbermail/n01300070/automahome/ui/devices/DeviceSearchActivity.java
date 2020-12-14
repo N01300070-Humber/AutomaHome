@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -17,13 +16,11 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.Random;
 
-import ca.humbermail.n01300070.automahome.NavDrawerActivity;
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.components.CategorizedDeviceOrTaskButtonRecyclerViewAdapter;
 import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonRecyclerViewAdapter;
 import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonView;
 import ca.humbermail.n01300070.automahome.components.RecyclerViewItemDivider;
-import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
+import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 import ca.humbermail.n01300070.automahome.ui.devices.edit.EditDevicesActivity;
 
 public class DeviceSearchActivity extends AppCompatActivity {
@@ -51,7 +48,7 @@ public class DeviceSearchActivity extends AppCompatActivity {
 				DeviceOrTaskButtonView deviceOrTaskButtonView = (DeviceOrTaskButtonView) view;
 				
 				Intent intent = new Intent(getApplicationContext(), EditDevicesActivity.class);
-				intent.putExtra(DeviceOrTaskData.ARG_DEVICE, deviceOrTaskButtonView.getDeviceType());
+				intent.putExtra(DeviceOrTaskButtonData.ARG_DEVICE, deviceOrTaskButtonView.getDeviceType());
 				startActivityForResult(intent, REQUEST_NEW_DEVICE);
 			}
 		};
@@ -67,19 +64,19 @@ public class DeviceSearchActivity extends AppCompatActivity {
 	}
 	
 	// TODO: Replace with method that obtains real data
-	private ArrayList<DeviceOrTaskData> generateDeviceResultsDataList() {
+	private ArrayList<DeviceOrTaskButtonData> generateDeviceResultsDataList() {
 		Random random = new Random();
 		int listLength = random.nextInt(10) + 1;
-		ArrayList<DeviceOrTaskData> deviceResultsDataList = new ArrayList<>(listLength);
+		ArrayList<DeviceOrTaskButtonData> deviceResultsDataList = new ArrayList<>(listLength);
 		String[] deviceNames = {"Name of Light", "Name of Movement Sensor", "Name of Thermostat"};
-		String[] deviceTypes = {DeviceOrTaskData.DEVICE_LIGHTS,
-				DeviceOrTaskData.DEVICE_MOVEMENT_SENSOR, DeviceOrTaskData.DEVICE_THERMOSTAT};
+		String[] deviceTypes = {DeviceOrTaskButtonData.DEVICE_LIGHTS,
+				DeviceOrTaskButtonData.DEVICE_MOVEMENT_SENSOR, DeviceOrTaskButtonData.DEVICE_THERMOSTAT};
 		
 		for (int i = 0; i < listLength; i++) {
 			int randInt = random.nextInt(3);
 			
-			DeviceOrTaskData deviceData = new DeviceOrTaskData(
-					DeviceOrTaskData.TYPE_DEVICE,
+			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
+					DeviceOrTaskButtonData.TYPE_DEVICE,
 					deviceNames[randInt],
 					"Room",
 					ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_devices),

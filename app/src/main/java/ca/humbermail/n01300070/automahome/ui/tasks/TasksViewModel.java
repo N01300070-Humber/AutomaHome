@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonRecyclerV
 import ca.humbermail.n01300070.automahome.components.NonScrollingGridLayoutManager;
 import ca.humbermail.n01300070.automahome.components.RecyclerViewItemDivider;
 import ca.humbermail.n01300070.automahome.data.model.CategoryData;
-import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
+import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 
 public class TasksViewModel extends ViewModel {
 	
@@ -54,12 +52,12 @@ public class TasksViewModel extends ViewModel {
 	}
 	
 	// TODO: Remove placeholder data generator function
-	private ArrayList<DeviceOrTaskData> generatePlaceholderTaskDataList(Context context, int numTasks) {
-		ArrayList<DeviceOrTaskData> taskDataList = new ArrayList<>(numTasks);
+	private ArrayList<DeviceOrTaskButtonData> generatePlaceholderTaskDataList(Context context, int numTasks) {
+		ArrayList<DeviceOrTaskButtonData> taskDataList = new ArrayList<>(numTasks);
 		
 		for (int i = 0; i < numTasks; i++) {
-			DeviceOrTaskData taskData = new DeviceOrTaskData(
-					DeviceOrTaskData.TYPE_TASK,
+			DeviceOrTaskButtonData taskData = new DeviceOrTaskButtonData(
+					DeviceOrTaskButtonData.TYPE_TASK,
 					"Task Name",
 					"Note",
 					ContextCompat.getDrawable(context, R.drawable.ic_task),

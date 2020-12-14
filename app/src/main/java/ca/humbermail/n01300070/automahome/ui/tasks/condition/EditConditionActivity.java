@@ -3,7 +3,6 @@ package ca.humbermail.n01300070.automahome.ui.tasks.condition;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,9 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.components.ConditionOrOperationViewAdapter;
-import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationData;
-import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskData;
+import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
 
 public class EditConditionActivity extends AppCompatActivity {
 	
@@ -37,7 +34,7 @@ public class EditConditionActivity extends AppCompatActivity {
 			conditionType = "";
 		}
 		else {
-			conditionType = arguments.getString(ConditionOrOperationData.ARG_CONDITION);
+			conditionType = arguments.getString(ConditionOrOperationViewData.ARG_CONDITION);
 		}
 		
 		saveButton = findViewById(R.id.button_editCondition_save);
@@ -55,13 +52,13 @@ public class EditConditionActivity extends AppCompatActivity {
 	
 	private void setActiveFragment(String conditionType) {
 		switch (conditionType) {
-			case ConditionOrOperationData.CONDITION_SCHEDULE:
+			case ConditionOrOperationViewData.CONDITION_SCHEDULE:
 				fragment = new EditConditionScheduleFragment();
 				break;
-			case ConditionOrOperationData.CONDITION_MOVEMENT:
+			case ConditionOrOperationViewData.CONDITION_MOVEMENT:
 				fragment = new EditConditionMovementFragment();
 				break;
-			case ConditionOrOperationData.CONDITION_TEMPERATURE:
+			case ConditionOrOperationViewData.CONDITION_TEMPERATURE:
 				fragment = new EditConditionTemperatureFragment();
 				break;
 			default:
@@ -75,12 +72,17 @@ public class EditConditionActivity extends AppCompatActivity {
 	public void discardButtonClicked(View view) {
 		//TODO data handling
 		setResult(Activity.RESULT_CANCELED);
+
 		finish();
 	}
 	
 	public void saveButtonClicked(View view) {
 		//TODO data handling
 		Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show(); // TODO: Remove placeholder toast
+		System.out.println(fragment);
+		if(fragment instanceof EditConditionTemperatureFragment) {
+			((EditConditionTemperatureFragment) fragment).saveTemp();
+		}
 		setResult(Activity.RESULT_OK);
 		finish();
 	}

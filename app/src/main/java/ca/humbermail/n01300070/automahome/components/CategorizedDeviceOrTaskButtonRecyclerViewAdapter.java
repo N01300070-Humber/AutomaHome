@@ -2,9 +2,11 @@ package ca.humbermail.n01300070.automahome.components;
 
 import android.content.Context;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.solver.ArrayLinkedVariables;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -27,6 +29,10 @@ public class CategorizedDeviceOrTaskButtonRecyclerViewAdapter extends RecyclerVi
 			super(categoryView);
 			this.categoryView = categoryView;
 		}
+	}
+	
+	public CategorizedDeviceOrTaskButtonRecyclerViewAdapter(Context context) {
+		this(context, new ArrayList<CategoryData>());
 	}
 	
 	public CategorizedDeviceOrTaskButtonRecyclerViewAdapter(Context context, ArrayList<CategoryData> categoryDataList) {
@@ -88,6 +94,12 @@ public class CategorizedDeviceOrTaskButtonRecyclerViewAdapter extends RecyclerVi
 	public void setCategoryData(int categoryPosition, CategoryData categoryData) {
 		categoryDataList.set(categoryPosition, categoryData);
 		notifyItemChanged(categoryPosition);
+	}
+	
+	public void setCategoryDataList(ArrayList<CategoryData> categoryDataList) {
+		this.categoryDataList.clear();
+		this.categoryDataList.addAll(categoryDataList);
+		notifyDataSetChanged();
 	}
 	
 	

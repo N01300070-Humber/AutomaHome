@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -35,7 +37,8 @@ public class EditTaskActivity extends CustomActivity {
 	private Button addConditionButton;
 	private Button addOperationButton;
 	private Button saveButton;
-	private Button discardButton;
+	private Button deleteButton;
+	private TextInputEditText nameEditText;
 	private FavoriteSelectView favoriteSelectView;
 	private RecyclerView conditionsRecyclerView;
 	private RecyclerView operationsRecyclerView;
@@ -58,7 +61,8 @@ public class EditTaskActivity extends CustomActivity {
 		addConditionButton = findViewById(R.id.button_addCondition);
 		addOperationButton = findViewById(R.id.button_addOperation);
 		saveButton = findViewById(R.id.button_editTask_save);
-		discardButton = findViewById(R.id.button_editTask_discard);
+		deleteButton = findViewById(R.id.button_editTask_delete);
+		nameEditText = findViewById(R.id.editText_taskName);
 		favoriteSelectView = findViewById(R.id.favoriteSelectView_editTask);
 		conditionsRecyclerView = findViewById(R.id.recyclerView_conditions);
 		operationsRecyclerView = findViewById(R.id.recyclerView_operations);

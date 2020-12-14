@@ -87,8 +87,19 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeCurrentUser(LoginDataSource loginDataSource) {
+		String currentUserId = loginDataSource.getUserID();
+		
+		List<Home> homes = homeValues.getValue();
+		if (homes != null) {
+			for (Home home : homes) {
+				if (home.getOwner().equals(currentUserId)) {
+					removeHome(home.getId());
+				}
+			}
+		}
+		
 		database.getReference(USERS_REFERENCE)
-				.child(loginDataSource.getUserID())
+				.child(currentUserId)
 				.removeValue();
 	}
 	

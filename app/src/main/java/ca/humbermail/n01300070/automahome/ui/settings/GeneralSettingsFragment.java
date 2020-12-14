@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -53,7 +52,7 @@ public class GeneralSettingsFragment extends Fragment {
 
 		themeSpinner = root.findViewById(R.id.spinner_selectTheme);
 
-		settings = context.getSharedPreferences(PreferenceKeys.SETTINGS, Context.MODE_PRIVATE);
+		settings = context.getSharedPreferences(PreferenceKeys.KEY_SETTINGS, Context.MODE_PRIVATE);
 		settingsEditor = settings.edit();
 
 		loadToggleButtons();
@@ -89,13 +88,13 @@ public class GeneralSettingsFragment extends Fragment {
 
 
 
-		themeSpinner.setSelection(settings.getInt(PreferenceKeys.SETTINGS_THEME, 0));
+		themeSpinner.setSelection(settings.getInt(PreferenceKeys.KEY_SETTINGS_THEME, 0));
 		themeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
 				Toast.makeText(context, themeSpinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-				settingsEditor.putInt(PreferenceKeys.SETTINGS_THEME, (int) themeSpinner.getSelectedItemId());
+				settingsEditor.putInt(PreferenceKeys.KEY_SETTINGS_THEME, (int) themeSpinner.getSelectedItemId());
 				settingsEditor.apply();
 			}
 			

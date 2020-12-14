@@ -30,6 +30,10 @@ public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<
 		}
 	}
 	
+	public DeviceOrTaskButtonRecyclerViewAdapter(Context context, View.OnClickListener onClickListener) {
+		this(context, new ArrayList<DeviceOrTaskButtonData>(), onClickListener);
+	}
+	
 	public DeviceOrTaskButtonRecyclerViewAdapter(Context context, ArrayList<DeviceOrTaskButtonData> itemDataList, View.OnClickListener onClickListener) {
 		this.context = context;
 		this.itemDataList = itemDataList;
@@ -99,6 +103,12 @@ public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<
 		for (DeviceOrTaskButtonData itemData : itemDataList) {
 			itemData.setExtraTextVisible(visible);
 		}
+		notifyDataSetChanged();
+	}
+	
+	public void setItemDataList(ArrayList<DeviceOrTaskButtonData> itemDataList) {
+		this.itemDataList.clear();
+		this.itemDataList.addAll(itemDataList);
 		notifyDataSetChanged();
 	}
 }

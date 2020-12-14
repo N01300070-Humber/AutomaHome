@@ -58,14 +58,17 @@ public class CategorizedDeviceOrTaskButtonRecyclerViewAdapter extends RecyclerVi
 	@Override
 	public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
 		CategoryData data = categoryDataList.get(position);
+		DeviceOrTaskButtonRecyclerViewAdapter categoryAdapter = data.getViewAdapter();
 		
 		holder.categoryView.setHeaderText(data.getHeaderText());
 		holder.categoryView.setHeaderTextAppearance(data.getHeaderTextAppearance());
 		
+		holder.categoryView.setRecyclerViewLayoutManager(data.getLayoutManager());
+		holder.categoryView.setRecyclerViewAdapter(categoryAdapter);
+		
 		if (!holder.categoryView.initialized) {
+			// TODO: Move contents to onCreateViewHolder
 			holder.categoryView.setHeaderPadding(data.getHeaderSidePadding());
-			holder.categoryView.setRecyclerViewLayoutManager(data.getLayoutManager());
-			holder.categoryView.setRecyclerViewAdapter(data.getViewAdapter());
 			holder.categoryView.addRecyclerViewItemDecoration(data.getItemDecoration());
 			holder.categoryView.initialized = true;
 		}

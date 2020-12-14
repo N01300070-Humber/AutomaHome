@@ -34,8 +34,11 @@ public class RealtimeDatabaseDataSource {
 	private final static String HOMES_OWNER_PATH = "owner";
 	private final static String HOMES_EDITORS_PATH = "editors";
 	private final static String DEVICES_REFERENCE = "devices";
+	private final static String DEVICES_ID_PATH = "id";
 	private final static String DEVICES_HOME_ID_PATH = "homeId";
 	private final static String DEVICES_NAME_PATH = "name";
+	private final static String DEVICES_ROOM_PATH = "room";
+	private final static String DEVICES_TYPE_PATH = "type";
 	private final static String DEVICES_CATEGORY_PATH = "category";
 	private final static String TASKS_REFERENCE = "tasks";
 	private final static String TASKS_ID_PATH = "homeId";
@@ -385,7 +388,16 @@ public class RealtimeDatabaseDataSource {
 					Iterable<DataSnapshot> iterable = snapshot.getChildren();
 					
 					for (DataSnapshot dataSnapshot : iterable) {
-						devices.add((Device) dataSnapshot.getValue());
+						Device device = new Device(
+								(String) Objects.requireNonNull(dataSnapshot.child(DEVICES_ID_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(DEVICES_HOME_ID_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(DEVICES_NAME_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(DEVICES_ROOM_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(DEVICES_TYPE_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(DEVICES_CATEGORY_PATH).getValue())
+						);
+						
+						devices.add(device);
 					}
 				}
 				

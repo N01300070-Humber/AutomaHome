@@ -1,8 +1,6 @@
 package ca.humbermail.n01300070.automahome.ui.settings;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,17 +12,15 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import java.util.Objects;
-
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
 import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
-import ca.humbermail.n01300070.automahome.ui.CustomActivity;
-import ca.humbermail.n01300070.automahome.ui.main.WelcomeActivity;
+import ca.humbermail.n01300070.automahome.ui.main.NavDrawerActivity;
 
 public class AccountSettingsFragment extends Fragment {
 	private Context context;
 	
+	private NavDrawerActivity navDrawerActivity;
 	private LoginDataSource loginDataSource;
 	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
 	
@@ -53,9 +49,9 @@ public class AccountSettingsFragment extends Fragment {
 		View root = inflater.inflate(R.layout.fragment_settings_account, container, false);
 		context = requireActivity().getApplicationContext();
 		
-		CustomActivity parentActivity = (CustomActivity) requireActivity();
-		loginDataSource = parentActivity.getLoginDataSource();
-		realtimeDatabaseDataSource = parentActivity.getRealtimeDatabaseDataSource();
+		navDrawerActivity = (NavDrawerActivity) requireActivity();
+		loginDataSource = navDrawerActivity.getLoginDataSource();
+		realtimeDatabaseDataSource = navDrawerActivity.getRealtimeDatabaseDataSource();
 		
 		firstNameEditText = root.findViewById(R.id.editText_firstName);
 		lastNameEditText = root.findViewById(R.id.editText_lastName);
@@ -95,6 +91,8 @@ public class AccountSettingsFragment extends Fragment {
 	
 	private void deleteAccountButton_onClick(View view) {
 		Log.d("AccountSettingsFragment", "deleteAccountButton_onClick called");
+		
+		navDrawerActivity.removeHomeListeners();
 		loginDataSource.deleteAccount(realtimeDatabaseDataSource);
 	}
 	

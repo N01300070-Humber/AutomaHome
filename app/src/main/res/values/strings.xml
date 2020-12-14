@@ -197,9 +197,17 @@
 	<string name="error_current_home_inaccessible">Failed to access the current home</string>
 	<string name="new_home">New Home</string>
 	<string name="rename_home">Rename Home</string>
-	<string name="prompt_new_home_name">Name for New Home</string>
+	<string name="prompt_create_home_title">Create New Home</string>
+	<string name="prompt_create_home_message">Enter a name for the new home</string>
 	<string name="cancel">Cancel</string>
 	<string name="rename">Rename</string>
 	<string name="delete">Delete</string>
+	<string name="prompt_no_homes_title">No Homes Detected</string>
+	<string name="close_app">Close App</string>
+	<string name="check_invites">Check Invites</string>
+	<string name="create_home">Create Home</string>
+	<string name="prompt_no_homes_message">You currently don\'t have access to any homes. You can either create a new home or check to see if you have any invites to join a home.</string>
+	<string name="prompt_rename_home_title">Rename Home</string>
+	<string name="prompt_rename_home_message">Enter a new name for the current home</string>
 
 </resources>

@@ -26,7 +26,12 @@ public class ConditionOrOperationViewAdapter extends RecyclerView.Adapter<Condit
             this.conditionOrOperationView = conditionOrOperationView;
         }
     }
-
+    
+    public ConditionOrOperationViewAdapter(Context context, View.OnClickListener onClickListener)
+    {
+        this(context, new ArrayList<ConditionOrOperationViewData>(), onClickListener);
+    }
+    
     public ConditionOrOperationViewAdapter(Context context, ArrayList<ConditionOrOperationViewData> dataList, View.OnClickListener onClickListener)
     {
         this.context = context;
@@ -61,5 +66,11 @@ public class ConditionOrOperationViewAdapter extends RecyclerView.Adapter<Condit
     @Override
     public int getItemCount() {
         return dataList.size();
+    }
+    
+    public void setDataList(ArrayList<ConditionOrOperationViewData> dataList) {
+        this.dataList.clear();
+        this.dataList.addAll(dataList);
+        notifyDataSetChanged();
     }
 }

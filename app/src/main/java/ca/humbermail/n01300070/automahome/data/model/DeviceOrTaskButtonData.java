@@ -63,6 +63,14 @@ public class DeviceOrTaskButtonData {
 		this.type = type;
 	}
 	
+	public String getDeviceOrTaskId() {
+		return deviceOrTaskId;
+	}
+	
+	public void setDeviceOrTaskId(String deviceOrTaskId) {
+		this.deviceOrTaskId = deviceOrTaskId;
+	}
+	
 	public String getDeviceType() {
 		return deviceType;
 	}

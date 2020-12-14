@@ -58,6 +58,7 @@ public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<
 		DeviceOrTaskButtonData data = itemDataList.get(position);
 		
 		holder.deviceButtonView.setType(data.getType());
+		holder.deviceButtonView.setDeviceOrTaskId(data.getDeviceOrTaskId());
 		holder.deviceButtonView.setDeviceType(data.getDeviceType());
 		holder.deviceButtonView.setName(data.getName());
 		String extraText = data.getExtraText();

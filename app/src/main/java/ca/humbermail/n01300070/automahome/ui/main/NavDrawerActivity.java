@@ -99,6 +99,7 @@ public class NavDrawerActivity extends CustomActivity {
 			public void onLoginStateChanged(@NonNull FirebaseAuth firebaseAuth, boolean loggedIn) {
 				Log.d("NavDrawerActivity", "detected login state change. Value is now " + loggedIn);
 				if (loggedIn) {
+					// TODO: Fix bug where name is not obtained correctly after register or login
 					updateUI(Objects.requireNonNull(firebaseAuth.getCurrentUser()));
 					setOnHomeValuesChangeListener();
 					dataSourcesInitialized = true;

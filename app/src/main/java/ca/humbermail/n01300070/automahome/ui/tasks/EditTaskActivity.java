@@ -31,8 +31,15 @@ import ca.humbermail.n01300070.automahome.ui.tasks.condition.EditConditionActivi
 import ca.humbermail.n01300070.automahome.ui.tasks.operation.EditOperationActivity;
 
 public class EditTaskActivity extends CustomActivity {
+	public static final String EXTRA_TASK_ID = "taskId";
+	public static final String EXTRA_TASK_NAME = "taskName";
+	public static final String EXTRA_CONDITION_ID = "conditionId";
+	public static final String EXTRA_OPERATION_ID = "operationId";
+	
+	private static final String DEFAULT_NAME = "Untitled Task";
 	
 	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
+	private String taskId;
 	
 	private Button addConditionButton;
 	private Button addOperationButton;

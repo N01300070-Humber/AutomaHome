@@ -18,26 +18,43 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.CategorizedDeviceOrTaskButtonRecyclerViewAdapter;
 import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonView;
 import ca.humbermail.n01300070.automahome.components.RecyclerViewCategoryPadding;
+import ca.humbermail.n01300070.automahome.data.LoginDataSource;
+import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
+import ca.humbermail.n01300070.automahome.data.model.Condition;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 
 public class TasksFragment extends Fragment {
 	private Context context;
 	
 	private RecyclerView recyclerView;
 	private ExtendedFloatingActionButton createTaskFAB;
-	
+	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
+	private LoginDataSource loginDataSource;
+
+
 	private CategorizedDeviceOrTaskButtonRecyclerViewAdapter categoryAdapter;
 	private View.OnClickListener categoryOnClickListener;
+
+	final int ADD_TASK = 1;
 	
 	public View onCreateView(@NonNull LayoutInflater inflater,
 							 ViewGroup container, Bundle savedInstanceState) {
 		TasksViewModel tasksViewModel = new ViewModelProvider(this).get(TasksViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_tasks, container, false);
+		context = requireActivity().getApplicationContext();
+
+		CustomActivity parentActivity = (CustomActivity) requireActivity();
+		loginDataSource = parentActivity.getLoginDataSource();
+		realtimeDatabaseDataSource = parentActivity.getRealtimeDatabaseDataSource();
+		realtimeDatabaseDataSource.setCurrentHome("testhome");
+
 		context = getActivity().getApplicationContext();
 		
 		createTaskFAB = root.findViewById(R.id.extendedFAB_add_task);
@@ -69,8 +86,15 @@ public class TasksFragment extends Fragment {
 		// End of onCreateView
 		return root;
 	}
-	
+
+	@Override
+	public void onStart() {
+		super.onStart();
+
+		realtimeDatabaseDataSource.listenForTaskValueChanges();
+	}
+
 	private void startEditTaskActivity() {
-		startActivity(new Intent(context, EditTaskActivity.class));
+		startActivityForResult(new Intent(context, EditTaskActivity.class),ADD_TASK);
 	}
 }

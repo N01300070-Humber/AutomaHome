@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
@@ -16,12 +18,20 @@ import ca.humbermail.n01300070.automahome.components.RecyclerViewItemDivider;
 import ca.humbermail.n01300070.automahome.data.model.CategoryData;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 
+
 public class TasksViewModel extends ViewModel {
-	
+
+	private final MutableLiveData<String> mText;
+
 	public TasksViewModel() {
-	
+		mText = new MutableLiveData<>();
+		mText.setValue("This is the task fragment");
 	}
-	
+
+	public LiveData<String> getText() {
+		return mText;
+	}
+
 	// TODO: Replace placeholder data generator function with one that gets real data
 	public ArrayList<CategoryData> generatePlaceholderCategorizedTaskDataList(Context context, View.OnClickListener onClickListener) {
 		Random random = new Random();

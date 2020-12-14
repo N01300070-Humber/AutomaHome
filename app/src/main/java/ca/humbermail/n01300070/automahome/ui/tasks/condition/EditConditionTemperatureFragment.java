@@ -1,6 +1,5 @@
 package ca.humbermail.n01300070.automahome.ui.tasks.condition;
 
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
@@ -11,13 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.NumberPicker;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
@@ -58,7 +52,7 @@ public class EditConditionTemperatureFragment extends Fragment {
         temperatureNumberPickerView.setNumber(32); // TODO: Replace hardcoded number with saved temperature or default (convert if user preference is fahrenheit)
 
 
-        settings = context.getSharedPreferences(PreferenceKeys.SETTINGS, Context.MODE_PRIVATE);
+        settings = context.getSharedPreferences(PreferenceKeys.KEY_SETTINGS, Context.MODE_PRIVATE);
         settingsEditor = settings.edit();
 
         String kind_of_degree_default = getString(R.string.celsius);

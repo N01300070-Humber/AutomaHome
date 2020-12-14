@@ -74,6 +74,7 @@ public class FavoritesViewModel extends ViewModel {
 		for (int i = 0; i < numTasks; i++) {
 			DeviceOrTaskButtonData taskData = new DeviceOrTaskButtonData(
 					DeviceOrTaskButtonData.TYPE_TASK,
+					null,
 					"Task Name",
 					"Note",
 					ContextCompat.getDrawable(context, R.drawable.ic_task),
@@ -89,6 +90,7 @@ public class FavoritesViewModel extends ViewModel {
 		for (int i = 0; i < numLights; i++) {
 			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
 					DeviceOrTaskButtonData.TYPE_DEVICE,
+					null,
 					"Light Name",
 					"Room",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),
@@ -104,6 +106,7 @@ public class FavoritesViewModel extends ViewModel {
 		for (int i = 0; i < numSensors; i++) {
 			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
 					DeviceOrTaskButtonData.TYPE_DEVICE,
+					null,
 					"Movement Sensor Name",
 					"Room",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),
@@ -118,6 +121,7 @@ public class FavoritesViewModel extends ViewModel {
 		for (int i = 0; i < numDevices - numLights - numSensors; i++) {
 			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
 					DeviceOrTaskButtonData.TYPE_DEVICE,
+					null,
 					"Thermostat Name",
 					"Room",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),

@@ -38,7 +38,7 @@ public class EditOperationActivity extends AppCompatActivity {
 		}
 		
 		saveButton = findViewById(R.id.button_editOperation_save);
-		discardButton = findViewById(R.id.button_editOperation_discard);
+		discardButton = findViewById(R.id.button_editOperation_delete);
 		
 		setActiveFragment(operationType);
 	}

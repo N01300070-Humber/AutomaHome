@@ -42,7 +42,7 @@ public class EditOperationThermostatFragment extends Fragment {
 		temperatureNumberPickerView.setNumber(32); // TODO: Replace hardcoded number with saved temperature or default (convert if user preference is fahrenheit)
 
 
-		settings = context.getSharedPreferences(PreferenceKeys.SETTINGS, Context.MODE_PRIVATE);
+		settings = context.getSharedPreferences(PreferenceKeys.KEY_SETTINGS, Context.MODE_PRIVATE);
 		settingsEditor = settings.edit();
 
 		String kind_of_degree_default = getString(R.string.celsius);

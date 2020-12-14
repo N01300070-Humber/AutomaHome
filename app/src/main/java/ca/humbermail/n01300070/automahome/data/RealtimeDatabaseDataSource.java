@@ -1,5 +1,6 @@
 package ca.humbermail.n01300070.automahome.data;
 
+import android.util.Log;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
@@ -37,8 +38,10 @@ public class RealtimeDatabaseDataSource {
 	private final static String DEVICES_NAME_PATH = "name";
 	private final static String DEVICES_CATEGORY_PATH = "category";
 	private final static String TASKS_REFERENCE = "tasks";
+	private final static String TASKS_ID_PATH = "homeId";
 	private final static String TASKS_HOME_ID_PATH = "homeId";
 	private final static String TASKS_NAME_PATH = "name";
+	private final static String TASKS_NOTE_PATH = "note";
 	private final static String TASKS_CATEGORY_PATH = "category";
 	private final static String TASK_CONDITIONS_PATH = "conditions";
 	private final static String TASK_CONDITIONS_POSITION_PATH = "position";
@@ -79,6 +82,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void addCurrentUser(LoginDataSource loginDataSource, String displayName, String emailAddress) {
+		Log.d("DatabaseDataSource", "addCurrentUser called");
+		
 		DatabaseReference reference = database.getReference(USERS_REFERENCE);
 		
 		String key = loginDataSource.getUserID();
@@ -87,6 +92,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeCurrentUser(LoginDataSource loginDataSource) {
+		Log.d("DatabaseDataSource", "removeCurrentUser called");
+		
 		String currentUserId = loginDataSource.getUserID();
 		
 		List<Home> homes = homeValues.getValue();
@@ -104,6 +111,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void updateCurrentUserDisplayName(LoginDataSource loginDataSource, String displayName) {
+		Log.d("DatabaseDataSource", "updateCurrentUserDisplayName called");
+		
 		database.getReference(USERS_REFERENCE)
 				.child(loginDataSource.getUserID())
 				.child(USERS_NAME_PATH)
@@ -111,6 +120,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void updateCurrentUserEmailAddress(LoginDataSource loginDataSource, String emailAddress) {
+		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
+		
 		database.getReference(USERS_REFERENCE)
 				.child(loginDataSource.getUserID())
 				.child(USERS_EMAIL_PATH)
@@ -133,6 +144,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void addHome(String name, LoginDataSource loginDataSource) {
+		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
+		
 		DatabaseReference reference = database.getReference(HOMES_REFERENCE);
 		
 		String key = reference.push().getKey();
@@ -145,10 +158,14 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeHome() {
+		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
+		
 		removeHome(currentHomeId);
 	}
 	
 	public void removeHome(String homeId) {
+		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
+		
 		database.getReference(HOMES_REFERENCE)
 				.child(homeId)
 				.removeValue();
@@ -157,10 +174,14 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void updateHomeName(String name) {
+		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
+		
 		updateHomeName(currentHomeId, name);
 	}
 	
 	public void updateHomeName(String homeId, String name) {
+		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
+		
 		database.getReference(HOMES_REFERENCE)
 				.child(homeId)
 				.child(HOMES_NAME_PATH)
@@ -168,9 +189,13 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	private void listenForHomesValueChanges(final String uid) {
+		Log.d("DatabaseDataSource", "listenForHomesValueChanges called");
+		
 		homesValueEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				Log.d("DatabaseDataSource", "Detected change in Homes data");
+				
 				final ArrayList<Home> homes = new ArrayList<>();
 				
 				if (snapshot.exists()) {
@@ -203,10 +228,14 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeHomesValueChangesListener() {
+		Log.d("DatabaseDataSource", "removeHomesValueChangesListener called");
+		
 		database.getReference(HOMES_REFERENCE).removeEventListener(homesValueEventListener);
 	}
 	
 	public LiveData<List<Home>> onHomeValuesChange(LoginDataSource loginDataSource) {
+		Log.d("DatabaseDataSource", "onHomeValuesChange called");
+		
 		listenForHomesValueChanges(loginDataSource.getUserID());
 		return homeValues;
 	}
@@ -218,6 +247,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	private void addHomeEditor(String homeId, String uid, boolean acceptedInvite) {
+		Log.d("DatabaseDataSource", "addHomeEditor called");
+		
 		database.getReference(HOMES_REFERENCE)
 				.child(homeId)
 				.child(HOMES_EDITORS_PATH)
@@ -226,6 +257,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeHomeEditor(String uid) {
+		Log.d("DatabaseDataSource", "removeHomeEditor called");
+		
 		database.getReference(HOMES_REFERENCE)
 				.child(currentHomeId)
 				.child(HOMES_EDITORS_PATH)
@@ -234,6 +267,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void updateHomeEditor(String uid, boolean acceptedInvite) {
+		Log.d("DatabaseDataSource", "updateHomeEditor called");
+		
 		database.getReference(HOMES_REFERENCE)
 				.child(currentHomeId)
 				.child(HOMES_EDITORS_PATH)
@@ -242,9 +277,13 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	private void listenForHomeEditorsValueChanges() {
+		Log.d("DatabaseDataSource", "listenForHomeEditorsValueChanges called");
+		
 		homeEditorsValueEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				Log.d("DatabaseDataSource", "Detected change in Home Editors data");
+				
 				ArrayList<Pair<String, Boolean>> editors = new ArrayList<>();
 				
 				if (snapshot.exists()) {
@@ -274,6 +313,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeHomeEditorsValueChangesListener() {
+		Log.d("DatabaseDataSource", "removeHomeEditorsValueChangesListener called");
+		
 		database.getReference(HOMES_REFERENCE)
 				.child(currentHomeId)
 				.child(HOMES_EDITORS_PATH)
@@ -281,32 +322,40 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public LiveData<List<Pair<String, Boolean>>> onHomeEditorValuesChange() {
+		Log.d("DatabaseDataSource", "onHomeEditorValuesChange called");
+		
 		listenForHomeEditorsValueChanges();
 		return homeEditorValues;
 	}
 	
 	
 	// Devices
-	private Device createDevice(String key, String name, String type, String category) {
-		return new Device(key, currentHomeId, name, type, category);
+	private Device createDevice(String key, String name, String type, String room, String category) {
+		return new Device(key, currentHomeId, name, room, type, category);
 	}
 	
-	public void addDevice(String name, String type, String category) {
+	public void addDevice(String name, String type, String room, String category) {
+		Log.d("DatabaseDataSource", "addDevice called");
+		
 		DatabaseReference reference = database.getReference(DEVICES_REFERENCE);
 		
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue(createDevice(key, name, type, category));
+		reference.child(key).setValue(createDevice(key, name, type, room, category));
 	}
 	
 	public void removeDevice(String deviceId) {
+		Log.d("DatabaseDataSource", "removeDevice called");
+		
 		database.getReference(DEVICES_REFERENCE)
 				.child(deviceId)
 				.removeValue();
 	}
 	
 	public void updateDeviceName(String deviceId, String name) {
+		Log.d("DatabaseDataSource", "updateDeviceName called");
+		
 		database.getReference(DEVICES_REFERENCE)
 				.child(deviceId)
 				.child(DEVICES_NAME_PATH)
@@ -314,6 +363,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void updateDeviceCategory(String deviceId, String category) {
+		Log.d("DatabaseDataSource", "updateDeviceCategory called");
+		
 		database.getReference(DEVICES_REFERENCE)
 				.child(deviceId)
 				.child(DEVICES_CATEGORY_PATH)
@@ -321,9 +372,13 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	private void listenForDevicesValueChanges() {
+		Log.d("DatabaseDataSource", "listenForDevicesValueChanges called");
+		
 		devicesValueEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				Log.d("DatabaseDataSource", "Detected change in Devices data");
+				
 				ArrayList<Device> devices = new ArrayList<>();
 				
 				if (snapshot.exists()) {
@@ -350,60 +405,85 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeDevicesValueChangesListener() {
+		Log.d("DatabaseDataSource", "removeDevicesValueChangesListener called");
+		
 		database.getReference(DEVICES_REFERENCE).removeEventListener(devicesValueEventListener);
 	}
 	
 	public LiveData<List<Device>> onDeviceValuesChange() {
+		Log.d("DatabaseDataSource", "onDeviceValuesChange called");
+		
 		listenForDevicesValueChanges();
 		return deviceValues;
 	}
 	
 	
 	// Tasks
-	private Task createTask(String key, String name, String category) {
-		return new Task(key, currentHomeId, name, category);
+	private Task createTask(String key, String name, String note, String category) {
+		return new Task(key, currentHomeId, name, note, category);
 	}
 	
-	public void addTask(String name, String type, String category) {
+	public String addTask(String name, String note, String category) {
+		Log.d("DatabaseDataSource", "addTask called");
+		
 		DatabaseReference reference = database.getReference(TASKS_REFERENCE);
 		
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue(createTask(key, name, category));
+		reference.child(key).setValue(createTask(key, name, note, category));
+		return key;
 	}
 	
 	public void removeTask(String key) {
+		Log.d("DatabaseDataSource", "removeTask called");
+		
 		database.getReference(TASKS_REFERENCE)
 				.child(key)
 				.removeValue();
 	}
 	
-	public void updateTaskName(String key, String name) {
+	public void updateTaskName(String taskId, String name) {
+		Log.d("DatabaseDataSource", "updateTaskName called");
+		
 		database.getReference(TASKS_REFERENCE)
-				.child(key)
+				.child(taskId)
 				.child(TASKS_NAME_PATH)
 				.setValue(name);
 	}
 	
-	public void updateTaskCategory(String key, String category) {
+	public void updateTaskCategory(String taskId, String category) {
+		Log.d("DatabaseDataSource", "updateTaskCategory called");
+		
 		database.getReference(TASKS_REFERENCE)
-				.child(key)
+				.child(taskId)
 				.child(TASKS_CATEGORY_PATH)
 				.setValue(category);
 	}
 	
 	private void listenForTaskValueChanges() {
+		Log.d("DatabaseDataSource", "listenForTaskValueChanges called");
+		
 		tasksValueEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				Log.d("DatabaseDataSource", "Detected change in Tasks data");
+				
 				ArrayList<Task> tasks = new ArrayList<>();
 				
 				if (snapshot.exists()) {
 					Iterable<DataSnapshot> iterable = snapshot.getChildren();
 					
 					for (DataSnapshot dataSnapshot : iterable) {
-						tasks.add((Task) dataSnapshot.getValue());
+						Task task = new Task(
+								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_ID_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_HOME_ID_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_NAME_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_NOTE_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_CATEGORY_PATH).getValue())
+						);
+						
+						tasks.add(task);
 					}
 				}
 				
@@ -423,10 +503,14 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeTasksValueChangesListener() {
+		Log.d("DatabaseDataSource", "removeTasksValueChangesListener called");
+		
 		database.getReference(TASKS_REFERENCE).removeEventListener(tasksValueEventListener);
 	}
 	
 	public LiveData<List<Task>> onTaskValuesChange() {
+		Log.d("DatabaseDataSource", "onTaskValuesChange called");
+		
 		listenForTaskValueChanges();
 		return taskValues;
 	}
@@ -438,6 +522,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void addTaskCondition(String taskId, int position, String type, String referenceDeviceId) {
+		Log.d("DatabaseDataSource", "addTaskCondition called");
+		
 		DatabaseReference reference = database.getReference(TASKS_REFERENCE)
 				.child(taskId)
 				.child(TASK_CONDITIONS_PATH);
@@ -449,6 +535,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeTaskCondition(String taskId, String taskConditionId) {
+		Log.d("DatabaseDataSource", "removeTaskCondition called");
+		
 		database.getReference(TASKS_REFERENCE)
 				.child(taskId)
 				.child(TASK_CONDITIONS_PATH)
@@ -457,6 +545,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void updateTaskConditionPosition(String taskId, String taskConditionId, int position) {
+		Log.d("DatabaseDataSource", "updateTaskConditionPosition called");
+		
 		database.getReference(TASKS_REFERENCE)
 				.child(taskId)
 				.child(TASK_CONDITIONS_PATH)
@@ -466,6 +556,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void updateTaskConditionReferenceDevice(String taskId, String taskConditionId, String referenceDeviceId) {
+		Log.d("DatabaseDataSource", "updateTaskConditionReferenceDevice called");
+		
 		database.getReference(TASKS_REFERENCE)
 				.child(taskId)
 				.child(TASK_CONDITIONS_PATH)
@@ -475,9 +567,13 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	private void listenForTaskConditionValueChanges(String taskId) {
+		Log.d("DatabaseDataSource", "listenForTaskConditionValueChanges called");
+		
 		taskConditionsValueEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				Log.d("DatabaseDataSource", "Detected change in Task Conditions data");
+				
 				ArrayList<Condition> conditions = new ArrayList<>();
 				
 				if (snapshot.exists()) {
@@ -500,10 +596,13 @@ public class RealtimeDatabaseDataSource {
 		database.getReference(TASKS_REFERENCE)
 				.child(taskId)
 				.child(TASK_CONDITIONS_PATH)
+				.orderByChild(TASK_CONDITIONS_POSITION_PATH)
 				.addValueEventListener(taskConditionsValueEventListener);
 	}
 	
 	public void removeTaskConditionsValueChangesListener(String taskId) {
+		Log.d("DatabaseDataSource", "removeTaskConditionsValueChangesListener called");
+		
 		database.getReference(TASKS_REFERENCE)
 				.child(taskId)
 				.child(TASK_CONDITIONS_PATH)
@@ -511,6 +610,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public LiveData<List<Condition>> onTaskConditionValuesChange(String taskId) {
+		Log.d("DatabaseDataSource", "onTaskConditionValuesChange called");
+		
 		listenForTaskConditionValueChanges(taskId);
 		return taskConditionValues;
 	}
@@ -522,6 +623,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void addTaskOperation(String taskId, int position, String type, String referenceDeviceId) {
+		Log.d("DatabaseDataSource", "addTaskOperation called");
+		
 		DatabaseReference reference = database.getReference(TASKS_REFERENCE)
 				.child(taskId)
 				.child(TASK_OPERATIONS_PATH);
@@ -533,6 +636,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeTaskOperation(String taskId, String taskOperationId) {
+		Log.d("DatabaseDataSource", "removeTaskOperation called");
+		
 		database.getReference(TASKS_REFERENCE)
 				.child(taskId)
 				.child(TASK_OPERATIONS_PATH)
@@ -541,6 +646,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void updateTaskOperationPosition(String taskId, String taskOperationId, int position) {
+		Log.d("DatabaseDataSource", "updateTaskOperationPosition called");
+		
 		database.getReference(TASKS_REFERENCE)
 				.child(taskId)
 				.child(TASK_OPERATIONS_PATH)
@@ -550,6 +657,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void updateTaskOperationReferenceDevice(String taskId, String taskOperationId, String referenceDeviceId) {
+		Log.d("DatabaseDataSource", "updateTaskOperationReferenceDevice called");
+		
 		database.getReference(TASKS_REFERENCE)
 				.child(taskId)
 				.child(TASK_OPERATIONS_PATH)
@@ -559,9 +668,13 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	private void listenForTaskOperationValueChanges(String taskId) {
+		Log.d("DatabaseDataSource", "listenForTaskOperationValueChanges called");
+		
 		taskOperationsValueEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				Log.d("DatabaseDataSource", "Detected change in Task Operations data");
+				
 				ArrayList<Operation> operations = new ArrayList<>();
 				
 				if (snapshot.exists()) {
@@ -584,10 +697,13 @@ public class RealtimeDatabaseDataSource {
 		database.getReference(TASKS_REFERENCE)
 				.child(taskId)
 				.child(TASK_OPERATIONS_PATH)
+				.orderByChild(TASK_OPERATIONS_POSITION_PATH)
 				.addValueEventListener(taskOperationsValueEventListener);
 	}
 	
 	public void removeTaskOperationsValueChangesListener(String taskId) {
+		Log.d("DatabaseDataSource", "removeTaskOperationsValueChangesListener called");
+		
 		database.getReference(TASKS_REFERENCE)
 				.child(taskId)
 				.child(TASK_OPERATIONS_PATH)
@@ -595,6 +711,8 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public LiveData<List<Operation>> onTaskOperationValuesChange(String taskId) {
+		Log.d("DatabaseDataSource", "onTaskOperationValuesChange called");
+		
 		listenForTaskOperationValueChanges(taskId);
 		return taskOperationValues;
 	}

@@ -38,7 +38,7 @@ public class EditConditionActivity extends AppCompatActivity {
 		}
 		
 		saveButton = findViewById(R.id.button_editCondition_save);
-		discardButton = findViewById(R.id.button_editCondition_discard);
+		discardButton = findViewById(R.id.button_editCondition_delete);
 		
 		setActiveFragment(conditionType);
 	}

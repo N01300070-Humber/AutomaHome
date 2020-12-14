@@ -2,9 +2,11 @@ package ca.humbermail.n01300070.automahome.components;
 
 import android.content.Context;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.solver.ArrayLinkedVariables;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -27,6 +29,10 @@ public class CategorizedDeviceOrTaskButtonRecyclerViewAdapter extends RecyclerVi
 			super(categoryView);
 			this.categoryView = categoryView;
 		}
+	}
+	
+	public CategorizedDeviceOrTaskButtonRecyclerViewAdapter(Context context) {
+		this(context, new ArrayList<CategoryData>());
 	}
 	
 	public CategorizedDeviceOrTaskButtonRecyclerViewAdapter(Context context, ArrayList<CategoryData> categoryDataList) {
@@ -52,14 +58,17 @@ public class CategorizedDeviceOrTaskButtonRecyclerViewAdapter extends RecyclerVi
 	@Override
 	public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
 		CategoryData data = categoryDataList.get(position);
+		DeviceOrTaskButtonRecyclerViewAdapter categoryAdapter = data.getViewAdapter();
 		
 		holder.categoryView.setHeaderText(data.getHeaderText());
 		holder.categoryView.setHeaderTextAppearance(data.getHeaderTextAppearance());
 		
+		holder.categoryView.setRecyclerViewLayoutManager(data.getLayoutManager());
+		holder.categoryView.setRecyclerViewAdapter(categoryAdapter);
+		
 		if (!holder.categoryView.initialized) {
+			// TODO: Move contents to onCreateViewHolder
 			holder.categoryView.setHeaderPadding(data.getHeaderSidePadding());
-			holder.categoryView.setRecyclerViewLayoutManager(data.getLayoutManager());
-			holder.categoryView.setRecyclerViewAdapter(data.getViewAdapter());
 			holder.categoryView.addRecyclerViewItemDecoration(data.getItemDecoration());
 			holder.categoryView.initialized = true;
 		}
@@ -88,6 +97,12 @@ public class CategorizedDeviceOrTaskButtonRecyclerViewAdapter extends RecyclerVi
 	public void setCategoryData(int categoryPosition, CategoryData categoryData) {
 		categoryDataList.set(categoryPosition, categoryData);
 		notifyItemChanged(categoryPosition);
+	}
+	
+	public void setCategoryDataList(ArrayList<CategoryData> categoryDataList) {
+		this.categoryDataList.clear();
+		this.categoryDataList.addAll(categoryDataList);
+		notifyDataSetChanged();
 	}
 	
 	

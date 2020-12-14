@@ -65,6 +65,7 @@ public class ChooseOperationFragment extends Fragment {
 		for (int i = 0; i < operationTypeList.length; i++) {
 			ConditionOrOperationViewData conditionData = new ConditionOrOperationViewData(
 					ConditionOrOperationViewData.TYPE_OPERATION,
+					null,
 					operationTypeList[i],
 					operationNameList[i],
 					operationDescriptionList[i],

@@ -1,8 +1,11 @@
 package ca.humbermail.n01300070.automahome.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -34,6 +37,7 @@ import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
+import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
 import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.data.model.Home;
 import ca.humbermail.n01300070.automahome.ui.CustomActivity;
@@ -53,6 +57,9 @@ public class NavDrawerActivity extends CustomActivity {
 	
 	private ArrayAdapter<String> homesAdapter;
 	
+	private SharedPreferences.Editor sharedPreferencesEditor;
+	
+	@SuppressLint("CommitPrefEdits")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d("NavDrawerActivity", "onCreate called");
@@ -72,6 +79,9 @@ public class NavDrawerActivity extends CustomActivity {
 		NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
 		NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 		NavigationUI.setupWithNavController(navigationView, navController);
+		
+		SharedPreferences sharedPreferences = getSharedPreferences(PreferenceKeys.KEY_SESSION, Context.MODE_PRIVATE);
+		sharedPreferencesEditor = sharedPreferences.edit();
 		
 		navHeaderTextView = navigationView.getHeaderView(0).findViewById(R.id.textView_navHeader);
 		homeSpinner = navigationView.getHeaderView(0).findViewById(R.id.spinner_home);
@@ -99,6 +109,7 @@ public class NavDrawerActivity extends CustomActivity {
 			public void onLoginStateChanged(@NonNull FirebaseAuth firebaseAuth, boolean loggedIn) {
 				Log.d("NavDrawerActivity", "detected login state change. Value is now " + loggedIn);
 				if (loggedIn) {
+					// TODO: Fix bug where name is not obtained correctly after register or login
 					updateUI(Objects.requireNonNull(firebaseAuth.getCurrentUser()));
 					setOnHomeValuesChangeListener();
 					dataSourcesInitialized = true;
@@ -109,7 +120,9 @@ public class NavDrawerActivity extends CustomActivity {
 		}));
 		loginDataSource = getLoginDataSource();
 		
-		realtimeDatabaseDataSource.setCurrentHomeId("testhome"); // TODO: Replace with real data
+		realtimeDatabaseDataSource.setCurrentHomeId(
+				sharedPreferences.getString(PreferenceKeys.KEY_SESSION_SELECTED_HOME, "")
+		);
 	}
 	
 	@Override
@@ -136,8 +149,10 @@ public class NavDrawerActivity extends CustomActivity {
 	public void homeSpinner_ItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 		Log.d("NavDrawerActivity", "homeSpinner_ItemSelected called");
 		
-		Home selectedHome = homes.get(position);
-		realtimeDatabaseDataSource.setCurrentHomeId(selectedHome.getId());
+		String selectedHomeId = homes.get(position).getId();
+		realtimeDatabaseDataSource.setCurrentHomeId(selectedHomeId);
+		sharedPreferencesEditor.putString(PreferenceKeys.KEY_SESSION_SELECTED_HOME, selectedHomeId);
+		sharedPreferencesEditor.apply();
 		
 		if (homeSpinnerListener != null) {
 			homeSpinnerListener.onHomeSpinnerItemChanged(adapterView, view, position, id);
@@ -201,7 +216,11 @@ public class NavDrawerActivity extends CustomActivity {
 		Log.d("NavDrawerActivity", "handleCurrentHomeInaccessible called");
 		if (homes.size() > 0) {
 			Toast.makeText(this, R.string.error_current_home_inaccessible, Toast.LENGTH_SHORT).show();
-			realtimeDatabaseDataSource.setCurrentHomeId(homes.get(0).getId());
+			
+			String selectedHomeId = homes.get(0).getId();
+			realtimeDatabaseDataSource.setCurrentHomeId(selectedHomeId);
+			sharedPreferencesEditor.putString(PreferenceKeys.KEY_SESSION_SELECTED_HOME, selectedHomeId);
+			sharedPreferencesEditor.apply();
 		} else {
 			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 			

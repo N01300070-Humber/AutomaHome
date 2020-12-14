@@ -77,6 +77,7 @@ public class DeviceSearchActivity extends AppCompatActivity {
 			
 			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
 					DeviceOrTaskButtonData.TYPE_DEVICE,
+					null,
 					deviceNames[randInt],
 					"Room",
 					ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_devices),

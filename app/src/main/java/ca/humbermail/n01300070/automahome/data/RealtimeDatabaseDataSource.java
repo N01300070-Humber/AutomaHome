@@ -37,8 +37,10 @@ public class RealtimeDatabaseDataSource {
 	private final static String DEVICES_NAME_PATH = "name";
 	private final static String DEVICES_CATEGORY_PATH = "category";
 	private final static String TASKS_REFERENCE = "tasks";
+	private final static String TASKS_ID_PATH = "homeId";
 	private final static String TASKS_HOME_ID_PATH = "homeId";
 	private final static String TASKS_NAME_PATH = "name";
+	private final static String TASKS_NOTE_PATH = "note";
 	private final static String TASKS_CATEGORY_PATH = "category";
 	private final static String TASK_CONDITIONS_PATH = "conditions";
 	private final static String TASK_CONDITIONS_POSITION_PATH = "position";
@@ -404,7 +406,15 @@ public class RealtimeDatabaseDataSource {
 					Iterable<DataSnapshot> iterable = snapshot.getChildren();
 					
 					for (DataSnapshot dataSnapshot : iterable) {
-						tasks.add((Task) dataSnapshot.getValue());
+						Task task = new Task(
+								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_ID_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_HOME_ID_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_NAME_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_NOTE_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_CATEGORY_PATH).getValue())
+						);
+						
+						tasks.add(task);
 					}
 				}
 				

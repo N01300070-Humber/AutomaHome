@@ -24,6 +24,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.CategorizedDeviceOrTaskButtonRecyclerViewAdapter;
+import ca.humbermail.n01300070.automahome.components.ConditionOrOperationView;
 import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonView;
 import ca.humbermail.n01300070.automahome.components.RecyclerViewCategoryPadding;
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
@@ -66,7 +67,7 @@ public class TasksFragment extends Fragment {
 		createTaskFAB.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				startEditTaskActivity();
+				startEditTaskActivity(null, null);
 			}
 		});
 		
@@ -74,7 +75,8 @@ public class TasksFragment extends Fragment {
 		categoryOnClickListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				startEditTaskActivity();
+				DeviceOrTaskButtonView taskButton = (DeviceOrTaskButtonView) view;
+				startEditTaskActivity(taskButton.getDeviceOrTaskId(), taskButton.getName());
 			}
 		};
 		categoryAdapter = new CategorizedDeviceOrTaskButtonRecyclerViewAdapter(context);
@@ -106,11 +108,16 @@ public class TasksFragment extends Fragment {
 			}
 		});
 	}
-
-	private void startEditTaskActivity() {
+	
+	private void startEditTaskActivity(String taskId, String taskName) {
 		Log.d("TasksFragment", "startEditTaskActivity called");
 		
-		startActivity(new Intent(context, EditTaskActivity.class));
+		Intent intent = new Intent(context, EditTaskActivity.class);
+		if (taskId != null & taskName != null) {
+			intent.putExtra(EditTaskActivity.EXTRA_TASK_ID, taskId);
+			intent.putExtra(EditTaskActivity.EXTRA_TASK_NAME, taskName);
+		}
+		startActivity(intent);
 	}
 	
 	@Override

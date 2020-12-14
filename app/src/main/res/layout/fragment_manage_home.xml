@@ -40,7 +40,7 @@
 		android:layout_width="0dp"
 		android:layout_height="0dp"
 		android:layout_marginTop="16dp"
-		android:layout_marginBottom="16dp"
+		android:layout_marginBottom="8dp"
 		app:layout_constraintBottom_toTopOf="@+id/button_deleteHome"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
@@ -117,6 +117,7 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="1.0"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/button_addUser" />
 		
@@ -127,10 +128,45 @@
 		android:id="@+id/button_deleteHome"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
 		android:backgroundTint="@color/design_default_color_error"
-		android:text="@string/delete_home"
+		android:text="@string/delete"
 		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/space5"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintHorizontal_chainStyle="packed"
 		app:layout_constraintStart_toStartOf="parent" />
+	
+	<Space
+		android:id="@+id/space5"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/button_renameHome"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/button_deleteHome" />
+	
+	<Button
+		android:id="@+id/button_renameHome"
+		style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:text="@string/rename"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/button_createHome"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/space5" />
+	
+	<Button
+		android:id="@+id/button_createHome"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/new_home"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/button_renameHome" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

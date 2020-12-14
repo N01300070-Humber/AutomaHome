@@ -95,7 +95,7 @@
 	<string name="saveChanges">Save Task</string>
 	<string name="add_cond">+ Add Condition</string>
 	<string name="add_op">+ Add Operation</string>
-	<string name="done_btn">Done</string>
+	<string name="done">Done</string>
 	<string name="schedule">Schedule</string>
 	<string name="temp">Temperature</string>
 	<string name="name">Movement</string>
@@ -209,5 +209,6 @@
 	<string name="prompt_no_homes_message">You currently don\'t have access to any homes. You can either create a new home or check to see if you have any invites to join a home.</string>
 	<string name="prompt_rename_home_title">Rename Home</string>
 	<string name="prompt_rename_home_message">Enter a new name for the current home</string>
+	<string name="task_name">Task Name</string>
 
 </resources>

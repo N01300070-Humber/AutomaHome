@@ -8,6 +8,7 @@ data class Device(
 		val id: String = "",
 		val homeId: String = "",
 		val name: String = "",
+		val room: String = "",
 		val type: String = "",
 		val category: String = ""
 ): Parcelable

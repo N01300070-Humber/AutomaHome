@@ -287,17 +287,17 @@ public class RealtimeDatabaseDataSource {
 	
 	
 	// Devices
-	private Device createDevice(String key, String name, String type, String category) {
-		return new Device(key, currentHomeId, name, type, category);
+	private Device createDevice(String key, String name, String type, String room, String category) {
+		return new Device(key, currentHomeId, name, room, type, category);
 	}
 	
-	public void addDevice(String name, String type, String category) {
+	public void addDevice(String name, String type, String room, String category) {
 		DatabaseReference reference = database.getReference(DEVICES_REFERENCE);
 		
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue(createDevice(key, name, type, category));
+		reference.child(key).setValue(createDevice(key, name, type, room, category));
 	}
 	
 	public void removeDevice(String deviceId) {
@@ -360,17 +360,17 @@ public class RealtimeDatabaseDataSource {
 	
 	
 	// Tasks
-	private Task createTask(String key, String name, String category) {
-		return new Task(key, currentHomeId, name, category);
+	private Task createTask(String key, String name, String note, String category) {
+		return new Task(key, currentHomeId, name, note, category);
 	}
 	
-	public String addTask(String name, String type, String category) {
+	public String addTask(String name, String note, String category) {
 		DatabaseReference reference = database.getReference(TASKS_REFERENCE);
 		
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue(createTask(key, name, category));
+		reference.child(key).setValue(createTask(key, name, note, category));
 		return key;
 	}
 	

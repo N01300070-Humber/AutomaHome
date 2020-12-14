@@ -71,6 +71,7 @@ public class TasksViewModel extends ViewModel {
 		for (Task task : tasks) {
 			DeviceOrTaskButtonData taskData = new DeviceOrTaskButtonData(
 					DeviceOrTaskButtonData.TYPE_TASK,
+					task.getId(),
 					task.getName(),
 					task.getNote(),
 					ContextCompat.getDrawable(context, R.drawable.ic_task),
@@ -87,7 +88,7 @@ public class TasksViewModel extends ViewModel {
 	}
 	
 	// TODO: Replace placeholder data generator function with one that gets real data
-	public ArrayList<CategoryData> generatePlaceholderCategorizedTaskDataList(Context context, View.OnClickListener onClickListener) {
+	/*public ArrayList<CategoryData> generatePlaceholderCategorizedTaskDataList(Context context, View.OnClickListener onClickListener) {
 		Random random = new Random();
 		String[] headers = {"Manual", "Automatic"};
 		ArrayList<CategoryData> categoryDataList = new ArrayList<>(headers.length);
@@ -113,10 +114,10 @@ public class TasksViewModel extends ViewModel {
 		}
 		
 		return categoryDataList;
-	}
+	}*/
 	
 	// TODO: Remove placeholder data generator function
-	private ArrayList<DeviceOrTaskButtonData> generatePlaceholderTaskDataList(Context context, int numTasks) {
+	/*private ArrayList<DeviceOrTaskButtonData> generatePlaceholderTaskDataList(Context context, int numTasks) {
 		ArrayList<DeviceOrTaskButtonData> taskDataList = new ArrayList<>(numTasks);
 		
 		for (int i = 0; i < numTasks; i++) {
@@ -133,5 +134,5 @@ public class TasksViewModel extends ViewModel {
 		}
 		
 		return taskDataList;
-	}
+	}*/
 }

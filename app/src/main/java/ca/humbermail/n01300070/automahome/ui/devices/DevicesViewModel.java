@@ -61,6 +61,7 @@ public class DevicesViewModel extends ViewModel {
 		for (int i = 0; i < numDevices; i++) {
 			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
 					DeviceOrTaskButtonData.TYPE_DEVICE,
+					null,
 					deviceName,
 					"Room",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),

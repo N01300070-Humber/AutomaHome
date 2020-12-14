@@ -28,10 +28,14 @@ import ca.humbermail.n01300070.automahome.components.RecyclerViewCategoryPadding
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
 import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.data.model.Condition;
+import ca.humbermail.n01300070.automahome.data.model.Task;
 import ca.humbermail.n01300070.automahome.ui.CustomActivity;
+import ca.humbermail.n01300070.automahome.ui.main.NavDrawerActivity;
 
 public class TasksFragment extends Fragment {
 	private Context context;
+	
+	private TasksViewModel tasksViewModel;
 	
 	private RecyclerView recyclerView;
 	private ExtendedFloatingActionButton createTaskFAB;
@@ -41,21 +45,16 @@ public class TasksFragment extends Fragment {
 
 	private CategorizedDeviceOrTaskButtonRecyclerViewAdapter categoryAdapter;
 	private View.OnClickListener categoryOnClickListener;
-
-	final int ADD_TASK = 1;
 	
 	public View onCreateView(@NonNull LayoutInflater inflater,
 							 ViewGroup container, Bundle savedInstanceState) {
-		TasksViewModel tasksViewModel = new ViewModelProvider(this).get(TasksViewModel.class);
+		tasksViewModel = new ViewModelProvider(this).get(TasksViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_tasks, container, false);
-		context = requireActivity().getApplicationContext();
+		context = requireContext();
 
-		CustomActivity parentActivity = (CustomActivity) requireActivity();
-		loginDataSource = parentActivity.getLoginDataSource();
-		realtimeDatabaseDataSource = parentActivity.getRealtimeDatabaseDataSource();
-		realtimeDatabaseDataSource.setCurrentHome("testhome");
-
-		context = getActivity().getApplicationContext();
+		NavDrawerActivity navDrawerActivity = (NavDrawerActivity) requireActivity();
+		loginDataSource = navDrawerActivity.getLoginDataSource();
+		realtimeDatabaseDataSource = navDrawerActivity.getRealtimeDatabaseDataSource();
 		
 		createTaskFAB = root.findViewById(R.id.extendedFAB_add_task);
 		recyclerView = root.findViewById(R.id.recyclerView_tasks);
@@ -75,9 +74,7 @@ public class TasksFragment extends Fragment {
 				startEditTaskActivity();
 			}
 		};
-		categoryAdapter = new CategorizedDeviceOrTaskButtonRecyclerViewAdapter( context,
-				tasksViewModel.generatePlaceholderCategorizedTaskDataList(context,
-						categoryOnClickListener) );
+		categoryAdapter = new CategorizedDeviceOrTaskButtonRecyclerViewAdapter(context);
 		
 		recyclerView.setLayoutManager(new LinearLayoutManager(context));
 		recyclerView.setAdapter(categoryAdapter);
@@ -91,10 +88,27 @@ public class TasksFragment extends Fragment {
 	public void onStart() {
 		super.onStart();
 
-		realtimeDatabaseDataSource.listenForTaskValueChanges();
+		realtimeDatabaseDataSource.onTaskValuesChange().observe(this, new Observer<List<Task>>() {
+			@Override
+			public void onChanged(List<Task> tasks) {
+				categoryAdapter.setCategoryDataList(
+						tasksViewModel.getCategorizedTaskDataList(
+								context,
+								tasks,
+								categoryOnClickListener
+						));
+			}
+		});
 	}
 
 	private void startEditTaskActivity() {
-		startActivityForResult(new Intent(context, EditTaskActivity.class),ADD_TASK);
+		startActivity(new Intent(context, EditTaskActivity.class));
+	}
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+		
+		realtimeDatabaseDataSource.removeTasksValueChangesListener();
 	}
 }

@@ -12,6 +12,7 @@ public class DeviceOrTaskButtonData {
 	public static final String DEVICE_THERMOSTAT = "Thermostat";
 	
 	private int type;
+	private String deviceOrTaskId;
 	private String deviceType;
 	private String name;
 	private String extraText;
@@ -21,15 +22,20 @@ public class DeviceOrTaskButtonData {
 	private int backgroundColour;
 	
 	public DeviceOrTaskButtonData(int type) {
-		this(type, null, null, null, null);
+		this(type, null, null, null, null, null);
 	}
 	
-	public DeviceOrTaskButtonData(int type, String name, String extraText) {
-		this(type, name, extraText, null, null);
+	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name) {
+		this(type, deviceOrTaskId, name, null, null, null);
 	}
 	
-	public DeviceOrTaskButtonData(int type, String name, String extraText, Drawable icon, String contentDescription) {
+	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText) {
+		this(type, deviceOrTaskId, name, extraText, null, null);
+	}
+	
+	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText, Drawable icon, String contentDescription) {
 		this.type = type;
+		this.deviceOrTaskId = deviceOrTaskId;
 		this.name = name;
 		this.extraText = extraText;
 		this.extraTextVisible = isExtraTextNotEmpty();
@@ -37,14 +43,14 @@ public class DeviceOrTaskButtonData {
 		this.contentDescription = contentDescription;
 	}
 	
-	public DeviceOrTaskButtonData(int type, String name, String extraText, Drawable icon, String contentDescription, int backgroundColour) {
-		this(type, name, extraText, icon, contentDescription);
+	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText, Drawable icon, String contentDescription, int backgroundColour) {
+		this(type, deviceOrTaskId, name, extraText, icon, contentDescription);
 		this.extraTextVisible = isExtraTextNotEmpty();
 		this.backgroundColour = backgroundColour;
 	}
 	
-	public DeviceOrTaskButtonData(int type, String name, String extraText, Drawable icon, String contentDescription, int backgroundColour, boolean extraTextVisible) {
-		this(type, name, extraText, icon, contentDescription);
+	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText, Drawable icon, String contentDescription, int backgroundColour, boolean extraTextVisible) {
+		this(type, deviceOrTaskId, name, extraText, icon, contentDescription);
 		this.extraTextVisible = extraTextVisible;
 		this.backgroundColour = backgroundColour;
 	}
@@ -63,10 +69,6 @@ public class DeviceOrTaskButtonData {
 	
 	public void setDeviceType(String deviceType) {
 		this.deviceType = deviceType;
-	}
-	
-	public DeviceOrTaskButtonData(int type, String name) {
-		this(type, name, null);
 	}
 	
 	public String getName() {

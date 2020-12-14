@@ -25,6 +25,7 @@ public class DeviceOrTaskButtonView extends CardView {
 	private TextView extraTextView;
 	
 	private int type = -1;
+	private String deviceOrTaskId = null;
 	private String DeviceType;
 	private CharSequence name;
 	private CharSequence extraText;
@@ -95,6 +96,14 @@ public class DeviceOrTaskButtonView extends CardView {
 	
 	public void setType(int type) {
 		this.type = type;
+	}
+	
+	public String getDeviceOrTaskId() {
+		return deviceOrTaskId;
+	}
+	
+	public void setDeviceOrTaskId(String deviceOrTaskId) {
+		this.deviceOrTaskId = deviceOrTaskId;
 	}
 	
 	public String getDeviceType() {

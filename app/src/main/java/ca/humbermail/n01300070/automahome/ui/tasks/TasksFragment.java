@@ -3,6 +3,7 @@ package ca.humbermail.n01300070.automahome.ui.tasks;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,8 @@ public class TasksFragment extends Fragment {
 	
 	public View onCreateView(@NonNull LayoutInflater inflater,
 							 ViewGroup container, Bundle savedInstanceState) {
+		Log.d("TasksFragment", "onCreateView called");
+		
 		tasksViewModel = new ViewModelProvider(this).get(TasksViewModel.class);
 		View root = inflater.inflate(R.layout.fragment_tasks, container, false);
 		context = requireContext();
@@ -86,11 +89,14 @@ public class TasksFragment extends Fragment {
 
 	@Override
 	public void onStart() {
+		Log.d("TasksFragment", "onStart called");
 		super.onStart();
 
 		realtimeDatabaseDataSource.onTaskValuesChange().observe(this, new Observer<List<Task>>() {
 			@Override
 			public void onChanged(List<Task> tasks) {
+				Log.d("TasksFragment", "Change detected in tasks data in database");
+				
 				categoryAdapter.setCategoryDataList(
 						tasksViewModel.getCategorizedTaskDataList(
 								context,
@@ -102,11 +108,14 @@ public class TasksFragment extends Fragment {
 	}
 
 	private void startEditTaskActivity() {
+		Log.d("TasksFragment", "startEditTaskActivity called");
+		
 		startActivity(new Intent(context, EditTaskActivity.class));
 	}
 	
 	@Override
 	public void onStop() {
+		Log.d("TasksFragment", "onStop called");
 		super.onStop();
 		
 		realtimeDatabaseDataSource.removeTasksValueChangesListener();

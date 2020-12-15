@@ -278,14 +278,17 @@ public class EditTaskActivity extends CustomActivity {
 	}
 	
 	public void saveButtonClicked(View view) {
-		//TODO data handling
+		saveAndQuit();
+	}
+	
+	public void saveAndQuit() {
 		realtimeDatabaseDataSource.updateTaskName(taskId, Objects.requireNonNull(nameEditText.getText()).toString());
+		if (favoriteSelectView.isChecked()) {
+			realtimeDatabaseDataSource.updateTaskCategory(taskId, favoriteSelectView.getText());
+		} else {
+			realtimeDatabaseDataSource.updateTaskCategory(taskId, "");
+		}
 		
-//		String taskId = realtimeDatabaseDataSource.addTask("New task", "Test", "TestCategory");
-//		realtimeDatabaseDataSource.addTaskOperation(taskId, 0, "Test", "TestDevice");
-//		realtimeDatabaseDataSource.addTaskCondition(taskId, 0, "Test", "TestDevice");
-		
-		Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show(); // TODO: Remove placeholder toast
 		finish();
 	}
 	
@@ -306,7 +309,7 @@ public class EditTaskActivity extends CustomActivity {
 	 */
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		finish();
+		saveAndQuit();
 		return true;
 	}
 }

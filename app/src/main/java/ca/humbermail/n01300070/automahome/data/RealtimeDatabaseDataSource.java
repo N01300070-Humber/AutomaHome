@@ -38,17 +38,21 @@ public class RealtimeDatabaseDataSource {
 	private final static String DEVICES_NAME_PATH = "name";
 	private final static String DEVICES_CATEGORY_PATH = "category";
 	private final static String TASKS_REFERENCE = "tasks";
-	private final static String TASKS_ID_PATH = "homeId";
+	private final static String TASKS_ID_PATH = "id";
 	private final static String TASKS_HOME_ID_PATH = "homeId";
 	private final static String TASKS_NAME_PATH = "name";
 	private final static String TASKS_NOTE_PATH = "note";
 	private final static String TASKS_CATEGORY_PATH = "category";
 	private final static String TASK_CONDITIONS_PATH = "conditions";
+	private final static String TASK_CONDITIONS_ID_PATH = "id";
 	private final static String TASK_CONDITIONS_POSITION_PATH = "position";
+	private final static String TASK_CONDITIONS_TYPE_PATH = "type";
 	private final static String TASK_CONDITIONS_DEVICE_ID_PATH = "deviceId";
 	private final static String TASK_CONDITIONS_DATA_PATH = "data";
 	private final static String TASK_OPERATIONS_PATH = "operations";
+	private final static String TASK_OPERATIONS_ID_PATH = "id";
 	private final static String TASK_OPERATIONS_POSITION_PATH = "position";
+	private final static String TASK_OPERATIONS_TYPE_PATH = "type";
 	private final static String TASK_OPERATIONS_DEVICE_ID_PATH = "deviceId";
 	private final static String TASK_OPERATIONS_DATA_PATH = "data";
 	
@@ -144,7 +148,7 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void addHome(String name, LoginDataSource loginDataSource) {
-		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
+		Log.d("DatabaseDataSource", "addHome called");
 		
 		DatabaseReference reference = database.getReference(HOMES_REFERENCE);
 		
@@ -158,13 +162,11 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeHome() {
-		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
-		
 		removeHome(currentHomeId);
 	}
 	
 	public void removeHome(String homeId) {
-		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
+		Log.d("DatabaseDataSource", "removeHome called");
 		
 		database.getReference(HOMES_REFERENCE)
 				.child(homeId)
@@ -174,13 +176,11 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void updateHomeName(String name) {
-		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
-		
 		updateHomeName(currentHomeId, name);
 	}
 	
 	public void updateHomeName(String homeId, String name) {
-		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
+		Log.d("DatabaseDataSource", "updateHomeName called");
 		
 		database.getReference(HOMES_REFERENCE)
 				.child(homeId)
@@ -475,15 +475,13 @@ public class RealtimeDatabaseDataSource {
 					Iterable<DataSnapshot> iterable = snapshot.getChildren();
 					
 					for (DataSnapshot dataSnapshot : iterable) {
-						Task task = new Task(
+						tasks.add(new Task(
 								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_ID_PATH).getValue()),
 								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_HOME_ID_PATH).getValue()),
 								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_NAME_PATH).getValue()),
 								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_NOTE_PATH).getValue()),
 								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_CATEGORY_PATH).getValue())
-						);
-						
-						tasks.add(task);
+						));
 					}
 				}
 				
@@ -580,7 +578,14 @@ public class RealtimeDatabaseDataSource {
 					Iterable<DataSnapshot> iterable = snapshot.getChildren();
 					
 					for (DataSnapshot dataSnapshot : iterable) {
-						conditions.add((Condition) dataSnapshot.getValue());
+						conditions.add(new Condition(
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_ID_PATH).getValue()),
+								((Long) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_POSITION_PATH).getValue())).intValue(),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_TYPE_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_DEVICE_ID_PATH).getValue())
+						));
+						
+						
 					}
 				}
 				
@@ -681,7 +686,12 @@ public class RealtimeDatabaseDataSource {
 					Iterable<DataSnapshot> iterable = snapshot.getChildren();
 					
 					for (DataSnapshot dataSnapshot : iterable) {
-						operations.add((Operation) dataSnapshot.getValue());
+						operations.add(new Operation(
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_ID_PATH).getValue()),
+								((Long) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_POSITION_PATH).getValue())).intValue(),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_TYPE_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_DEVICE_ID_PATH).getValue())
+						));
 					}
 				}
 				

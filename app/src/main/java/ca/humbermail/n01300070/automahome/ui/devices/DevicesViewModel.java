@@ -64,6 +64,7 @@ public class DevicesViewModel extends ViewModel {
 					null,
 					deviceName,
 					"Room",
+					"",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),
 					context.getString(R.string.content_description_type_device),
 					context.getColor(R.color.accent_200)

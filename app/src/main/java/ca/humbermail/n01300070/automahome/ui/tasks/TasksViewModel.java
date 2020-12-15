@@ -74,6 +74,7 @@ public class TasksViewModel extends ViewModel {
 					task.getId(),
 					task.getName(),
 					task.getNote(),
+					task.getCategory(),
 					ContextCompat.getDrawable(context, R.drawable.ic_task),
 					context.getString(R.string.content_description_type_task),
 					context.getColor(R.color.primary_200)

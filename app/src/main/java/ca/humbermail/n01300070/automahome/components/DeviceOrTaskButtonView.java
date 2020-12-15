@@ -26,7 +26,8 @@ public class DeviceOrTaskButtonView extends CardView {
 	
 	private int type = -1;
 	private String deviceOrTaskId = null;
-	private String DeviceType;
+	private String deviceType;
+	private String favoritesCategory;
 	private CharSequence name;
 	private CharSequence extraText;
 	private Drawable icon;
@@ -107,11 +108,19 @@ public class DeviceOrTaskButtonView extends CardView {
 	}
 	
 	public String getDeviceType() {
-		return DeviceType;
+		return deviceType;
 	}
 	
 	public void setDeviceType(String deviceType) {
-		DeviceType = deviceType;
+		this.deviceType = deviceType;
+	}
+	
+	public String getFavoritesCategory() {
+		return favoritesCategory;
+	}
+	
+	public void setFavoritesCategory(String favoritesCategory) {
+		this.favoritesCategory = favoritesCategory;
 	}
 	
 	public String getName() {

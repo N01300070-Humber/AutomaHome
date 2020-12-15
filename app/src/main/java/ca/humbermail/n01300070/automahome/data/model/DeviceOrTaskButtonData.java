@@ -17,40 +17,42 @@ public class DeviceOrTaskButtonData {
 	private String name;
 	private String extraText;
 	private boolean extraTextVisible;
+	private String favoritesCategory;
 	private Drawable icon;
 	private String contentDescription;
 	private int backgroundColour;
 	
 	public DeviceOrTaskButtonData(int type) {
-		this(type, null, null, null, null, null);
+		this(type, null, null, null, null, null, null);
 	}
 	
 	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name) {
-		this(type, deviceOrTaskId, name, null, null, null);
+		this(type, deviceOrTaskId, name, null, null, null, null);
 	}
 	
 	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText) {
-		this(type, deviceOrTaskId, name, extraText, null, null);
+		this(type, deviceOrTaskId, name, extraText, null, null, null);
 	}
 	
-	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText, Drawable icon, String contentDescription) {
+	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText, String favoritesCategory, Drawable icon, String contentDescription) {
 		this.type = type;
 		this.deviceOrTaskId = deviceOrTaskId;
 		this.name = name;
 		this.extraText = extraText;
 		this.extraTextVisible = isExtraTextNotEmpty();
+		this.favoritesCategory = favoritesCategory;
 		this.icon = icon;
 		this.contentDescription = contentDescription;
 	}
 	
-	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText, Drawable icon, String contentDescription, int backgroundColour) {
-		this(type, deviceOrTaskId, name, extraText, icon, contentDescription);
+	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText, String favoritesCategory, Drawable icon, String contentDescription, int backgroundColour) {
+		this(type, deviceOrTaskId, name, extraText, favoritesCategory, icon, contentDescription);
 		this.extraTextVisible = isExtraTextNotEmpty();
 		this.backgroundColour = backgroundColour;
 	}
 	
-	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText, Drawable icon, String contentDescription, int backgroundColour, boolean extraTextVisible) {
-		this(type, deviceOrTaskId, name, extraText, icon, contentDescription);
+	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText, String favoritesCategory, Drawable icon, String contentDescription, int backgroundColour, boolean extraTextVisible) {
+		this(type, deviceOrTaskId, name, extraText, favoritesCategory, icon, contentDescription);
 		this.extraTextVisible = extraTextVisible;
 		this.backgroundColour = backgroundColour;
 	}
@@ -101,6 +103,14 @@ public class DeviceOrTaskButtonData {
 	
 	public void setExtraTextVisible(boolean extraTextVisible) {
 		this.extraTextVisible = extraTextVisible;
+	}
+	
+	public String getFavoritesCategory() {
+		return favoritesCategory;
+	}
+	
+	public void setFavoritesCategory(String favoritesCategory) {
+		this.favoritesCategory = favoritesCategory;
 	}
 	
 	public Drawable getIcon() {

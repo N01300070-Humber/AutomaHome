@@ -80,6 +80,7 @@ public class DeviceSearchActivity extends AppCompatActivity {
 					null,
 					deviceNames[randInt],
 					"Room",
+					"",
 					ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_devices),
 					getString(R.string.content_description_type_device),
 					getColor(R.color.accent_200)

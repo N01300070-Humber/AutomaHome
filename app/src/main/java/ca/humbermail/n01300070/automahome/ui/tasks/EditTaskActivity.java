@@ -40,6 +40,7 @@ import ca.humbermail.n01300070.automahome.ui.tasks.operation.EditOperationActivi
 public class EditTaskActivity extends CustomActivity {
 	public static final String EXTRA_TASK_ID = "taskId";
 	public static final String EXTRA_TASK_NAME = "taskName";
+	public static final String EXTRA_TASK_CATEGORY = "category";
 	public static final String EXTRA_CONDITION_ID = "conditionId";
 	public static final String EXTRA_OPERATION_ID = "operationId";
 	
@@ -94,6 +95,12 @@ public class EditTaskActivity extends CustomActivity {
 		} else {
 			taskId = bundle.getString(EXTRA_TASK_ID);
 			nameEditText.setText(bundle.getString(EXTRA_TASK_NAME));
+			
+			String category = bundle.getString(EXTRA_TASK_CATEGORY);
+			if (category != null && !category.isEmpty()) {
+				favoriteSelectView.setChecked(true);
+				favoriteSelectView.setText(category);
+			}
 		}
 		
 		nameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {

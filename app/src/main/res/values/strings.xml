@@ -210,5 +210,13 @@
 	<string name="prompt_rename_home_title">Rename Home</string>
 	<string name="prompt_rename_home_message">Enter a new name for the current home</string>
 	<string name="task_name">Task Name</string>
+	<string name="unknown">Unknown</string>
+	<string name="condition_schedule_settings">%1$s on %2$s</string>
+	<string name="condition_temperature_settings">Temperature %1$s %2$d%3$s</string>
+	<string name="condition_movement_settings">Movement towards %1$s from %2$s</string>
+	<string name="condition_unknown_type">Condition has unknown type</string>
+	<string name="operation_lights_settings">Set brightness to %1$d\% and temperature to %2$d\%</string>
+	<string name="operation_thermostat_settings">Set target temp to %1$d%2$s</string>
+	<string name="operation_unknown_type">Operation has unknown type</string>
 
 </resources>

@@ -45,6 +45,7 @@ public class EditTaskActivity extends CustomActivity {
 	
 	private static final String DEFAULT_NAME = "Untitled Task";
 	
+	
 	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
 	private String taskId;
 	
@@ -140,7 +141,6 @@ public class EditTaskActivity extends CustomActivity {
 					@Override
 					public void onChanged(List<Condition> conditions) {
 						conditionsAdapter.setDataList(getConditionViewDataList(conditions));
-//						conditionsAdapter.setDataList(generateConditionList());
 					}
 				});
 		realtimeDatabaseDataSource.onTaskOperationValuesChange(taskId)
@@ -148,26 +148,40 @@ public class EditTaskActivity extends CustomActivity {
 					@Override
 					public void onChanged(List<Operation> operations) {
 						operationsAdapter.setDataList(getOperationViewDataList(operations));
-//						operationsAdapter.setDataList(generateOperationList());
 					}
 				});
 	}
 	
 	private ArrayList<ConditionOrOperationViewData> getConditionViewDataList(List<Condition> conditions) {
-		ArrayList<ConditionOrOperationViewData> conditionViewDataList = new ArrayList<>(conditions.size());
+		int listSize = conditions.size();
+		boolean dragHandleVisible = listSize > 1;
+		ArrayList<ConditionOrOperationViewData> conditionViewDataList = new ArrayList<>(listSize);
 		
 		for (Condition condition : conditions) {
-			String mainText = "?"; // TODO: create text for the main line in ConditionOrOperationView
-			String typeText = condition.getType(); // TODO: create text for the type line in ConditionOrOperationView
-			
 			ConditionOrOperationViewData conditionViewData = new ConditionOrOperationViewData(
 					ConditionOrOperationViewData.TYPE_CONDITION,
 					condition.getId(),
-					condition.getType(),
-					mainText,
-					typeText,
-					false
+					condition.getType()
 			);
+			
+			switch (condition.getType()) {
+				case ConditionOrOperationViewData.CONDITION_SCHEDULE:
+					conditionViewData.setMainText(getString(R.string.condition_schedule_settings, "timeOfDay", "selectedDays")); // TODO: Replace hardcoded strings with data from database
+					conditionViewData.setTypeText(getString(R.string.schedule));
+					break;
+				case ConditionOrOperationViewData.CONDITION_TEMPERATURE:
+					conditionViewData.setMainText(getString(R.string.condition_temperature_settings, "logicStatement", 23, "C")); // TODO: Replace hardcoded number and strings with data from database
+					conditionViewData.setTypeText(getString(R.string.temperature));
+					break;
+				case ConditionOrOperationViewData.CONDITION_MOVEMENT:
+					conditionViewData.setMainText(getString(R.string.condition_movement_settings, "destinationRoom", "sourceRoom")); // TODO: Replace hardcoded strings with data from database
+					conditionViewData.setTypeText(getString(R.string.movement));
+					break;
+				default:
+					conditionViewData.setMainText(getString(R.string.condition_unknown_type));
+					conditionViewData.setTypeText(condition.getType());
+			}
+			conditionViewData.setDragHandleVisible(dragHandleVisible);
 			
 			conditionViewDataList.add(conditionViewData);
 		}
@@ -176,20 +190,31 @@ public class EditTaskActivity extends CustomActivity {
 	}
 	
 	private ArrayList<ConditionOrOperationViewData> getOperationViewDataList(List<Operation> operations) {
-		ArrayList<ConditionOrOperationViewData> operationViewDataList = new ArrayList<>(operations.size());
+		int listSize = operations.size();
+		boolean dragHandleVisible = listSize > 1;
+		ArrayList<ConditionOrOperationViewData> operationViewDataList = new ArrayList<>(listSize);
 		
 		for (Operation operation : operations) {
-			String mainText = "?"; // TODO: create text for the main line in ConditionOrOperationView
-			String typeText = operation.getType(); // TODO: create text for the type line in ConditionOrOperationView
-			
 			ConditionOrOperationViewData conditionViewData = new ConditionOrOperationViewData(
 					ConditionOrOperationViewData.TYPE_CONDITION,
 					operation.getId(),
-					operation.getType(),
-					mainText,
-					typeText,
-					false
+					operation.getType()
 			);
+			
+			switch (operation.getType()) {
+				case ConditionOrOperationViewData.OPERATION_LIGHTS:
+					conditionViewData.setMainText(getString(R.string.operation_lights_settings, 10, 20)); // TODO: Replace hardcoded numbers with data from database
+					conditionViewData.setTypeText(getString(R.string.schedule));
+					break;
+				case ConditionOrOperationViewData.OPERATION_THERMOSTAT:
+					conditionViewData.setMainText(getString(R.string.operation_thermostat_settings, 23, "C")); // TODO: Replace hardcoded number and string with data from database
+					conditionViewData.setTypeText(getString(R.string.temperature));
+					break;
+				default:
+					conditionViewData.setMainText(getString(R.string.operation_unknown_type));
+					conditionViewData.setTypeText(operation.getType());
+			}
+			conditionViewData.setDragHandleVisible(dragHandleVisible);
 			
 			operationViewDataList.add(conditionViewData);
 		}

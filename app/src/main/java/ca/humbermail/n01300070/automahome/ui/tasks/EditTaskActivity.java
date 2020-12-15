@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -131,6 +132,16 @@ public class EditTaskActivity extends CustomActivity {
 				operationsRecyclerViewItemClicked(view);
 			}
 		};
+		favoriteSelectView.setOnCheckedChangeListener(new MaterialButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(MaterialButton button, boolean isChecked) {
+				if (isChecked) {
+					realtimeDatabaseDataSource.updateTaskCategory(taskId, favoriteSelectView.getText());
+				} else {
+					realtimeDatabaseDataSource.updateTaskCategory(taskId, "");
+				}
+			}
+		});
 		favoriteSelectView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

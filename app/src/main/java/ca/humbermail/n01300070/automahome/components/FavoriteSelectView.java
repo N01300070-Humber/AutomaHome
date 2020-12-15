@@ -102,6 +102,10 @@ public class FavoriteSelectView extends ConstraintLayout {
 		categoryAutoCompleteText.setAdapter(adapter);
 	}
 	
+	public void setOnCheckedChangeListener(MaterialButton.OnCheckedChangeListener onCheckedChangeListener) {
+		button.addOnCheckedChangeListener(onCheckedChangeListener);
+	}
+	
 	public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
 		categoryAutoCompleteText.setOnItemClickListener(onItemClickListener);
 	}

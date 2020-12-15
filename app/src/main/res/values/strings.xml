@@ -93,8 +93,8 @@
 	<string name="then_do">Then Do</string>
 	<string name="discard">Discard Changes</string>
 	<string name="saveChanges">Save Task</string>
-	<string name="add_cond">+ Add Condition</string>
-	<string name="add_op">+ Add Operation</string>
+	<string name="add_cond">Add Condition</string>
+	<string name="add_op">Add Operation</string>
 	<string name="done">Done</string>
 	<string name="schedule">Schedule</string>
 	<string name="temp">Temperature</string>

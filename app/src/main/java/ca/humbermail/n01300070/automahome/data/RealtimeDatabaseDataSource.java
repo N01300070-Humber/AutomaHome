@@ -70,6 +70,7 @@ public class RealtimeDatabaseDataSource {
 	private final MutableLiveData<List<Device>> deviceValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Task>> taskValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Condition>> taskConditionValues = new MutableLiveData<>();
+	private final List<MutableLiveData<Object>> taskConditionDataValueList = new ArrayList<>();
 	private final MutableLiveData<List<Operation>> taskOperationValues = new MutableLiveData<>();
 	private final List<MutableLiveData<Object>> taskOperationDataValueList = new ArrayList<>();
 	
@@ -79,9 +80,11 @@ public class RealtimeDatabaseDataSource {
 	private ValueEventListener devicesValueEventListener;
 	private ValueEventListener tasksValueEventListener;
 	private ValueEventListener taskConditionsValueEventListener;
+	private final ArrayList<ValueEventListener> taskConditionDataValueEventListeners = new ArrayList<>();
 	private ValueEventListener taskOperationsValueEventListener;
-	private ArrayList<ValueEventListener> taskOperationDataValueEventListeners;
+	private final ArrayList<ValueEventListener> taskOperationDataValueEventListeners = new ArrayList<>();
 	
+	List<ConditionOrOperationIndex> taskConditionDataValueIndices;
 	List<ConditionOrOperationIndex> taskOperationDataValueIndices;
 	
 	static class ConditionOrOperationIndex {
@@ -660,6 +663,96 @@ public class RealtimeDatabaseDataSource {
 		
 		listenForTaskConditionValueChanges(taskId);
 		return taskConditionValues;
+	}
+	
+	
+	// Task Condition Data
+	public void setTaskConditionData(String taskId, String conditionId, String key, String value) {
+		Log.d("DatabaseDataSource", "setTaskConditionData called");
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.child(conditionId)
+				.child(TASK_CONDITIONS_DATA_PATH)
+				.child(key)
+				.setValue(value);
+	}
+	
+	public void removeTaskConditionData(String taskId, String conditionId, String key) {
+		Log.d("DatabaseDataSource", "removeTaskConditionData called");
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.child(conditionId)
+				.child(TASK_CONDITIONS_DATA_PATH)
+				.child(key)
+				.removeValue();
+	}
+	
+	private void listenForTaskConditionDataValueChanges(String taskId, String conditionId, String key) {
+		Log.d("DatabaseDataSource", "removeTaskConditionData called");
+		
+		final MutableLiveData<Object> liveData = new MutableLiveData<>();
+		ValueEventListener taskConditionDataValueEventListener = new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				Log.d("DatabaseDataSource", "Detected change in Task Condition Data value");
+				
+				Object value = new Object();
+				
+				if (snapshot.exists()) {
+					value = snapshot.getValue();
+				}
+				
+				liveData.postValue(value);
+			}
+			
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+			
+			}
+		};
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.child(conditionId)
+				.child(TASK_CONDITIONS_DATA_PATH)
+				.child(key)
+				.addValueEventListener(taskConditionDataValueEventListener);
+		
+		taskConditionDataValueIndices.add(new ConditionOrOperationIndex(taskId, conditionId, key));
+		taskConditionDataValueEventListeners.add(taskConditionDataValueEventListener);
+		taskConditionDataValueList.add(liveData);
+	}
+	
+	public void removeTaskConditionDataValueChangesListener(String taskId, String conditionId, String key) {
+		Log.d("DatabaseDataSource", "removeTaskConditionDataValueChangesListener called");
+		
+		int position = taskConditionDataValueIndices.indexOf(new ConditionOrOperationIndex(taskId, conditionId, key));
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.child(conditionId)
+				.child(TASK_CONDITIONS_DATA_PATH)
+				.child(key)
+				.removeEventListener(taskConditionDataValueEventListeners.get(position));
+		
+		taskConditionDataValueIndices.remove(position);
+		taskConditionDataValueEventListeners.remove(position);
+		taskConditionDataValueList.remove(position);
+	}
+	
+	public Object onTaskConditionDataValueChange(String taskId, String conditionId, String key) {
+		Log.d("DatabaseDataSource", "onTaskConditionDataValueChange called");
+		
+		listenForTaskConditionDataValueChanges(taskId, conditionId, key);
+		return taskConditionDataValueList.get(taskConditionDataValueIndices.indexOf(
+				new ConditionOrOperationIndex(taskId, conditionId, key)
+		));
 	}
 	
 	

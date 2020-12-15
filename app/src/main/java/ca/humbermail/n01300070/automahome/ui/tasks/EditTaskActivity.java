@@ -234,50 +234,6 @@ public class EditTaskActivity extends CustomActivity {
 		return categoryList;
 	}
 	
-	// TODO: Replace placeholder data generator function with one that gets real data
-	private ArrayList<ConditionOrOperationViewData> generateConditionList() {
-		String[] typeList = {ConditionOrOperationViewData.CONDITION_SCHEDULE, ConditionOrOperationViewData.CONDITION_TEMPERATURE};
-		String[] mainTextList = {"10:30 on Week Days", "Temperature equal to 23°C"};
-		String[] typeTextList = {"Schedule", "Temperature"};
-		ArrayList<ConditionOrOperationViewData> operationDataList = new ArrayList<>();
-		
-		for (int i = 0; i < typeList.length; i++) {
-			ConditionOrOperationViewData conditionData = new ConditionOrOperationViewData(
-					ConditionOrOperationViewData.TYPE_CONDITION,
-					null,
-					typeList[i],
-					mainTextList[i],
-					typeTextList[i]
-			);
-			
-			operationDataList.add(conditionData);
-		}
-		
-		return operationDataList;
-	}
-	
-	// TODO: Replace placeholder data generator function with one that gets real data
-	private ArrayList<ConditionOrOperationViewData> generateOperationList() {
-		String[] typeList = {ConditionOrOperationViewData.OPERATION_LIGHTS, ConditionOrOperationViewData.OPERATION_THERMOSTAT};
-		String[] mainTextList = {"Set Brightness to 70% and Temperature to 30%", "Set target temp to 28°C"};
-		String[] typeTextList = {"Lights", "Thermostat"};
-		ArrayList<ConditionOrOperationViewData> conditionDataList = new ArrayList<>();
-		
-		for (int i = 0; i < typeList.length; i++) {
-			ConditionOrOperationViewData operationData = new ConditionOrOperationViewData(
-					ConditionOrOperationViewData.TYPE_OPERATION,
-					null,
-					typeList[i],
-					mainTextList[i],
-					typeTextList[i]
-			);
-			
-			conditionDataList.add(operationData);
-		}
-		
-		return conditionDataList;
-	}
-	
 	private boolean nameEditTextDone(TextView textView, int keyCode, KeyEvent keyEvent) {
 		if (keyCode == EditorInfo.IME_ACTION_DONE) {
 			realtimeDatabaseDataSource.updateTaskName(taskId, Objects.requireNonNull(textView.getText()).toString());

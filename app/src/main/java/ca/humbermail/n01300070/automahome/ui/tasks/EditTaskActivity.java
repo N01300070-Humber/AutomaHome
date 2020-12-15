@@ -7,9 +7,10 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
@@ -105,8 +106,17 @@ public class EditTaskActivity extends CustomActivity {
 		
 		nameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
-			public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-				return nameEditTextDone(textView, i, keyEvent);
+			public boolean onEditorAction(TextView textView, int keyCode, KeyEvent keyEvent) {
+				if (keyCode == EditorInfo.IME_ACTION_DONE) {
+					realtimeDatabaseDataSource.updateTaskName(taskId,
+							Objects.requireNonNull(textView.getText()).toString());
+					textView.clearFocus();
+					((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+							.hideSoftInputFromWindow(textView.getWindowToken(),
+									InputMethodManager.HIDE_NOT_ALWAYS);
+					return true;
+				}
+				return false;
 			}
 		});
 		conditionsOnClickListener = new View.OnClickListener() {
@@ -121,6 +131,27 @@ public class EditTaskActivity extends CustomActivity {
 				operationsRecyclerViewItemClicked(view);
 			}
 		};
+		favoriteSelectView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				saveFavoriteCategory();
+			}
+		});
+		favoriteSelectView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView textView, int keyCode, KeyEvent keyEvent) {
+				if (keyCode == EditorInfo.IME_ACTION_DONE) {
+					realtimeDatabaseDataSource.updateTaskCategory(taskId,
+							Objects.requireNonNull(textView.getText()).toString());
+					textView.clearFocus();
+					((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+							.hideSoftInputFromWindow(textView.getWindowToken(),
+									InputMethodManager.HIDE_NOT_ALWAYS);
+					return true;
+				}
+				return false;
+			}
+		});
 		
 		favoriteSelectView.setAutoCompleteLabels(generateCategoryList());
 		conditionsAdapter = new ConditionOrOperationViewAdapter(getApplicationContext(), conditionsOnClickListener);
@@ -241,14 +272,6 @@ public class EditTaskActivity extends CustomActivity {
 		return categoryList;
 	}
 	
-	private boolean nameEditTextDone(TextView textView, int keyCode, KeyEvent keyEvent) {
-		if (keyCode == EditorInfo.IME_ACTION_DONE) {
-			realtimeDatabaseDataSource.updateTaskName(taskId, Objects.requireNonNull(textView.getText()).toString());
-			return true;
-		}
-		return false;
-	}
-	
 	private void conditionsRecyclerViewItemClicked(View view) {
 		ConditionOrOperationView conditionView = (ConditionOrOperationView) view;
 		Intent intent = new Intent();
@@ -285,18 +308,21 @@ public class EditTaskActivity extends CustomActivity {
 	}
 	
 	public void saveButtonClicked(View view) {
-		saveAndQuit();
+		saveName();
+		saveFavoriteCategory();
+		finish();
 	}
 	
-	public void saveAndQuit() {
+	private void saveName() {
 		realtimeDatabaseDataSource.updateTaskName(taskId, Objects.requireNonNull(nameEditText.getText()).toString());
+	}
+	
+	private void saveFavoriteCategory() {
 		if (favoriteSelectView.isChecked()) {
 			realtimeDatabaseDataSource.updateTaskCategory(taskId, favoriteSelectView.getText());
 		} else {
 			realtimeDatabaseDataSource.updateTaskCategory(taskId, "");
 		}
-		
-		finish();
 	}
 	
 	
@@ -316,7 +342,7 @@ public class EditTaskActivity extends CustomActivity {
 	 */
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		saveAndQuit();
+		finish();
 		return true;
 	}
 }

@@ -1,9 +1,5 @@
 package ca.humbermail.n01300070.automahome.ui.tasks.operation;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,10 +7,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
-public class EditOperationActivity extends AppCompatActivity {
+import java.util.Objects;
+
+import ca.humbermail.n01300070.automahome.R;
+import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
+import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
+
+public class EditOperationActivity extends CustomActivity {
 	
 	private Button saveButton;
 	private Button discardButton;
@@ -27,14 +30,16 @@ public class EditOperationActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_operation);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 		
-		Bundle arguments = getIntent().getExtras();
-		if (arguments == null) {
+		setRealtimeDatabaseDataSource(new RealtimeDatabaseDataSource());
+		
+		Bundle bundle = getIntent().getExtras();
+		if (bundle == null) {
 			operationType = "";
 		}
 		else {
-			operationType = arguments.getString(ConditionOrOperationViewData.ARG_OPERATION);
+			operationType = bundle.getString(ConditionOrOperationViewData.ARG_OPERATION);
 		}
 		
 		saveButton = findViewById(R.id.button_editOperation_save);

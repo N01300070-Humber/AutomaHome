@@ -85,18 +85,13 @@ public class EditConditionActivity extends CustomActivity {
 	}
 	
 	public void discardButtonClicked(View view) {
-		//TODO data handling
+		realtimeDatabaseDataSource.removeTaskCondition(taskId, conditionId);
 
 		finish();
 	}
 	
 	public void saveButtonClicked(View view) {
 		//TODO data handling
-		Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show(); // TODO: Remove placeholder toast
-		System.out.println(fragment);
-		if(fragment instanceof EditConditionTemperatureFragment) {
-			((EditConditionTemperatureFragment) fragment).saveTemp();
-		}
 
 		finish();
 	}

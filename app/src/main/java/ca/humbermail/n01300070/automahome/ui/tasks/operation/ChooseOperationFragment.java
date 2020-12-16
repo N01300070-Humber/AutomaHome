@@ -42,7 +42,7 @@ public class ChooseOperationFragment extends Fragment {
 				ConditionOrOperationView operationView = (ConditionOrOperationView) view;
 				EditOperationActivity parentActivity = (EditOperationActivity) requireActivity();
 				
-				parentActivity.changeActiveFragment(operationView.getConditionOrOperationType());
+				parentActivity.onOperationTypeSelected(operationView.getConditionOrOperationType());
 			}
 		};
 		adapter = new ConditionOrOperationViewAdapter(context, getOperationsDataList(), onItemClickListener);

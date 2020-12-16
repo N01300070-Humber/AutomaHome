@@ -84,12 +84,12 @@ public class EditTaskViewModel extends AndroidViewModel {
 			
 			switch (operation.getType()) {
 				case ConditionOrOperationViewData.OPERATION_LIGHTS:
-					conditionViewData.setMainText(getApplication().getString(R.string.operation_lights_settings, 10, 20)); // TODO: Replace hardcoded numbers with data from database
-					conditionViewData.setTypeText(getApplication().getString(R.string.schedule));
+					conditionViewData.setMainText(getApplication().getString(R.string.operation_lights_settings, "10%", "20%")); // TODO: Replace hardcoded numbers with data from database
+					conditionViewData.setTypeText(getApplication().getString(R.string.lights));
 					break;
 				case ConditionOrOperationViewData.OPERATION_THERMOSTAT:
 					conditionViewData.setMainText(getApplication().getString(R.string.operation_thermostat_settings, 23, "C")); // TODO: Replace hardcoded number and string with data from database
-					conditionViewData.setTypeText(getApplication().getString(R.string.temperature));
+					conditionViewData.setTypeText(getApplication().getString(R.string.thermostat));
 					break;
 				default:
 					conditionViewData.setMainText(getApplication().getString(R.string.operation_unknown_type));

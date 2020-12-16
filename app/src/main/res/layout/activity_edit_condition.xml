@@ -12,41 +12,35 @@
 		android:layout_width="0dp"
 		android:layout_height="0dp"
 		android:layout_marginBottom="8dp"
-		app:layout_constraintBottom_toTopOf="@+id/button_editCondition_discard"
+		app:layout_constraintBottom_toTopOf="@+id/button_editCondition_delete"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 	
 	<Button
-		android:id="@+id/button_editCondition_discard"
-		style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+		android:id="@+id/button_editCondition_delete"
+		style="@style/Widget.MaterialComponents.Button"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:backgroundTint="@android:color/holo_red_dark"
 		android:onClick="discardButtonClicked"
-		android:text="@string/discard"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toStartOf="@+id/space_editCondition"
-		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toStartOf="parent" />
-	
-	<Space
-		android:id="@+id/space_editCondition"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
+		android:text="@string/delete"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toStartOf="@+id/button_editCondition_save"
 		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toEndOf="@+id/button_editCondition_discard" />
+		app:layout_constraintHorizontal_chainStyle="spread_inside"
+		app:layout_constraintStart_toStartOf="parent" />
 	
 	<Button
 		android:id="@+id/button_editCondition_save"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:onClick="saveButtonClicked"
-		android:text="@string/done_btn"
+		android:text="@string/done"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toEndOf="@+id/space_editCondition" />
+		app:layout_constraintStart_toEndOf="@+id/button_editCondition_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

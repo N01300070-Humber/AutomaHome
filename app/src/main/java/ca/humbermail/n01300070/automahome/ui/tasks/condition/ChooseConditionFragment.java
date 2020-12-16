@@ -26,27 +26,27 @@ public class ChooseConditionFragment extends Fragment {
 	RecyclerView recyclerView;
 	
 	private ConditionOrOperationViewAdapter adapter;
-	private View.OnClickListener onClickListener;
+	private ConditionOrOperationViewAdapter.OnItemClickListener onItemClickListener;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View root = inflater.inflate(R.layout.fragment_choose_condition, container, false);
-		context = getActivity().getApplicationContext();
+		context = requireContext();
 		
 		recyclerView = root.findViewById(R.id.recyclerView_chooseCondition);
 		
-		onClickListener = new View.OnClickListener() {
+		onItemClickListener = new ConditionOrOperationViewAdapter.OnItemClickListener() {
 			@Override
-			public void onClick(View view) {
+			public void onItemClick(View view, int position) {
 				ConditionOrOperationView conditionView = (ConditionOrOperationView) view;
-				EditConditionActivity parentActivity = (EditConditionActivity) getActivity();
+				EditConditionActivity parentActivity = (EditConditionActivity) requireActivity();
 				
-				parentActivity.changeActiveFragment(conditionView.getConditionOrOperationType());
+				parentActivity.onConditionTypeSelected(conditionView.getConditionOrOperationType());
 			}
 		};
-		adapter = new ConditionOrOperationViewAdapter(context, getConditionsDataList(), onClickListener);
+		adapter = new ConditionOrOperationViewAdapter(context, getConditionsDataList(), onItemClickListener);
 		
 		recyclerView.setLayoutManager(new LinearLayoutManager(context));
 		recyclerView.setAdapter(adapter);

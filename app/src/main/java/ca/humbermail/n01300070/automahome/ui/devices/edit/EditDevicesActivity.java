@@ -76,7 +76,7 @@ public class EditDevicesActivity extends CustomActivity {
 						.getString(PreferenceKeys.KEY_SESSION_SELECTED_HOME, "")
 		);
 		
-		// Get Extras (deviceId is required but other values can be null)
+		// Get Extras (deviceType is required but other values can be null)
 		Bundle bundle = getIntent().getExtras();
 		deviceId = bundle.getString(EXTRA_DEVICE_ID);
 		nameEditText.setText(bundle.getString(EXTRA_DEVICE_NAME));

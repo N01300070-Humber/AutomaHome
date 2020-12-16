@@ -1,6 +1,5 @@
 package ca.humbermail.n01300070.automahome.ui.tasks.condition;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +15,7 @@ import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
 import ca.humbermail.n01300070.automahome.ui.CustomActivity;
+import ca.humbermail.n01300070.automahome.ui.tasks.EditTaskActivity;
 
 public class EditConditionActivity extends CustomActivity {
 	
@@ -24,7 +24,11 @@ public class EditConditionActivity extends CustomActivity {
 	
 	private Fragment fragment;
 	
+	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
+	private String taskId;
+	private String conditionId;
 	private String conditionType;
+	private int position;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +37,16 @@ public class EditConditionActivity extends CustomActivity {
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 		
 		setRealtimeDatabaseDataSource(new RealtimeDatabaseDataSource());
+		realtimeDatabaseDataSource = getRealtimeDatabaseDataSource();
 		
 		Bundle bundle = getIntent().getExtras();
-		if (bundle == null) {
+		taskId = bundle.getString(EditTaskActivity.EXTRA_TASK_ID);
+		conditionId = bundle.getString(EditTaskActivity.EXTRA_CONDITION_ID);
+		conditionType = bundle.getString(ConditionOrOperationViewData.EXTRA_CONDITION_TYPE);
+		if (conditionType == null) {
 			conditionType = "";
 		}
-		else {
-			conditionType = bundle.getString(ConditionOrOperationViewData.ARG_CONDITION);
-		}
+		position = bundle.getInt(EditTaskActivity.EXTRA_POSITION);
 		
 		saveButton = findViewById(R.id.button_editCondition_save);
 		discardButton = findViewById(R.id.button_editCondition_delete);
@@ -48,10 +54,14 @@ public class EditConditionActivity extends CustomActivity {
 		setActiveFragment(conditionType);
 	}
 	
-	public void changeActiveFragment(String conditionType) {
+	public void onConditionTypeSelected(String conditionType) {
 		getSupportFragmentManager().beginTransaction().remove(fragment).commit();
 		saveButton.setVisibility(View.VISIBLE);
 		discardButton.setVisibility(View.VISIBLE);
+		
+		this.conditionType = conditionType;
+		this.conditionId = realtimeDatabaseDataSource.addTaskCondition(taskId, position, conditionType, "");
+		
 		setActiveFragment(conditionType);
 	}
 	
@@ -76,7 +86,6 @@ public class EditConditionActivity extends CustomActivity {
 	
 	public void discardButtonClicked(View view) {
 		//TODO data handling
-		setResult(Activity.RESULT_CANCELED);
 
 		finish();
 	}
@@ -88,7 +97,7 @@ public class EditConditionActivity extends CustomActivity {
 		if(fragment instanceof EditConditionTemperatureFragment) {
 			((EditConditionTemperatureFragment) fragment).saveTemp();
 		}
-		setResult(Activity.RESULT_OK);
+
 		finish();
 	}
 	
@@ -99,8 +108,15 @@ public class EditConditionActivity extends CustomActivity {
 	 */
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		setResult(Activity.RESULT_CANCELED);
 		finish();
 		return true;
+	}
+	
+	public String getSourceTaskId() {
+		return this.taskId;
+	}
+	
+	public String getConditionId() {
+		return this.conditionId;
 	}
 }

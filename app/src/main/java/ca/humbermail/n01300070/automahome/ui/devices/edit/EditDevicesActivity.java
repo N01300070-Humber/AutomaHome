@@ -80,7 +80,7 @@ public class EditDevicesActivity extends CustomActivity {
 		Bundle bundle = getIntent().getExtras();
 		deviceId = bundle.getString(EXTRA_DEVICE_ID);
 		nameEditText.setText(bundle.getString(EXTRA_DEVICE_NAME));
-		deviceType = getIntent().getExtras().getString(DeviceOrTaskButtonData.ARG_DEVICE);
+		deviceType = bundle.getString(DeviceOrTaskButtonData.ARG_DEVICE);
 		if (deviceId == null) {
 			deviceId = realtimeDatabaseDataSource.addDevice(DEFAULT_NAME, deviceType, "", "");
 		}
@@ -113,8 +113,10 @@ public class EditDevicesActivity extends CustomActivity {
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_editDevice, fragment).commit();
 	}
 	
-	public void deleteButtonClicked(View view) {
-		realtimeDatabaseDataSource.removeTask(deviceId);
+	public void discardButtonClicked(View view) {
+		Log.d("EditDevicesActivity","The deviceId is "+deviceId);
+		realtimeDatabaseDataSource.removeDevice(deviceId);
+		Toast.makeText(getApplicationContext(),"Device deleted",Toast.LENGTH_SHORT).show();
 		finish();
 	}
 
@@ -125,9 +127,10 @@ public class EditDevicesActivity extends CustomActivity {
 //    }
 	
 	public void saveButtonClicked(View view) {
-		Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show(); // TODO: Remove placeholder toast
+		Log.d("EditDevicesActivity","The deviceId is "+deviceId);
 		saveName();
 		saveFavoriteCategory();
+		Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
 		setResult(Activity.RESULT_OK);
 		finish();
 	}

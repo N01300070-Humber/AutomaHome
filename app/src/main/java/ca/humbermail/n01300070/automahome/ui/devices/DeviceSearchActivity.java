@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -41,13 +43,15 @@ public class DeviceSearchActivity extends AppCompatActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		recyclerView = findViewById(R.id.recyclerView_deviceSearch_results);
-		
+
 		resultsOnClickListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				DeviceOrTaskButtonView deviceOrTaskButtonView = (DeviceOrTaskButtonView) view;
-				
+
 				Intent intent = new Intent(getApplicationContext(), EditDevicesActivity.class);
+				Log.d("DeviceSearchActivity","The device ID is: "+deviceOrTaskButtonView.getDeviceOrTaskId());
+				Log.d("DeviceSearchActivity","The device type is: "+deviceOrTaskButtonView.getDeviceType());
 				intent.putExtra(DeviceOrTaskButtonData.ARG_DEVICE, deviceOrTaskButtonView.getDeviceType());
 				startActivityForResult(intent, REQUEST_NEW_DEVICE);
 			}

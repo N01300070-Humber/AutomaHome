@@ -32,13 +32,12 @@ import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 import ca.humbermail.n01300070.automahome.ui.devices.DeviceSearchActivity;
 import ca.humbermail.n01300070.automahome.ui.devices.DevicesViewModel;
 import ca.humbermail.n01300070.automahome.ui.devices.control.ControlDevicesActivity;
-import ca.humbermail.n01300070.automahome.ui.devices.edit.EditDevicesActivity;
 import ca.humbermail.n01300070.automahome.ui.main.NavDrawerActivity;
 
 public class DevicesFragment extends Fragment {
 
 
-
+	public static String EXTRA_DEVICE_ID = "deviceId";
 	private Context context;
 
 	private DevicesViewModel devicesViewModel;
@@ -72,7 +71,7 @@ public class DevicesFragment extends Fragment {
 		addDeviceFAB.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				startEditDevicesActivity(null,null,null);
+				startActivity(new Intent(context, DeviceSearchActivity.class));
 			}
 		});
 
@@ -82,9 +81,11 @@ public class DevicesFragment extends Fragment {
 			public void onClick(View view) {
 				DeviceOrTaskButtonView deviceOrTaskButtonView = (DeviceOrTaskButtonView) view;
 				Intent intent = new Intent();
-
-				intent.setClass(context, ControlDevicesActivity.class);
+				Log.d("DeviceFragment","The device ID is: "+deviceOrTaskButtonView.getDeviceOrTaskId());
+				Log.d("DeviceFragment","The device type is: "+deviceOrTaskButtonView.getType());
+				intent.setClass(context,ControlDevicesActivity.class);
 				intent.putExtra(DeviceOrTaskButtonData.ARG_DEVICE, deviceOrTaskButtonView.getDeviceType());
+				intent.putExtra(EXTRA_DEVICE_ID,deviceOrTaskButtonView.getDeviceOrTaskId());
 
 				startActivity(intent);
 			}
@@ -119,17 +120,7 @@ public class DevicesFragment extends Fragment {
 			}
 		});
 	}
-	private void startEditDevicesActivity (String deviceId, String deviceName, String favoritesCategory) {
-		Log.d("DevicesFragment","startEditDevicesActivity called");
 
-		Intent intent = new Intent(context, EditDevicesActivity.class);
-		if(deviceId != null & deviceName != null) {
-			intent.putExtra(EditDevicesActivity.EXTRA_DEVICE_ID,deviceId);
-			intent.putExtra(EditDevicesActivity.EXTRA_DEVICE_NAME, deviceName);
-			intent.putExtra(EditDevicesActivity.EXTRA_DEVICE_CATEGORY,favoritesCategory);
-		}
-		startActivity(intent);
-	}
 
 	@Override
 	public void onStop() {

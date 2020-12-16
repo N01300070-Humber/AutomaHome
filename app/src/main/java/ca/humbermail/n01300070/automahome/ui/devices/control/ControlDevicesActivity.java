@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import ca.humbermail.n01300070.automahome.R;
+import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonView;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 import ca.humbermail.n01300070.automahome.ui.devices.edit.EditDevicesActivity;
 
@@ -19,8 +20,10 @@ public class ControlDevicesActivity extends AppCompatActivity
 {
     private Fragment fragment;
     private Button editDeviceButton;
+    public static String EXTRA_DEVICE_ID = "deviceId";
 
     private String deviceType;
+    private String deviceId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,7 @@ public class ControlDevicesActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editDeviceButton = findViewById(R.id.button_editDevice);
-
+        deviceId = getIntent().getExtras().getString(EXTRA_DEVICE_ID);
         deviceType = getIntent().getExtras().getString(DeviceOrTaskButtonData.ARG_DEVICE);
 
         if (deviceType == null) {
@@ -71,6 +74,7 @@ public class ControlDevicesActivity extends AppCompatActivity
     public void buttonEditDeviceClicked(View view) {
         Intent intent = new Intent(getApplicationContext(), EditDevicesActivity.class);
         intent.putExtra(DeviceOrTaskButtonData.ARG_DEVICE, deviceType);
+        intent.putExtra(EXTRA_DEVICE_ID,deviceId);
         startActivity(intent);
     }
 }

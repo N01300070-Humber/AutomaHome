@@ -73,19 +73,22 @@ public class DevicesViewModel extends ViewModel {
 					device.getRoom(),
 					ContextCompat.getDrawable(context,R.drawable.ic_devices), //TODO: Add specific icons for device types
 					context.getString(R.string.content_description_type_device),
-					context.getColor(R.color.accent_200)
+					context.getColor(R.color.device_button_default)
 			);
 
 			if (device.getType().equals(DeviceOrTaskButtonData.DEVICE_LIGHTS)) {
 				deviceData.setContentDescription(context.getString(R.string.content_description_device_type_lights));
+				deviceData.setDeviceType(DeviceOrTaskButtonData.DEVICE_LIGHTS);
 				lightsDeviceDataList.add(deviceData);
 			}
 			else if (device.getType().equals(DeviceOrTaskButtonData.DEVICE_MOVEMENT_SENSOR)) {
 				deviceData.setContentDescription(context.getString(R.string.content_description_device_type_movement_sensor));
+				deviceData.setDeviceType(DeviceOrTaskButtonData.DEVICE_MOVEMENT_SENSOR);
 				sensorDeviceDataList.add(deviceData);
 			}
 			else if(device.getType().equals(DeviceOrTaskButtonData.DEVICE_THERMOSTAT)) {
 				deviceData.setContentDescription(context.getString(R.string.content_description_device_type_thermostat));
+				deviceData.setDeviceType(DeviceOrTaskButtonData.DEVICE_THERMOSTAT);
 				temperatureDeviceDataList.add(deviceData);
 			}
 		}

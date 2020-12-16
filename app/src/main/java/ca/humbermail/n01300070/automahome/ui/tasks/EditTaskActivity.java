@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
@@ -46,6 +47,7 @@ public class EditTaskActivity extends CustomActivity {
 	public static final String EXTRA_TASK_CATEGORY = "category";
 	public static final String EXTRA_CONDITION_ID = "conditionId";
 	public static final String EXTRA_OPERATION_ID = "operationId";
+	public static final String EXTRA_POSITION = "position";
 	
 	private static final String DEFAULT_NAME = "Untitled Task";
 	
@@ -66,8 +68,8 @@ public class EditTaskActivity extends CustomActivity {
 	
 	private ConditionOrOperationViewAdapter conditionsAdapter;
 	private ConditionOrOperationViewAdapter operationsAdapter;
-	private View.OnClickListener conditionsOnClickListener;
-	private View.OnClickListener operationsOnClickListener;
+	private ConditionOrOperationViewAdapter.OnItemClickListener conditionsOnItemClickListener;
+	private ConditionOrOperationViewAdapter.OnItemClickListener operationsOnItemClickListener;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -124,16 +126,18 @@ public class EditTaskActivity extends CustomActivity {
 				return false;
 			}
 		});
-		conditionsOnClickListener = new View.OnClickListener() {
+		conditionsOnItemClickListener = new ConditionOrOperationViewAdapter.OnItemClickListener() {
 			@Override
-			public void onClick(View view) {
-				conditionsRecyclerViewItemClicked(view);
+			public void onItemClick(View view, int position) {
+				Toast.makeText(getApplicationContext(), "Position: " + position, Toast.LENGTH_SHORT).show(); // Remove debugging toast
+				conditionsRecyclerViewItemClicked(view, position);
 			}
 		};
-		operationsOnClickListener = new View.OnClickListener() {
+		operationsOnItemClickListener = new ConditionOrOperationViewAdapter.OnItemClickListener() {
 			@Override
-			public void onClick(View view) {
-				operationsRecyclerViewItemClicked(view);
+			public void onItemClick(View view, int position) {
+				Toast.makeText(getApplicationContext(), "Position: " + position, Toast.LENGTH_SHORT).show(); // Remove debugging toast
+				operationsRecyclerViewItemClicked(view, position);
 			}
 		};
 		favoriteSelectView.setOnCheckedChangeListener(new MaterialButton.OnCheckedChangeListener() {
@@ -168,21 +172,21 @@ public class EditTaskActivity extends CustomActivity {
 			}
 		});
 		
-		favoriteSelectView.setAutoCompleteLabels(generateCategoryList());
-		conditionsAdapter = new ConditionOrOperationViewAdapter(getApplicationContext(), conditionsOnClickListener);
-		operationsAdapter = new ConditionOrOperationViewAdapter(getApplicationContext(), operationsOnClickListener);
+		favoriteSelectView.setAutoCompleteLabels(editTaskViewModel.generateCategoryList());
+		conditionsAdapter = new ConditionOrOperationViewAdapter(this, conditionsOnItemClickListener);
+		operationsAdapter = new ConditionOrOperationViewAdapter(this, operationsOnItemClickListener);
 		
 		//Conditions Recycler
 		conditionsRecyclerView.setLayoutManager(new NonScrollingLinerLayoutManager(getApplicationContext()));
 		conditionsRecyclerView.setAdapter(conditionsAdapter);
 		conditionsRecyclerView.addItemDecoration(new ListLinePadding((int) getResources().getDimension(R.dimen.recycler_divider_space)));
-		conditionsRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+		conditionsRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 		
 		//Operations Recycler
 		operationsRecyclerView.setLayoutManager(new NonScrollingLinerLayoutManager(getApplicationContext()));
 		operationsRecyclerView.setAdapter(operationsAdapter);
 		operationsRecyclerView.addItemDecoration(new ListLinePadding((int) getResources().getDimension(R.dimen.recycler_divider_space)));
-		operationsRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+		operationsRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 	}
 	
 	@Override
@@ -193,128 +197,58 @@ public class EditTaskActivity extends CustomActivity {
 				.observe(this, new Observer<List<Condition>>() {
 					@Override
 					public void onChanged(List<Condition> conditions) {
-						conditionsAdapter.setDataList(getConditionViewDataList(conditions));
+						conditionsAdapter.setDataList(editTaskViewModel.getConditionViewDataList(conditions));
 					}
 				});
 		realtimeDatabaseDataSource.onTaskOperationValuesChange(taskId)
 				.observe(this, new Observer<List<Operation>>() {
 					@Override
 					public void onChanged(List<Operation> operations) {
-						operationsAdapter.setDataList(getOperationViewDataList(operations));
+						operationsAdapter.setDataList(editTaskViewModel.getOperationViewDataList(operations));
 					}
 				});
 	}
 	
-	private ArrayList<ConditionOrOperationViewData> getConditionViewDataList(List<Condition> conditions) {
-		int listSize = conditions.size();
-		boolean dragHandleVisible = listSize > 1;
-		ArrayList<ConditionOrOperationViewData> conditionViewDataList = new ArrayList<>(listSize);
-		
-		for (Condition condition : conditions) {
-			ConditionOrOperationViewData conditionViewData = new ConditionOrOperationViewData(
-					ConditionOrOperationViewData.TYPE_CONDITION,
-					condition.getId(),
-					condition.getType()
-			);
-			
-			switch (condition.getType()) {
-				case ConditionOrOperationViewData.CONDITION_SCHEDULE:
-					conditionViewData.setMainText(getString(R.string.condition_schedule_settings, "timeOfDay", "selectedDays")); // TODO: Replace hardcoded strings with data from database
-					conditionViewData.setTypeText(getString(R.string.schedule));
-					break;
-				case ConditionOrOperationViewData.CONDITION_TEMPERATURE:
-					conditionViewData.setMainText(getString(R.string.condition_temperature_settings, "logicStatement", 23, "C")); // TODO: Replace hardcoded number and strings with data from database
-					conditionViewData.setTypeText(getString(R.string.temperature));
-					break;
-				case ConditionOrOperationViewData.CONDITION_MOVEMENT:
-					conditionViewData.setMainText(getString(R.string.condition_movement_settings, "destinationRoom", "sourceRoom")); // TODO: Replace hardcoded strings with data from database
-					conditionViewData.setTypeText(getString(R.string.movement));
-					break;
-				default:
-					conditionViewData.setMainText(getString(R.string.condition_unknown_type));
-					conditionViewData.setTypeText(condition.getType());
-			}
-			conditionViewData.setDragHandleVisible(dragHandleVisible);
-			
-			conditionViewDataList.add(conditionViewData);
-		}
-		
-		return conditionViewDataList;
-	}
-	
-	private ArrayList<ConditionOrOperationViewData> getOperationViewDataList(List<Operation> operations) {
-		int listSize = operations.size();
-		boolean dragHandleVisible = listSize > 1;
-		ArrayList<ConditionOrOperationViewData> operationViewDataList = new ArrayList<>(listSize);
-		
-		for (Operation operation : operations) {
-			ConditionOrOperationViewData conditionViewData = new ConditionOrOperationViewData(
-					ConditionOrOperationViewData.TYPE_CONDITION,
-					operation.getId(),
-					operation.getType()
-			);
-			
-			switch (operation.getType()) {
-				case ConditionOrOperationViewData.OPERATION_LIGHTS:
-					conditionViewData.setMainText(getString(R.string.operation_lights_settings, 10, 20)); // TODO: Replace hardcoded numbers with data from database
-					conditionViewData.setTypeText(getString(R.string.schedule));
-					break;
-				case ConditionOrOperationViewData.OPERATION_THERMOSTAT:
-					conditionViewData.setMainText(getString(R.string.operation_thermostat_settings, 23, "C")); // TODO: Replace hardcoded number and string with data from database
-					conditionViewData.setTypeText(getString(R.string.temperature));
-					break;
-				default:
-					conditionViewData.setMainText(getString(R.string.operation_unknown_type));
-					conditionViewData.setTypeText(operation.getType());
-			}
-			conditionViewData.setDragHandleVisible(dragHandleVisible);
-			
-			operationViewDataList.add(conditionViewData);
-		}
-		
-		return operationViewDataList;
-	}
-	
-	// TODO: Replace placeholder data generator function with one that gets real data
-	private ArrayList<String> generateCategoryList() {
-		int numCategories = 6;
-		ArrayList<String> categoryList = new ArrayList<>(numCategories);
-		
-		for (int i = 0; i < numCategories; i++) {
-			categoryList.add("Category " + (i + 1));
-		}
-		
-		return categoryList;
-	}
-	
-	private void conditionsRecyclerViewItemClicked(View view) {
+	private void conditionsRecyclerViewItemClicked(View view, int position) {
 		ConditionOrOperationView conditionView = (ConditionOrOperationView) view;
-		Intent intent = new Intent();
+		Intent intent = new Intent(this, EditConditionActivity.class);
 		
-		intent.setClass(this, EditConditionActivity.class);
-		intent.putExtra(ConditionOrOperationViewData.ARG_CONDITION, conditionView.getConditionOrOperationType());
+		intent.putExtra(EXTRA_TASK_ID, taskId);
 		intent.putExtra(EXTRA_CONDITION_ID, conditionView.getConditionOrOperationId());
+		intent.putExtra(ConditionOrOperationViewData.EXTRA_CONDITION_TYPE, conditionView.getConditionOrOperationType());
+		intent.putExtra(EXTRA_POSITION, position);
 		
 		startActivity(intent);
 	}
 	
-	private void operationsRecyclerViewItemClicked(View view) {
+	private void operationsRecyclerViewItemClicked(View view, int position) {
 		ConditionOrOperationView operationView = (ConditionOrOperationView) view;
-		Intent intent = new Intent();
+		Intent intent = new Intent(this, EditOperationActivity.class);
 		
-		intent.setClass(this, EditOperationActivity.class);
-		intent.putExtra(ConditionOrOperationViewData.ARG_OPERATION, operationView.getConditionOrOperationType());
+		intent.putExtra(EXTRA_TASK_ID, taskId);
 		intent.putExtra(EXTRA_OPERATION_ID, operationView.getConditionOrOperationId());
+		intent.putExtra(ConditionOrOperationViewData.EXTRA_OPERATION_TYPE, operationView.getConditionOrOperationType());
+		intent.putExtra(EXTRA_POSITION, position);
 		
 		startActivity(intent);
 	}
 	
 	public void addConditionButtonClicked(View view) {
-		startActivity(new Intent(this, EditConditionActivity.class));
+		Intent intent = new Intent(this, EditConditionActivity.class);
+		
+		intent.putExtra(EXTRA_TASK_ID, taskId);
+		intent.putExtra(EXTRA_POSITION, conditionsAdapter.getItemCount());
+		
+		startActivity(intent);
 	}
 	
 	public void addOperationButtonClicked(View view) {
-		startActivity(new Intent(this, EditOperationActivity.class));
+		Intent intent = new Intent(this, EditOperationActivity.class);
+		
+		intent.putExtra(EXTRA_TASK_ID, taskId);
+		intent.putExtra(EXTRA_POSITION, operationsAdapter.getItemCount());
+		
+		startActivity(intent);
 	}
 	
 	public void deleteButtonClicked(View view) {

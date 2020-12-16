@@ -8,7 +8,7 @@
 	tools:context=".ui.tasks.operation.EditOperationActivity">
 	
 	<androidx.fragment.app.FragmentContainerView
-		android:id="@+id/fragment_editOperation"
+		android:id="@+id/fragmentContainer_editOperation"
 		android:layout_width="0dp"
 		android:layout_height="0dp"
 		android:layout_marginBottom="8dp"

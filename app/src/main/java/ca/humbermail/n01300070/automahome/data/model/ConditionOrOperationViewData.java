@@ -4,12 +4,12 @@ public class ConditionOrOperationViewData {
 	public static final int TYPE_CONDITION = 0;
 	public static final int TYPE_OPERATION = 1;
 	
-	public static final String ARG_CONDITION = "ConditionType";
+	public static final String EXTRA_CONDITION_TYPE = "ConditionType";
 	public static final String CONDITION_SCHEDULE = "Schedule";
 	public static final String CONDITION_MOVEMENT = "Movement";
 	public static final String CONDITION_TEMPERATURE = "Temperature";
 	
-	public static final String ARG_OPERATION = "OperationType";
+	public static final String EXTRA_OPERATION_TYPE = "OperationType";
 	public static final String OPERATION_LIGHTS = "Lights";
 	public static final String OPERATION_THERMOSTAT = "Thermostat";
 	

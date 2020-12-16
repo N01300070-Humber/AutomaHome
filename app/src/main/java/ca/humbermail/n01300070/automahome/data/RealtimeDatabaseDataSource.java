@@ -84,8 +84,8 @@ public class RealtimeDatabaseDataSource {
 	private ValueEventListener taskOperationsValueEventListener;
 	private final ArrayList<ValueEventListener> taskOperationDataValueEventListeners = new ArrayList<>();
 	
-	List<ConditionOrOperationIndex> taskConditionDataValueIndices;
-	List<ConditionOrOperationIndex> taskOperationDataValueIndices;
+	private final List<ConditionOrOperationIndex> taskConditionDataValueIndices = new ArrayList<>();
+	private final List<ConditionOrOperationIndex> taskOperationDataValueIndices = new ArrayList<>();
 	
 	static class ConditionOrOperationIndex {
 		private String taskId;
@@ -563,7 +563,7 @@ public class RealtimeDatabaseDataSource {
 		return new Condition(key, position, type, referenceDeviceId);
 	}
 	
-	public void addTaskCondition(String taskId, int position, String type, String referenceDeviceId) {
+	public String addTaskCondition(String taskId, int position, String type, String referenceDeviceId) {
 		Log.d("DatabaseDataSource", "addTaskCondition called");
 		
 		DatabaseReference reference = database.getReference(TASKS_REFERENCE)
@@ -574,6 +574,7 @@ public class RealtimeDatabaseDataSource {
 		assert key != null;
 		
 		reference.child(key).setValue(createTaskCondition(key, position, type, referenceDeviceId));
+		return key;
 	}
 	
 	public void removeTaskCondition(String taskId, String taskConditionId) {
@@ -667,7 +668,7 @@ public class RealtimeDatabaseDataSource {
 	
 	
 	// Task Condition Data
-	public void setTaskConditionData(String taskId, String conditionId, String key, String value) {
+	public void setTaskConditionData(String taskId, String conditionId, String key, Object value) {
 		Log.d("DatabaseDataSource", "setTaskConditionData called");
 		
 		database.getReference(TASKS_REFERENCE)
@@ -700,7 +701,7 @@ public class RealtimeDatabaseDataSource {
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
 				Log.d("DatabaseDataSource", "Detected change in Task Condition Data value");
 				
-				Object value = new Object();
+				Object value = null;
 				
 				if (snapshot.exists()) {
 					value = snapshot.getValue();
@@ -731,7 +732,7 @@ public class RealtimeDatabaseDataSource {
 	public void removeTaskConditionDataValueChangesListener(String taskId, String conditionId, String key) {
 		Log.d("DatabaseDataSource", "removeTaskConditionDataValueChangesListener called");
 		
-		int position = taskConditionDataValueIndices.indexOf(new ConditionOrOperationIndex(taskId, conditionId, key));
+		int position = getPositionOfConditionIndex(new ConditionOrOperationIndex(taskId, conditionId, key));
 		
 		database.getReference(TASKS_REFERENCE)
 				.child(taskId)
@@ -746,13 +747,29 @@ public class RealtimeDatabaseDataSource {
 		taskConditionDataValueList.remove(position);
 	}
 	
-	public Object onTaskConditionDataValueChange(String taskId, String conditionId, String key) {
+	public LiveData<Object> onTaskConditionDataValueChange(String taskId, String conditionId, String key) {
 		Log.d("DatabaseDataSource", "onTaskConditionDataValueChange called");
 		
 		listenForTaskConditionDataValueChanges(taskId, conditionId, key);
-		return taskConditionDataValueList.get(taskConditionDataValueIndices.indexOf(
-				new ConditionOrOperationIndex(taskId, conditionId, key)
-		));
+		
+		
+		return taskConditionDataValueList.get(
+				getPositionOfConditionIndex(new ConditionOrOperationIndex(taskId, conditionId, key))
+		);
+	}
+	
+	private int getPositionOfConditionIndex(ConditionOrOperationIndex conditionIndex) {
+		for (int i = 0; i < taskConditionDataValueIndices.size(); i++) {
+			ConditionOrOperationIndex comparisonIndex = taskConditionDataValueIndices.get(i);
+			
+			if (conditionIndex.taskId.equals(comparisonIndex.taskId)
+					&& conditionIndex.conditionOrOperationId.equals(comparisonIndex.conditionOrOperationId)
+					&& conditionIndex.valueKey.equals(comparisonIndex.valueKey)) {
+				return i;
+			}
+		}
+		
+		return -1;
 	}
 	
 	
@@ -761,7 +778,7 @@ public class RealtimeDatabaseDataSource {
 		return new Operation(key, position, type, referenceDeviceId);
 	}
 	
-	public void addTaskOperation(String taskId, int position, String type, String referenceDeviceId) {
+	public String addTaskOperation(String taskId, int position, String type, String referenceDeviceId) {
 		Log.d("DatabaseDataSource", "addTaskOperation called");
 		
 		DatabaseReference reference = database.getReference(TASKS_REFERENCE)
@@ -772,6 +789,7 @@ public class RealtimeDatabaseDataSource {
 		assert key != null;
 		
 		reference.child(key).setValue(createTaskOperation(key, position, type, referenceDeviceId));
+		return key;
 	}
 	
 	public void removeTaskOperation(String taskId, String taskOperationId) {
@@ -863,7 +881,7 @@ public class RealtimeDatabaseDataSource {
 	
 	
 	// Task Operation Data
-	public void setTaskOperationData(String taskId, String operationId, String key, String value) {
+	public void setTaskOperationData(String taskId, String operationId, String key, Object value) {
 		Log.d("DatabaseDataSource", "setTaskOperationData called");
 		
 		database.getReference(TASKS_REFERENCE)
@@ -896,7 +914,7 @@ public class RealtimeDatabaseDataSource {
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
 				Log.d("DatabaseDataSource", "Detected change in Task Operation Data value");
 				
-				Object value = new Object();
+				Object value = null;
 				
 				if (snapshot.exists()) {
 					value = snapshot.getValue();
@@ -942,7 +960,7 @@ public class RealtimeDatabaseDataSource {
 		taskOperationDataValueList.remove(position);
 	}
 	
-	public Object onTaskOperationDataValueChange(String taskId, String operationId, String key) {
+	public LiveData<Object> onTaskOperationDataValueChange(String taskId, String operationId, String key) {
 		Log.d("DatabaseDataSource", "onTaskOperationDataValueChange called");
 		
 		listenForTaskOperationDataValueChanges(taskId, operationId, key);

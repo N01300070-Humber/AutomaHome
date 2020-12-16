@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,6 +50,8 @@ public class EditTaskActivity extends CustomActivity {
 	private static final String DEFAULT_NAME = "Untitled Task";
 	
 	
+	private EditTaskViewModel editTaskViewModel;
+	
 	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
 	private String taskId;
 	
@@ -69,6 +72,7 @@ public class EditTaskActivity extends CustomActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		editTaskViewModel = new ViewModelProvider(this).get(EditTaskViewModel.class);
 		setContentView(R.layout.activity_edit_task);
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 		

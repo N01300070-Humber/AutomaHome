@@ -20,7 +20,6 @@ import ca.humbermail.n01300070.automahome.data.model.CategoryData;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 import ca.humbermail.n01300070.automahome.data.model.Task;
 
-
 public class TasksViewModel extends ViewModel {
 	private static final String[] HEADERS = {"Manual", "Automatic"};
 	

@@ -130,6 +130,7 @@ public class EditDevicesActivity extends CustomActivity {
 		Log.d("EditDevicesActivity","The deviceId is "+deviceId);
 		saveName();
 		saveFavoriteCategory();
+		saveRoom();
 		Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
 		setResult(Activity.RESULT_OK);
 		finish();
@@ -145,6 +146,10 @@ public class EditDevicesActivity extends CustomActivity {
 		} else {
 			realtimeDatabaseDataSource.updateDeviceCategory(deviceId, "");
 		}
+	}
+
+	private void saveRoom() {
+		realtimeDatabaseDataSource.updateDeviceRoom(deviceId,roomSpinner.getSelectedItem().toString());
 	}
 	
 	private ArrayList<String> generateCategoryList() {

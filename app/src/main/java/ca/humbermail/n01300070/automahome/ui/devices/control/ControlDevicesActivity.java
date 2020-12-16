@@ -21,9 +21,11 @@ public class ControlDevicesActivity extends AppCompatActivity
     private Fragment fragment;
     private Button editDeviceButton;
     public static String EXTRA_DEVICE_ID = "deviceId";
+    public static String EXTRA_DEVICE_NAME = "deviceName";
 
     private String deviceType;
     private String deviceId;
+    private String deviceName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class ControlDevicesActivity extends AppCompatActivity
 
         editDeviceButton = findViewById(R.id.button_editDevice);
         deviceId = getIntent().getExtras().getString(EXTRA_DEVICE_ID);
+        deviceName = getIntent().getExtras().getString(EXTRA_DEVICE_NAME);
         deviceType = getIntent().getExtras().getString(DeviceOrTaskButtonData.ARG_DEVICE);
 
         if (deviceType == null) {
@@ -75,6 +78,7 @@ public class ControlDevicesActivity extends AppCompatActivity
         Intent intent = new Intent(getApplicationContext(), EditDevicesActivity.class);
         intent.putExtra(DeviceOrTaskButtonData.ARG_DEVICE, deviceType);
         intent.putExtra(EXTRA_DEVICE_ID,deviceId);
+        intent.putExtra(EXTRA_DEVICE_NAME,deviceName);
         startActivity(intent);
     }
 }

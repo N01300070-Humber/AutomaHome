@@ -374,7 +374,16 @@ public class RealtimeDatabaseDataSource {
 				.child(DEVICES_CATEGORY_PATH)
 				.setValue(category);
 	}
-	
+
+	public void updateDeviceRoom(String deviceId, String room) {
+		Log.d("DatabaseDataSource","updateDeviceRoom called");
+
+		database.getReference(DEVICES_REFERENCE)
+				.child(deviceId)
+				.child(DEVICES_ROOM_PATH)
+				.setValue(room);
+	}
+
 	private void listenForDevicesValueChanges() {
 		Log.d("DatabaseDataSource", "listenForDevicesValueChanges called");
 		

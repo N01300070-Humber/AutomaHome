@@ -38,6 +38,7 @@ public class DevicesFragment extends Fragment {
 
 
 	public static String EXTRA_DEVICE_ID = "deviceId";
+	public static String EXTRA_DEVICE_NAME = "deviceName";
 	private Context context;
 
 	private DevicesViewModel devicesViewModel;
@@ -81,11 +82,11 @@ public class DevicesFragment extends Fragment {
 			public void onClick(View view) {
 				DeviceOrTaskButtonView deviceOrTaskButtonView = (DeviceOrTaskButtonView) view;
 				Intent intent = new Intent();
-				Log.d("DeviceFragment","The device ID is: "+deviceOrTaskButtonView.getDeviceOrTaskId());
-				Log.d("DeviceFragment","The device type is: "+deviceOrTaskButtonView.getType());
+				Log.d("DeviceFragment","The device name is: "+deviceOrTaskButtonView.getName());
 				intent.setClass(context,ControlDevicesActivity.class);
 				intent.putExtra(DeviceOrTaskButtonData.ARG_DEVICE, deviceOrTaskButtonView.getDeviceType());
 				intent.putExtra(EXTRA_DEVICE_ID,deviceOrTaskButtonView.getDeviceOrTaskId());
+				intent.putExtra(EXTRA_DEVICE_NAME,deviceOrTaskButtonView.getName());
 
 				startActivity(intent);
 			}

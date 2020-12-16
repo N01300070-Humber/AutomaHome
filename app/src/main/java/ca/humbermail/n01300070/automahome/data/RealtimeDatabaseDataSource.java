@@ -337,7 +337,7 @@ public class RealtimeDatabaseDataSource {
 		return new Device(key, currentHomeId, name, room, type, category);
 	}
 	
-	public void addDevice(String name, String type, String room, String category) {
+	public String addDevice(String name, String type, String room, String category) {
 		Log.d("DatabaseDataSource", "addDevice called");
 		
 		DatabaseReference reference = database.getReference(DEVICES_REFERENCE);
@@ -346,6 +346,7 @@ public class RealtimeDatabaseDataSource {
 		assert key != null;
 		
 		reference.child(key).setValue(createDevice(key, name, type, room, category));
+		return key;
 	}
 	
 	public void removeDevice(String deviceId) {

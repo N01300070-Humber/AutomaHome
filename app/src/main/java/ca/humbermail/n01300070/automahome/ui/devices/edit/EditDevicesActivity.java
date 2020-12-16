@@ -3,23 +3,42 @@ package ca.humbermail.n01300070.automahome.ui.devices.edit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.FavoriteSelectView;
+import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
+import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
+import ca.humbermail.n01300070.automahome.data.model.Device;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 
-public class EditDevicesActivity extends AppCompatActivity
+public class EditDevicesActivity extends CustomActivity
 {
+    public static String EXTRA_DEVICE_ID = "deviceId";
+    public static String EXTRA_DEVICE_NAME = "deviceName";
+    public static String EXTRA_DEVICE_CATEGORY = "category";
+
+    private static final String DEFAULT_NAME = "Untitled Device";
+
+    private Button saveButton;
+    private Button deleteButton;
     private Fragment fragment;
     private FavoriteSelectView favoriteSelectView;
     private Spinner roomSpinner;
@@ -27,6 +46,11 @@ public class EditDevicesActivity extends AppCompatActivity
     private TextView roomLocationHeader;
     private TextView roomLocationHeader2;
     private String deviceType;
+    private TextInputEditText nameEditText;
+
+
+    private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
+    private String deviceId;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +58,41 @@ public class EditDevicesActivity extends AppCompatActivity
         setContentView(R.layout.activity_edit_devices);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        saveButton = findViewById(R.id.button_editDevice_save);
+        deleteButton = findViewById(R.id.button_editDevice_delete);
         roomSpinner = findViewById(R.id.spinner_editDevice);
         roomSpinner2 = findViewById(R.id.spinner_editDevice_2);
         roomLocationHeader = findViewById(R.id.textView_deviceLocation_editDevice);
         roomLocationHeader2 = findViewById(R.id.textView_editDevice_deviceLocation2);
         favoriteSelectView = findViewById(R.id.favoriteSelectView_editDevice);
+        nameEditText = findViewById(R.id.editText_editDevice);
 
         deviceType = getIntent().getExtras().getString(DeviceOrTaskButtonData.ARG_DEVICE);
         favoriteSelectView.setAutoCompleteLabels(generateCategoryList());
+
+        setRealtimeDatabaseDataSource(new RealtimeDatabaseDataSource());
+        realtimeDatabaseDataSource = getRealtimeDatabaseDataSource();
+        realtimeDatabaseDataSource.setCurrentHomeId(
+                getSharedPreferences(PreferenceKeys.KEY_SESSION, Context.MODE_PRIVATE)
+                .getString(PreferenceKeys.KEY_SESSION_SELECTED_HOME,"")
+        );
+
+        // Get Extras
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
+            deviceId = realtimeDatabaseDataSource.addDevice(DEFAULT_NAME,"","","");
+            nameEditText.setText(DEFAULT_NAME);
+
+        } else {
+            deviceId = bundle.getString(EXTRA_DEVICE_ID);
+            nameEditText.setText(bundle.getString(EXTRA_DEVICE_NAME));
+
+            String category = bundle.getString(EXTRA_DEVICE_CATEGORY);
+            if (category != null && !category.isEmpty()) {
+                favoriteSelectView.setChecked(true);
+                favoriteSelectView.setText(category);
+            }
+        }
 
         switch(deviceType){
             case DeviceOrTaskButtonData.DEVICE_LIGHTS:
@@ -65,19 +116,35 @@ public class EditDevicesActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_editDevice, fragment).commit();
     }
 
-    public void discardButtonClicked(View view) {
-        //TODO data handling
-        setResult(Activity.RESULT_CANCELED);
+    public void deleteButtonClicked(View view) {
+        realtimeDatabaseDataSource.removeTask(deviceId);
         finish();
     }
 
+//    public void discardButtonClicked(View view) {
+//        //TODO data handling
+//        setResult(Activity.RESULT_CANCELED);
+//        finish();
+//    }
+
     public void saveButtonClicked(View view) {
-        //TODO data handling
         Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show(); // TODO: Remove placeholder toast
+        saveName();
+        saveFavoriteCategory();
         setResult(Activity.RESULT_OK);
         finish();
     }
-    
+    private void saveName() {
+        realtimeDatabaseDataSource.updateDeviceName(deviceId, Objects.requireNonNull(nameEditText.getText().toString()));
+    }
+
+    private void saveFavoriteCategory() {
+        if(favoriteSelectView.isChecked()) {
+            realtimeDatabaseDataSource.updateDeviceCategory(deviceId,favoriteSelectView.getText());
+        } else {
+            realtimeDatabaseDataSource.updateDeviceCategory(deviceId,"");
+        }
+    }
     private ArrayList<String> generateCategoryList() {
         int numCategories = 6;
         ArrayList<String> categoryList = new ArrayList<>(numCategories);

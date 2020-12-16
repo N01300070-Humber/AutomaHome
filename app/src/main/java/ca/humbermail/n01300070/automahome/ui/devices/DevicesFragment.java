@@ -32,9 +32,12 @@ import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 import ca.humbermail.n01300070.automahome.ui.devices.DeviceSearchActivity;
 import ca.humbermail.n01300070.automahome.ui.devices.DevicesViewModel;
 import ca.humbermail.n01300070.automahome.ui.devices.control.ControlDevicesActivity;
+import ca.humbermail.n01300070.automahome.ui.devices.edit.EditDevicesActivity;
 import ca.humbermail.n01300070.automahome.ui.main.NavDrawerActivity;
 
 public class DevicesFragment extends Fragment {
+
+
 
 	private Context context;
 
@@ -69,7 +72,7 @@ public class DevicesFragment extends Fragment {
 		addDeviceFAB.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				startActivity(new Intent(context, DeviceSearchActivity.class));
+				startEditDevicesActivity(null,null,null);
 			}
 		});
 
@@ -96,6 +99,7 @@ public class DevicesFragment extends Fragment {
 		return root;
 	}
 
+
 	@Override
 	public void onStart() {
 		Log.d("DeviceFragment","onStart called");
@@ -114,6 +118,17 @@ public class DevicesFragment extends Fragment {
 						));
 			}
 		});
+	}
+	private void startEditDevicesActivity (String deviceId, String deviceName, String favoritesCategory) {
+		Log.d("DevicesFragment","startEditDevicesActivity called");
+
+		Intent intent = new Intent(context, EditDevicesActivity.class);
+		if(deviceId != null & deviceName != null) {
+			intent.putExtra(EditDevicesActivity.EXTRA_DEVICE_ID,deviceId);
+			intent.putExtra(EditDevicesActivity.EXTRA_DEVICE_NAME, deviceName);
+			intent.putExtra(EditDevicesActivity.EXTRA_DEVICE_CATEGORY,favoritesCategory);
+		}
+		startActivity(intent);
 	}
 
 	@Override

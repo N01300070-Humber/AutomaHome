@@ -23,7 +23,7 @@ import ca.humbermail.n01300070.automahome.data.model.Device;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 
 public class DevicesViewModel extends ViewModel {
-	private static final String[] HEADERS = {"Lights","Sensors"," Heating / Cooling"};
+	private static final String[] HEADERS = {"Lights","Sensors","Heating / Cooling"};
 	private final MutableLiveData<String> mText;
 
 	public DevicesViewModel() {

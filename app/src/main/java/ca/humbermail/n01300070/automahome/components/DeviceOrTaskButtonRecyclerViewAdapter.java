@@ -69,6 +69,7 @@ public class DeviceOrTaskButtonRecyclerViewAdapter extends RecyclerView.Adapter<
 		else {
 			holder.deviceButtonView.setExtraTextVisible(false);
 		}
+		holder.deviceButtonView.setFavoritesCategory(data.getFavoritesCategory());
 		holder.deviceButtonView.setIcon(data.getIcon());
 		holder.deviceButtonView.setIconContentDesc(data.getContentDescription());
 		holder.deviceButtonView.setBackgroundColour(data.getBackgroundColour());

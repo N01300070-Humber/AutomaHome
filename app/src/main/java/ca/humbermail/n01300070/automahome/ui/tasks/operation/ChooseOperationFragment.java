@@ -2,15 +2,14 @@ package ca.humbermail.n01300070.automahome.ui.tasks.operation;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
@@ -26,27 +25,27 @@ public class ChooseOperationFragment extends Fragment {
 	RecyclerView recyclerView;
 	
 	private ConditionOrOperationViewAdapter adapter;
-	private View.OnClickListener onClickListener;
+	private ConditionOrOperationViewAdapter.OnItemClickListener onItemClickListener;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View root = inflater.inflate(R.layout.fragment_choose_operation, container, false);
-		context = getActivity().getApplicationContext();
+		context = requireContext();
 		
 		recyclerView = root.findViewById(R.id.recyclerView_chooseOperation);
 		
-		onClickListener = new View.OnClickListener() {
+		onItemClickListener = new ConditionOrOperationViewAdapter.OnItemClickListener() {
 			@Override
-			public void onClick(View view) {
+			public void onItemClick(View view, int position) {
 				ConditionOrOperationView operationView = (ConditionOrOperationView) view;
-				EditOperationActivity parentActivity = (EditOperationActivity) getActivity();
+				EditOperationActivity parentActivity = (EditOperationActivity) requireActivity();
 				
-				parentActivity.changeActiveFragment(operationView.getConditionOrOperationType());
+				parentActivity.onOperationTypeSelected(operationView.getConditionOrOperationType());
 			}
 		};
-		adapter = new ConditionOrOperationViewAdapter(context, getOperationsDataList(), onClickListener);
+		adapter = new ConditionOrOperationViewAdapter(context, getOperationsDataList(), onItemClickListener);
 		
 		recyclerView.setLayoutManager(new LinearLayoutManager(context));
 		recyclerView.setAdapter(adapter);

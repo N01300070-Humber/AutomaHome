@@ -51,7 +51,8 @@
 			android:background="@null"
 			android:imeOptions="actionDone"
 			android:inputType="text"
-			android:singleLine="true" />
+			android:singleLine="true"
+			tools:ignore="LabelFor" />
 	
 	</com.google.android.material.textfield.TextInputLayout>
 

@@ -67,7 +67,7 @@ public class TasksFragment extends Fragment {
 		createTaskFAB.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				startEditTaskActivity(null, null);
+				startEditTaskActivity(null, null, null);
 			}
 		});
 		
@@ -76,7 +76,7 @@ public class TasksFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				DeviceOrTaskButtonView taskButton = (DeviceOrTaskButtonView) view;
-				startEditTaskActivity(taskButton.getDeviceOrTaskId(), taskButton.getName());
+				startEditTaskActivity(taskButton.getDeviceOrTaskId(), taskButton.getName(), taskButton.getFavoritesCategory());
 			}
 		};
 		categoryAdapter = new CategorizedDeviceOrTaskButtonRecyclerViewAdapter(context);
@@ -109,13 +109,14 @@ public class TasksFragment extends Fragment {
 		});
 	}
 	
-	private void startEditTaskActivity(String taskId, String taskName) {
+	private void startEditTaskActivity(String taskId, String taskName, String favoritesCategory) {
 		Log.d("TasksFragment", "startEditTaskActivity called");
 		
 		Intent intent = new Intent(context, EditTaskActivity.class);
 		if (taskId != null & taskName != null) {
 			intent.putExtra(EditTaskActivity.EXTRA_TASK_ID, taskId);
 			intent.putExtra(EditTaskActivity.EXTRA_TASK_NAME, taskName);
+			intent.putExtra(EditTaskActivity.EXTRA_TASK_CATEGORY, favoritesCategory);
 		}
 		startActivity(intent);
 	}

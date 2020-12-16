@@ -1,41 +1,53 @@
 package ca.humbermail.n01300070.automahome.ui.tasks.operation;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 
-public class EditOperationActivity extends AppCompatActivity {
+import java.util.Objects;
+
+import ca.humbermail.n01300070.automahome.R;
+import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
+import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
+import ca.humbermail.n01300070.automahome.ui.tasks.EditTaskActivity;
+
+public class EditOperationActivity extends CustomActivity {
 	
 	private Button saveButton;
 	private Button discardButton;
 	
 	private Fragment fragment;
 	
+	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
+	private String taskId;
+	private String operationId;
 	private String operationType;
+	private int position;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_operation);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 		
-		Bundle arguments = getIntent().getExtras();
-		if (arguments == null) {
+		setRealtimeDatabaseDataSource(new RealtimeDatabaseDataSource());
+		realtimeDatabaseDataSource = getRealtimeDatabaseDataSource();
+		
+		Bundle bundle = getIntent().getExtras();
+		taskId = bundle.getString(EditTaskActivity.EXTRA_TASK_ID);
+		operationId = bundle.getString(EditTaskActivity.EXTRA_CONDITION_ID);
+		operationType = bundle.getString(ConditionOrOperationViewData.EXTRA_CONDITION_TYPE);
+		if (operationType == null) {
 			operationType = "";
 		}
-		else {
-			operationType = arguments.getString(ConditionOrOperationViewData.ARG_OPERATION);
-		}
+		position = bundle.getInt(EditTaskActivity.EXTRA_POSITION);
 		
 		saveButton = findViewById(R.id.button_editOperation_save);
 		discardButton = findViewById(R.id.button_editOperation_delete);
@@ -43,10 +55,14 @@ public class EditOperationActivity extends AppCompatActivity {
 		setActiveFragment(operationType);
 	}
 	
-	public void changeActiveFragment(String operationType) {
+	public void onOperationTypeSelected(String operationType) {
 		getSupportFragmentManager().beginTransaction().remove(fragment).commit();
 		saveButton.setVisibility(View.VISIBLE);
 		discardButton.setVisibility(View.VISIBLE);
+		
+		this.operationType = operationType;
+		this.operationId = realtimeDatabaseDataSource.addTaskOperation(taskId, position, operationType, "");
+		
 		setActiveFragment(operationType);
 	}
 	
@@ -63,19 +79,18 @@ public class EditOperationActivity extends AppCompatActivity {
 				saveButton.setVisibility(View.GONE);
 				discardButton.setVisibility(View.GONE);
 		}
-		getSupportFragmentManager().beginTransaction().add(R.id.fragment_editOperation, fragment).commit();
+		getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer_editOperation, fragment).commit();
 	}
 	
 	public void discardButtonClicked(View view) {
-		//TODO data handling
-		setResult(Activity.RESULT_CANCELED);
+		realtimeDatabaseDataSource.removeTaskOperation(taskId, operationId);
+		
 		finish();
 	}
 	
 	public void saveButtonClicked(View view) {
 		//TODO data handling
-		Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show(); // TODO: Remove placeholder toast
-		setResult(Activity.RESULT_OK);
+
 		finish();
 	}
 	
@@ -86,7 +101,6 @@ public class EditOperationActivity extends AppCompatActivity {
 	 */
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		setResult(Activity.RESULT_CANCELED);
 		finish();
 		return true;
 	}

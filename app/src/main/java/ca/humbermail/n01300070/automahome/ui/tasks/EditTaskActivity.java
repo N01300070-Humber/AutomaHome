@@ -3,18 +3,27 @@ package ca.humbermail.n01300070.automahome.ui.tasks;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
@@ -25,7 +34,9 @@ import ca.humbermail.n01300070.automahome.components.ListLinePadding;
 import ca.humbermail.n01300070.automahome.components.NonScrollingLinerLayoutManager;
 import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
 import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
+import ca.humbermail.n01300070.automahome.data.model.Condition;
 import ca.humbermail.n01300070.automahome.data.model.ConditionOrOperationViewData;
+import ca.humbermail.n01300070.automahome.data.model.Operation;
 import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 import ca.humbermail.n01300070.automahome.ui.tasks.condition.EditConditionActivity;
 import ca.humbermail.n01300070.automahome.ui.tasks.operation.EditOperationActivity;
@@ -33,10 +44,15 @@ import ca.humbermail.n01300070.automahome.ui.tasks.operation.EditOperationActivi
 public class EditTaskActivity extends CustomActivity {
 	public static final String EXTRA_TASK_ID = "taskId";
 	public static final String EXTRA_TASK_NAME = "taskName";
+	public static final String EXTRA_TASK_CATEGORY = "category";
 	public static final String EXTRA_CONDITION_ID = "conditionId";
 	public static final String EXTRA_OPERATION_ID = "operationId";
+	public static final String EXTRA_POSITION = "position";
 	
 	private static final String DEFAULT_NAME = "Untitled Task";
+	
+	
+	private EditTaskViewModel editTaskViewModel;
 	
 	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
 	private String taskId;
@@ -52,16 +68,13 @@ public class EditTaskActivity extends CustomActivity {
 	
 	private ConditionOrOperationViewAdapter conditionsAdapter;
 	private ConditionOrOperationViewAdapter operationsAdapter;
-	private View.OnClickListener conditionsOnClickListener;
-	private View.OnClickListener operationsOnClickListener;
-	
-	ArrayList<ConditionOrOperationViewData> getConditionsFromResults = new ArrayList<>();
-	ArrayList<ConditionOrOperationViewData> getOperationsFromResults = new ArrayList<>();
-	
+	private ConditionOrOperationViewAdapter.OnItemClickListener conditionsOnItemClickListener;
+	private ConditionOrOperationViewAdapter.OnItemClickListener operationsOnItemClickListener;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		editTaskViewModel = new ViewModelProvider(this).get(EditTaskViewModel.class);
 		setContentView(R.layout.activity_edit_task);
 		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 		
@@ -82,146 +95,193 @@ public class EditTaskActivity extends CustomActivity {
 						.getString(PreferenceKeys.KEY_SESSION_SELECTED_HOME, "")
 		);
 		
-		conditionsOnClickListener = new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				conditionsRecyclerViewItemClicked(view);
+		// Get Extras
+		Bundle bundle = getIntent().getExtras();
+		if (bundle == null) {
+			taskId = realtimeDatabaseDataSource.addTask(DEFAULT_NAME, "", "");
+			nameEditText.setText(DEFAULT_NAME);
+		} else {
+			taskId = bundle.getString(EXTRA_TASK_ID);
+			nameEditText.setText(bundle.getString(EXTRA_TASK_NAME));
+			
+			String category = bundle.getString(EXTRA_TASK_CATEGORY);
+			if (category != null && !category.isEmpty()) {
+				favoriteSelectView.setChecked(true);
+				favoriteSelectView.setText(category);
 			}
-		};
-		operationsOnClickListener = new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				operationsRecyclerViewItemClicked(view);
-			}
-		};
+		}
 		
-		favoriteSelectView.setAutoCompleteLabels(generateCategoryList());
-		conditionsAdapter = new ConditionOrOperationViewAdapter(getApplicationContext(), conditionsOnClickListener);
-		operationsAdapter = new ConditionOrOperationViewAdapter(getApplicationContext(), operationsOnClickListener);
+		nameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView textView, int keyCode, KeyEvent keyEvent) {
+				if (keyCode == EditorInfo.IME_ACTION_DONE) {
+					realtimeDatabaseDataSource.updateTaskName(taskId,
+							Objects.requireNonNull(textView.getText()).toString());
+					textView.clearFocus();
+					((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+							.hideSoftInputFromWindow(textView.getWindowToken(),
+									InputMethodManager.HIDE_NOT_ALWAYS);
+					return true;
+				}
+				return false;
+			}
+		});
+		conditionsOnItemClickListener = new ConditionOrOperationViewAdapter.OnItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				Toast.makeText(getApplicationContext(), "Position: " + position, Toast.LENGTH_SHORT).show(); // Remove debugging toast
+				conditionsRecyclerViewItemClicked(view, position);
+			}
+		};
+		operationsOnItemClickListener = new ConditionOrOperationViewAdapter.OnItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				Toast.makeText(getApplicationContext(), "Position: " + position, Toast.LENGTH_SHORT).show(); // Remove debugging toast
+				operationsRecyclerViewItemClicked(view, position);
+			}
+		};
+		favoriteSelectView.setOnCheckedChangeListener(new MaterialButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(MaterialButton button, boolean isChecked) {
+				if (isChecked) {
+					realtimeDatabaseDataSource.updateTaskCategory(taskId, favoriteSelectView.getText());
+				} else {
+					realtimeDatabaseDataSource.updateTaskCategory(taskId, "");
+				}
+			}
+		});
+		favoriteSelectView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				saveFavoriteCategory();
+			}
+		});
+		favoriteSelectView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView textView, int keyCode, KeyEvent keyEvent) {
+				if (keyCode == EditorInfo.IME_ACTION_DONE) {
+					realtimeDatabaseDataSource.updateTaskCategory(taskId,
+							Objects.requireNonNull(textView.getText()).toString());
+					textView.clearFocus();
+					((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+							.hideSoftInputFromWindow(textView.getWindowToken(),
+									InputMethodManager.HIDE_NOT_ALWAYS);
+					return true;
+				}
+				return false;
+			}
+		});
+		
+		favoriteSelectView.setAutoCompleteLabels(editTaskViewModel.generateCategoryList());
+		conditionsAdapter = new ConditionOrOperationViewAdapter(this, conditionsOnItemClickListener);
+		operationsAdapter = new ConditionOrOperationViewAdapter(this, operationsOnItemClickListener);
 		
 		//Conditions Recycler
 		conditionsRecyclerView.setLayoutManager(new NonScrollingLinerLayoutManager(getApplicationContext()));
 		conditionsRecyclerView.setAdapter(conditionsAdapter);
 		conditionsRecyclerView.addItemDecoration(new ListLinePadding((int) getResources().getDimension(R.dimen.recycler_divider_space)));
-		conditionsRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+		conditionsRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 		
 		//Operations Recycler
 		operationsRecyclerView.setLayoutManager(new NonScrollingLinerLayoutManager(getApplicationContext()));
 		operationsRecyclerView.setAdapter(operationsAdapter);
 		operationsRecyclerView.addItemDecoration(new ListLinePadding((int) getResources().getDimension(R.dimen.recycler_divider_space)));
-		operationsRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+		operationsRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 	}
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
 		
-		//TODO
+		realtimeDatabaseDataSource.onTaskConditionValuesChange(taskId)
+				.observe(this, new Observer<List<Condition>>() {
+					@Override
+					public void onChanged(List<Condition> conditions) {
+						conditionsAdapter.setDataList(editTaskViewModel.getConditionViewDataList(conditions));
+					}
+				});
+		realtimeDatabaseDataSource.onTaskOperationValuesChange(taskId)
+				.observe(this, new Observer<List<Operation>>() {
+					@Override
+					public void onChanged(List<Operation> operations) {
+						operationsAdapter.setDataList(editTaskViewModel.getOperationViewDataList(operations));
+					}
+				});
 	}
 	
-	// TODO: Replace placeholder data generator function with one that gets real data
-	private ArrayList<String> generateCategoryList() {
-		int numCategories = 6;
-		ArrayList<String> categoryList = new ArrayList<>(numCategories);
-		
-		for (int i = 0; i < numCategories; i++) {
-			categoryList.add("Category " + (i + 1));
-		}
-		
-		return categoryList;
-	}
-	
-	// TODO: Replace placeholder data generator function with one that gets real data
-	private ArrayList<ConditionOrOperationViewData> generateConditionList() {
-		String[] typeList = {ConditionOrOperationViewData.CONDITION_SCHEDULE, ConditionOrOperationViewData.CONDITION_TEMPERATURE};
-		String[] mainTextList = {"10:30 on Week Days", "Temperature equal to 23°C"};
-		String[] typeTextList = {"Schedule", "Temperature"};
-		ArrayList<ConditionOrOperationViewData> operationDataList = new ArrayList<>();
-		if (!getConditionsFromResults.isEmpty()) {
-			for (ConditionOrOperationViewData operationData : getConditionsFromResults) {
-				operationDataList.add(operationData);
-			}
-		}
-		
-		for (int i = 0; i < typeList.length; i++) {
-			ConditionOrOperationViewData operationData = new ConditionOrOperationViewData(
-					ConditionOrOperationViewData.TYPE_CONDITION,
-					typeList[i],
-					mainTextList[i],
-					typeTextList[i]
-			);
-			
-			operationDataList.add(operationData);
-		}
-		
-		return operationDataList;
-	}
-	
-	// TODO: Replace placeholder data generator function with one that gets real data
-	private ArrayList<ConditionOrOperationViewData> generateOperationList() {
-		String[] typeList = {ConditionOrOperationViewData.OPERATION_LIGHTS, ConditionOrOperationViewData.OPERATION_THERMOSTAT};
-		String[] mainTextList = {"Set Brightness to 70%, Temp to 30%", "Set target temp to 28°C"};
-		String[] typeTextList = {"Lights", "Thermostat"};
-		ArrayList<ConditionOrOperationViewData> conditionDataList = new ArrayList<>();
-		
-		for (int i = 0; i < typeList.length; i++) {
-			ConditionOrOperationViewData conditionData = new ConditionOrOperationViewData(
-					ConditionOrOperationViewData.TYPE_OPERATION,
-					typeList[i],
-					mainTextList[i],
-					typeTextList[i]
-			);
-			
-			conditionDataList.add(conditionData);
-		}
-		
-		return conditionDataList;
-	}
-	
-	private void conditionsRecyclerViewItemClicked(View view) {
+	private void conditionsRecyclerViewItemClicked(View view, int position) {
 		ConditionOrOperationView conditionView = (ConditionOrOperationView) view;
-		Intent intent = new Intent();
+		Intent intent = new Intent(this, EditConditionActivity.class);
 		
-		intent.setClass(this, EditConditionActivity.class);
-		intent.putExtra(ConditionOrOperationViewData.ARG_CONDITION, conditionView.getConditionOrOperationType());
+		intent.putExtra(EXTRA_TASK_ID, taskId);
+		intent.putExtra(EXTRA_CONDITION_ID, conditionView.getConditionOrOperationId());
+		intent.putExtra(ConditionOrOperationViewData.EXTRA_CONDITION_TYPE, conditionView.getConditionOrOperationType());
+		intent.putExtra(EXTRA_POSITION, position);
 		
 		startActivity(intent);
 	}
 	
-	private void operationsRecyclerViewItemClicked(View view) {
+	private void operationsRecyclerViewItemClicked(View view, int position) {
 		ConditionOrOperationView operationView = (ConditionOrOperationView) view;
-		Intent intent = new Intent();
+		Intent intent = new Intent(this, EditOperationActivity.class);
 		
-		intent.setClass(this, EditOperationActivity.class);
-		intent.putExtra(ConditionOrOperationViewData.ARG_OPERATION, operationView.getConditionOrOperationType());
+		intent.putExtra(EXTRA_TASK_ID, taskId);
+		intent.putExtra(EXTRA_OPERATION_ID, operationView.getConditionOrOperationId());
+		intent.putExtra(ConditionOrOperationViewData.EXTRA_OPERATION_TYPE, operationView.getConditionOrOperationType());
+		intent.putExtra(EXTRA_POSITION, position);
 		
 		startActivity(intent);
 	}
 	
 	public void addConditionButtonClicked(View view) {
-		startActivity(new Intent(this, EditConditionActivity.class));
+		Intent intent = new Intent(this, EditConditionActivity.class);
+		
+		intent.putExtra(EXTRA_TASK_ID, taskId);
+		intent.putExtra(EXTRA_POSITION, conditionsAdapter.getItemCount());
+		
+		startActivity(intent);
 	}
 	
 	public void addOperationButtonClicked(View view) {
-		startActivity(new Intent(this, EditOperationActivity.class));
+		Intent intent = new Intent(this, EditOperationActivity.class);
+		
+		intent.putExtra(EXTRA_TASK_ID, taskId);
+		intent.putExtra(EXTRA_POSITION, operationsAdapter.getItemCount());
+		
+		startActivity(intent);
 	}
 	
-	public void discardButtonClicked(View view) {
-		//TODO data handling
-		
+	public void deleteButtonClicked(View view) {
+		realtimeDatabaseDataSource.removeTask(taskId);
 		finish();
 	}
 	
 	public void saveButtonClicked(View view) {
-		//TODO data handling
-		String taskId = realtimeDatabaseDataSource.addTask("New task", "Test", "TestCategory");
-		realtimeDatabaseDataSource.addTaskOperation(taskId, 0, "Operation", "TestDevice");
-		realtimeDatabaseDataSource.addTaskCondition(taskId, 0, "Condition", "TestDevice");
-		
-		Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show(); // TODO: Remove placeholder toast
+		saveName();
+		saveFavoriteCategory();
 		finish();
 	}
 	
+	private void saveName() {
+		realtimeDatabaseDataSource.updateTaskName(taskId, Objects.requireNonNull(nameEditText.getText()).toString());
+	}
+	
+	private void saveFavoriteCategory() {
+		if (favoriteSelectView.isChecked()) {
+			realtimeDatabaseDataSource.updateTaskCategory(taskId, favoriteSelectView.getText());
+		} else {
+			realtimeDatabaseDataSource.updateTaskCategory(taskId, "");
+		}
+	}
+	
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		
+		realtimeDatabaseDataSource.removeTaskConditionsValueChangesListener(taskId);
+		realtimeDatabaseDataSource.removeTaskOperationsValueChangesListener(taskId);
+	}
 	
 	/**
 	 * Handles back button onClick event

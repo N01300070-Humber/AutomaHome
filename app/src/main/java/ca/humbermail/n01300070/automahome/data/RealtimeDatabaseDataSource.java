@@ -41,17 +41,21 @@ public class RealtimeDatabaseDataSource {
 	private final static String DEVICES_TYPE_PATH = "type";
 	private final static String DEVICES_CATEGORY_PATH = "category";
 	private final static String TASKS_REFERENCE = "tasks";
-	private final static String TASKS_ID_PATH = "homeId";
+	private final static String TASKS_ID_PATH = "id";
 	private final static String TASKS_HOME_ID_PATH = "homeId";
 	private final static String TASKS_NAME_PATH = "name";
 	private final static String TASKS_NOTE_PATH = "note";
 	private final static String TASKS_CATEGORY_PATH = "category";
 	private final static String TASK_CONDITIONS_PATH = "conditions";
+	private final static String TASK_CONDITIONS_ID_PATH = "id";
 	private final static String TASK_CONDITIONS_POSITION_PATH = "position";
+	private final static String TASK_CONDITIONS_TYPE_PATH = "type";
 	private final static String TASK_CONDITIONS_DEVICE_ID_PATH = "deviceId";
 	private final static String TASK_CONDITIONS_DATA_PATH = "data";
 	private final static String TASK_OPERATIONS_PATH = "operations";
+	private final static String TASK_OPERATIONS_ID_PATH = "id";
 	private final static String TASK_OPERATIONS_POSITION_PATH = "position";
+	private final static String TASK_OPERATIONS_TYPE_PATH = "type";
 	private final static String TASK_OPERATIONS_DEVICE_ID_PATH = "deviceId";
 	private final static String TASK_OPERATIONS_DATA_PATH = "data";
 	
@@ -69,7 +73,9 @@ public class RealtimeDatabaseDataSource {
 	private final MutableLiveData<List<Device>> deviceValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Task>> taskValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Condition>> taskConditionValues = new MutableLiveData<>();
+	private final List<MutableLiveData<Object>> taskConditionDataValueList = new ArrayList<>();
 	private final MutableLiveData<List<Operation>> taskOperationValues = new MutableLiveData<>();
+	private final List<MutableLiveData<Object>> taskOperationDataValueList = new ArrayList<>();
 	
 	private ValueEventListener usersValueEventListener;
 	private ValueEventListener homesValueEventListener;
@@ -77,7 +83,49 @@ public class RealtimeDatabaseDataSource {
 	private ValueEventListener devicesValueEventListener;
 	private ValueEventListener tasksValueEventListener;
 	private ValueEventListener taskConditionsValueEventListener;
+	private final ArrayList<ValueEventListener> taskConditionDataValueEventListeners = new ArrayList<>();
 	private ValueEventListener taskOperationsValueEventListener;
+	private final ArrayList<ValueEventListener> taskOperationDataValueEventListeners = new ArrayList<>();
+	
+	private final List<ConditionOrOperationIndex> taskConditionDataValueIndices = new ArrayList<>();
+	private final List<ConditionOrOperationIndex> taskOperationDataValueIndices = new ArrayList<>();
+	
+	static class ConditionOrOperationIndex {
+		private String taskId;
+		private String conditionOrOperationId;
+		private String valueKey;
+		
+		ConditionOrOperationIndex(String taskId, String conditionOrOperationId, String valueKey) {
+			this.taskId = taskId;
+			this.conditionOrOperationId = conditionOrOperationId;
+			this.valueKey = valueKey;
+		}
+		
+		public String getTaskId() {
+			return taskId;
+		}
+		
+		public void setTaskId(String taskId) {
+			this.taskId = taskId;
+		}
+		
+		public String getConditionOrOperationId() {
+			return conditionOrOperationId;
+		}
+		
+		public void setConditionOrOperationId(String conditionOrOperationId) {
+			this.conditionOrOperationId = conditionOrOperationId;
+		}
+		
+		public String getValueKey() {
+			return valueKey;
+		}
+		
+		public void setValueKey(String valueKey) {
+			this.valueKey = valueKey;
+		}
+	}
+	
 	
 	// Users
 	private User createUser(String key, String name, String email) {
@@ -147,7 +195,7 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void addHome(String name, LoginDataSource loginDataSource) {
-		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
+		Log.d("DatabaseDataSource", "addHome called");
 		
 		DatabaseReference reference = database.getReference(HOMES_REFERENCE);
 		
@@ -161,13 +209,11 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void removeHome() {
-		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
-		
 		removeHome(currentHomeId);
 	}
 	
 	public void removeHome(String homeId) {
-		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
+		Log.d("DatabaseDataSource", "removeHome called");
 		
 		database.getReference(HOMES_REFERENCE)
 				.child(homeId)
@@ -177,13 +223,11 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public void updateHomeName(String name) {
-		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
-		
 		updateHomeName(currentHomeId, name);
 	}
 	
 	public void updateHomeName(String homeId, String name) {
-		Log.d("DatabaseDataSource", "updateCurrentUserEmailAddress called");
+		Log.d("DatabaseDataSource", "updateHomeName called");
 		
 		database.getReference(HOMES_REFERENCE)
 				.child(homeId)
@@ -497,15 +541,13 @@ public class RealtimeDatabaseDataSource {
 					Iterable<DataSnapshot> iterable = snapshot.getChildren();
 					
 					for (DataSnapshot dataSnapshot : iterable) {
-						Task task = new Task(
+						tasks.add(new Task(
 								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_ID_PATH).getValue()),
 								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_HOME_ID_PATH).getValue()),
 								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_NAME_PATH).getValue()),
 								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_NOTE_PATH).getValue()),
 								(String) Objects.requireNonNull(dataSnapshot.child(TASKS_CATEGORY_PATH).getValue())
-						);
-						
-						tasks.add(task);
+						));
 					}
 				}
 				
@@ -543,7 +585,7 @@ public class RealtimeDatabaseDataSource {
 		return new Condition(key, position, type, referenceDeviceId);
 	}
 	
-	public void addTaskCondition(String taskId, int position, String type, String referenceDeviceId) {
+	public String addTaskCondition(String taskId, int position, String type, String referenceDeviceId) {
 		Log.d("DatabaseDataSource", "addTaskCondition called");
 		
 		DatabaseReference reference = database.getReference(TASKS_REFERENCE)
@@ -554,6 +596,7 @@ public class RealtimeDatabaseDataSource {
 		assert key != null;
 		
 		reference.child(key).setValue(createTaskCondition(key, position, type, referenceDeviceId));
+		return key;
 	}
 	
 	public void removeTaskCondition(String taskId, String taskConditionId) {
@@ -602,7 +645,14 @@ public class RealtimeDatabaseDataSource {
 					Iterable<DataSnapshot> iterable = snapshot.getChildren();
 					
 					for (DataSnapshot dataSnapshot : iterable) {
-						conditions.add((Condition) dataSnapshot.getValue());
+						conditions.add(new Condition(
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_ID_PATH).getValue()),
+								((Long) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_POSITION_PATH).getValue())).intValue(),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_TYPE_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_DEVICE_ID_PATH).getValue())
+						));
+						
+						
 					}
 				}
 				
@@ -639,12 +689,118 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	
+	// Task Condition Data
+	public void setTaskConditionData(String taskId, String conditionId, String key, Object value) {
+		Log.d("DatabaseDataSource", "setTaskConditionData called");
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.child(conditionId)
+				.child(TASK_CONDITIONS_DATA_PATH)
+				.child(key)
+				.setValue(value);
+	}
+	
+	public void removeTaskConditionData(String taskId, String conditionId, String key) {
+		Log.d("DatabaseDataSource", "removeTaskConditionData called");
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.child(conditionId)
+				.child(TASK_CONDITIONS_DATA_PATH)
+				.child(key)
+				.removeValue();
+	}
+	
+	private void listenForTaskConditionDataValueChanges(String taskId, String conditionId, String key) {
+		Log.d("DatabaseDataSource", "removeTaskConditionData called");
+		
+		final MutableLiveData<Object> liveData = new MutableLiveData<>();
+		ValueEventListener taskConditionDataValueEventListener = new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				Log.d("DatabaseDataSource", "Detected change in Task Condition Data value");
+				
+				Object value = null;
+				
+				if (snapshot.exists()) {
+					value = snapshot.getValue();
+				}
+				
+				liveData.postValue(value);
+			}
+			
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+			
+			}
+		};
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.child(conditionId)
+				.child(TASK_CONDITIONS_DATA_PATH)
+				.child(key)
+				.addValueEventListener(taskConditionDataValueEventListener);
+		
+		taskConditionDataValueIndices.add(new ConditionOrOperationIndex(taskId, conditionId, key));
+		taskConditionDataValueEventListeners.add(taskConditionDataValueEventListener);
+		taskConditionDataValueList.add(liveData);
+	}
+	
+	public void removeTaskConditionDataValueChangesListener(String taskId, String conditionId, String key) {
+		Log.d("DatabaseDataSource", "removeTaskConditionDataValueChangesListener called");
+		
+		int position = getPositionOfConditionIndex(new ConditionOrOperationIndex(taskId, conditionId, key));
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_CONDITIONS_PATH)
+				.child(conditionId)
+				.child(TASK_CONDITIONS_DATA_PATH)
+				.child(key)
+				.removeEventListener(taskConditionDataValueEventListeners.get(position));
+		
+		taskConditionDataValueIndices.remove(position);
+		taskConditionDataValueEventListeners.remove(position);
+		taskConditionDataValueList.remove(position);
+	}
+	
+	public LiveData<Object> onTaskConditionDataValueChange(String taskId, String conditionId, String key) {
+		Log.d("DatabaseDataSource", "onTaskConditionDataValueChange called");
+		
+		listenForTaskConditionDataValueChanges(taskId, conditionId, key);
+		
+		
+		return taskConditionDataValueList.get(
+				getPositionOfConditionIndex(new ConditionOrOperationIndex(taskId, conditionId, key))
+		);
+	}
+	
+	private int getPositionOfConditionIndex(ConditionOrOperationIndex conditionIndex) {
+		for (int i = 0; i < taskConditionDataValueIndices.size(); i++) {
+			ConditionOrOperationIndex comparisonIndex = taskConditionDataValueIndices.get(i);
+			
+			if (conditionIndex.taskId.equals(comparisonIndex.taskId)
+					&& conditionIndex.conditionOrOperationId.equals(comparisonIndex.conditionOrOperationId)
+					&& conditionIndex.valueKey.equals(comparisonIndex.valueKey)) {
+				return i;
+			}
+		}
+		
+		return -1;
+	}
+	
+	
 	// Task Operations
 	private Operation createTaskOperation(String key, int position, String type, String referenceDeviceId) {
 		return new Operation(key, position, type, referenceDeviceId);
 	}
 	
-	public void addTaskOperation(String taskId, int position, String type, String referenceDeviceId) {
+	public String addTaskOperation(String taskId, int position, String type, String referenceDeviceId) {
 		Log.d("DatabaseDataSource", "addTaskOperation called");
 		
 		DatabaseReference reference = database.getReference(TASKS_REFERENCE)
@@ -655,6 +811,7 @@ public class RealtimeDatabaseDataSource {
 		assert key != null;
 		
 		reference.child(key).setValue(createTaskOperation(key, position, type, referenceDeviceId));
+		return key;
 	}
 	
 	public void removeTaskOperation(String taskId, String taskOperationId) {
@@ -703,7 +860,12 @@ public class RealtimeDatabaseDataSource {
 					Iterable<DataSnapshot> iterable = snapshot.getChildren();
 					
 					for (DataSnapshot dataSnapshot : iterable) {
-						operations.add((Operation) dataSnapshot.getValue());
+						operations.add(new Operation(
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_ID_PATH).getValue()),
+								((Long) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_POSITION_PATH).getValue())).intValue(),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_TYPE_PATH).getValue()),
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_DEVICE_ID_PATH).getValue())
+						));
 					}
 				}
 				
@@ -737,5 +899,95 @@ public class RealtimeDatabaseDataSource {
 		
 		listenForTaskOperationValueChanges(taskId);
 		return taskOperationValues;
+	}
+	
+	
+	// Task Operation Data
+	public void setTaskOperationData(String taskId, String operationId, String key, Object value) {
+		Log.d("DatabaseDataSource", "setTaskOperationData called");
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_OPERATIONS_PATH)
+				.child(operationId)
+				.child(TASK_OPERATIONS_DATA_PATH)
+				.child(key)
+				.setValue(value);
+	}
+	
+	public void removeTaskOperationData(String taskId, String operationId, String key) {
+		Log.d("DatabaseDataSource", "removeTaskOperationData called");
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_OPERATIONS_PATH)
+				.child(operationId)
+				.child(TASK_OPERATIONS_DATA_PATH)
+				.child(key)
+				.removeValue();
+	}
+	
+	private void listenForTaskOperationDataValueChanges(String taskId, String operationId, String key) {
+		Log.d("DatabaseDataSource", "removeTaskOperationData called");
+		
+		final MutableLiveData<Object> liveData = new MutableLiveData<>();
+		ValueEventListener taskOperationDataValueEventListener = new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				Log.d("DatabaseDataSource", "Detected change in Task Operation Data value");
+				
+				Object value = null;
+				
+				if (snapshot.exists()) {
+					value = snapshot.getValue();
+				}
+				
+				liveData.postValue(value);
+			}
+			
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+			
+			}
+		};
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_OPERATIONS_PATH)
+				.child(operationId)
+				.child(TASK_OPERATIONS_DATA_PATH)
+				.child(key)
+				.addValueEventListener(taskOperationDataValueEventListener);
+		
+		taskOperationDataValueIndices.add(new ConditionOrOperationIndex(taskId, operationId, key));
+		taskOperationDataValueEventListeners.add(taskOperationDataValueEventListener);
+		taskOperationDataValueList.add(liveData);
+	}
+	
+	public void removeTaskOperationDataValueChangesListener(String taskId, String operationId, String key) {
+		Log.d("DatabaseDataSource", "removeTaskOperationDataValueChangesListener called");
+		
+		int position = taskOperationDataValueIndices.indexOf(new ConditionOrOperationIndex(taskId, operationId, key));
+		
+		database.getReference(TASKS_REFERENCE)
+				.child(taskId)
+				.child(TASK_OPERATIONS_PATH)
+				.child(operationId)
+				.child(TASK_OPERATIONS_DATA_PATH)
+				.child(key)
+				.removeEventListener(taskOperationDataValueEventListeners.get(position));
+		
+		taskOperationDataValueIndices.remove(position);
+		taskOperationDataValueEventListeners.remove(position);
+		taskOperationDataValueList.remove(position);
+	}
+	
+	public LiveData<Object> onTaskOperationDataValueChange(String taskId, String operationId, String key) {
+		Log.d("DatabaseDataSource", "onTaskOperationDataValueChange called");
+		
+		listenForTaskOperationDataValueChanges(taskId, operationId, key);
+		return taskOperationDataValueList.get(taskOperationDataValueIndices.indexOf(
+				new ConditionOrOperationIndex(taskId, operationId, key)
+		));
 	}
 }

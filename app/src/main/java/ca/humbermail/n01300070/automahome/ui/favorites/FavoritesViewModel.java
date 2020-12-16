@@ -77,6 +77,7 @@ public class FavoritesViewModel extends ViewModel {
 					null,
 					"Task Name",
 					"Note",
+					"",
 					ContextCompat.getDrawable(context, R.drawable.ic_task),
 					context.getString(R.string.content_description_type_task),
 					context.getColor(R.color.task_button_default)
@@ -93,6 +94,7 @@ public class FavoritesViewModel extends ViewModel {
 					null,
 					"Light Name",
 					"Room",
+					"",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),
 					context.getString(R.string.content_description_type_device),
 					context.getColor(R.color.device_button_default)
@@ -109,6 +111,7 @@ public class FavoritesViewModel extends ViewModel {
 					null,
 					"Movement Sensor Name",
 					"Room",
+					"",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),
 					context.getString(R.string.content_description_type_device),
 					context.getColor(R.color.accent_200)
@@ -124,6 +127,7 @@ public class FavoritesViewModel extends ViewModel {
 					null,
 					"Thermostat Name",
 					"Room",
+					"",
 					ContextCompat.getDrawable(context, R.drawable.ic_devices),
 					context.getString(R.string.content_description_type_device),
 					context.getColor(R.color.accent_200)

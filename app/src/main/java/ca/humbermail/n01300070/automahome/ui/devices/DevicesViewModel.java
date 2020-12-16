@@ -71,6 +71,7 @@ public class DevicesViewModel extends ViewModel {
 					device.getId(),
 					device.getName(),
 					device.getRoom(),
+					"",
 					ContextCompat.getDrawable(context,R.drawable.ic_devices), //TODO: Add specific icons for device types
 					context.getString(R.string.content_description_type_device),
 					context.getColor(R.color.device_button_default)

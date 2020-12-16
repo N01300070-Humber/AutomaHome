@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -96,7 +98,19 @@ public class FavoriteSelectView extends ConstraintLayout {
 	}
 	
 	public void setAutoCompleteLabels(ArrayList<String> autoCompleteLabels) {
-		adapter = new ArrayAdapter<String>(getContext(), R.layout.text_view_auto_complete_label, autoCompleteLabels);
+		adapter = new ArrayAdapter<>(getContext(), R.layout.text_view_auto_complete_label, autoCompleteLabels);
 		categoryAutoCompleteText.setAdapter(adapter);
+	}
+	
+	public void setOnCheckedChangeListener(MaterialButton.OnCheckedChangeListener onCheckedChangeListener) {
+		button.addOnCheckedChangeListener(onCheckedChangeListener);
+	}
+	
+	public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
+		categoryAutoCompleteText.setOnItemClickListener(onItemClickListener);
+	}
+	
+	public void setOnEditorActionListener(TextView.OnEditorActionListener onEditorActionListener) {
+		categoryAutoCompleteText.setOnEditorActionListener(onEditorActionListener);
 	}
 }

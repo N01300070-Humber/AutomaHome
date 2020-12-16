@@ -45,7 +45,9 @@ public class EditTaskViewModel extends AndroidViewModel {
 			
 			switch (condition.getType()) {
 				case ConditionOrOperationViewData.CONDITION_SCHEDULE:
-					conditionViewData.setMainText(getApplication().getString(R.string.condition_schedule_settings, "timeOfDay", "selectedDays")); // TODO: Replace hardcoded strings with data from database
+					conditionViewData.setMainText(getApplication().getString(R.string.condition_schedule_settings,
+							getSimpleTimeString(),
+							getSelectedDaysString()));
 					conditionViewData.setTypeText(getApplication().getString(R.string.schedule));
 					break;
 				case ConditionOrOperationViewData.CONDITION_TEMPERATURE:
@@ -99,5 +101,13 @@ public class EditTaskViewModel extends AndroidViewModel {
 		}
 		
 		return operationViewDataList;
+	}
+	
+	private String getSimpleTimeString() {
+		return "timeOfDay"; // TODO: Replace hardcoded string with data from database
+	}
+	
+	private String getSelectedDaysString() {
+		return "selectedDays"; // TODO: Replace hardcoded string with data from database
 	}
 }

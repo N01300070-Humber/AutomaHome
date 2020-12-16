@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -208,7 +208,7 @@ public class LoginActivity extends CustomActivity {
 		Log.d("LoginActivity", "attemptLogin called");
 		if (registering) {
 			Log.d("LoginActivity", "registering for new account");
-			loginDataSource.register(getMainExecutor(), emailAddress, password,
+			loginDataSource.register(ContextCompat.getMainExecutor(this), emailAddress, password,
 					new OnCompleteListener<AuthResult>() {
 						@Override
 						public void onComplete(@NonNull Task<AuthResult> task) {
@@ -229,7 +229,7 @@ public class LoginActivity extends CustomActivity {
 					});
 		} else {
 			Log.d("LoginActivity", "logging in to existing account");
-			loginDataSource.login(getMainExecutor(), emailAddress, password,
+			loginDataSource.login(ContextCompat.getMainExecutor(this), emailAddress, password,
 					new OnCompleteListener<AuthResult>() {
 						@Override
 						public void onComplete(@NonNull Task<AuthResult> task) {

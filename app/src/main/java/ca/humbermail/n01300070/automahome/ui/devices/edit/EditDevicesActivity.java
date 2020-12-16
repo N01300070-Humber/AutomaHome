@@ -51,6 +51,7 @@ public class EditDevicesActivity extends CustomActivity {
 	
 	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
 	private String deviceId;
+	private String deviceName;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +138,11 @@ public class EditDevicesActivity extends CustomActivity {
 	}
 	
 	private void saveName() {
-		realtimeDatabaseDataSource.updateDeviceName(deviceId, Objects.requireNonNull(nameEditText.getText().toString()));
+		deviceName = nameEditText.getText().toString().trim();
+		if (deviceName.isEmpty()) {
+			deviceName = DEFAULT_NAME;
+		}
+		realtimeDatabaseDataSource.updateDeviceName(deviceId, deviceName);
 	}
 	
 	private void saveFavoriteCategory() {

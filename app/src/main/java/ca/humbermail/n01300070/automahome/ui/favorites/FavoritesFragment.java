@@ -33,7 +33,7 @@ public class FavoritesFragment extends Fragment {
 							 ViewGroup container, Bundle savedInstanceState) {
 		FavoritesViewModel favoritesViewModel = new ViewModelProvider(this).get(FavoritesViewModel.class);
 		final View root = inflater.inflate(R.layout.fragment_favorites, container, false);
-		context = getActivity().getApplicationContext();
+		context = requireContext();
 		
 		recyclerView = root.findViewById(R.id.recyclerView_favorites);
 		
@@ -58,9 +58,9 @@ public class FavoritesFragment extends Fragment {
 				startActivity(intent);
 			}
 		};
-		categoryAdapter = new CategorizedDeviceOrTaskButtonRecyclerViewAdapter(context,
+		categoryAdapter = new CategorizedDeviceOrTaskButtonRecyclerViewAdapter(context/*,
 				FavoritesViewModel.generatePlaceholderCategoryDataList(context,
-						categoryOnClickListener) );
+						categoryOnClickListener) */);
 		
 		
 		recyclerView.setLayoutManager(new LinearLayoutManager(context));

@@ -1,9 +1,5 @@
 <resources>
 	<!-- Application themes -->
-	<style name="splashScreen" parent="Theme.AutomaHome">
-		<item name="android:windowBackground">@drawable/splash_screen</item>
-	</style>
-	
 	<style name="Theme.AutomaHome.NoActionBar">
 		<item name="windowActionBar">false</item>
 		<item name="windowNoTitle">true</item>

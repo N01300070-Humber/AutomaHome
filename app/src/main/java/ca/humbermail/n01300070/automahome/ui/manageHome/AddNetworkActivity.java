@@ -1,10 +1,6 @@
 package ca.humbermail.n01300070.automahome.ui.manageHome;
 
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +8,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ca.humbermail.n01300070.automahome.R;
+import androidx.annotation.Nullable;
 
-public class AddNetworkActivity extends AppCompatActivity {
+import ca.humbermail.n01300070.automahome.R;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
+
+public class AddNetworkActivity extends CustomActivity {
 	
 	EditText networkEditText;
 	Button addNetworkBySSIDButton;

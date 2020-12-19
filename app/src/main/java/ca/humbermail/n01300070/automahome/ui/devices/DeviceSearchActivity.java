@@ -1,19 +1,17 @@
 package ca.humbermail.n01300070.automahome.ui.devices;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,9 +21,10 @@ import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonRecyclerV
 import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonView;
 import ca.humbermail.n01300070.automahome.components.RecyclerViewItemDivider;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 import ca.humbermail.n01300070.automahome.ui.devices.edit.EditDevicesActivity;
 
-public class DeviceSearchActivity extends AppCompatActivity {
+public class DeviceSearchActivity extends CustomActivity {
 	
 	int REQUEST_NEW_DEVICE = 2;
 	

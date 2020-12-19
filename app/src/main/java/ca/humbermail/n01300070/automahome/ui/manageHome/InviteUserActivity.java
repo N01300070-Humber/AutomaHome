@@ -1,27 +1,21 @@
 package ca.humbermail.n01300070.automahome.ui.manageHome;
 
-import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.os.PersistableBundle;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ca.humbermail.n01300070.automahome.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-public class InviteUserActivity extends AppCompatActivity {
+import ca.humbermail.n01300070.automahome.R;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
+
+public class InviteUserActivity extends CustomActivity {
     
     EditText emailEditText;
     Button inviteButton;

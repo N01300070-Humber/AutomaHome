@@ -8,14 +8,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
+import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 import ca.humbermail.n01300070.automahome.ui.devices.edit.EditDevicesActivity;
 
-public class ControlDevicesActivity extends AppCompatActivity {
+public class ControlDevicesActivity extends CustomActivity {
 	private Fragment fragment;
 	private Button editDeviceButton;
 	

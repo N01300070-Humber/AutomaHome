@@ -74,11 +74,11 @@ public class EditDevicesActivity extends CustomActivity {
 		// Get Extras (deviceType is required but other values can be null)
 		Bundle bundle = getIntent().getExtras();
 		deviceId = bundle.getString(EXTRA_DEVICE_ID);
+		nameEditText.setText(bundle.getString(EXTRA_DEVICE_NAME));
+		deviceType = bundle.getString(DeviceOrTaskButtonData.ARG_DEVICE);
 		if (deviceId == null) {
 			deviceId = realtimeDatabaseDataSource.addDevice(DEFAULT_NAME, deviceType, "", "");
 		}
-		nameEditText.setText(bundle.getString(EXTRA_DEVICE_NAME));
-		deviceType = bundle.getString(DeviceOrTaskButtonData.ARG_DEVICE);
 		String category = bundle.getString(EXTRA_DEVICE_CATEGORY);
 		if (category != null && !category.isEmpty()) {
 			favoriteSelectView.setChecked(true);

@@ -17,9 +17,12 @@ import com.google.android.material.button.MaterialButtonToggleGroup;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
+import ca.humbermail.n01300070.automahome.ui.main.NavDrawerActivity;
 
 public class GeneralSettingsFragment extends Fragment {
 	Context context;
+	
+	private NavDrawerActivity navDrawerActivity;
 	
 	MaterialButtonToggleGroup displayTempToggleGroup;
 	MaterialButton celsiusButton;
@@ -28,9 +31,9 @@ public class GeneralSettingsFragment extends Fragment {
 	
 	SharedPreferences settings;
 	SharedPreferences.Editor settingsEditor;
-
+	
 	static final String KIND_OF_DEGREE_DEFAULT = "KIND_OF_DEGREE_DEFAULT";
-
+	
 	public GeneralSettingsFragment() {
 		// Required empty public constructor
 	}
@@ -45,57 +48,56 @@ public class GeneralSettingsFragment extends Fragment {
 		// Inflate the layout for this fragment
 		View root = inflater.inflate(R.layout.fragment_settings_general, container, false);
 		context = requireActivity().getApplicationContext();
-
+		
+		navDrawerActivity = (NavDrawerActivity) requireActivity();
+		
 		displayTempToggleGroup = root.findViewById(R.id.toggleGroup_displayTemp);
 		celsiusButton = root.findViewById(R.id.toggleButton_celsius);
 		fahrenheitTempButton = root.findViewById(R.id.toggleButton_fahrenheit);
-
+		
 		themeSpinner = root.findViewById(R.id.spinner_selectTheme);
-
+		
 		settings = context.getSharedPreferences(PreferenceKeys.KEY_SETTINGS, Context.MODE_PRIVATE);
 		settingsEditor = settings.edit();
-
+		
 		loadToggleButtons();
-
+		
 		//displayTempToggleGroup.setOn
 		displayTempToggleGroup.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
 			@Override
 			public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
-				if(isChecked){
-
+				if (isChecked) {
+					
 					String kind_of_degree = getString(R.string.celsius);
-
-					if(checkedId==R.id.toggleButton_celsius){
+					
+					if (checkedId == R.id.toggleButton_celsius) {
 						System.out.println(checkedId);
 						System.out.println("-------------+++++");
-
-
-					}else if (checkedId==R.id.toggleButton_fahrenheit){
+						
+						
+					} else if (checkedId == R.id.toggleButton_fahrenheit) {
 						System.out.println("-------------");
 						System.out.println(checkedId);
 						kind_of_degree = getString(R.string.fahrenheit);
 					}
-					System.out.print("--------------"+kind_of_degree+"---------------");
+					System.out.print("--------------" + kind_of_degree + "---------------");
 					settingsEditor.putString(getString(R.string.KIND_OF_DEGREE_DEFAULT), kind_of_degree);
 					settingsEditor.apply();
 				}
-
+				
 			}
 		});
-
-
-
-
-
-
+		
+		
 		themeSpinner.setSelection(settings.getInt(PreferenceKeys.KEY_SETTINGS_THEME, 0));
 		themeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-				Toast.makeText(context, themeSpinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 				settingsEditor.putInt(PreferenceKeys.KEY_SETTINGS_THEME, (int) themeSpinner.getSelectedItemId());
 				settingsEditor.apply();
+				
+				navDrawerActivity.overrideTheme(null);
+				navDrawerActivity.setCurrentTheme((int) themeSpinner.getSelectedItemId());
 			}
 			
 			@Override
@@ -106,12 +108,12 @@ public class GeneralSettingsFragment extends Fragment {
 		
 		return root;
 	}
-
-
-	public void loadToggleButtons(){
+	
+	
+	public void loadToggleButtons() {
 		String kind_of_degree_default = getString(R.string.celsius);
 		String kind_of_degree = settings.getString(getString(R.string.KIND_OF_DEGREE_DEFAULT), kind_of_degree_default);
-
+		
 		//System.out.println("--------------");
 		//System.out.println(kind_of_degree);
 		//System.out.println(getString(R.string.fahrenheit));
@@ -123,8 +125,8 @@ public class GeneralSettingsFragment extends Fragment {
 			fahrenheitTempButton.setChecked(true);
 			//System.out.println("--------------++++++++++++++"+getString(R.string.fahrenheit));
 		}
-
+		
 	}
-
-
+	
+	
 }

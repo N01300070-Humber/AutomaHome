@@ -1,13 +1,56 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 	<!-- Application themes -->
-	<style name="Theme.AutomaHome.NoActionBar">
+	<style name="Theme.AutomaHome.NoActionBar" parent="Theme.AutomaHome">
 		<item name="windowActionBar">false</item>
 		<item name="windowNoTitle">true</item>
+	</style>
+	
+	<style name="Theme.AutomaHome.Light.NoActionBar" parent="Theme.AutomaHome.Light">
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+	</style>
+	
+	<style name="Theme.AutomaHome.Dark.NoActionBar" parent="Theme.AutomaHome.Dark">
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+	</style>
+	
+	<style name="Theme.AutomaHome.Light" parent="Theme.MaterialComponents.Light.DarkActionBar">
+		<!-- Primary brand color. -->
+		<item name="colorPrimary">@color/primary_500</item>
+		<item name="colorPrimaryVariant">@color/primary_700</item>
+		<item name="colorOnPrimary">@color/white</item>
+		<!-- Secondary brand color. -->
+		<item name="colorSecondary">@color/accent_200</item>
+		<item name="colorSecondaryVariant">@color/accent_700</item>
+		<item name="colorOnSecondary">@color/black</item>
+		<!-- Status bar color. -->
+		<item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+		<!-- Customize your theme here. -->
+		<item name="backgroundColor">@color/cardview_light_background</item>
+		<item name="android:windowBackground">@color/cardview_light_background</item>
+	</style>
+	
+	<style name="Theme.AutomaHome.Dark" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+		<!-- Primary brand color. -->
+		<item name="colorPrimary">@color/primary_200</item>
+		<item name="colorPrimaryVariant">@color/primary_700</item>
+		<item name="colorOnPrimary">@color/black</item>
+		<!-- Secondary brand color. -->
+		<item name="colorSecondary">@color/accent_200</item>
+		<item name="colorSecondaryVariant">@color/accent_200</item>
+		<item name="colorOnSecondary">@color/black</item>
+		<!-- Status bar color. -->
+		<item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+		<!-- Customize your theme here. -->
+		<item name="backgroundColor">@color/cardview_dark_background</item>
+		<item name="android:windowBackground">@color/cardview_dark_background</item>
 	</style>
 	
 	<style name="Theme.AutomaHome.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 	
 	<style name="Theme.AutomaHome.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+	
 	
 	<!-- Component themes -->
 	<style name="Widget" />

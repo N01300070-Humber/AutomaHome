@@ -64,7 +64,21 @@ public class NavDrawerActivity extends CustomActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d("NavDrawerActivity", "onCreate called");
 		super.onCreate(savedInstanceState);
+		switch (getThemeSelection()) {
+			case THEME_SYSTEM_DEFAULT:
+				overrideTheme(R.style.Theme_AutomaHome_NoActionBar);
+				break;
+			case THEME_LIGHT:
+				overrideTheme(R.style.Theme_AutomaHome_Light_NoActionBar);
+				break;
+			case THEME_DARK:
+				overrideTheme(R.style.Theme_AutomaHome_Dark_NoActionBar);
+				break;
+			default:
+				overrideTheme(R.style.Theme_AutomaHome_NoActionBar);
+		}
 		setContentView(R.layout.activity_nav_drawer);
+		
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -2,17 +2,14 @@ package ca.humbermail.n01300070.automahome.ui.devices;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.Adapter;
 
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonRecyclerViewAdapter;
@@ -23,7 +20,7 @@ import ca.humbermail.n01300070.automahome.data.model.Device;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 
 public class DevicesViewModel extends ViewModel {
-	private static final String[] HEADERS = {"Lights","Sensors","Heating / Cooling"};
+	private static final String[] HEADERS = {"Lights", "Sensors", "Heating / Cooling", "Unknown"};
 	private final MutableLiveData<String> mText;
 
 	public DevicesViewModel() {
@@ -64,6 +61,7 @@ public class DevicesViewModel extends ViewModel {
 		ArrayList<DeviceOrTaskButtonData> lightsDeviceDataList = new ArrayList<>();
 		ArrayList<DeviceOrTaskButtonData> sensorDeviceDataList = new ArrayList<>();
 		ArrayList<DeviceOrTaskButtonData> temperatureDeviceDataList = new ArrayList<>();
+		ArrayList<DeviceOrTaskButtonData> unknownDeviceDataList = new ArrayList<>();
 
 		for (Device device : devices) {
 			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
@@ -71,32 +69,38 @@ public class DevicesViewModel extends ViewModel {
 					device.getId(),
 					device.getName(),
 					device.getRoom(),
-					"",
-					ContextCompat.getDrawable(context,R.drawable.ic_devices), //TODO: Add specific icons for device types
-					context.getString(R.string.content_description_type_device),
-					context.getColor(R.color.device_button_default)
+					device.getCategory()
 			);
-
-			if (device.getType().equals(DeviceOrTaskButtonData.DEVICE_LIGHTS)) {
-				deviceData.setContentDescription(context.getString(R.string.content_description_device_type_lights));
-				deviceData.setDeviceType(DeviceOrTaskButtonData.DEVICE_LIGHTS);
-				lightsDeviceDataList.add(deviceData);
+			
+			switch (device.getType()) {
+				case DeviceOrTaskButtonData.DEVICE_LIGHTS:
+					deviceData.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_device_lights));
+					deviceData.setContentDescription(context.getString(R.string.content_description_device_type_lights));
+					lightsDeviceDataList.add(deviceData);
+					break;
+				case DeviceOrTaskButtonData.DEVICE_MOVEMENT_SENSOR:
+					deviceData.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_device_movement_sensor));
+					deviceData.setContentDescription(context.getString(R.string.content_description_device_type_movement_sensor));
+					sensorDeviceDataList.add(deviceData);
+					break;
+				case DeviceOrTaskButtonData.DEVICE_THERMOSTAT:
+					deviceData.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_device_thermostat));
+					deviceData.setContentDescription(context.getString(R.string.content_description_device_type_thermostat));
+					temperatureDeviceDataList.add(deviceData);
+					break;
+				default:
+					deviceData.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_devices));
+					deviceData.setContentDescription(context.getString(R.string.content_description_device_type_unknown));
+					unknownDeviceDataList.add(deviceData);
 			}
-			else if (device.getType().equals(DeviceOrTaskButtonData.DEVICE_MOVEMENT_SENSOR)) {
-				deviceData.setContentDescription(context.getString(R.string.content_description_device_type_movement_sensor));
-				deviceData.setDeviceType(DeviceOrTaskButtonData.DEVICE_MOVEMENT_SENSOR);
-				sensorDeviceDataList.add(deviceData);
-			}
-			else if(device.getType().equals(DeviceOrTaskButtonData.DEVICE_THERMOSTAT)) {
-				deviceData.setContentDescription(context.getString(R.string.content_description_device_type_thermostat));
-				deviceData.setDeviceType(DeviceOrTaskButtonData.DEVICE_THERMOSTAT);
-				temperatureDeviceDataList.add(deviceData);
-			}
+			deviceData.setDeviceType(device.getType());
+			deviceData.setBackgroundColour(context.getColor(R.color.device_button_default));
 		}
 
 		categoryItemDataList.add(lightsDeviceDataList);
 		categoryItemDataList.add(sensorDeviceDataList);
 		categoryItemDataList.add(temperatureDeviceDataList);
+		categoryItemDataList.add(unknownDeviceDataList);
 		return categoryItemDataList;
 	}
 

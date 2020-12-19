@@ -7,58 +7,62 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.DeviceOrTaskButtonRecyclerViewAdapter;
 import ca.humbermail.n01300070.automahome.components.NonScrollingGridLayoutManager;
 import ca.humbermail.n01300070.automahome.components.RecyclerViewItemDivider;
 import ca.humbermail.n01300070.automahome.data.model.CategoryData;
+import ca.humbermail.n01300070.automahome.data.model.Device;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
+import ca.humbermail.n01300070.automahome.data.model.Task;
 
 public class FavoritesViewModel extends ViewModel {
+	private TreeMap<String, ArrayList<DeviceOrTaskButtonData>> deviceButtonCategoryMap;
+	private TreeMap<String, ArrayList<DeviceOrTaskButtonData>> taskButtonCategoryMap;
 	
 	public FavoritesViewModel() {
-	
+		deviceButtonCategoryMap = new TreeMap<>();
+		taskButtonCategoryMap = new TreeMap<>();
 	}
 	
-	public ArrayList<DeviceOrTaskButtonData> getDeviceAndTaskDataList() {
-		int numItems;
-		ArrayList<DeviceOrTaskButtonData> deviceAndTaskDataList;
+	private Set<String> getCategories() {
+		Set<String> categories = new TreeSet<>();
 		
-		numItems = 0; // TODO: Get number of items from device storage or database
-		deviceAndTaskDataList = new ArrayList<>(numItems);
+		categories.addAll(deviceButtonCategoryMap.keySet());
+		categories.addAll(taskButtonCategoryMap.keySet());
 		
-		// TODO: Set deviceAndTaskDataList data from device storage or database
-		
-		return deviceAndTaskDataList;
+		return categories;
 	}
 	
-	// TODO: Remove placeholder data generator function
-	public static ArrayList<CategoryData> generatePlaceholderCategoryDataList(Context context, View.OnClickListener onClickListener) {
-		Random random = new Random();
+	public ArrayList<CategoryData> getCategoryDataList(Context context, View.OnClickListener onClickListener) {
+		ArrayList<CategoryData> categoryDataList = new ArrayList<>();
 		
-		int numCategories = random.nextInt(6) + 3;
-		ArrayList<CategoryData> categoryDataList = new ArrayList<>(numCategories);
-		
-		for (int i = 0; i < numCategories; i++) {
+		for (String categoryName : getCategories()) {
 			CategoryData categoryData = new CategoryData();
+			ArrayList<DeviceOrTaskButtonData> categoryContents = new ArrayList<>();
 			
-			categoryData.setHeaderText("Category " + (i + 1));
+			categoryData.setHeaderText(categoryName);
 			categoryData.setHeaderTextAppearance(R.style.TextAppearance_MaterialComponents_Headline6);
 			categoryData.setHeaderSidePadding((int) context.getResources().getDimension(R.dimen.activity_horizontal_margin));
-			
-			int numItems = random.nextInt(10) + 1;
-			int numDevices = random.nextInt(numItems + 1) + 1;
-			categoryData.setLayoutManager(new NonScrollingGridLayoutManager(context, 2));
-			categoryData.setViewAdapter(new DeviceOrTaskButtonRecyclerViewAdapter( context,
-					generatePlaceholderDeviceAndTaskDataList(context,
-							numItems - numDevices, numDevices),
-					onClickListener ));
 			categoryData.setItemDecoration(new RecyclerViewItemDivider(
 					(int) context.getResources().getDimension(R.dimen.recycler_divider_space),
 					(int) context.getResources().getDimension(R.dimen.category_divider_space),
-					(int) context.getResources().getDimension(R.dimen.activity_horizontal_margin) ));
+					(int) context.getResources().getDimension(R.dimen.activity_horizontal_margin)));
+			
+			if (taskButtonCategoryMap.containsKey(categoryName)) {
+				categoryContents.addAll(taskButtonCategoryMap.get(categoryName));
+			}
+			if (deviceButtonCategoryMap.containsKey(categoryName)) {
+				categoryContents.addAll(deviceButtonCategoryMap.get(categoryName));
+			}
+			
+			categoryData.setLayoutManager(new NonScrollingGridLayoutManager(context, 2));
+			categoryData.setViewAdapter(new DeviceOrTaskButtonRecyclerViewAdapter(context, categoryContents, onClickListener));
 			
 			categoryDataList.add(categoryData);
 		}
@@ -66,77 +70,73 @@ public class FavoritesViewModel extends ViewModel {
 		return categoryDataList;
 	}
 	
-	// TODO: Remove placeholder data generator function
-	public static ArrayList<DeviceOrTaskButtonData> generatePlaceholderDeviceAndTaskDataList(Context context, int numTasks, int numDevices) {
-		Random random = new Random();
-		ArrayList<DeviceOrTaskButtonData> deviceOrTaskDataList = new ArrayList<>(numTasks + numDevices);
+	public void setDeviceData(Context context, List<Device> devices) {
+		deviceButtonCategoryMap.clear();
 		
-		for (int i = 0; i < numTasks; i++) {
-			DeviceOrTaskButtonData taskData = new DeviceOrTaskButtonData(
-					DeviceOrTaskButtonData.TYPE_TASK,
-					null,
-					"Task Name",
-					"Note",
-					"",
-					ContextCompat.getDrawable(context, R.drawable.ic_task),
-					context.getString(R.string.content_description_type_task),
-					context.getColor(R.color.task_button_default)
-			);
+		for (Device device : devices) {
+			String categoryName = device.getCategory();
 			
-			deviceOrTaskDataList.add(taskData);
+			if (!categoryName.isEmpty()) {
+				if (!deviceButtonCategoryMap.containsKey(categoryName)) {
+					deviceButtonCategoryMap.put(categoryName, new ArrayList<DeviceOrTaskButtonData>());
+				}
+				
+				DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
+						DeviceOrTaskButtonData.TYPE_DEVICE,
+						device.getId(),
+						device.getName(),
+						device.getRoom(),
+						device.getCategory()
+				);
+				switch (device.getType()) {
+					case DeviceOrTaskButtonData.DEVICE_LIGHTS:
+						deviceData.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_device_lights));
+						deviceData.setContentDescription(context.getString(R.string.content_description_device_type_lights));
+						break;
+					case DeviceOrTaskButtonData.DEVICE_MOVEMENT_SENSOR:
+						deviceData.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_device_movement_sensor));
+						deviceData.setContentDescription(context.getString(R.string.content_description_device_type_movement_sensor));
+						break;
+					case DeviceOrTaskButtonData.DEVICE_THERMOSTAT:
+						deviceData.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_device_thermostat));
+						deviceData.setContentDescription(context.getString(R.string.content_description_device_type_thermostat));
+						break;
+					default:
+						deviceData.setIcon(ContextCompat.getDrawable(context, R.drawable.ic_devices));
+						deviceData.setContentDescription(context.getString(R.string.content_description_device_type_unknown));
+				}
+				deviceData.setDeviceType(device.getType());
+				deviceData.setBackgroundColour(context.getColor(R.color.device_button_default));
+				
+				deviceButtonCategoryMap.get(categoryName).add(deviceData);
+			}
 		}
+	}
+	
+	public void setTaskData(Context context, List<Task> tasks) {
+		taskButtonCategoryMap.clear();
 		
-		
-		int numLights = random.nextInt(numDevices);
-		for (int i = 0; i < numLights; i++) {
-			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
-					DeviceOrTaskButtonData.TYPE_DEVICE,
-					null,
-					"Light Name",
-					"Room",
-					"",
-					ContextCompat.getDrawable(context, R.drawable.ic_devices),
-					context.getString(R.string.content_description_type_device),
-					context.getColor(R.color.device_button_default)
-			);
-			deviceData.setDeviceType(DeviceOrTaskButtonData.DEVICE_LIGHTS);
+		for (Task task : tasks) {
+			String categoryName = task.getCategory();
 			
-			deviceOrTaskDataList.add(deviceData);
+			if (!categoryName.isEmpty()) {
+				if (!taskButtonCategoryMap.containsKey(categoryName)) {
+					taskButtonCategoryMap.put(categoryName, new ArrayList<DeviceOrTaskButtonData>());
+				}
+
+				DeviceOrTaskButtonData taskData = new DeviceOrTaskButtonData(
+						DeviceOrTaskButtonData.TYPE_TASK,
+						task.getId(),
+						task.getName(),
+						task.getNote(),
+						task.getCategory(),
+						ContextCompat.getDrawable(context, R.drawable.ic_task),
+						context.getString(R.string.content_description_type_task),
+						context.getColor(R.color.task_button_default)
+				);
+				
+				taskButtonCategoryMap.get(categoryName).add(taskData);
+			}
 		}
-		
-		int numSensors = random.nextInt(numDevices - numLights);
-		for (int i = 0; i < numSensors; i++) {
-			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
-					DeviceOrTaskButtonData.TYPE_DEVICE,
-					null,
-					"Movement Sensor Name",
-					"Room",
-					"",
-					ContextCompat.getDrawable(context, R.drawable.ic_devices),
-					context.getString(R.string.content_description_type_device),
-					context.getColor(R.color.accent_200)
-			);
-			deviceData.setDeviceType(DeviceOrTaskButtonData.DEVICE_MOVEMENT_SENSOR);
-			
-			deviceOrTaskDataList.add(deviceData);
-		}
-		
-		for (int i = 0; i < numDevices - numLights - numSensors; i++) {
-			DeviceOrTaskButtonData deviceData = new DeviceOrTaskButtonData(
-					DeviceOrTaskButtonData.TYPE_DEVICE,
-					null,
-					"Thermostat Name",
-					"Room",
-					"",
-					ContextCompat.getDrawable(context, R.drawable.ic_devices),
-					context.getString(R.string.content_description_type_device),
-					context.getColor(R.color.accent_200)
-			);
-			deviceData.setDeviceType(DeviceOrTaskButtonData.DEVICE_THERMOSTAT);
-			
-			deviceOrTaskDataList.add(deviceData);
-		}
-		
-		return deviceOrTaskDataList;
 	}
 }

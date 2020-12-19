@@ -1,10 +1,5 @@
 package ca.humbermail.n01300070.automahome.ui.devices.edit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -16,17 +11,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.FavoriteSelectView;
 import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
 import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
-import ca.humbermail.n01300070.automahome.data.model.Device;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 
@@ -51,7 +46,6 @@ public class EditDevicesActivity extends CustomActivity {
 	
 	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
 	private String deviceId;
-	private String deviceName;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,11 +74,11 @@ public class EditDevicesActivity extends CustomActivity {
 		// Get Extras (deviceType is required but other values can be null)
 		Bundle bundle = getIntent().getExtras();
 		deviceId = bundle.getString(EXTRA_DEVICE_ID);
-		nameEditText.setText(bundle.getString(EXTRA_DEVICE_NAME));
-		deviceType = bundle.getString(DeviceOrTaskButtonData.ARG_DEVICE);
 		if (deviceId == null) {
 			deviceId = realtimeDatabaseDataSource.addDevice(DEFAULT_NAME, deviceType, "", "");
 		}
+		nameEditText.setText(bundle.getString(EXTRA_DEVICE_NAME));
+		deviceType = bundle.getString(DeviceOrTaskButtonData.ARG_DEVICE);
 		String category = bundle.getString(EXTRA_DEVICE_CATEGORY);
 		if (category != null && !category.isEmpty()) {
 			favoriteSelectView.setChecked(true);
@@ -138,7 +132,7 @@ public class EditDevicesActivity extends CustomActivity {
 	}
 	
 	private void saveName() {
-		deviceName = nameEditText.getText().toString().trim();
+		String deviceName = nameEditText.getText().toString().trim();
 		if (deviceName.isEmpty()) {
 			deviceName = DEFAULT_NAME;
 		}

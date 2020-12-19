@@ -34,6 +34,10 @@ public class DeviceOrTaskButtonData {
 		this(type, deviceOrTaskId, name, extraText, null, null, null);
 	}
 	
+	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText, String favoritesCategory) {
+		this(type, deviceOrTaskId, name, extraText, favoritesCategory, null, null);
+	}
+	
 	public DeviceOrTaskButtonData(int type, String deviceOrTaskId, String name, String extraText, String favoritesCategory, Drawable icon, String contentDescription) {
 		this.type = type;
 		this.deviceOrTaskId = deviceOrTaskId;

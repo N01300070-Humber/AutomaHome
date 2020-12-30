@@ -11,8 +11,8 @@ android {
 		applicationId "ca.humbermail.n01300070.automahome"
 		minSdkVersion 23
 		targetSdkVersion 30
-		versionCode 2
-		versionName "0.2"
+		versionCode 3
+		versionName "0.2.1"
 		
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 	}

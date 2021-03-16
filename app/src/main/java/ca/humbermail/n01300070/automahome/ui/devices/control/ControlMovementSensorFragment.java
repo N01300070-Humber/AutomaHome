@@ -28,7 +28,7 @@ public class ControlMovementSensorFragment extends Fragment
 
     public ControlMovementSensorFragment()
     {
-
+        // Required empty public constructor
     }
 
     @Override

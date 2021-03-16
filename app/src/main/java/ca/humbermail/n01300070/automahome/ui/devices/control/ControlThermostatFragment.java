@@ -24,7 +24,7 @@ public class ControlThermostatFragment extends Fragment {
 
     public ControlThermostatFragment()
     {
-        
+        // Required empty public constructor
     }
 
     @Override

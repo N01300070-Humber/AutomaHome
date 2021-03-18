@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import ca.humbermail.n01300070.automahome.R;
+import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 import ca.humbermail.n01300070.automahome.ui.CustomActivity;
 import ca.humbermail.n01300070.automahome.ui.devices.edit.EditDevicesActivity;
@@ -18,6 +19,8 @@ import ca.humbermail.n01300070.automahome.ui.devices.edit.EditDevicesActivity;
 public class ControlDevicesActivity extends CustomActivity {
 	private Fragment fragment;
 	private Button editDeviceButton;
+	
+	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
 	
 	private String deviceType;
 	private String deviceId;
@@ -35,6 +38,9 @@ public class ControlDevicesActivity extends CustomActivity {
 		deviceType = getIntent().getExtras().getString(DeviceOrTaskButtonData.ARG_DEVICE);
 		deviceName = getIntent().getExtras().getString(EditDevicesActivity.EXTRA_DEVICE_NAME);
 		favoritesCategory = getIntent().getExtras().getString(EditDevicesActivity.EXTRA_DEVICE_CATEGORY);
+		
+		setRealtimeDatabaseDataSource(new RealtimeDatabaseDataSource());
+		realtimeDatabaseDataSource = getRealtimeDatabaseDataSource();
 		
 		if (deviceType == null) {
 			Toast.makeText(getApplicationContext(), "Error: failed to get device type", Toast.LENGTH_SHORT).show();
@@ -80,5 +86,10 @@ public class ControlDevicesActivity extends CustomActivity {
 		intent.putExtra(EditDevicesActivity.EXTRA_DEVICE_NAME, deviceName);
 		intent.putExtra(EditDevicesActivity.EXTRA_DEVICE_CATEGORY, favoritesCategory);
 		startActivity(intent);
+	}
+	
+	
+	public String getDeviceId() {
+		return deviceId;
 	}
 }

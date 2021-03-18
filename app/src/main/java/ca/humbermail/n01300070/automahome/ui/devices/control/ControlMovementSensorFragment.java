@@ -2,6 +2,7 @@ package ca.humbermail.n01300070.automahome.ui.devices.control;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -95,28 +97,28 @@ public class ControlMovementSensorFragment extends Fragment {
 				
 				for (Map.Entry<String, Map<String, Object>> stringMapEntry : stringMapMap.entrySet()) {
 					DescriptiveTextViewData descriptiveTextViewData = new DescriptiveTextViewData();
-					String direction = (String) stringMapEntry.getValue().get("direction");
-					long timestamp = (long) stringMapEntry.getValue().get("timestamp");
-					Date date = new Date(timestamp * 1000L);
-					SimpleDateFormat simpleWeekDayFormat = new SimpleDateFormat("EEEE");
-					SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("h:mm a");
+					String direction = (String) stringMapEntry.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_DIRECTION);
+					long timestamp = ((long) stringMapEntry.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP)) * 1000L;
 					
 					// TODO: Replace hard coded room strings with actual room names
 					switch (direction) {
-						case "left":
+						case DeviceDataPaths.MOVEMENT_LOG_ENTRY_DIRECTION_TO_SIDE_A:
 							descriptiveTextViewData.setMainText(getString(R.string.log_entry_movement, "Room 1", "Room 2"));
 							break;
-						case "right":
+						case DeviceDataPaths.MOVEMENT_LOG_ENTRY_DIRECTION_TO_SIDE_B:
 							descriptiveTextViewData.setMainText(getString(R.string.log_entry_movement, "Room 2", "Room 1"));
 							break;
 						default:
 							descriptiveTextViewData.setMainText(getString(R.string.log_entry_movement_unknown_direction));
 					}
 					
-					descriptiveTextViewData.setDescriptionText(getString(R.string.log_entry_week_time_format,
-							simpleWeekDayFormat.format(date),
-							simpleTimeFormat.format(date))
-					);
+					descriptiveTextViewData.setDescriptionText(DateUtils.getRelativeDateTimeString(
+							context,
+							timestamp,
+							DateUtils.DAY_IN_MILLIS,
+							DateUtils.WEEK_IN_MILLIS,
+							DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_WEEKDAY
+					).toString());
 					
 					logViewDataList.add(descriptiveTextViewData);
 				}

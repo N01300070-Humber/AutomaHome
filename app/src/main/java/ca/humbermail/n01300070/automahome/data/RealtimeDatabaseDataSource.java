@@ -62,7 +62,7 @@ public class RealtimeDatabaseDataSource {
 	
 	private final static String NO_CATEGORY = ""; //Used for devices and tasks that are not set as a favourite
 	private final static String NO_DEVICE = ""; //Used for conditions and operations that do not interact with a device
-	
+	private final static String NO_DEVICE_DATA_KEY = ""; //Used for when device data key is null
 	
 	private String currentHomeId;
 	
@@ -558,13 +558,21 @@ public class RealtimeDatabaseDataSource {
 			}
 		};
 		
-		database.getReference(DEVICES_REFERENCE)
-				.child(deviceId)
-				.child(DEVICE_DATA_PATH)
-				.child(key)
-				.addValueEventListener(deviceDataValueEventListener);
+		if (key == null) {
+			database.getReference(DEVICES_REFERENCE)
+					.child(deviceId)
+					.child(DEVICE_DATA_PATH)
+					.addValueEventListener(deviceDataValueEventListener);
+			deviceDataValueIndices.add(new DeviceIndex(deviceId, NO_DEVICE_DATA_KEY));
+		} else {
+			database.getReference(DEVICES_REFERENCE)
+					.child(deviceId)
+					.child(DEVICE_DATA_PATH)
+					.child(key)
+					.addValueEventListener(deviceDataValueEventListener);
+			deviceDataValueIndices.add(new DeviceIndex(deviceId, key));
+		}
 		
-		deviceDataValueIndices.add(new DeviceIndex(deviceId, key));
 		deviceDataValueEventListeners.add(deviceDataValueEventListener);
 		deviceDataValueList.add(liveData);
 	}
@@ -572,13 +580,24 @@ public class RealtimeDatabaseDataSource {
 	public void removeDeviceDataValueChangesListener(String deviceId, String key) {
 		Log.d("DatabaseDataSource", "removeDeviceDataValueChangesListener called");
 		
-		int position = getPositionOfDeviceIndex(new DeviceIndex(deviceId, key));
-		
-		database.getReference(DEVICES_REFERENCE)
-				.child(deviceId)
-				.child(DEVICE_DATA_PATH)
-				.child(key)
-				.removeEventListener(deviceDataValueEventListeners.get(position));
+		int position;
+		if (key == null) {
+			position = getPositionOfDeviceIndex(new DeviceIndex(deviceId, NO_DEVICE_DATA_KEY));
+			
+			database.getReference(DEVICES_REFERENCE)
+					.child(deviceId)
+					.child(DEVICE_DATA_PATH)
+					.child(key)
+					.removeEventListener(deviceDataValueEventListeners.get(position));
+		} else {
+			position = getPositionOfDeviceIndex(new DeviceIndex(deviceId, key));
+			
+			database.getReference(DEVICES_REFERENCE)
+					.child(deviceId)
+					.child(DEVICE_DATA_PATH)
+					.child(key)
+					.removeEventListener(deviceDataValueEventListeners.get(position));
+		}
 		
 		deviceDataValueIndices.remove(position);
 		deviceDataValueEventListeners.remove(position);
@@ -587,6 +606,10 @@ public class RealtimeDatabaseDataSource {
 	
 	public LiveData<Object> onDeviceDataValueChange(String deviceId, String key) {
 		Log.d("DatabaseDataSource", "onDeviceDataValueChange called");
+		
+		if (key == null) {
+			key = NO_DEVICE_DATA_KEY;
+		}
 		
 		listenForDeviceDataValueChanges(deviceId, key);
 		

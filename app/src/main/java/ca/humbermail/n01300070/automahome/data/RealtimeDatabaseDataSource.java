@@ -39,8 +39,8 @@ public class RealtimeDatabaseDataSource {
 	private final static String DEVICES_NAME_PATH = "name";
 	private final static String DEVICES_ROOM_PATH = "room";
 	private final static String DEVICES_TYPE_PATH = "type";
-	private final static String DEVICE_DATA_PATH = "data";
 	private final static String DEVICES_CATEGORY_PATH = "category";
+	private final static String DEVICE_DATA_PATH = "data";
 	private final static String TASKS_REFERENCE = "tasks";
 	private final static String TASKS_ID_PATH = "id";
 	private final static String TASKS_HOME_ID_PATH = "homeId";

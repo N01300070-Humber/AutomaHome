@@ -24,6 +24,7 @@ import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.DescriptiveTextView;
 import ca.humbermail.n01300070.automahome.components.ListLinePadding;
 import ca.humbermail.n01300070.automahome.components.DescriptiveTextViewAdapter;
+import ca.humbermail.n01300070.automahome.data.DeviceDataPaths;
 import ca.humbermail.n01300070.automahome.data.LoginDataSource;
 import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.data.model.DescriptiveTextViewData;
@@ -76,7 +77,7 @@ public class ControlMovementSensorFragment extends Fragment {
 	
 	private void setOnDeviceDataValuesChangeListener() {
 		Log.d("ControlMovementSensor", "setOnDeviceDataValuesChangeListener called");
-		realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, null).observe(getViewLifecycleOwner(), new Observer<Object>() {
+		realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, DeviceDataPaths.MOVEMENT_LOG).observe(getViewLifecycleOwner(), new Observer<Object>() {
 			@Override
 			public void onChanged(Object object) {
 				Log.d("ControlMovementSensor","Device data values changed");

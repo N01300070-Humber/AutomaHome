@@ -87,6 +87,11 @@
 	<string name="content_description_device_type_thermostat">Thermostat device button</string>
 	<string name="content_description_type_task">Task button</string>
 	
+	<string name="log_entry_movement">%1$s ➜ %2$s</string>
+	<string name="log_entry_movement_unknown_direction">Unknown Direction</string>
+	<string name="log_entry_movement_no_data">No movement data found</string>
+	<string name="log_entry_week_time_format">%1$s at %2$s</string>
+	
 	<!-- Tasks -->
 	<string name="fab_add_task">Create Task</string>
 	<string name="run_if">Run If</string>

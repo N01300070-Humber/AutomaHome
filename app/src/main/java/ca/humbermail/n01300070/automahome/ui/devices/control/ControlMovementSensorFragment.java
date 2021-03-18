@@ -86,7 +86,7 @@ public class ControlMovementSensorFragment extends Fragment {
 				logViewDataList.clear();
 				if (!(object instanceof Map)) {
 					Log.d("ControlMovementSensor","Device data values object is null");
-					logViewDataList.add(new DescriptiveTextViewData("No movement data found", null)); // TODO: Replace hard coded strings with string values from strings.xml
+					logViewDataList.add(new DescriptiveTextViewData(getString(R.string.log_entry_movement_no_data), null));
 					return;
 				}
 				
@@ -100,22 +100,21 @@ public class ControlMovementSensorFragment extends Fragment {
 					SimpleDateFormat simpleWeekDayFormat = new SimpleDateFormat("EEEE");
 					SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("h:mm a");
 					
-					// TODO: Replace hard coded strings with string values from strings.xml
+					// TODO: Replace hard coded room strings with actual room names
 					switch (direction) {
 						case "left":
-							descriptiveTextViewData.setMainText("Room 1 ➜ Room 2");
+							descriptiveTextViewData.setMainText(getString(R.string.log_entry_movement, "Room 1", "Room 2"));
 							break;
 						case "right":
-							descriptiveTextViewData.setMainText("Room 2 ➜ Room 1");
+							descriptiveTextViewData.setMainText(getString(R.string.log_entry_movement, "Room 2", "Room 1"));
 							break;
 						default:
-							descriptiveTextViewData.setMainText("Unknown Direction");
+							descriptiveTextViewData.setMainText(getString(R.string.log_entry_movement_unknown_direction));
 					}
 					
-					descriptiveTextViewData.setDescriptionText(
-							simpleWeekDayFormat.format(date) +
-							" at " +
-							simpleTimeFormat.format(date)
+					descriptiveTextViewData.setDescriptionText(getString(R.string.log_entry_week_time_format,
+							simpleWeekDayFormat.format(date),
+							simpleTimeFormat.format(date))
 					);
 					
 					logViewDataList.add(descriptiveTextViewData);

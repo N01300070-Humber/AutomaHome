@@ -127,7 +127,7 @@ public class ControlMovementSensorFragment extends Fragment {
 				for (Map.Entry<String, Map<String, Object>> stringMapEntry : stringMapMap.entrySet()) {
 					DescriptiveTextViewData descriptiveTextViewData = new DescriptiveTextViewData();
 					String direction = (String) stringMapEntry.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_DIRECTION);
-					long timestamp = ((long) stringMapEntry.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP)) * 1000L;
+					long timestamp;
 					
 					switch (direction) {
 						case DeviceDataPaths.MOVEMENT_LOG_ENTRY_DIRECTION_TO_SIDE_A:
@@ -140,13 +140,18 @@ public class ControlMovementSensorFragment extends Fragment {
 							descriptiveTextViewData.setMainText(getString(R.string.log_entry_movement_unknown_direction));
 					}
 					
-					descriptiveTextViewData.setDescriptionText(DateUtils.getRelativeDateTimeString(
-							context,
-							timestamp,
-							DateUtils.DAY_IN_MILLIS,
-							DateUtils.WEEK_IN_MILLIS,
-							DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_WEEKDAY
-					).toString());
+					if (stringMapEntry.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP) == null) {
+						descriptiveTextViewData.setDescriptionText(getString(R.string.log_entry_movement_no_time));
+					} else {
+						timestamp = (long) stringMapEntry.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP);
+						descriptiveTextViewData.setDescriptionText(DateUtils.getRelativeDateTimeString(
+								context,
+								timestamp,
+								DateUtils.DAY_IN_MILLIS,
+								DateUtils.WEEK_IN_MILLIS,
+								DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_WEEKDAY
+						).toString());
+					}
 					
 					logViewDataList.add(descriptiveTextViewData);
 				}

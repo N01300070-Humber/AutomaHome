@@ -227,5 +227,6 @@
 	<string name="today">Today</string>
 	<string name="yesterday">Yesterday</string>
 	<string name="error">Error</string>
+	<string name="log_entry_movement_no_time">Timestamp Missing</string>
 
 </resources>

@@ -103,7 +103,7 @@ public class DevicesFragment extends Fragment {
 		Log.d("DeviceFragment","onStart called");
 		super.onStart();
 
-		realtimeDatabaseDataSource.onDeviceValuesChange().observe(this, new Observer<List<Device>>() {
+		realtimeDatabaseDataSource.onDevicesValuesChange().observe(this, new Observer<List<Device>>() {
 			@Override
 			public void onChanged(List<Device> devices) {
 				Log.d("DeviceFragment","Changed detected in devices data in database");
@@ -124,6 +124,6 @@ public class DevicesFragment extends Fragment {
 		Log.d("DeviceFragment","onStop called");
 		super.onStop();
 
-		realtimeDatabaseDataSource.removeDevicesValueChangesListener();
+		realtimeDatabaseDataSource.removeDevicesValuesChangesListener();
 	}
 }

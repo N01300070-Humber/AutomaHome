@@ -16,31 +16,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.components.DescriptiveTextView;
 import ca.humbermail.n01300070.automahome.components.ListLinePadding;
 import ca.humbermail.n01300070.automahome.components.DescriptiveTextViewAdapter;
 import ca.humbermail.n01300070.automahome.data.DeviceDataPaths;
-import ca.humbermail.n01300070.automahome.data.LoginDataSource;
 import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.data.model.DescriptiveTextViewData;
-import ca.humbermail.n01300070.automahome.data.model.Home;
 
 public class ControlMovementSensorFragment extends Fragment {
 	private Context context;
+	private ControlDevicesActivity controlDevicesActivity;
 
 	private RecyclerView detectionLog;
 	private DescriptiveTextViewAdapter adapter;
-
 	private ArrayList<DescriptiveTextViewData> logViewDataList;
+	
 	private String deviceId;
-	private ControlDevicesActivity controlDevicesActivity;
+	private String sideA;
+	private String sideB;
 	
 	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
 	
@@ -71,19 +66,53 @@ public class ControlMovementSensorFragment extends Fragment {
 		detectionLog.addItemDecoration(new ListLinePadding((int) context.getResources().getDimension(R.dimen.recycler_divider_space)));
 		detectionLog.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
 		
-		setOnDeviceDataValuesChangeListener();
+		setOnSideAChangeListener();
+		setOnSideBChangeListener();
+		setOnMovementLogChangeListener();
 		
 		return root;
 	}
 	
+	private void setOnSideAChangeListener() {
+		Log.d("ControlMovementSensor", "setOnSideAChangeListener called");
+		
+		realtimeDatabaseDataSource.onDeviceValueChange(deviceId, RealtimeDatabaseDataSource.DEVICES_ROOM_PATH).observe(getViewLifecycleOwner(), new Observer<Object>() {
+			@Override
+			public void onChanged(Object object) {
+				Log.d("ControlMovementSensor","Device room value changed");
+				if (object instanceof String) {
+					sideA = (String) object;
+				} else {
+					sideA = getString(R.string.error);
+				}
+				adapter.notifyDataSetChanged();
+			}
+		});
+	}
 	
-	private void setOnDeviceDataValuesChangeListener() {
-		Log.d("ControlMovementSensor", "setOnDeviceDataValuesChangeListener called");
+	private void setOnSideBChangeListener() {
+		Log.d("ControlMovementSensor", "setOnSideBChangeListener called");
+		
+		realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, DeviceDataPaths.MOVEMENT_SIDE_B).observe(getViewLifecycleOwner(), new Observer<Object>() {
+			@Override
+			public void onChanged(Object object) {
+				Log.d("ControlMovementSensor","Device data side b value changed");
+				if (object instanceof String) {
+					sideB = (String) object;
+				} else {
+					sideB = getString(R.string.error);
+				}
+				adapter.notifyDataSetChanged();
+			}
+		});
+	}
+	
+	private void setOnMovementLogChangeListener() {
+		Log.d("ControlMovementSensor", "setOnMovementLogChangeListener called");
 		realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, DeviceDataPaths.MOVEMENT_LOG).observe(getViewLifecycleOwner(), new Observer<Object>() {
 			@Override
 			public void onChanged(Object object) {
 				Log.d("ControlMovementSensor","Device data values changed");
-				
 				Map< String, Map<String, Object> > stringMapMap;
 				
 				logViewDataList.clear();
@@ -100,13 +129,12 @@ public class ControlMovementSensorFragment extends Fragment {
 					String direction = (String) stringMapEntry.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_DIRECTION);
 					long timestamp = ((long) stringMapEntry.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP)) * 1000L;
 					
-					// TODO: Replace hard coded room strings with actual room names
 					switch (direction) {
 						case DeviceDataPaths.MOVEMENT_LOG_ENTRY_DIRECTION_TO_SIDE_A:
-							descriptiveTextViewData.setMainText(getString(R.string.log_entry_movement, "Room 1", "Room 2"));
+							descriptiveTextViewData.setMainText(getString(R.string.log_entry_movement, sideB, sideA));
 							break;
 						case DeviceDataPaths.MOVEMENT_LOG_ENTRY_DIRECTION_TO_SIDE_B:
-							descriptiveTextViewData.setMainText(getString(R.string.log_entry_movement, "Room 2", "Room 1"));
+							descriptiveTextViewData.setMainText(getString(R.string.log_entry_movement, sideA, sideB));
 							break;
 						default:
 							descriptiveTextViewData.setMainText(getString(R.string.log_entry_movement_unknown_direction));

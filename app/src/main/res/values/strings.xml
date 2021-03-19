@@ -226,5 +226,6 @@
 	<string name="content_description_device_type_unknown">Unknown device button</string>
 	<string name="today">Today</string>
 	<string name="yesterday">Yesterday</string>
+	<string name="error">Error</string>
 
 </resources>

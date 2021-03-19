@@ -36,10 +36,10 @@ public class RealtimeDatabaseDataSource {
 	private final static String DEVICES_REFERENCE = "devices";
 	private final static String DEVICES_ID_PATH = "id";
 	private final static String DEVICES_HOME_ID_PATH = "homeId";
-	private final static String DEVICES_NAME_PATH = "name";
-	private final static String DEVICES_ROOM_PATH = "room";
-	private final static String DEVICES_TYPE_PATH = "type";
-	private final static String DEVICES_CATEGORY_PATH = "category";
+	public final static String DEVICES_NAME_PATH = "name";
+	public final static String DEVICES_ROOM_PATH = "room";
+	public final static String DEVICES_TYPE_PATH = "type";
+	public final static String DEVICES_CATEGORY_PATH = "category";
 	private final static String DEVICE_DATA_PATH = "data";
 	private final static String TASKS_REFERENCE = "tasks";
 	private final static String TASKS_ID_PATH = "id";
@@ -72,6 +72,7 @@ public class RealtimeDatabaseDataSource {
 	private final MutableLiveData<List<Home>> homeValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Pair<String, Boolean>>> homeEditorValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Device>> deviceValues = new MutableLiveData<>();
+	private final List<MutableLiveData<Object>> deviceValueList = new ArrayList<>();
 	private final List<MutableLiveData<Object>> deviceDataValueList = new ArrayList<>();
 	private final MutableLiveData<List<Task>> taskValues = new MutableLiveData<>();
 	private final MutableLiveData<List<Condition>> taskConditionValues = new MutableLiveData<>();
@@ -82,7 +83,8 @@ public class RealtimeDatabaseDataSource {
 	private ValueEventListener usersValueEventListener;
 	private ValueEventListener homesValueEventListener;
 	private ValueEventListener homeEditorsValueEventListener;
-	private ValueEventListener devicesValueEventListener;
+	private ValueEventListener devicesValuesEventListener;
+	private final ArrayList<ValueEventListener> deviceValueEventListeners = new ArrayList<>();
 	private final ArrayList<ValueEventListener> deviceDataValueEventListeners = new ArrayList<>();
 	private ValueEventListener tasksValueEventListener;
 	private ValueEventListener taskConditionsValueEventListener;
@@ -90,15 +92,16 @@ public class RealtimeDatabaseDataSource {
 	private ValueEventListener taskOperationsValueEventListener;
 	private final ArrayList<ValueEventListener> taskOperationDataValueEventListeners = new ArrayList<>();
 	
-	private final List<DeviceIndex> deviceDataValueIndices = new ArrayList<>();
+	private final List<DeviceDataIndex> deviceValueIndices = new ArrayList<>();
+	private final List<DeviceDataIndex> deviceDataValueIndices = new ArrayList<>();
 	private final List<ConditionOrOperationIndex> taskConditionDataValueIndices = new ArrayList<>();
 	private final List<ConditionOrOperationIndex> taskOperationDataValueIndices = new ArrayList<>();
 	
-	static class DeviceIndex {
+	static class DeviceDataIndex {
 		private String deviceId;
 		private String valueKey;
 		
-		DeviceIndex(String deviceId, String valueKey) {
+		DeviceDataIndex(String deviceId, String valueKey) {
 			this.deviceId = deviceId;
 			this.valueKey = valueKey;
 		}
@@ -457,10 +460,10 @@ public class RealtimeDatabaseDataSource {
 				.setValue(room);
 	}
 
-	private void listenForDevicesValueChanges() {
-		Log.d("DatabaseDataSource", "listenForDevicesValueChanges called");
+	private void listenForDevicesValuesChanges() {
+		Log.d("DatabaseDataSource", "listenForDevicesValuesChanges called");
 		
-		devicesValueEventListener = new ValueEventListener() {
+		devicesValuesEventListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
 				Log.d("DatabaseDataSource", "Detected change in Devices data");
@@ -496,20 +499,112 @@ public class RealtimeDatabaseDataSource {
 		database.getReference(DEVICES_REFERENCE)
 				.orderByChild(DEVICES_HOME_ID_PATH)
 				.equalTo(currentHomeId)
-				.addValueEventListener(devicesValueEventListener);
+				.addValueEventListener(devicesValuesEventListener);
 	}
 	
-	public void removeDevicesValueChangesListener() {
-		Log.d("DatabaseDataSource", "removeDevicesValueChangesListener called");
+	public void removeDevicesValuesChangesListener() {
+		Log.d("DatabaseDataSource", "removeDevicesValuesChangesListener called");
 		
-		database.getReference(DEVICES_REFERENCE).removeEventListener(devicesValueEventListener);
+		database.getReference(DEVICES_REFERENCE).removeEventListener(devicesValuesEventListener);
 	}
 	
-	public LiveData<List<Device>> onDeviceValuesChange() {
-		Log.d("DatabaseDataSource", "onDeviceValuesChange called");
+	public LiveData<List<Device>> onDevicesValuesChange() {
+		Log.d("DatabaseDataSource", "onDevicesValuesChange called");
 		
-		listenForDevicesValueChanges();
+		listenForDevicesValuesChanges();
 		return deviceValues;
+	}
+	
+	private void listenForDeviceValueChanges(String deviceId, String key) {
+		Log.d("DatabaseDataSource", "listenForDeviceValueChanges called");
+		
+		final MutableLiveData<Object> liveData = new MutableLiveData<>();
+		ValueEventListener deviceValueEventListener = new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				Log.d("DatabaseDataSource", "Detected change in device value");
+				
+				Object value = null;
+				
+				if (snapshot.exists()) {
+					value = snapshot.getValue();
+				}
+				
+				liveData.postValue(value);
+			}
+			
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+			
+			}
+		};
+		
+		if (key == null || key.equals(NO_DEVICE_DATA_KEY)) {
+			database.getReference(DEVICES_REFERENCE)
+					.child(deviceId)
+					.addValueEventListener(deviceValueEventListener);
+			deviceValueIndices.add(new DeviceDataIndex(deviceId, key));
+		} else {
+			database.getReference(DEVICES_REFERENCE)
+					.child(deviceId)
+					.child(key)
+					.addValueEventListener(deviceValueEventListener);
+			deviceValueIndices.add(new DeviceDataIndex(deviceId, key));
+		}
+		
+		deviceValueEventListeners.add(deviceValueEventListener);
+		deviceValueList.add(liveData);
+	}
+	
+	public void removeDeviceValueChangeListener(String deviceId, String key) {
+		Log.d("DatabaseDataSource", "removeDeviceValueChangesListener called");
+		
+		int position;
+		if (key == null || key.equals(NO_DEVICE_DATA_KEY)) {
+			position = getPositionOfDeviceIndex(new DeviceDataIndex(deviceId, NO_DEVICE_DATA_KEY));
+			
+			database.getReference(DEVICES_REFERENCE)
+					.child(deviceId)
+					.removeEventListener(deviceValueEventListeners.get(position));
+		} else {
+			position = getPositionOfDeviceIndex(new DeviceDataIndex(deviceId, key));
+			
+			database.getReference(DEVICES_REFERENCE)
+					.child(deviceId)
+					.child(key)
+					.removeEventListener(deviceValueEventListeners.get(position));
+		}
+		
+		deviceValueIndices.remove(position);
+		deviceValueEventListeners.remove(position);
+		deviceValueList.remove(position);
+	}
+	
+	public LiveData<Object> onDeviceValueChange(String deviceId, String key) {
+		Log.d("DatabaseDataSource", "onDeviceValueChange called");
+		
+		if (key == null) {
+			key = NO_DEVICE_DATA_KEY;
+		}
+		
+		listenForDeviceValueChanges(deviceId, key);
+		
+		return deviceValueList.get(
+				getPositionOfDeviceIndex(new DeviceDataIndex(deviceId, key))
+		);
+	}
+	
+	private int getPositionOfDeviceIndex(DeviceDataIndex deviceIndex) {
+		for (int i = 0; i < deviceValueIndices.size(); i++) {
+			DeviceDataIndex comparisonIndex = deviceValueIndices.get(i);
+			
+			if (deviceIndex.deviceId.equals(comparisonIndex.deviceId)
+					&& deviceIndex.valueKey.equals(comparisonIndex.valueKey)) {
+				return i;
+			}
+		}
+		
+		return -1;
 	}
 	
 	
@@ -558,19 +653,19 @@ public class RealtimeDatabaseDataSource {
 			}
 		};
 		
-		if (key == null) {
+		if (key == null || key.equals(NO_DEVICE_DATA_KEY)) {
 			database.getReference(DEVICES_REFERENCE)
 					.child(deviceId)
 					.child(DEVICE_DATA_PATH)
 					.addValueEventListener(deviceDataValueEventListener);
-			deviceDataValueIndices.add(new DeviceIndex(deviceId, NO_DEVICE_DATA_KEY));
+			deviceDataValueIndices.add(new DeviceDataIndex(deviceId, NO_DEVICE_DATA_KEY));
 		} else {
 			database.getReference(DEVICES_REFERENCE)
 					.child(deviceId)
 					.child(DEVICE_DATA_PATH)
 					.child(key)
 					.addValueEventListener(deviceDataValueEventListener);
-			deviceDataValueIndices.add(new DeviceIndex(deviceId, key));
+			deviceDataValueIndices.add(new DeviceDataIndex(deviceId, key));
 		}
 		
 		deviceDataValueEventListeners.add(deviceDataValueEventListener);
@@ -581,16 +676,15 @@ public class RealtimeDatabaseDataSource {
 		Log.d("DatabaseDataSource", "removeDeviceDataValueChangesListener called");
 		
 		int position;
-		if (key == null) {
-			position = getPositionOfDeviceIndex(new DeviceIndex(deviceId, NO_DEVICE_DATA_KEY));
+		if (key == null || key.equals(NO_DEVICE_DATA_KEY)) {
+			position = getPositionOfDeviceIndex(new DeviceDataIndex(deviceId, NO_DEVICE_DATA_KEY));
 			
 			database.getReference(DEVICES_REFERENCE)
 					.child(deviceId)
 					.child(DEVICE_DATA_PATH)
-					.child(key)
 					.removeEventListener(deviceDataValueEventListeners.get(position));
 		} else {
-			position = getPositionOfDeviceIndex(new DeviceIndex(deviceId, key));
+			position = getPositionOfDeviceIndex(new DeviceDataIndex(deviceId, key));
 			
 			database.getReference(DEVICES_REFERENCE)
 					.child(deviceId)
@@ -614,13 +708,13 @@ public class RealtimeDatabaseDataSource {
 		listenForDeviceDataValueChanges(deviceId, key);
 		
 		return deviceDataValueList.get(
-				getPositionOfDeviceIndex(new DeviceIndex(deviceId, key))
+				getPositionOfDeviceDataIndex(new DeviceDataIndex(deviceId, key))
 		);
 	}
 	
-	private int getPositionOfDeviceIndex(DeviceIndex deviceIndex) {
+	private int getPositionOfDeviceDataIndex(DeviceDataIndex deviceIndex) {
 		for (int i = 0; i < deviceDataValueIndices.size(); i++) {
-			DeviceIndex comparisonIndex = deviceDataValueIndices.get(i);
+			DeviceDataIndex comparisonIndex = deviceDataValueIndices.get(i);
 			
 			if (deviceIndex.deviceId.equals(comparisonIndex.deviceId)
 					&& deviceIndex.valueKey.equals(comparisonIndex.valueKey)) {

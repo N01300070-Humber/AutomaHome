@@ -24,7 +24,6 @@ import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.data.model.Device;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
 import ca.humbermail.n01300070.automahome.data.model.Task;
-import ca.humbermail.n01300070.automahome.ui.devices.DevicesFragment;
 import ca.humbermail.n01300070.automahome.ui.devices.control.ControlDevicesActivity;
 import ca.humbermail.n01300070.automahome.ui.devices.edit.EditDevicesActivity;
 import ca.humbermail.n01300070.automahome.ui.main.NavDrawerActivity;
@@ -91,7 +90,7 @@ public class FavoritesFragment extends Fragment {
 	public void onStart() {
 		super.onStart();
 		
-		realtimeDatabaseDataSource.onDeviceValuesChange().observe(this, new Observer<List<Device>>() {
+		realtimeDatabaseDataSource.onDevicesValuesChange().observe(this, new Observer<List<Device>>() {
 			@Override
 			public void onChanged(List<Device> devices) {
 				favoritesViewModel.setDeviceData(context, devices);
@@ -115,7 +114,7 @@ public class FavoritesFragment extends Fragment {
 	public void onStop() {
 		super.onStop();
 		
-		realtimeDatabaseDataSource.removeDevicesValueChangesListener();
+		realtimeDatabaseDataSource.removeDevicesValuesChangesListener();
 		realtimeDatabaseDataSource.removeTasksValueChangesListener();
 	}
 }

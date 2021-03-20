@@ -59,46 +59,73 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_controlLight_Lowbrightness" />
 
-    <ImageView
-        android:id="@+id/imageView_controlLight_Lowtemp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar_controlLight_temp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/seekBar_controlLight_temp"
-        app:srcCompat="@drawable/ic_favorite" />
 
-    <SeekBar
-        android:id="@+id/seekBar_controlLight_temp"
-        style="@style/Widget.AutomaHome.SeekBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView_controlLight_Hightemp"
-        app:layout_constraintStart_toEndOf="@+id/imageView_controlLight_Lowtemp"
-        app:layout_constraintTop_toBottomOf="@+id/textView_controlLight_temperature" />
-
-    <ImageView
-        android:id="@+id/imageView_controlLight_Hightemp"
+    <TextView
+        android:id="@+id/textView_currentColor_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar_controlLight_temp"
+        android:layout_margin="8dp"
+        android:text="Your Current Light Color"
+        android:layout_marginTop="100dp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/seekBar_controlLight_temp"
-        app:srcCompat="@drawable/ic_favorite" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_controlLight_temperature" />
 
-    <Switch
-        android:id="@+id/switch_control_light_nightLight"
-        style="@style/Widget.AutomaHome.Switch"
+    <!--Pick color Button-->
+    <Button
+        android:id="@+id/button_pick_color_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/night_light"
+        android:layout_gravity="center"
+        android:text="Pick Color"
+        android:layout_margin="8dp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar_controlLight_temp" />
+        app:layout_constraintTop_toBottomOf="@id/textView_currentColor_light" />
+
+    <TextView
+        android:id="@+id/textView_pickedColor_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:textSize="15sp"
+        android:text="Your picked color is:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_pick_color_button" />
+
+
+    <View
+        android:id="@+id/preview_selected_color"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="@android:color/darker_gray"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_pickedColor_light"/>
+
+    <!--set color button to overwrite the
+        color for "Your Current Light Color" text-->
+    <Button
+        android:id="@+id/button_set_color_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="Set Color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/preview_selected_color"/>
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,6 +54,35 @@ public class ControlLightFragment extends Fragment
         temperatureSeekBar = root.findViewById(R.id.seekBar_controlLight_temp);
         nightLightSwitch = root.findViewById(R.id.switch_control_light_nightLight);
 
+        setOnColourChangeListener();
+        
         return root;
+    }
+    
+    private void setOnColourChangeListener() {
+        Log.d("ControlLight", "setOnColourChangeListener called");
+        
+        realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, null).observe(getViewLifecycleOwner(), new Observer<Object>() {
+            @Override
+            public void onChanged(Object object) {
+                int intensityRed;
+                int intensityGreen;
+                int intensityBlue;
+                
+                if (object instanceof Map) {
+                    Map<String, Object> deviceData = (Map<String, Object>) object;
+                    intensityRed = (int) deviceData.get(DeviceDataPaths.INTENSITY_RED_LED);
+                    intensityGreen = (int) deviceData.get(DeviceDataPaths.INTENSITY_GREEN_LED);
+                    intensityBlue = (int) deviceData.get(DeviceDataPaths.INTENSITY_BLUE_LED);
+                } else {
+                    Log.d("ControlLight", "Device data values object is null");
+                    intensityRed = 0;
+                    intensityGreen = 0;
+                    intensityBlue = 0;
+                }
+                
+                // TODO: Set colour wheel to reflect intensity values
+            }
+        });
     }
 }

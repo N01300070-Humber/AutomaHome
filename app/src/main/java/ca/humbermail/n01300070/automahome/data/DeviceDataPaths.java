@@ -1,9 +1,9 @@
 package ca.humbermail.n01300070.automahome.data;
 
 public class DeviceDataPaths {
-	public static final String LIGHT_RED_INTENSITY = "red"; //Long: range 0-255
-	public static final String LIGHT_GREEN_INTENSITY = "green"; //Long: range 0-255
-	public static final String LIGHT_BLUE_INTENSITY = "blue"; //Long: range 0-255
+	public static final String INTENSITY_RED_LED = "red"; //Long: range 0-255
+	public static final String INTENSITY_GREEN_LED = "green"; //Long: range 0-255
+	public static final String INTENSITY_BLUE_LED = "blue"; //Long: range 0-255
 	
 	public static final String MOVEMENT_SIDE_B = "room2"; //String
 	public static final String MOVEMENT_LOG = "log"; //Map<String, Map<String, Object>>: Object could be unix timestamp or direction

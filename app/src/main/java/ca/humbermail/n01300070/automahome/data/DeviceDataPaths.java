@@ -12,8 +12,8 @@ public class DeviceDataPaths {
 	public static final String MOVEMENT_LOG_ENTRY_DIRECTION_TO_SIDE_B = "right";
 	public static final String MOVEMENT_LOG_ENTRY_TIMESTAMP = "timestamp"; //Long: Unix timestamp (seconds since epoch)
 	
-	public static final String THERMOSTAT_TEMPERATURE = "temperature"; //Integer
-	public static final String THERMOSTAT_HUMIDITY = "humidity"; //Integer
+	public static final String THERMOSTAT_TEMPERATURE = "temperature"; //Float: Temperature in celsius
+	public static final String THERMOSTAT_HUMIDITY = "humidity"; //Float: Percentage
 	public static final String THERMOSTAT_COMPRESSOR = "compressor"; //Boolean
 	public static final String THERMOSTAT_REVERSE = "reverse"; //Boolean
 	public static final String THERMOSTAT_FAN = "fan"; //Boolean

@@ -62,7 +62,7 @@ public class ControlLightFragment extends Fragment
     private void setOnColourChangeListener() {
         Log.d("ControlLight", "setOnColourChangeListener called");
         
-        realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, null).observe(getViewLifecycleOwner(), new Observer<Object>() {
+        realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, null, true).observe(getViewLifecycleOwner(), new Observer<Object>() {
             @Override
             public void onChanged(Object object) {
                 int intensityRed;

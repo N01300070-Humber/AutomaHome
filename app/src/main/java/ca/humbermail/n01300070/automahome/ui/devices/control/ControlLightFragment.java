@@ -100,10 +100,10 @@ public class ControlLightFragment extends Fragment {
 				int intensityBlue;
 				
 				if (object instanceof Map) {
-					Map<String, Object> deviceData = (Map<String, Object>) object;
-					intensityRed = (int) deviceData.get(DeviceDataPaths.INTENSITY_RED_LED);
-					intensityGreen = (int) deviceData.get(DeviceDataPaths.INTENSITY_GREEN_LED);
-					intensityBlue = (int) deviceData.get(DeviceDataPaths.INTENSITY_BLUE_LED);
+					Map<String, Long> deviceData = (Map<String, Long>) object;
+					intensityRed = deviceData.get(DeviceDataPaths.INTENSITY_RED_LED).intValue();
+					intensityGreen = deviceData.get(DeviceDataPaths.INTENSITY_GREEN_LED).intValue();
+					intensityBlue = deviceData.get(DeviceDataPaths.INTENSITY_BLUE_LED).intValue();
 				} else {
 					Log.d("ControlLight", "Device data values object is null");
 					intensityRed = 0;

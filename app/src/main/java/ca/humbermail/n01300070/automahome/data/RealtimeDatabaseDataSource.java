@@ -561,9 +561,9 @@ public class RealtimeDatabaseDataSource {
 		return deviceValues;
 	}
 	
-	private void listenForDeviceValueChanges(String deviceId, String key) {
+	private void listenForDeviceValueChanges(String deviceId, String key, boolean performOnce) {
 		Log.d("DatabaseDataSource", "listenForDeviceValueChanges called");
-		
+		DatabaseReference reference;
 		final MutableLiveData<Object> liveData = new MutableLiveData<>();
 		ValueEventListener deviceValueEventListener = new ValueEventListener() {
 			@Override
@@ -586,16 +586,20 @@ public class RealtimeDatabaseDataSource {
 		};
 		
 		if (key == null || key.equals(NO_DEVICE_DATA_KEY)) {
-			database.getReference(DEVICES_REFERENCE)
-					.child(deviceId)
-					.addValueEventListener(deviceValueEventListener);
+			reference = database.getReference(DEVICES_REFERENCE)
+					.child(deviceId);
 			deviceValueIndices.add(new DeviceDataIndex(deviceId, key));
 		} else {
-			database.getReference(DEVICES_REFERENCE)
+			reference = database.getReference(DEVICES_REFERENCE)
 					.child(deviceId)
-					.child(key)
-					.addValueEventListener(deviceValueEventListener);
+					.child(key);
 			deviceValueIndices.add(new DeviceDataIndex(deviceId, key));
+		}
+		
+		if (performOnce) {
+			reference.addListenerForSingleValueEvent(deviceValueEventListener);
+		} else {
+			reference.addValueEventListener(deviceValueEventListener);
 		}
 		
 		deviceValueEventListeners.add(deviceValueEventListener);
@@ -627,13 +631,17 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public LiveData<Object> onDeviceValueChange(String deviceId, String key) {
+		return onDeviceValueChange(deviceId, key, false);
+	}
+	
+	public LiveData<Object> onDeviceValueChange(String deviceId, String key, boolean performOnce) {
 		Log.d("DatabaseDataSource", "onDeviceValueChange called");
 		
 		if (key == null) {
 			key = NO_DEVICE_DATA_KEY;
 		}
 		
-		listenForDeviceValueChanges(deviceId, key);
+		listenForDeviceValueChanges(deviceId, key, performOnce);
 		
 		return deviceValueList.get(
 				getPositionOfDeviceIndex(new DeviceDataIndex(deviceId, key))

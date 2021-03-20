@@ -675,9 +675,9 @@ public class RealtimeDatabaseDataSource {
 				.removeValue();
 	}
 	
-	private void listenForDeviceDataValueChanges(String deviceId, String key) {
+	private void listenForDeviceDataValueChanges(String deviceId, String key, boolean performOnce) {
 		Log.d("DatabaseDataSource", "listenForDeviceDataValueChanges called");
-		
+		DatabaseReference reference;
 		final MutableLiveData<Object> liveData = new MutableLiveData<>();
 		ValueEventListener deviceDataValueEventListener = new ValueEventListener() {
 			@Override
@@ -700,18 +700,22 @@ public class RealtimeDatabaseDataSource {
 		};
 		
 		if (key == null || key.equals(NO_DEVICE_DATA_KEY)) {
-			database.getReference(DEVICES_REFERENCE)
+			reference = database.getReference(DEVICES_REFERENCE)
 					.child(deviceId)
-					.child(DEVICE_DATA_PATH)
-					.addValueEventListener(deviceDataValueEventListener);
+					.child(DEVICE_DATA_PATH);
 			deviceDataValueIndices.add(new DeviceDataIndex(deviceId, NO_DEVICE_DATA_KEY));
 		} else {
-			database.getReference(DEVICES_REFERENCE)
+			reference = database.getReference(DEVICES_REFERENCE)
 					.child(deviceId)
 					.child(DEVICE_DATA_PATH)
-					.child(key)
-					.addValueEventListener(deviceDataValueEventListener);
+					.child(key);
 			deviceDataValueIndices.add(new DeviceDataIndex(deviceId, key));
+		}
+		
+		if (performOnce) {
+			reference.addListenerForSingleValueEvent(deviceDataValueEventListener);
+		} else {
+			reference.addValueEventListener(deviceDataValueEventListener);
 		}
 		
 		deviceDataValueEventListeners.add(deviceDataValueEventListener);
@@ -745,13 +749,17 @@ public class RealtimeDatabaseDataSource {
 	}
 	
 	public LiveData<Object> onDeviceDataValueChange(String deviceId, String key) {
+		return onDeviceDataValueChange(deviceId, key, false);
+	}
+	
+	public LiveData<Object> onDeviceDataValueChange(String deviceId, String key, boolean performOnce) {
 		Log.d("DatabaseDataSource", "onDeviceDataValueChange called");
 		
 		if (key == null) {
 			key = NO_DEVICE_DATA_KEY;
 		}
 		
-		listenForDeviceDataValueChanges(deviceId, key);
+		listenForDeviceDataValueChanges(deviceId, key, performOnce);
 		
 		return deviceDataValueList.get(
 				getPositionOfDeviceDataIndex(new DeviceDataIndex(deviceId, key))

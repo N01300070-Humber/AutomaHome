@@ -32,7 +32,6 @@ public class GeneralSettingsFragment extends Fragment {
 	SharedPreferences settings;
 	SharedPreferences.Editor settingsEditor;
 	
-	static final String KIND_OF_DEGREE_DEFAULT = "KIND_OF_DEGREE_DEFAULT";
 	
 	public GeneralSettingsFragment() {
 		// Required empty public constructor
@@ -67,21 +66,14 @@ public class GeneralSettingsFragment extends Fragment {
 			@Override
 			public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
 				if (isChecked) {
-					
-					String kind_of_degree = getString(R.string.celsius);
-					
 					if (checkedId == R.id.toggleButton_celsius) {
-						System.out.println(checkedId);
-						System.out.println("-------------+++++");
-						
+						settingsEditor.putString(PreferenceKeys.KEY_SETTINGS_TEMPERATURE_UNIT,
+								PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_CELSIUS);
 						
 					} else if (checkedId == R.id.toggleButton_fahrenheit) {
-						System.out.println("-------------");
-						System.out.println(checkedId);
-						kind_of_degree = getString(R.string.fahrenheit);
+						settingsEditor.putString(PreferenceKeys.KEY_SETTINGS_TEMPERATURE_UNIT,
+								PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_FAHRENHEIT);
 					}
-					System.out.print("--------------" + kind_of_degree + "---------------");
-					settingsEditor.putString(getString(R.string.KIND_OF_DEGREE_DEFAULT), kind_of_degree);
 					settingsEditor.apply();
 				}
 				
@@ -111,19 +103,13 @@ public class GeneralSettingsFragment extends Fragment {
 	
 	
 	public void loadToggleButtons() {
-		String kind_of_degree_default = getString(R.string.celsius);
-		String kind_of_degree = settings.getString(getString(R.string.KIND_OF_DEGREE_DEFAULT), kind_of_degree_default);
+		String kind_of_degree = settings.getString(PreferenceKeys.KEY_SETTINGS_TEMPERATURE_UNIT,
+				PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_CELSIUS);
 		
-		//System.out.println("--------------");
-		//System.out.println(kind_of_degree);
-		//System.out.println(getString(R.string.fahrenheit));
-		//System.out.println("--------------");
-		if (kind_of_degree.equals(getString(R.string.celsius))) {
+		if (kind_of_degree.equals(PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_CELSIUS)) {
 			celsiusButton.setChecked(true);
-			//System.out.println("--------------++++++++++++++"+getString(R.string.celsius));
-		} else if (kind_of_degree.equals(getString(R.string.fahrenheit))) {
+		} else if (kind_of_degree.equals(PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_FAHRENHEIT)) {
 			fahrenheitTempButton.setChecked(true);
-			//System.out.println("--------------++++++++++++++"+getString(R.string.fahrenheit));
 		}
 		
 	}

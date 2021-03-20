@@ -15,12 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 
 import ca.humbermail.n01300070.automahome.R;
-import ca.humbermail.n01300070.automahome.components.ListLinePadding;
 import ca.humbermail.n01300070.automahome.components.DescriptiveTextViewAdapter;
+import ca.humbermail.n01300070.automahome.components.ListLinePadding;
 import ca.humbermail.n01300070.automahome.data.DeviceDataPaths;
 import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.data.model.DescriptiveTextViewData;
@@ -28,7 +30,7 @@ import ca.humbermail.n01300070.automahome.data.model.DescriptiveTextViewData;
 public class ControlMovementSensorFragment extends Fragment {
 	private Context context;
 	private ControlDevicesActivity controlDevicesActivity;
-
+	
 	private RecyclerView detectionLog;
 	private DescriptiveTextViewAdapter adapter;
 	private ArrayList<DescriptiveTextViewData> logViewDataList;
@@ -79,7 +81,7 @@ public class ControlMovementSensorFragment extends Fragment {
 		realtimeDatabaseDataSource.onDeviceValueChange(deviceId, RealtimeDatabaseDataSource.DEVICES_ROOM_PATH).observe(getViewLifecycleOwner(), new Observer<Object>() {
 			@Override
 			public void onChanged(Object object) {
-				Log.d("ControlMovementSensor","Device room value changed");
+				Log.d("ControlMovementSensor", "Device room value changed");
 				if (object instanceof String) {
 					sideA = (String) object;
 				} else {
@@ -96,7 +98,7 @@ public class ControlMovementSensorFragment extends Fragment {
 		realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, DeviceDataPaths.MOVEMENT_SIDE_B).observe(getViewLifecycleOwner(), new Observer<Object>() {
 			@Override
 			public void onChanged(Object object) {
-				Log.d("ControlMovementSensor","Device data side b value changed");
+				Log.d("ControlMovementSensor", "Device data side b value changed");
 				if (object instanceof String) {
 					sideB = (String) object;
 				} else {
@@ -109,22 +111,44 @@ public class ControlMovementSensorFragment extends Fragment {
 	
 	private void setOnMovementLogChangeListener() {
 		Log.d("ControlMovementSensor", "setOnMovementLogChangeListener called");
+		
 		realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, DeviceDataPaths.MOVEMENT_LOG).observe(getViewLifecycleOwner(), new Observer<Object>() {
 			@Override
 			public void onChanged(Object object) {
-				Log.d("ControlMovementSensor","Device data values changed");
-				Map< String, Map<String, Object> > stringMapMap;
+				Log.d("ControlMovementSensor", "Device data values changed");
+				Map<String, Map<String, Object>> stringMapMap;
 				
 				logViewDataList.clear();
 				if (!(object instanceof Map)) {
-					Log.d("ControlMovementSensor","Device data values object is null");
+					Log.d("ControlMovementSensor", "Device data values object is null");
 					logViewDataList.add(new DescriptiveTextViewData(getString(R.string.log_entry_movement_no_data), null));
 					return;
 				}
 				
-				stringMapMap = (Map< String, Map<String, Object> >) object;
+				stringMapMap = (Map<String, Map<String, Object>>) object;
+				List<Map.Entry<String, Map<String, Object>>> stringMapEntrySet = new ArrayList<>(stringMapMap.entrySet());
 				
-				for (Map.Entry<String, Map<String, Object>> stringMapEntry : stringMapMap.entrySet()) {
+				Collections.sort(stringMapEntrySet, new Comparator<Map.Entry<String, Map<String, Object>>>() {
+					@Override
+					public int compare(Map.Entry<String, Map<String, Object>> stringMapEntry1, Map.Entry<String, Map<String, Object>> stringMapEntry2) {
+						long timestamp1 = (long) stringMapEntry1.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP);
+						long timestamp2 = (long) stringMapEntry2.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP);
+						
+						if (timestamp1 > timestamp2) {
+							return -1;
+						} else if (timestamp1 < timestamp2) {
+							return 1;
+						}
+						return 0;
+					}
+					
+					@Override
+					public boolean equals(Object o) {
+						return false;
+					}
+				});
+				
+				for (Map.Entry<String, Map<String, Object>> stringMapEntry : stringMapEntrySet) {
 					DescriptiveTextViewData descriptiveTextViewData = new DescriptiveTextViewData();
 					String direction = (String) stringMapEntry.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_DIRECTION);
 					long timestamp;

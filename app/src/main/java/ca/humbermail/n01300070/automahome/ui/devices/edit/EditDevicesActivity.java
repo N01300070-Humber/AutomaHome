@@ -6,20 +6,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.FavoriteSelectView;
+import ca.humbermail.n01300070.automahome.data.DeviceDataPaths;
 import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
 import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.data.model.DeviceOrTaskButtonData;
@@ -36,10 +38,10 @@ public class EditDevicesActivity extends CustomActivity {
 	private Button deleteButton;
 	private Fragment fragment;
 	private FavoriteSelectView favoriteSelectView;
-	private Spinner roomSpinner;
-	private Spinner roomSpinner2;
-	private TextView roomLocationHeader;
-	private TextView roomLocationHeader2;
+	private TextInputLayout roomTextInputLayout;
+	private TextInputLayout room2TextInputLayout;
+	private AutoCompleteTextView roomAutoCompleteText;
+	private AutoCompleteTextView room2AutoCompleteText;
 	private String deviceType;
 	private TextInputEditText nameEditText;
 	
@@ -55,10 +57,10 @@ public class EditDevicesActivity extends CustomActivity {
 		
 		saveButton = findViewById(R.id.button_editDevice_save);
 		deleteButton = findViewById(R.id.button_editDevice_delete);
-		roomSpinner = findViewById(R.id.spinner_editDevice);
-		roomSpinner2 = findViewById(R.id.spinner_editDevice_2);
-		roomLocationHeader = findViewById(R.id.textView_deviceLocation_editDevice);
-		roomLocationHeader2 = findViewById(R.id.textView_editDevice_deviceLocation2);
+		roomTextInputLayout = findViewById(R.id.textInputLayout_deviceLocation_editDevice);
+		room2TextInputLayout = findViewById(R.id.textInputLayout_deviceLocation2_editDevice);
+		roomAutoCompleteText = findViewById(R.id.autoCompleteText_deviceLocation_editDevice);
+		room2AutoCompleteText = findViewById(R.id.autoCompleteText_deviceLocation2_editDevice);
 		favoriteSelectView = findViewById(R.id.favoriteSelectView_editDevice);
 		nameEditText = findViewById(R.id.editText_editDevice);
 		
@@ -85,16 +87,15 @@ public class EditDevicesActivity extends CustomActivity {
 			favoriteSelectView.setText(category);
 		}
 		
-		
 		switch (deviceType) {
 			case DeviceOrTaskButtonData.DEVICE_LIGHTS:
 				fragment = new EditLightFragment();
 				break;
 			case DeviceOrTaskButtonData.DEVICE_MOVEMENT_SENSOR:
-				roomLocationHeader.setText(getString(R.string.side_device_location, "A"));
-				roomLocationHeader2.setText(getString(R.string.side_device_location, "B"));
-				roomLocationHeader2.setVisibility(View.VISIBLE);
-				roomSpinner2.setVisibility(View.VISIBLE);
+				roomTextInputLayout.setHint(getString(R.string.side_device_location, "A"));
+				room2TextInputLayout.setHint(getString(R.string.side_device_location, "B"));
+				room2TextInputLayout.setVisibility(View.VISIBLE);
+//				room2AutoCompleteText.setVisibility(View.VISIBLE);
 				fragment = new EditMovementSensorFragment();
 				break;
 			case DeviceOrTaskButtonData.DEVICE_THERMOSTAT:
@@ -109,20 +110,14 @@ public class EditDevicesActivity extends CustomActivity {
 	}
 	
 	public void discardButtonClicked(View view) {
-		Log.d("EditDevicesActivity","The deviceId is "+deviceId);
+		Log.d("EditDevicesActivity", "The deviceId is " + deviceId);
 		realtimeDatabaseDataSource.removeDevice(deviceId);
-		Toast.makeText(getApplicationContext(),"Device deleted",Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "Device deleted", Toast.LENGTH_SHORT).show();
 		finish();
 	}
-
-//    public void discardButtonClicked(View view) {
-//        //TODO data handling
-//        setResult(Activity.RESULT_CANCELED);
-//        finish();
-//    }
 	
 	public void saveButtonClicked(View view) {
-		Log.d("EditDevicesActivity","The deviceId is "+deviceId);
+		Log.d("EditDevicesActivity", "The deviceId is " + deviceId);
 		saveName();
 		saveFavoriteCategory();
 		saveRoom();
@@ -146,9 +141,9 @@ public class EditDevicesActivity extends CustomActivity {
 			realtimeDatabaseDataSource.updateDeviceCategory(deviceId, "");
 		}
 	}
-
+	
 	private void saveRoom() {
-		realtimeDatabaseDataSource.updateDeviceRoom(deviceId,roomSpinner.getSelectedItem().toString());
+		realtimeDatabaseDataSource.updateDeviceRoom(deviceId, roomAutoCompleteText.getText().toString());
 	}
 	
 	private ArrayList<String> generateCategoryList() {

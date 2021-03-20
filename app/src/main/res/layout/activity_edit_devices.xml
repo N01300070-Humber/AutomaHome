@@ -1,137 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.devices.edit.EditDevicesActivity">
-    
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_editDevice_delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="8dp">
-        
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-            
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText_editDevice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/device_name" />
-            </com.google.android.material.textfield.TextInputLayout>
-        
-            <TextView
-                android:id="@+id/textView_deviceLocation_editDevice"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/device_location"
-                app:layout_constraintEnd_toEndOf="@+id/spinner_editDevice"
-                app:layout_constraintStart_toStartOf="@+id/spinner_editDevice"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-        
-            <Spinner
-                android:id="@+id/spinner_editDevice"
-                style="@style/Widget.AutomaHome.Spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:entries="@array/arrayRooms"
-                app:layout_constraintEnd_toStartOf="@+id/spinner_editDevice_2"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_deviceLocation_editDevice" />
-        
-            <TextView
-                android:id="@+id/textView_editDevice_deviceLocation2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="@+id/spinner_editDevice_2"
-                app:layout_constraintStart_toStartOf="@+id/spinner_editDevice_2"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-        
-            <Spinner
-                android:id="@+id/spinner_editDevice_2"
-                style="@style/Widget.AutomaHome.Spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:entries="@array/arrayRooms"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/spinner_editDevice"
-                app:layout_constraintTop_toBottomOf="@+id/textView_deviceLocation_editDevice" />
-        
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragment_editDevice"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/spinner_editDevice" />
-        
-            <ca.humbermail.n01300070.automahome.components.FavoriteSelectView
-                android:id="@+id/favoriteSelectView_editDevice"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="32dp"
-                app:layout_constraintTop_toBottomOf="@id/fragment_editDevice"
-                tools:layout_editor_absoluteX="16dp" />
-    
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-    
-    <Button
-        android:id="@+id/button_editDevice_delete"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:onClick="discardButtonClicked"
-        android:text="@string/delete"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_editDevice_save"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent" />
-    
-    <Button
-        android:id="@+id/button_editDevice_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="saveButtonClicked"
-        android:text="@string/done"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button_editDevice_delete" />
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ui.devices.edit.EditDevicesActivity">
+	
+	<ScrollView
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="8dp"
+		app:layout_constraintBottom_toTopOf="@+id/button_editDevice_delete"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+		
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingStart="16dp"
+			android:paddingTop="16dp"
+			android:paddingEnd="16dp"
+			android:paddingBottom="8dp">
+			
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/textInputLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent">
+				
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/editText_editDevice"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="@string/device_name" />
+			</com.google.android.material.textfield.TextInputLayout>
+			
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/textInputLayout_deviceLocation_editDevice"
+				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:hint="@string/device_location"
+				app:layout_constraintEnd_toStartOf="@+id/textInputLayout_deviceLocation2_editDevice"
+				app:layout_constraintHorizontal_bias="0.5"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+				
+				<AutoCompleteTextView
+					android:id="@+id/autoCompleteText_deviceLocation_editDevice"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="@null"
+					android:imeOptions="actionDone"
+					android:inputType="text"
+					android:singleLine="true"
+					tools:ignore="LabelFor" />
+				
+			</com.google.android.material.textfield.TextInputLayout>
+			
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/textInputLayout_deviceLocation2_editDevice"
+				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="8dp"
+				android:layout_marginTop="8dp"
+				android:visibility="invisible"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.5"
+				app:layout_constraintStart_toEndOf="@+id/textInputLayout_deviceLocation_editDevice"
+				app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+				
+				<AutoCompleteTextView
+					android:id="@+id/autoCompleteText_deviceLocation2_editDevice"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="@null"
+					android:imeOptions="actionDone"
+					android:inputType="text"
+					android:singleLine="true"
+					tools:ignore="LabelFor" />
+				
+			</com.google.android.material.textfield.TextInputLayout>
+			
+			<androidx.fragment.app.FragmentContainerView
+				android:id="@+id/fragment_editDevice"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginTop="16dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/textInputLayout_deviceLocation_editDevice" />
+			
+			<ca.humbermail.n01300070.automahome.components.FavoriteSelectView
+				android:id="@+id/favoriteSelectView_editDevice"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginTop="32dp"
+				app:layout_constraintTop_toBottomOf="@id/fragment_editDevice"
+				tools:layout_editor_absoluteX="16dp" />
+		
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</ScrollView>
+	
+	<Button
+		android:id="@+id/button_editDevice_delete"
+		style="@style/Widget.MaterialComponents.Button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginBottom="16dp"
+		android:backgroundTint="@android:color/holo_red_dark"
+		android:onClick="discardButtonClicked"
+		android:text="@string/delete"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/button_editDevice_save"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintHorizontal_chainStyle="spread_inside"
+		app:layout_constraintStart_toStartOf="parent" />
+	
+	<Button
+		android:id="@+id/button_editDevice_save"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="16dp"
+		android:layout_marginBottom="16dp"
+		android:onClick="saveButtonClicked"
+		android:text="@string/done"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/button_editDevice_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

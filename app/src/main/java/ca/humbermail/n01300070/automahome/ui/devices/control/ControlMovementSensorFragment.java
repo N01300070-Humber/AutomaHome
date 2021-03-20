@@ -30,12 +30,12 @@ import ca.humbermail.n01300070.automahome.data.model.DescriptiveTextViewData;
 public class ControlMovementSensorFragment extends Fragment {
 	private Context context;
 	private ControlDevicesActivity controlDevicesActivity;
+	private String deviceId;
 	
 	private RecyclerView detectionLog;
 	private DescriptiveTextViewAdapter adapter;
 	private ArrayList<DescriptiveTextViewData> logViewDataList;
 	
-	private String deviceId;
 	private String sideA;
 	private String sideB;
 	

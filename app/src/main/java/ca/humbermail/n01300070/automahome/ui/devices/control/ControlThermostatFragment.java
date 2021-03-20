@@ -23,18 +23,17 @@ import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
 import ca.humbermail.n01300070.automahome.utils.Convert;
 
 public class ControlThermostatFragment extends Fragment {
-    private Context context;
-    private ControlDevicesActivity controlDevicesActivity;
-    
-    private String deviceId;
-    private TextView textViewTemperature;
-	private TextView textViewHumidity;
-    
-    private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
+	private Context context;
+	private ControlDevicesActivity controlDevicesActivity;
+	private String deviceId;
 	
-    SharedPreferences settingsPreferences;
-    
-    public ControlThermostatFragment() {
+	private TextView textViewTemperature;
+	private TextView textViewHumidity;
+	
+	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
+	private SharedPreferences settingsPreferences;
+	
+	public ControlThermostatFragment() {
 		// Required empty public constructor
 	}
 	
@@ -44,13 +43,13 @@ public class ControlThermostatFragment extends Fragment {
 		// Inflate the layout for this fragment
 		View root = inflater.inflate(R.layout.fragment_control_thermostat, container, false);
 		context = getActivity().getApplicationContext();
-        controlDevicesActivity = (ControlDevicesActivity) getActivity();
+		controlDevicesActivity = (ControlDevicesActivity) getActivity();
 		
 		settingsPreferences = context.getSharedPreferences(PreferenceKeys.KEY_SETTINGS, Context.MODE_PRIVATE);
 		
 		deviceId = controlDevicesActivity.getDeviceId();
-        
-        realtimeDatabaseDataSource = controlDevicesActivity.getRealtimeDatabaseDataSource();
+		
+		realtimeDatabaseDataSource = controlDevicesActivity.getRealtimeDatabaseDataSource();
 		
 		textViewTemperature = root.findViewById(R.id.textView_control_thermostat_temperature);
 		textViewHumidity = root.findViewById(R.id.textView_control_thermostat_humidity);
@@ -67,7 +66,7 @@ public class ControlThermostatFragment extends Fragment {
 		realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, DeviceDataPaths.THERMOSTAT_TEMPERATURE).observe(getViewLifecycleOwner(), new Observer<Object>() {
 			@Override
 			public void onChanged(Object object) {
-				Log.d("ControlThermostat","Device data temperature value changed");
+				Log.d("ControlThermostat", "Device data temperature value changed");
 				String temperatureUnit = settingsPreferences.getString(PreferenceKeys.KEY_SETTINGS_TEMPERATURE_UNIT, PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_CELSIUS);
 				double temperature;
 				DecimalFormat decimalFormat = new DecimalFormat("0");
@@ -95,7 +94,7 @@ public class ControlThermostatFragment extends Fragment {
 							break;
 					}
 				} else {
-					Log.e("ControlThermostat","Received temperature is not a number");
+					Log.e("ControlThermostat", "Received temperature is not a number");
 					textViewTemperature.setText(getString(R.string.error));
 				}
 			}
@@ -108,7 +107,7 @@ public class ControlThermostatFragment extends Fragment {
 		realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, DeviceDataPaths.THERMOSTAT_HUMIDITY).observe(getViewLifecycleOwner(), new Observer<Object>() {
 			@Override
 			public void onChanged(Object object) {
-				Log.d("ControlThermostat","Device data humidity value changed");
+				Log.d("ControlThermostat", "Device data humidity value changed");
 				double humidity;
 				DecimalFormat decimalFormat = new DecimalFormat("0%");
 				decimalFormat.setMaximumFractionDigits(3);
@@ -123,7 +122,7 @@ public class ControlThermostatFragment extends Fragment {
 					
 					textViewHumidity.setText(decimalFormat.format(humidity));
 				} else {
-					Log.e("ControlThermostat","Received humidity is not a number");
+					Log.e("ControlThermostat", "Received humidity is not a number");
 					textViewHumidity.setText(getString(R.string.error));
 				}
 			}

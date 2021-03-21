@@ -86,7 +86,7 @@
 	<string name="log_entry_week_time_format">%1$s at %2$s</string>
 	
 	<string name="humidity">Humidity</string>
-	<string name="temperature">Change Light Color</string>
+	<string name="temperature">Temperature</string>
 	<string name="target_temperature">Target Temperature</string>
 	<string name="current_temperature">Current Temperature</string>
 	<string name="display_temperature">%1$s%2$s</string>

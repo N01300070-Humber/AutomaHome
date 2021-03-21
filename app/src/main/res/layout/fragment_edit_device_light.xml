@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.devices.edit.EditLightFragment">
-
+    
     <CheckBox
-        android:id="@+id/checkBox_editLights_autoBrightness"
+        android:id="@+id/checkBox_autoBrightness_editLights"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/changes_brightness_automatically_when_light_changes"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

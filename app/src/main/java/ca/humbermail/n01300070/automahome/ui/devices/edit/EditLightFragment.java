@@ -29,7 +29,7 @@ public class EditLightFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_edit_device_light, container, false);
         context = getActivity().getApplicationContext();
 
-        autoBrightness = root.findViewById(R.id.checkBox_editLights_autoBrightness);
+        autoBrightness = root.findViewById(R.id.checkBox_autoBrightness_editLights);
 
         return root;
     }

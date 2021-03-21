@@ -12,25 +12,22 @@ import androidx.fragment.app.Fragment;
 import ca.humbermail.n01300070.automahome.R;
 
 public class EditLightFragment extends Fragment {
-
-    private CheckBox autoBrightness;
-    private Context context;
-
-    public EditLightFragment()
-    {
-        // Required empty public constructor
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_edit_device_light, container, false);
-        context = getActivity().getApplicationContext();
-
-        autoBrightness = root.findViewById(R.id.checkBox_autoBrightness_editLights);
-
-        return root;
-    }
+	
+	private CheckBox autoBrightness;
+	private Context context;
+	
+	public EditLightFragment() {
+		// Required empty public constructor
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// Inflate the layout for this fragment
+		View root = inflater.inflate(R.layout.fragment_edit_device_light, container, false);
+		context = getActivity().getApplicationContext();
+		
+		autoBrightness = root.findViewById(R.id.checkBox_autoBrightness_editLights);
+		
+		return root;
+	}
 }

@@ -131,8 +131,20 @@ public class ControlMovementSensorFragment extends Fragment {
 				Collections.sort(stringMapEntrySet, new Comparator<Map.Entry<String, Map<String, Object>>>() {
 					@Override
 					public int compare(Map.Entry<String, Map<String, Object>> stringMapEntry1, Map.Entry<String, Map<String, Object>> stringMapEntry2) {
-						long timestamp1 = (long) stringMapEntry1.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP);
-						long timestamp2 = (long) stringMapEntry2.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP);
+						long timestamp1;
+						long timestamp2;
+						
+						if (stringMapEntry1.getValue() != null && stringMapEntry1.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP) != null) {
+							timestamp1 = (long) stringMapEntry1.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP);
+						} else {
+							return 1;
+						}
+						if (stringMapEntry2.getValue() != null && stringMapEntry2.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP) != null) {
+							timestamp2 = (long) stringMapEntry2.getValue().get(DeviceDataPaths.MOVEMENT_LOG_ENTRY_TIMESTAMP);
+						} else {
+							return -1;
+						}
+						
 						
 						if (timestamp1 > timestamp2) {
 							return -1;

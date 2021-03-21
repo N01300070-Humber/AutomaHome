@@ -232,5 +232,6 @@
 	<string name="error">Error</string>
 	<string name="log_entry_movement_no_time">Timestamp Missing</string>
 	<string name="colour_hex_value">Colour Hex Value</string>
+	<string name="fan">Fan</string>
 
 </resources>

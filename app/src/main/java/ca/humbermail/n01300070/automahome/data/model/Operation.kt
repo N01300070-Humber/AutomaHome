@@ -1,7 +1,7 @@
 package ca.humbermail.n01300070.automahome.data.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Operation(

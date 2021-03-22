@@ -95,7 +95,12 @@ public class EditDevicesActivity extends CustomActivity {
 				roomTextInputLayout.setHint(getString(R.string.side_device_location, "A"));
 				room2TextInputLayout.setHint(getString(R.string.side_device_location, "B"));
 				room2TextInputLayout.setVisibility(View.VISIBLE);
-				setRoom2Listener();
+				realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, DeviceDataPaths.MOVEMENT_SIDE_B, true).observe(this, new Observer<Object>() {
+					@Override
+					public void onChanged(Object object) {
+						onRoom2Changed(object);
+					}
+				});
 				fragment = new EditMovementSensorFragment();
 				break;
 			case DeviceOrTaskButtonData.DEVICE_THERMOSTAT:
@@ -106,36 +111,31 @@ public class EditDevicesActivity extends CustomActivity {
 				finish();
 				return;
 		}
-		setRoomListener();
+		realtimeDatabaseDataSource.onDeviceValueChange(deviceId, RealtimeDatabaseDataSource.DEVICES_ROOM_PATH, true).observe(this, new Observer<Object>() {
+			@Override
+			public void onChanged(Object object) {
+				onRoomChanged(object);
+			}
+		});
 		
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_editDevice, fragment).commit();
 	}
 	
 	
-	private void setRoomListener() {
-		realtimeDatabaseDataSource.onDeviceValueChange(deviceId, RealtimeDatabaseDataSource.DEVICES_ROOM_PATH, true).observe(this, new Observer<Object>() {
-			@Override
-			public void onChanged(Object object) {
-				if (!(object instanceof String)) {
-					Log.e("EditDevicesActivity", "Device room not a string");
-					return;
-				}
-				roomAutoCompleteText.setText((String) object);
-			}
-		});
+	private void onRoomChanged(Object object) {
+		if (!(object instanceof String)) {
+			Log.e("EditDevicesActivity", "Device room not a string");
+			return;
+		}
+		roomAutoCompleteText.setText((String) object);
 	}
 	
-	private void setRoom2Listener() {
-		realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, DeviceDataPaths.MOVEMENT_SIDE_B, true).observe(this, new Observer<Object>() {
-			@Override
-			public void onChanged(Object object) {
-				if (!(object instanceof String)) {
-					Log.e("EditDevicesActivity", "Device room not a string");
-					return;
-				}
-				room2AutoCompleteText.setText((String) object);
-			}
-		});
+	private void onRoom2Changed(Object object) {
+		if (!(object instanceof String)) {
+			Log.e("EditDevicesActivity", "Device room not a string");
+			return;
+		}
+		room2AutoCompleteText.setText((String) object);
 	}
 	
 	

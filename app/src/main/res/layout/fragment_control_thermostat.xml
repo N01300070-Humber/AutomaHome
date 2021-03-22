@@ -1,95 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_ellipse_3"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/textView_control_thermostat_temperatureHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/temperature"
-        android:textColor="#00B3A6"
-        android:textSize="23sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_control_thermostat_temperature"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/space" />
-
-    <TextView
-        android:id="@+id/textView_control_thermostat_humidityHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/humidity"
-        android:textColor="#00B3A6"
-        android:textSize="23sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_control_thermostat_humidity"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/space2" />
-
-    <TextView
-        android:id="@+id/textView_control_thermostat_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
-        app:layout_constraintBottom_toTopOf="@+id/space2"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView_control_thermostat_temperatureHeader"
-        tools:text="23°C"/>
-
-    <TextView
-        android:id="@+id/textView_control_thermostat_humidity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
-        app:layout_constraintBottom_toTopOf="@+id/space3"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView_control_thermostat_humidityHeader"
-        tools:text="47.5%"/>
-
-    <Space
-        android:id="@+id/space"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_control_thermostat_temperatureHeader"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
-
-    <Space
-        android:id="@+id/space2"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_control_thermostat_humidityHeader"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView_control_thermostat_temperature" />
-
-    <Space
-        android:id="@+id/space3"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView_control_thermostat_humidity" />
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	
+	<ImageView
+		android:id="@+id/imageView_circle_controlThermostat"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:layout_constraintBottom_toTopOf="@+id/buttonToggleGroup_heating_cooling_controlThermostat"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_chainStyle="packed"
+		app:srcCompat="@drawable/ic_ellipse_3"
+		tools:ignore="ContentDescription" />
+	
+	<Space
+		android:id="@+id/space_controlThermostat"
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toTopOf="@+id/textView_temperatureHeader_controlThermostat"
+		app:layout_constraintEnd_toEndOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintStart_toStartOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintTop_toTopOf="@+id/imageView_circle_controlThermostat" />
+	
+	<TextView
+		android:id="@+id/textView_temperatureHeader_controlThermostat"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/temperature"
+		android:textColor="#00B3A6"
+		android:textSize="23sp"
+		app:layout_constraintBottom_toTopOf="@+id/textView_temperature_controlThermostat"
+		app:layout_constraintEnd_toEndOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintTop_toBottomOf="@+id/space_controlThermostat" />
+	
+	<TextView
+		android:id="@+id/textView_temperature_controlThermostat"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
+		app:layout_constraintBottom_toTopOf="@+id/space2_controlThermostat"
+		app:layout_constraintEnd_toEndOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintTop_toBottomOf="@+id/textView_temperatureHeader_controlThermostat"
+		tools:text="23°C" />
+	
+	<Space
+		android:id="@+id/space2_controlThermostat"
+		android:layout_width="wrap_content"
+		android:layout_height="16dp"
+		app:layout_constraintBottom_toTopOf="@+id/textView_humidityHeader_controlThermostat"
+		app:layout_constraintEnd_toEndOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintStart_toStartOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintTop_toBottomOf="@+id/textView_temperature_controlThermostat" />
+	
+	<TextView
+		android:id="@+id/textView_humidityHeader_controlThermostat"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/humidity"
+		android:textColor="#00B3A6"
+		android:textSize="23sp"
+		app:layout_constraintBottom_toTopOf="@+id/textView_humidity_controlThermostat"
+		app:layout_constraintEnd_toEndOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintStart_toStartOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintTop_toBottomOf="@+id/space2_controlThermostat" />
+	
+	<TextView
+		android:id="@+id/textView_humidity_controlThermostat"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
+		app:layout_constraintBottom_toTopOf="@+id/space3_controlThermostat"
+		app:layout_constraintEnd_toEndOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintTop_toBottomOf="@+id/textView_humidityHeader_controlThermostat"
+		tools:text="47.5%" />
+	
+	<Space
+		android:id="@+id/space3_controlThermostat"
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toBottomOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintEnd_toEndOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintStart_toStartOf="@+id/imageView_circle_controlThermostat"
+		app:layout_constraintTop_toBottomOf="@+id/textView_humidity_controlThermostat" />
+	
+	<com.google.android.material.button.MaterialButtonToggleGroup
+		android:id="@+id/buttonToggleGroup_heating_cooling_controlThermostat"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/buttonToggleGroup_fan_controlThermostat"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintHorizontal_chainStyle="spread_inside"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/imageView_circle_controlThermostat"
+		app:selectionRequired="false"
+		app:singleSelection="true">
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_heating_controlThermostat"
+			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/heat"
+			android:textColor="@color/button_red_text"
+			app:backgroundTint="@color/button_red_background"
+			app:iconTint="@color/button_red_text"
+			app:rippleColor="@color/button_red_ripple"
+			app:strokeColor="@color/button_red_stroke" />
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_cooling_controlThermostat"
+			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/cool"
+			android:textColor="@color/button_blue_text"
+			app:backgroundTint="@color/button_blue_background"
+			app:iconTint="@color/button_blue_text"
+			app:rippleColor="@color/button_blue_ripple"
+			app:strokeColor="@color/button_blue_stroke" />
+	
+	</com.google.android.material.button.MaterialButtonToggleGroup>
+	
+	<com.google.android.material.button.MaterialButtonToggleGroup
+		android:id="@+id/buttonToggleGroup_fan_controlThermostat"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:layout_constraintBottom_toBottomOf="@+id/buttonToggleGroup_heating_cooling_controlThermostat"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/buttonToggleGroup_heating_cooling_controlThermostat"
+		app:layout_constraintTop_toTopOf="@+id/buttonToggleGroup_heating_cooling_controlThermostat"
+		app:selectionRequired="false"
+		app:singleSelection="true">
+		
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/toggleButton_fan_controlThermostat"
+			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/fan" />
+	
+	</com.google.android.material.button.MaterialButtonToggleGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,104 +8,19 @@
 	tools:context=".ui.devices.edit.EditThermostatFragment">
 	
 	
-	<TextView
-		android:id="@+id/textView_editThermostat_currentTemperature"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:text="@string/current_temperature"
-		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
-	
-	<TextView
-		android:id="@+id/textView_editThermostat_currentTemp"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
-		android:layout_marginEnd="8dp"
-		android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/textView_editThermostat_currentTemperature"
-		tools:text="23°C" />
-	
 	<ca.humbermail.n01300070.automahome.components.NumberPickerView
 		android:id="@+id/numberPickerView_editThermostat_targetTemp"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="8dp"
 		android:hint="@string/target_temperature"
 		android:textAppearance="@style/TextAppearance.AutomaHome.Temp"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/textView_editThermostat_currentTemp"
+		app:layout_constraintTop_toTopOf="parent"
 		app:numberAlignment="right"
 		app:numberInterval="0.5">
 	
 	</ca.humbermail.n01300070.automahome.components.NumberPickerView>
-	
-	<com.google.android.material.button.MaterialButtonToggleGroup
-		android:id="@+id/buttonToggleGroup_heating_cooling_editThermostat"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="16dp"
-		app:layout_constraintEnd_toStartOf="@+id/buttonToggleGroup_fan_editThermostat"
-		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintHorizontal_chainStyle="spread_inside"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/numberPickerView_editThermostat_targetTemp"
-		app:selectionRequired="false"
-		app:singleSelection="true">
-		
-		<com.google.android.material.button.MaterialButton
-			android:id="@+id/toggleButton_heating_editThermostat"
-			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/heat"
-			android:textColor="@color/button_red_text"
-			app:backgroundTint="@color/button_red_background"
-			app:iconTint="@color/button_red_text"
-			app:rippleColor="@color/button_red_ripple"
-			app:strokeColor="@color/button_red_stroke" />
-		
-		<com.google.android.material.button.MaterialButton
-			android:id="@+id/toggleButton_cooling_editThermostat"
-			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/cool"
-			android:textColor="@color/button_blue_text"
-			app:backgroundTint="@color/button_blue_background"
-			app:iconTint="@color/button_blue_text"
-			app:rippleColor="@color/button_blue_ripple"
-			app:strokeColor="@color/button_blue_stroke" />
-	
-	</com.google.android.material.button.MaterialButtonToggleGroup>
-	
-	<com.google.android.material.button.MaterialButtonToggleGroup
-		android:id="@+id/buttonToggleGroup_fan_editThermostat"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="16dp"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.5"
-		app:layout_constraintStart_toEndOf="@+id/buttonToggleGroup_heating_cooling_editThermostat"
-		app:layout_constraintTop_toBottomOf="@+id/numberPickerView_editThermostat_targetTemp"
-		app:selectionRequired="false"
-		app:singleSelection="true">
-		
-		<com.google.android.material.button.MaterialButton
-			android:id="@+id/toggleButton_fan_editThermostat"
-			style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/fan" />
-	
-	</com.google.android.material.button.MaterialButtonToggleGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

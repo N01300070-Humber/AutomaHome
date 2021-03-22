@@ -230,8 +230,10 @@ public class NumberPickerView extends ConstraintLayout {
 	}
 	
 	private void runOnNumberChangeListeners(boolean fromKeyboard) {
+		float number = this.getNumber();
 		for (OnNumberChangeListener listener : onNumberChangeListeners) {
-			listener.onNumberChanged(this, this.getNumber(), fromKeyboard);
+			listener.onNumberChanged(this, number, fromKeyboard);
 		}
+		this.setNumber(number);
 	}
 }

@@ -45,9 +45,9 @@ public class EditDevicesActivity extends CustomActivity {
 	private String deviceType;
 	private TextInputEditText nameEditText;
 	
-	
 	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
 	private String deviceId;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -201,5 +201,9 @@ public class EditDevicesActivity extends CustomActivity {
 		setResult(Activity.RESULT_CANCELED);
 		finish();
 		return true;
+	}
+	
+	public String getDeviceId() {
+		return deviceId;
 	}
 }

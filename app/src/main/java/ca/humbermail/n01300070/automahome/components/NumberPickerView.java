@@ -5,9 +5,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.LinkedHashSet;
+
 import ca.humbermail.n01300070.automahome.R;
 
 public class NumberPickerView extends ConstraintLayout {
@@ -27,6 +30,8 @@ public class NumberPickerView extends ConstraintLayout {
 	private static final int TEXT_ALIGNMENT_START = 3;
 	private static final int TEXT_ALIGNMENT_END = 4;
 	
+	private final LinkedHashSet<OnNumberChangeListener> onNumberChangeListeners = new LinkedHashSet<>();
+	
 	private TextInputLayout numberInputLayout;
 	private TextInputEditText numberEditText;
 	private AppCompatImageButton increaseButton;
@@ -34,21 +39,30 @@ public class NumberPickerView extends ConstraintLayout {
 	
 	private float interval;
 	
+	
+	public interface OnNumberChangeListener {
+		void onNumberChanged(NumberPickerView numberPickerView, float number, boolean fromKeyboard);
+	}
+	
+	
 	public NumberPickerView(@NonNull Context context) {
 		super(context);
 		inflateViews(context);
+		onCreate();
 	}
 	
 	public NumberPickerView(@NonNull Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
 		inflateViews(context);
 		setAttributes(context, attrs);
+		onCreate();
 	}
 	
 	public NumberPickerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		inflateViews(context);
 		setAttributes(context, attrs);
+		onCreate();
 	}
 	
 	private void inflateViews(Context context) {
@@ -85,10 +99,24 @@ public class NumberPickerView extends ConstraintLayout {
 		setSuffixText(attributes.getString(R.styleable.NumberPickerView_suffixText));
 		setTextAppearance(attributes.getResourceId(
 				R.styleable.NumberPickerView_android_textAppearance,
-				R.style.TextAppearance_MaterialComponents_Body1 ));
+				R.style.TextAppearance_MaterialComponents_Body1));
 		
 		attributes.recycle();
 	}
+	
+	private void onCreate() {
+		numberEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_DONE) {
+					runOnNumberChangeListeners(true);
+					return true;
+				}
+				return false;
+			}
+		});
+	}
+	
 	
 	public float getNumber() {
 		return Float.parseFloat(numberEditText.getText().toString());
@@ -168,9 +196,30 @@ public class NumberPickerView extends ConstraintLayout {
 	
 	public void increaseNumber(float interval) {
 		setNumber(getNumber() + interval);
+		runOnNumberChangeListeners(false);
 	}
 	
 	public void decreaseNumber(float interval) {
 		setNumber(getNumber() - interval);
+		runOnNumberChangeListeners(false);
+	}
+	
+	
+	public void addOnNumberChangeListener(OnNumberChangeListener listener) {
+		onNumberChangeListeners.add(listener);
+	}
+	
+	public void removeOnNumberChangeListener(OnNumberChangeListener listener) {
+		onNumberChangeListeners.remove(listener);
+	}
+	
+	public void clearOnNumberChangeListeners() {
+		onNumberChangeListeners.clear();
+	}
+	
+	private void runOnNumberChangeListeners(boolean fromKeyboard) {
+		for (OnNumberChangeListener listener : onNumberChangeListeners) {
+			listener.onNumberChanged(this, this.getNumber(), fromKeyboard);
+		}
 	}
 }

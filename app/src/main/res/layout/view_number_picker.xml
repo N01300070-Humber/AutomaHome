@@ -17,7 +17,9 @@
 			android:id="@+id/textInputEditText_number"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:inputType="number" />
+			android:imeOptions="actionDone"
+			android:inputType="number"
+			android:singleLine="true" />
 	
 	</com.google.android.material.textfield.TextInputLayout>
 	

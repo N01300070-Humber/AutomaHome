@@ -1,51 +1,121 @@
 package ca.humbermail.n01300070.automahome.ui.devices.edit;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
-import com.google.android.material.button.MaterialButton;
+import com.google.firebase.database.ServerValue;
+
+import java.text.DecimalFormat;
 
 import ca.humbermail.n01300070.automahome.R;
 import ca.humbermail.n01300070.automahome.components.NumberPickerView;
+import ca.humbermail.n01300070.automahome.data.DeviceDataPaths;
+import ca.humbermail.n01300070.automahome.data.PreferenceKeys;
+import ca.humbermail.n01300070.automahome.data.RealtimeDatabaseDataSource;
+import ca.humbermail.n01300070.automahome.utils.Convert;
 
 public class EditThermostatFragment extends Fragment {
 	private Context context;
+	private EditDevicesActivity editDevicesActivity;
+	private String deviceId;
 	
-	private TextView currentTemperatureTextView;
 	private NumberPickerView targetTemperatureNumberPickerView;
-	private MaterialButton heatingButton;
-	private MaterialButton coolingButton;
+	
+	private RealtimeDatabaseDataSource realtimeDatabaseDataSource;
+	private SharedPreferences settingsPreferences;
 	
 	public EditThermostatFragment() {
 		// Required empty public constructor
 	}
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View root = inflater.inflate(R.layout.fragment_edit_device_thermostat, container, false);
 		context = getActivity().getApplicationContext();
+		editDevicesActivity = (EditDevicesActivity) getActivity();
+		deviceId = editDevicesActivity.getDeviceId();
 		
-		currentTemperatureTextView = root.findViewById(R.id.textView_editThermostat_currentTemp);
+		settingsPreferences = context.getSharedPreferences(PreferenceKeys.KEY_SETTINGS, Context.MODE_PRIVATE);
+		realtimeDatabaseDataSource = editDevicesActivity.getRealtimeDatabaseDataSource();
+		
 		targetTemperatureNumberPickerView = root.findViewById(R.id.numberPickerView_editThermostat_targetTemp);
-		heatingButton = root.findViewById(R.id.toggleButton_editThermostat_heating);
-		coolingButton = root.findViewById(R.id.toggleButton_editThermostat_cooling);
 		
-		//TODO replace hardcoded values for actual readings
-		currentTemperatureTextView.setText(23 + getString(R.string.degrees_celsius));
-		targetTemperatureNumberPickerView.setNumber(28);
-		targetTemperatureNumberPickerView.setSuffixText(getString(R.string.degrees_celsius));
+		realtimeDatabaseDataSource.onDeviceDataValueChange(deviceId, DeviceDataPaths.THERMOSTAT_TARGET_TEMPERATURE, true).observe(getViewLifecycleOwner(), new Observer<Object>() {
+			@Override
+			public void onChanged(Object object) {
+				onTargetTemperatureChange(object);
+			}
+		});
+		targetTemperatureNumberPickerView.addOnNumberChangeListener(new NumberPickerView.OnNumberChangeListener() {
+			@Override
+			public void onNumberChanged(NumberPickerView numberPickerView, float number, boolean fromKeyboard) {
+				onTargetTemperatureNumberPickerViewNumberChanged(numberPickerView, number, fromKeyboard);
+			}
+		});
 		
 		return root;
 	}
 	
+	
+	private void onTargetTemperatureChange(Object object) {
+		Log.d("EditThermostat", "Device data target temperature value changed");
+		String temperatureUnit = settingsPreferences.getString(PreferenceKeys.KEY_SETTINGS_TEMPERATURE_UNIT, PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_CELSIUS);
+		double temperature;
+		DecimalFormat decimalFormat = new DecimalFormat("0");
+		decimalFormat.setMaximumFractionDigits(10);
+		
+		if (object instanceof Double || object instanceof Long) {
+			if (object instanceof Long) {
+				temperature = ((Long) object).floatValue();
+			} else {
+				temperature = (Double) object;
+			}
+		} else {
+			Log.e("EditThermostat", "Received target temperature is not a number");
+			temperature = getResources().getInteger(R.integer.defaultTemperature);
+		}
+		
+		TypedValue numberInterval = new TypedValue();
+		switch (temperatureUnit) {
+			case PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_CELSIUS:
+				targetTemperatureNumberPickerView.setNumber((float) temperature);
+				targetTemperatureNumberPickerView.setSuffixText(getText(R.string.degrees_celsius).toString());
+				getResources().getValue(R.dimen.defaultNumberIntervalCelsius, numberInterval, true);
+				break;
+			case PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_FAHRENHEIT:
+				targetTemperatureNumberPickerView.setNumber((float) Convert.celsiusToFahrenheit(temperature));
+				targetTemperatureNumberPickerView.setSuffixText(getText(R.string.degrees_fahrenheit).toString());
+				getResources().getValue(R.dimen.defaultNumberIntervalFahrenheit, numberInterval, true);
+				break;
+		}
+		targetTemperatureNumberPickerView.setInterval(numberInterval.getFloat());
+	}
+	
+	private void onTargetTemperatureNumberPickerViewNumberChanged(NumberPickerView numberPickerView, float number, boolean fromKeyboard) {
+		realtimeDatabaseDataSource.setDeviceData(deviceId, DeviceDataPaths.THERMOSTAT_TARGET_TEMPERATURE, number);
+		setDatabaseTimestamp();
+		if (fromKeyboard) {
+			((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE))
+					.hideSoftInputFromWindow(
+							editDevicesActivity.getCurrentFocus().getWindowToken(),
+							InputMethodManager.HIDE_NOT_ALWAYS
+					);
+			numberPickerView.clearFocus();
+		}
+	}
+	
+	private void setDatabaseTimestamp() {
+		realtimeDatabaseDataSource.setDeviceData(deviceId, DeviceDataPaths.THERMOSTAT_TIMESTAMP, ServerValue.TIMESTAMP);
+	}
 }

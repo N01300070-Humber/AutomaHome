@@ -14,9 +14,10 @@ public class DeviceDataPaths {
 	public static final String MOVEMENT_LOG_ENTRY_TIMESTAMP = "timestamp"; //Long: timestamp (milliseconds since UNIX epoch)
 	
 	public static final String THERMOSTAT_TEMPERATURE = "temperature"; //Double: Temperature in celsius
+	public static final String THERMOSTAT_TARGET_TEMPERATURE = "targetTemperature"; //Double: Temperature in celsius
 	public static final String THERMOSTAT_HUMIDITY = "humidity"; //Double: Percentage
 	public static final String THERMOSTAT_COMPRESSOR = "compressor"; //Boolean
-	public static final String THERMOSTAT_REVERSE = "reverse"; //Boolean
+	public static final String THERMOSTAT_REVERSE_VALVE = "reverse"; //Boolean
 	public static final String THERMOSTAT_FAN = "fan"; //Boolean
 	public static final String THERMOSTAT_TIMESTAMP = "timestamp"; //Long: timestamp (milliseconds since UNIX epoch)
 }

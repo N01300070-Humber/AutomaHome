@@ -29,6 +29,8 @@
 		<attr name="android:hint" format="string" />
 		<attr name="initialNumber" format="float" />
 		<attr name="numberInterval" format="float" />
+		<attr name="minFractionDigits" format="integer" />
+		<attr name="maxFractionDigits" format="integer" />
 		<attr name="prefixText" format="string" />
 		<attr name="suffixText" format="string" />
 		<attr name="android:textAppearance" format="reference" />

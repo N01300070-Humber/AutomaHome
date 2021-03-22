@@ -19,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.DecimalFormat;
 import java.util.LinkedHashSet;
 
 import ca.humbermail.n01300070.automahome.R;
@@ -38,6 +39,7 @@ public class NumberPickerView extends ConstraintLayout {
 	private AppCompatImageButton decreaseButton;
 	
 	private float interval;
+	DecimalFormat decimalFormat = new DecimalFormat("0");
 	
 	
 	public interface OnNumberChangeListener {
@@ -94,6 +96,8 @@ public class NumberPickerView extends ConstraintLayout {
 		setNumber(attributes.getFloat(R.styleable.NumberPickerView_initialNumber, 0));
 		setNumberAlignment(attributes.getInteger(R.styleable.NumberPickerView_numberAlignment, 0));
 		setInterval(attributes.getFloat(R.styleable.NumberPickerView_numberInterval, 1));
+		setMinimumFractionDigits(attributes.getInteger(R.styleable.NumberPickerView_minFractionDigits, 1));
+		setMaximumFractionDigits(attributes.getInteger(R.styleable.NumberPickerView_maxFractionDigits, 2));
 		setHint(attributes.getString(R.styleable.NumberPickerView_android_hint));
 		setPrefixText(attributes.getString(R.styleable.NumberPickerView_prefixText));
 		setSuffixText(attributes.getString(R.styleable.NumberPickerView_suffixText));
@@ -123,7 +127,7 @@ public class NumberPickerView extends ConstraintLayout {
 	}
 	
 	public void setNumber(float number) {
-		numberEditText.setText(String.format("%s", number));
+		numberEditText.setText(decimalFormat.format(number));
 	}
 	
 	public int getNumberGravity() {
@@ -161,6 +165,14 @@ public class NumberPickerView extends ConstraintLayout {
 	
 	public void setInterval(float interval) {
 		this.interval = interval;
+	}
+	
+	public void setMinimumFractionDigits(int minFractionDigits) {
+		decimalFormat.setMinimumFractionDigits(minFractionDigits);
+	}
+	
+	public void setMaximumFractionDigits(int maxFractionDigits) {
+		decimalFormat.setMaximumFractionDigits(maxFractionDigits);
 	}
 	
 	public String getHint() {

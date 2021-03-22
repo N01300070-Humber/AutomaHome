@@ -72,8 +72,6 @@ public class EditThermostatFragment extends Fragment {
 		Log.d("EditThermostat", "Device data target temperature value changed");
 		String temperatureUnit = settingsPreferences.getString(PreferenceKeys.KEY_SETTINGS_TEMPERATURE_UNIT, PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_CELSIUS);
 		double temperature;
-		DecimalFormat decimalFormat = new DecimalFormat("0");
-		decimalFormat.setMaximumFractionDigits(10);
 		
 		if (object instanceof Double || object instanceof Long) {
 			if (object instanceof Long) {
@@ -88,23 +86,36 @@ public class EditThermostatFragment extends Fragment {
 		
 		TypedValue numberInterval = new TypedValue();
 		switch (temperatureUnit) {
-			case PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_CELSIUS:
-				targetTemperatureNumberPickerView.setNumber((float) temperature);
-				targetTemperatureNumberPickerView.setSuffixText(getText(R.string.degrees_celsius).toString());
-				getResources().getValue(R.dimen.defaultNumberIntervalCelsius, numberInterval, true);
-				break;
 			case PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_FAHRENHEIT:
 				targetTemperatureNumberPickerView.setNumber((float) Convert.celsiusToFahrenheit(temperature));
 				targetTemperatureNumberPickerView.setSuffixText(getText(R.string.degrees_fahrenheit).toString());
 				getResources().getValue(R.dimen.defaultNumberIntervalFahrenheit, numberInterval, true);
 				break;
+			case PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_CELSIUS:
+			default:
+				targetTemperatureNumberPickerView.setNumber((float) temperature);
+				targetTemperatureNumberPickerView.setSuffixText(getText(R.string.degrees_celsius).toString());
+				getResources().getValue(R.dimen.defaultNumberIntervalCelsius, numberInterval, true);
 		}
 		targetTemperatureNumberPickerView.setInterval(numberInterval.getFloat());
 	}
 	
 	private void onTargetTemperatureNumberPickerViewNumberChanged(NumberPickerView numberPickerView, float number, boolean fromKeyboard) {
-		realtimeDatabaseDataSource.setDeviceData(deviceId, DeviceDataPaths.THERMOSTAT_TARGET_TEMPERATURE, number);
+		String temperatureUnit = settingsPreferences.getString(PreferenceKeys.KEY_SETTINGS_TEMPERATURE_UNIT, PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_CELSIUS);
+		double temperature;
+		
+		switch (temperatureUnit) {
+			case PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_FAHRENHEIT:
+				temperature = Convert.fahrenheitToCelsius(number);
+				break;
+			case PreferenceKeys.VALUE_SETTINGS_TEMPERATURE_UNIT_CELSIUS:
+			default:
+				temperature = number;
+		}
+		
+		realtimeDatabaseDataSource.setDeviceData(deviceId, DeviceDataPaths.THERMOSTAT_TARGET_TEMPERATURE, temperature);
 		setDatabaseTimestamp();
+		
 		if (fromKeyboard) {
 			((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE))
 					.hideSoftInputFromWindow(

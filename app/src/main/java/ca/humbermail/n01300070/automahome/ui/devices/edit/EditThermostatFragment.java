@@ -94,6 +94,8 @@ public class EditThermostatFragment extends Fragment {
 		} else {
 			Log.d("EditThermostat", "Received target temperature is not a number");
 			temperature = getResources().getInteger(R.integer.defaultTemperature);
+			realtimeDatabaseDataSource.setDeviceData(deviceId, DeviceDataPaths.THERMOSTAT_TARGET_TEMPERATURE, temperature);
+			setDatabaseTimestamp();
 		}
 		
 		TypedValue numberInterval = new TypedValue();
@@ -126,6 +128,8 @@ public class EditThermostatFragment extends Fragment {
 		} else {
 			Log.d("EditThermostat", "Received temperature range is not a number");
 			temperature = getResources().getInteger(R.integer.defaultTemperatureRange);
+			realtimeDatabaseDataSource.setDeviceData(deviceId, DeviceDataPaths.THERMOSTAT_TEMPERATURE_RANGE, temperature);
+			setDatabaseTimestamp();
 		}
 		
 		TypedValue numberInterval = new TypedValue();

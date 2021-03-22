@@ -9,7 +9,7 @@
 	
 	
 	<ca.humbermail.n01300070.automahome.components.NumberPickerView
-		android:id="@+id/numberPickerView_editThermostat_targetTemp"
+		android:id="@+id/numberPickerView_targetTemperature_editThermostat"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:hint="@string/target_temperature"
@@ -17,6 +17,21 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
+		app:numberAlignment="right"
+		app:numberInterval="0.5">
+	
+	</ca.humbermail.n01300070.automahome.components.NumberPickerView>
+	
+	<ca.humbermail.n01300070.automahome.components.NumberPickerView
+		android:id="@+id/numberPicker_temperatureRange_editThermostat"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:hint="@string/temperature_range_edit_text_hint"
+		android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/numberPickerView_targetTemperature_editThermostat"
 		app:numberAlignment="right"
 		app:numberInterval="0.5">
 	

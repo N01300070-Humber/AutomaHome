@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<integer name="defaultTemperature">22</integer>
+	<integer name="defaultTemperatureRange">1</integer>
 	<item name="defaultNumberIntervalCelsius" format="float" type="dimen">0.5</item>
 	<item name="defaultNumberIntervalFahrenheit" format="float" type="dimen">1.0</item>
 </resources>

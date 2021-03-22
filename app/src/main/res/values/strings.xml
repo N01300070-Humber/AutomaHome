@@ -233,5 +233,6 @@
 	<string name="log_entry_movement_no_time">Timestamp Missing</string>
 	<string name="colour_hex_value">Colour Hex Value</string>
 	<string name="fan">Fan</string>
+	<string name="temperature_range_edit_text_hint">Keep temperature within ___ of target</string>
 
 </resources>

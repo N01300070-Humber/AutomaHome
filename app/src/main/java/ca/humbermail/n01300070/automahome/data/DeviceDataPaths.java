@@ -15,6 +15,7 @@ public class DeviceDataPaths {
 	
 	public static final String THERMOSTAT_TEMPERATURE = "temperature"; //Double: Temperature in celsius
 	public static final String THERMOSTAT_TARGET_TEMPERATURE = "targetTemperature"; //Double: Temperature in celsius
+	public static final String THERMOSTAT_TEMPERATURE_RANGE = "temperatureRange"; //Double: Temperature in celsius
 	public static final String THERMOSTAT_HUMIDITY = "humidity"; //Double: Percentage
 	public static final String THERMOSTAT_COMPRESSOR = "compressor"; //Boolean
 	public static final String THERMOSTAT_REVERSE_VALVE = "reverse"; //Boolean

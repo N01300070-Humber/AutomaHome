@@ -981,8 +981,8 @@ public class RealtimeDatabaseDataSource {
 	
 	
 	// Task Conditions
-	private Condition createTaskCondition(String key, int position, String type, String referenceDeviceId) {
-		return new Condition(key, position, type, referenceDeviceId);
+	private Condition createTaskCondition(String key, int position, String type) {
+		return new Condition(key, position, type);
 	}
 	
 	public String addTaskCondition(String taskId, int position, String type, String referenceDeviceId) {
@@ -995,7 +995,7 @@ public class RealtimeDatabaseDataSource {
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue(createTaskCondition(key, position, type, referenceDeviceId));
+		reference.child(key).setValue(createTaskCondition(key, position, type));
 		return key;
 	}
 	
@@ -1048,8 +1048,7 @@ public class RealtimeDatabaseDataSource {
 						conditions.add(new Condition(
 								(String) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_ID_PATH).getValue()),
 								((Long) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_POSITION_PATH).getValue())).intValue(),
-								(String) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_TYPE_PATH).getValue()),
-								(String) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_DEVICE_ID_PATH).getValue())
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_CONDITIONS_TYPE_PATH).getValue())
 						));
 						
 						
@@ -1196,8 +1195,8 @@ public class RealtimeDatabaseDataSource {
 	
 	
 	// Task Operations
-	private Operation createTaskOperation(String key, int position, String type, String referenceDeviceId) {
-		return new Operation(key, position, type, referenceDeviceId);
+	private Operation createTaskOperation(String key, int position, String type) {
+		return new Operation(key, position, type);
 	}
 	
 	public String addTaskOperation(String taskId, int position, String type, String referenceDeviceId) {
@@ -1210,7 +1209,7 @@ public class RealtimeDatabaseDataSource {
 		String key = reference.push().getKey();
 		assert key != null;
 		
-		reference.child(key).setValue(createTaskOperation(key, position, type, referenceDeviceId));
+		reference.child(key).setValue(createTaskOperation(key, position, type));
 		return key;
 	}
 	
@@ -1263,8 +1262,7 @@ public class RealtimeDatabaseDataSource {
 						operations.add(new Operation(
 								(String) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_ID_PATH).getValue()),
 								((Long) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_POSITION_PATH).getValue())).intValue(),
-								(String) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_TYPE_PATH).getValue()),
-								(String) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_DEVICE_ID_PATH).getValue())
+								(String) Objects.requireNonNull(dataSnapshot.child(TASK_OPERATIONS_TYPE_PATH).getValue())
 						));
 					}
 				}

@@ -8,5 +8,4 @@ data class Condition(
 		val id: String = "",
 		val position: Int = -1,
 		val type: String = "",
-		val deviceId: String = ""
 ):Parcelable

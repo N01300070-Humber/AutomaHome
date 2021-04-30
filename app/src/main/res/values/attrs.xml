@@ -46,4 +46,8 @@
 	<declare-styleable name="FavoriteSelectView">
 		<attr name="android:state_checked" format="boolean" />
 	</declare-styleable>
+	
+	<declare-styleable name="ColourPickerView">
+		<attr name="selectedColour" format="color" />
+	</declare-styleable>
 </resources>

@@ -26,102 +26,16 @@
             android:imeOptions="actionDone"
             android:inputType="text"
             android:singleLine="true" />
+    
     </com.google.android.material.textfield.TextInputLayout>
     
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="0dp"
+    <ca.humbermail.n01300070.automahome.components.ColourPickerView
+        android:id="@+id/colourPickerView_editOperationLights"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/brightness"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout_controlLight_deviceSelect" />
-    
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
-    
-        <ImageView
-            android:id="@+id/imageView_controlLight_Lowbrightness2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:layout_constraintBottom_toBottomOf="@+id/seekBar_controlLight_brightness"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/seekBar_controlLight_brightness"
-            app:srcCompat="@drawable/ic_favorite" />
-    
-        <SeekBar
-            android:id="@+id/brightBar"
-            android:layout_width="270dp"
-            android:layout_height="26dp"
-            android:layout_weight="1" />
-    
-        <ImageView
-            android:id="@+id/imageView_controlLight_Lowbrightness3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:layout_constraintBottom_toBottomOf="@+id/seekBar_controlLight_brightness"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/seekBar_controlLight_brightness"
-            app:srcCompat="@drawable/ic_favorite" />
-    </LinearLayout>
-    
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/temp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
-    
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4">
-    
-        <ImageView
-            android:id="@+id/imageView_controlLight_Lowbrightness4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:layout_constraintBottom_toBottomOf="@+id/seekBar_controlLight_brightness"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/seekBar_controlLight_brightness"
-            app:srcCompat="@drawable/ic_favorite" />
-    
-        <SeekBar
-            android:id="@+id/tempBar"
-            android:layout_width="270dp"
-            android:layout_height="26dp"
-            android:layout_weight="1" />
-    
-        <ImageView
-            android:id="@+id/imageView_controlLight_Lowbrightness5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:layout_constraintBottom_toBottomOf="@+id/seekBar_controlLight_brightness"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/seekBar_controlLight_brightness"
-            app:srcCompat="@drawable/ic_favorite" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_controlLight_deviceSelect" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

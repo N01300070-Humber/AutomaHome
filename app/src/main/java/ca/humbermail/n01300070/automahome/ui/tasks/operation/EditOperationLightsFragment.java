@@ -3,6 +3,7 @@ package ca.humbermail.n01300070.automahome.ui.tasks.operation;
 import androidx.fragment.app.Fragment;
 
 import ca.humbermail.n01300070.automahome.R;
+import ca.humbermail.n01300070.automahome.components.ColourPickerView;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ public class EditOperationLightsFragment extends Fragment {
     private Context context;
     
     private AutoCompleteTextView autoCompleteTextView;
+    private ColourPickerView colourPickerView;
     
     private ArrayAdapter<String> adapter;
     
@@ -29,6 +31,7 @@ public class EditOperationLightsFragment extends Fragment {
         context = getActivity().getApplicationContext();
     
         autoCompleteTextView = root.findViewById(R.id.autoCompleteText_controlLight_deviceSelect);
+        colourPickerView = root.findViewById(R.id.colourPickerView_editOperationLights);
     
         adapter = new ArrayAdapter<String>(getContext(), R.layout.text_view_auto_complete_label, generateDeviceList());
         autoCompleteTextView.setAdapter(adapter);

@@ -106,7 +106,7 @@ public class ColourPickerView extends ConstraintLayout {
 						}
 						textView.setText(hexString.toString());
 					}
-					hexString.insert(0,'#');
+					hexString.insert(0, '#');
 					colour = Color.parseColor(hexString.toString());
 					
 					colourPreview.setBackground(new ColorDrawable(colour));

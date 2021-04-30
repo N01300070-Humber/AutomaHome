@@ -67,47 +67,47 @@ public class ControlLightFragment extends Fragment {
 	
 	private void OnDatabaseColourChanged(Object object) {
 		int colour;
-				int intensityRed;
-				int intensityGreen;
-				int intensityBlue;
-				
-				if (object instanceof Map) {
-					Map<String, Object> deviceData = (Map<String, Object>) object;
-					Object value;
-					
-					value = deviceData.get(DeviceDataPaths.LIGHT_INTENSITY_RED);
-					if (value instanceof Long) {
-						intensityRed = ((Long) value).intValue();
-					} else {
-						Log.d("ControlLight", "Device data red intensity value is null");
-						intensityRed = 0;
-					}
-					
-					value = deviceData.get(DeviceDataPaths.LIGHT_INTENSITY_GREEN);
-					if (value instanceof Long) {
-						intensityGreen = ((Long) value).intValue();
-					} else {
-						Log.d("ControlLight", "Device data green intensity value is null");
-						intensityGreen = 0;
-					}
-					
-					value = deviceData.get(DeviceDataPaths.LIGHT_INTENSITY_BLUE);
-					if (value instanceof Long) {
-						intensityBlue = ((Long) value).intValue();
-					} else {
-						Log.d("ControlLight", "Device data blue intensity value is null");
-						intensityBlue = 0;
-					}
-				} else {
-					Log.d("ControlLight", "Device data values object is null");
-					intensityRed = 0;
-					intensityGreen = 0;
-					intensityBlue = 0;
-				}
-				
-				colour = Color.rgb(intensityRed, intensityGreen, intensityBlue);
-				
-				colourPickerView.setColour(colour);
+		int intensityRed;
+		int intensityGreen;
+		int intensityBlue;
+		
+		if (object instanceof Map) {
+			Map<String, Object> deviceData = (Map<String, Object>) object;
+			Object value;
+			
+			value = deviceData.get(DeviceDataPaths.LIGHT_INTENSITY_RED);
+			if (value instanceof Long) {
+				intensityRed = ((Long) value).intValue();
+			} else {
+				Log.d("ControlLight", "Device data red intensity value is null");
+				intensityRed = 0;
+			}
+			
+			value = deviceData.get(DeviceDataPaths.LIGHT_INTENSITY_GREEN);
+			if (value instanceof Long) {
+				intensityGreen = ((Long) value).intValue();
+			} else {
+				Log.d("ControlLight", "Device data green intensity value is null");
+				intensityGreen = 0;
+			}
+			
+			value = deviceData.get(DeviceDataPaths.LIGHT_INTENSITY_BLUE);
+			if (value instanceof Long) {
+				intensityBlue = ((Long) value).intValue();
+			} else {
+				Log.d("ControlLight", "Device data blue intensity value is null");
+				intensityBlue = 0;
+			}
+		} else {
+			Log.d("ControlLight", "Device data values object is null");
+			intensityRed = 0;
+			intensityGreen = 0;
+			intensityBlue = 0;
+		}
+		
+		colour = Color.rgb(intensityRed, intensityGreen, intensityBlue);
+		
+		colourPickerView.setColour(colour);
 	}
 	
 	private void OnColourViewPickerColourChanged(int colour, boolean fromTextBox, boolean fromUser, boolean shouldPropagate) {
@@ -129,7 +129,7 @@ public class ControlLightFragment extends Fragment {
 	
 	private void setDatabaseColour(int colour) {
 		realtimeDatabaseDataSource.setDeviceData(deviceId, DeviceDataPaths.LIGHT_INTENSITY_RED, (colour & 0x00FF0000) >> 16);
-		realtimeDatabaseDataSource.setDeviceData(deviceId, DeviceDataPaths.LIGHT_INTENSITY_GREEN, (colour & 0x0000FF00) >> 8 );
+		realtimeDatabaseDataSource.setDeviceData(deviceId, DeviceDataPaths.LIGHT_INTENSITY_GREEN, (colour & 0x0000FF00) >> 8);
 		realtimeDatabaseDataSource.setDeviceData(deviceId, DeviceDataPaths.LIGHT_INTENSITY_BLUE, colour & 0x000000FF);
 		realtimeDatabaseDataSource.setDeviceData(deviceId, DeviceDataPaths.LIGHT_TIMESTAMP, ServerValue.TIMESTAMP);
 	}

@@ -5,48 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_controlLight"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/colourPreview_controlLight"
-        app:layout_constraintTop_toTopOf="parent"
-        app:prefixText="#">
-    
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputEditText_controlLight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:digits="0123456789ABCDEF"
-            android:hint="@string/colour_hex_value"
-            android:imeOptions="actionDone"
-            android:inputType="textNoSuggestions|textCapCharacters"
-            android:maxLength="6"
-            android:selectAllOnFocus="true"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
-    
-    <View
-        android:id="@+id/colourPreview_controlLight"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout_controlLight"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout_controlLight" />
-    
-    <top.defaults.colorpicker.ColorPickerView
-        android:id="@+id/colourPicker_controlLight"
+    <ca.humbermail.n01300070.automahome.components.ColourPickerView
+        android:id="@+id/colourPickerView_controlLight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:enableBrightness="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_controlLight" />
-
-
+        app:layout_constraintTop_toTopOf="parent" />
+    
 </androidx.constraintlayout.widget.ConstraintLayout>

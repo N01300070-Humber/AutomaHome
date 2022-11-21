@@ -13,8 +13,8 @@ This repository contains the android app created by the AutomaHome team for thei
 
 # Project Links
 
-[Humber College 2021 ICT Capstone Project Expo Submission](https://appliedtechnology.humber.ca/shows/past-shows/ict-capstone-projects-2021/thesis-projects/automahome-home-automation-system.html)
+**[Humber College 2021 ICT Capstone Project Expo Submission](https://appliedtechnology.humber.ca/shows/past-shows/ict-capstone-projects-2021/thesis-projects/automahome-home-automation-system.html)** - An overview of the entire project
 
-[Android App Code](https://github.com/N01300070-Humber/AutomaHome)
+***Android App*** - The source code for the android app that goes along with this project
 
-[Smart Device Code](https://github.com/N01300070-Humber/AutomaHome-Device-Firmware)
+**[Smart Device Code](https://github.com/N01300070-Humber/AutomaHome-Device-Firmware)** - The source code for the 3 different smart home devices that were created for this project
